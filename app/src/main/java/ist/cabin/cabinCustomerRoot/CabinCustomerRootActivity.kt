@@ -42,7 +42,7 @@ class CabinCustomerRootActivity : BaseActivity(),
 
     override fun setupPage() {
         sign_in_button.setOnClickListener { presenter?.moveToLoginPage() }
-        sign_up_button.setOnClickListener { presenter?.moveToSignupPage() }
+        sign_up_button.setOnClickListener { presenter?.moveToRegisterPage() }
         info_button.setOnClickListener { presenter?.moveToInfoPage() }
     }
 

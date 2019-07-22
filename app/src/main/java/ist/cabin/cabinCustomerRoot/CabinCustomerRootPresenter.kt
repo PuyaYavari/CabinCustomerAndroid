@@ -35,8 +35,8 @@ class CabinCustomerRootPresenter(var view: CabinCustomerRootContracts.View?) : C
         router?.moveToLoginPage()
     }
 
-    override fun moveToSignupPage() {
-        router?.moveToSignupPage()
+    override fun moveToRegisterPage() {
+        router?.moveToRegisterPage()
     }
 
     override fun moveToInfoPage() {

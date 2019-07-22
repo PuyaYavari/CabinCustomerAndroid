@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CabinCustomerRootMainActivity" android:id="@+id/customer_root">
+        tools:context=".CabinCustomerRootActivity" android:id="@+id/customer_root">
 
     <ImageView
             android:layout_width="141dp"
@@ -16,7 +16,8 @@
             android:layout_marginStart="8dp"
             app:layout_constraintHorizontal_bias="0.484" android:layout_marginBottom="464dp"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:contentDescription="@string/cabin_logo"/>
+            app:layout_constraintTop_toTopOf="parent" android:contentDescription="@string/cabin_logo"
+            android:layout_marginRight="8dp" android:layout_marginEnd="8dp"/>
 
     <LinearLayout android:id="@+id/MAIN_BUTTONS"
                   android:layout_width="fill_parent" android:layout_height="60dp"
