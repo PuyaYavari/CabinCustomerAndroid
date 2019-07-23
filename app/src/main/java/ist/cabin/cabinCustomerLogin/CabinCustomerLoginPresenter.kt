@@ -72,5 +72,9 @@ class CabinCustomerLoginPresenter(var view: CabinCustomerLoginContracts.View?) :
         router?.moveToHomePage()
     }
 
+    override fun forgetPassword() {
+        router?.moveToForgetpasswordPage()
+    }
+
     //endregion
 }

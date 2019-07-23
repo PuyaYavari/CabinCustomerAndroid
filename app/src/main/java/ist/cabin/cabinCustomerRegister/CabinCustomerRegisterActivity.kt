@@ -18,6 +18,7 @@ class CabinCustomerRegisterActivity : BaseActivity(), CabinCustomerRegisterContr
         setContentView(R.layout.cabin_customer_register)
         presenter?.onCreate(intent.extras)
 
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
         setupPage()
     }
 
@@ -35,6 +36,11 @@ class CabinCustomerRegisterActivity : BaseActivity(), CabinCustomerRegisterContr
         presenter?.onDestroy()
         presenter = null
         super.onDestroy()
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right)
     }
 
     //endregion
@@ -79,7 +85,7 @@ class CabinCustomerRegisterActivity : BaseActivity(), CabinCustomerRegisterContr
             }
             override fun afterTextChanged(p0: Editable?) {}
         })
-        register_continue_button.setOnClickListener { presenter?.continueToNextPage() }
+        register_continue_button.setOnClickListener { presenter?.continueToAgreement() }
     }
 
     override fun enableContinueButton() {

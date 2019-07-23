@@ -7,7 +7,6 @@ import kotlinx.android.synthetic.main.cabin_customer_root.*
 
 class CabinCustomerRootActivity : BaseActivity(),
     CabinCustomerRootContracts.View {
-
     var presenter: CabinCustomerRootContracts.Presenter? = CabinCustomerRootPresenter(this)
 
     //region Lifecycle

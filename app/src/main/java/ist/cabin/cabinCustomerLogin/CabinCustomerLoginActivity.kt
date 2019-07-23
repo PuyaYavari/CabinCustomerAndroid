@@ -20,6 +20,7 @@ class CabinCustomerLoginActivity : BaseActivity(),
         setContentView(R.layout.cabin_customer_login)
         presenter?.onCreate(intent.extras)
 
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right)
         setupPage()
     }
 
@@ -39,12 +40,18 @@ class CabinCustomerLoginActivity : BaseActivity(),
         super.onDestroy()
     }
 
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
+    }
+
     //endregion
 
     //region View
 
     override fun setupPage() {
         login_button.setOnClickListener { presenter?.login() }
+        forget_password_button.setOnClickListener { presenter?.forgetPassword() }
         login_email_input.addTextChangedListener ( object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

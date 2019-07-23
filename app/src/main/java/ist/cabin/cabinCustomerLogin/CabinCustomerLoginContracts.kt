@@ -16,6 +16,7 @@ object CabinCustomerLoginContracts {
         fun setInputtedPassword(password: String)
         fun switchLoginButton()
         fun login()
+        fun forgetPassword()
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -23,11 +24,11 @@ object CabinCustomerLoginContracts {
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
     }
 
     interface Router : BaseContracts.Router {
         fun moveToHomePage()
+        fun moveToForgetpasswordPage()
     }
 
 }

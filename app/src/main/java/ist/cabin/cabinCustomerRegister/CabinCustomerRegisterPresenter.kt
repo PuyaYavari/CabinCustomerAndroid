@@ -88,8 +88,8 @@ class CabinCustomerRegisterPresenter(var view: CabinCustomerRegisterContracts.Vi
         }
     }
 
-    override fun continueToNextPage() {
-        Log.d("Continue button", "pressed")
+    override fun continueToAgreement() {
+        router?.moveToAgreementPage()
     }
 
     //endregion

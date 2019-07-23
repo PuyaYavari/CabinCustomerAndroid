@@ -24,7 +24,7 @@ object CabinCustomerRegisterContracts {
         fun selectMan()
         fun selectWoman()
         fun switchContinueButton()
-        fun continueToNextPage()
+        fun continueToAgreement()
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -36,7 +36,7 @@ object CabinCustomerRegisterContracts {
     }
 
     interface Router : BaseContracts.Router {
-        //TODO
+        fun moveToAgreementPage()
     }
 
 }

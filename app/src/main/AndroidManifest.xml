@@ -20,6 +20,8 @@
         <activity android:name="ist.cabin.cabinCustomerLogin.CabinCustomerLoginActivity"/>
         <activity android:name="ist.cabin.cabinCustomerRegister.CabinCustomerRegisterActivity"/>
         <activity android:name="ist.cabin.cabinCustomerHome.CabinCustomerHomeActivity"/>
+        <activity android:name="ist.cabin.cabinCustomerAgreement.CabinCustomerAgreementActivity"/>
+        <activity android:name="ist.cabin.cabinCustomerForgotpassword.CabinCustomerForgotpasswordActivity"/>
     </application>
 
 </manifest>
