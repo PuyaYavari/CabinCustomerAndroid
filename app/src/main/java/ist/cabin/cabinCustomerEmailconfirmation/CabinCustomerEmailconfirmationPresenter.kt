@@ -1,13 +1,13 @@
-package ist.cabin.cabinCustomerHome
+package ist.cabin.cabinCustomerEmailconfirmation
 
 import android.app.Activity
 import android.os.Bundle
 
-class CabinCustomerHomePresenter(var view: CabinCustomerHomeContracts.View?) : CabinCustomerHomeContracts.Presenter,
-    CabinCustomerHomeContracts.InteractorOutput {
+class CabinCustomerEmailconfirmationPresenter(var view: CabinCustomerEmailconfirmationContracts.View?) :
+    CabinCustomerEmailconfirmationContracts.Presenter, CabinCustomerEmailconfirmationContracts.InteractorOutput {
 
-    var interactor: CabinCustomerHomeContracts.Interactor? = CabinCustomerHomeInteractor(this)
-    var router: CabinCustomerHomeContracts.Router? = null
+    var interactor: CabinCustomerEmailconfirmationContracts.Interactor? = CabinCustomerEmailconfirmationInteractor(this)
+    var router: CabinCustomerEmailconfirmationContracts.Router? = null
 
     //region Lifecycle
 
@@ -16,11 +16,10 @@ class CabinCustomerHomePresenter(var view: CabinCustomerHomeContracts.View?) : C
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router = CabinCustomerHomeRouter(activity)
+        router = CabinCustomerEmailconfirmationRouter(activity)
 
         bundle?.let {
             //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
         }
     }
 
@@ -36,15 +35,13 @@ class CabinCustomerHomePresenter(var view: CabinCustomerHomeContracts.View?) : C
 
     //region Presenter
 
-    override fun seeHome() {
-        view?.showHome()
+    override fun moveToRootPage() {
+        router?.moveToRootPage()
     }
 
     //endregion
 
     //region InteractorOutput
-
-    //TODO: Implement your InteractorOutput methods here
 
     //endregion
 }

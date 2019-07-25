@@ -1,28 +1,27 @@
-package ist.cabin.cabinCustomerHome
+package ist.cabin.cabinCustomerEmailconfirmation
 
 import ist.cabin.cabinCustomerBase.BaseContracts
 
-object CabinCustomerHomeContracts {
+object CabinCustomerEmailconfirmationContracts {
 
     interface View : BaseContracts.View {
         fun setupPage()
-        fun showHome()
     }
 
     interface Presenter : BaseContracts.Presenter {
-        fun seeHome()
+        fun moveToRootPage()
     }
 
     interface Interactor : BaseContracts.Interactor {
-        //TODO
+
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
+
     }
 
     interface Router : BaseContracts.Router {
-        //TODO
+        fun moveToRootPage()
     }
 
 }

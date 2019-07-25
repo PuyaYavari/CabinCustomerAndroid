@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CabinCustomerApp</string>
+    <string name="app_name">Cabin</string>
     <string name="cabin_logo">Cabin_logo</string>
     <string name="sign_in">GİRİŞ</string>
     <string name="sign_up">KAYDOL</string>
@@ -18,6 +18,9 @@
 
     <string name="forgetpassword_text">E-posta adresinizi girin.</string>
     <string name="confirm">Onayla</string>
+    <string name="back_to_root_button">GİRİŞ SAYFASINA DÖN</string>
+
+    <string name="emailconfirmation_text">Hesabınız başarıyla oluşturulmuştu. E-postanızı onayladıktan sonra hesabınıza giriş yapabilirsiniz.</string>
 
     <string name="user_agreement">U-Nets (as NNs in general) need to have a fixed input dimension, and then,
         in order to achieve the central part and output mask dimension, a determined

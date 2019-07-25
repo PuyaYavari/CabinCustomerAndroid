@@ -12,6 +12,18 @@ object CabinCustomerRegisterContracts {
         fun unselectMan()
         fun selectWoman()
         fun unselectWoman()
+        fun emailStatusRemoveIcon()
+        fun emailStatusEditIcon()
+        fun emailStatusCrossIcon()
+        fun emailStatusTickIcon()
+        fun passwordStatusRemoveIcon()
+        fun passwordStatusEditIcon()
+        fun passwordStatusCrossIcon()
+        fun passwordStatusTickIcon()
+        fun passwordConfirmationStatusRemoveIcon()
+        fun passwordConfirmationStatusEditIcon()
+        fun passwordConfirmationStatusCrossIcon()
+        fun passwordConfirmationStatusTickIcon()
     }
 
     interface Presenter : BaseContracts.Presenter {
@@ -25,14 +37,19 @@ object CabinCustomerRegisterContracts {
         fun selectWoman()
         fun switchContinueButton()
         fun continueToAgreement()
+        fun setEmailIcon()
+        fun setPasswordIcon()
+        fun setPasswordConfirmationIcon()
+        fun setIcons()
+        fun removeFocus()
     }
 
     interface Interactor : BaseContracts.Interactor {
-        //TODO
+
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
+
     }
 
     interface Router : BaseContracts.Router {

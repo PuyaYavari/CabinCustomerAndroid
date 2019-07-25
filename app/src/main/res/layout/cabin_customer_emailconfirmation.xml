@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+    <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp" app:srcCompat="@drawable/logo_icon_resized"
+            android:id="@+id/cabin_logo" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.1"
+            android:contentDescription="@string/cabin_logo"/>
+    <TextView
+            android:text="@string/emailconfirmation_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailconfirmation_text" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cabin_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@android:color/black" app:fontFamily="@font/century_gothic" android:gravity="center"
+            android:paddingLeft="25dp" android:paddingRight="25dp" app:layout_constraintVertical_bias="0.2"/>
+    <Button
+            android:text="@string/back_to_root_button"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:id="@+id/emailconfirmation_back_to_root_button" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailconfirmation_text"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.25"
+            android:background="@drawable/cabin_default_text_background" android:textColor="@color/white"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

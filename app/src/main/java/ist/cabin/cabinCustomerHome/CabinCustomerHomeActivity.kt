@@ -1,10 +1,16 @@
 package ist.cabin.cabinCustomerHome
 
+import android.content.Context
 import android.os.Bundle
-import ist.cabin.cabinCustomerBase.BaseActivity
+import android.util.Log
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
+import ist.cabin.cabincustomer.R
+import kotlinx.android.synthetic.main.cabin_customer_home_root.*
 
-class CabinCustomerHomeActivity : BaseActivity(),
-    CabinCustomerHomeContracts.View { //TODO: DON'T FORGET TO ADD THIS ACTIVITY TO THE MANIFEST FILE!!!
+class CabinCustomerHomeActivity :
+    CabinCustomerHomeContracts.View, FragmentActivity() {
+    private lateinit var mPager: ViewPager
 
     var presenter: CabinCustomerHomeContracts.Presenter? = CabinCustomerHomePresenter(this)
 
@@ -12,8 +18,10 @@ class CabinCustomerHomeActivity : BaseActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.) //TODO create the layout and add it here
+        setContentView(R.layout.cabin_customer_home_root)
         presenter?.onCreate(intent.extras)
+
+        setupPage()
     }
 
     override fun onResume() {
@@ -32,11 +40,41 @@ class CabinCustomerHomeActivity : BaseActivity(),
         super.onDestroy()
     }
 
+    override fun onBackPressed() {
+        if (mPager.currentItem == 2) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed()
+        } else {
+            // Otherwise, select the previous step.
+            mPager.currentItem = 2
+        }
+    }
+
+    override fun getActivityContext(): Context? {
+        return this
+    }
+
+    override fun showErrorDialog(error: String?) {
+        Log.d("error", error)
+    }
+
     //endregion
 
     //region View
 
-    //TODO: Implement your View methods here
 
+    override fun setupPage() {
+        mPager = home_pager
+        // The pager adapter, which provides the pages to the view pager widget.
+        val pagerAdapter = CabinCustomerHomeScreenSlidePagerAdapter(supportFragmentManager)
+        mPager.adapter = pagerAdapter
+        mPager.currentItem = 2
+        home_main_navbar_home_button.setOnClickListener { presenter?.seeHome() }
+    }
+
+    override fun showHome() {
+        mPager.setCurrentItem(2,true)
+    }
     //endregion
 }

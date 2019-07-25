@@ -8,7 +8,6 @@ import ist.cabin.cabincustomer.R
 import kotlinx.android.synthetic.main.cabin_customer_register.*
 
 class CabinCustomerRegisterActivity : BaseActivity(), CabinCustomerRegisterContracts.View {
-
     var presenter: CabinCustomerRegisterContracts.Presenter? = CabinCustomerRegisterPresenter(this)
 
     //region Lifecycle
@@ -52,12 +51,16 @@ class CabinCustomerRegisterActivity : BaseActivity(), CabinCustomerRegisterContr
         register_man_button.setImageResource(R.drawable.man_icon_purple)
         register_man_button.setOnClickListener {
             presenter?.selectMan()
+            presenter?.removeFocus()
+            presenter?.setIcons()
             presenter?.switchContinueButton()
         }
         register_woman_button.background.alpha = 0
         register_woman_button.setImageResource(R.drawable.woman_icon_purple)
         register_woman_button.setOnClickListener {
             presenter?.selectWoman()
+            presenter?.removeFocus()
+            presenter?.setIcons()
             presenter?.switchContinueButton()
         }
         register_email_input.requestFocus()
@@ -65,6 +68,7 @@ class CabinCustomerRegisterActivity : BaseActivity(), CabinCustomerRegisterContr
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 presenter?.setInputtedEmail(p0.toString())
+                presenter?.setIcons()
                 presenter?.switchContinueButton()
             }
             override fun afterTextChanged(p0: Editable?) {}
@@ -73,6 +77,7 @@ class CabinCustomerRegisterActivity : BaseActivity(), CabinCustomerRegisterContr
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 presenter?.setInputtedPassword(p0.toString())
+                presenter?.setIcons()
                 presenter?.switchContinueButton()
             }
             override fun afterTextChanged(p0: Editable?) {}
@@ -81,6 +86,7 @@ class CabinCustomerRegisterActivity : BaseActivity(), CabinCustomerRegisterContr
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 presenter?.setInputtedPasswordConfirmation(p0.toString())
+                presenter?.setIcons()
                 presenter?.switchContinueButton()
             }
             override fun afterTextChanged(p0: Editable?) {}
@@ -120,5 +126,52 @@ class CabinCustomerRegisterActivity : BaseActivity(), CabinCustomerRegisterContr
         register_woman_button.setImageResource(R.drawable.woman_icon_purple)
     }
 
+    override fun emailStatusRemoveIcon() {
+        register_email_status_icon.setImageResource(0)
+    }
+
+    override fun emailStatusEditIcon() {
+        register_email_status_icon.setImageResource(R.drawable.purple_neon_dots)
+    }
+
+    override fun emailStatusCrossIcon() {
+        register_email_status_icon.setImageResource(R.drawable.purple_neon_cross)
+    }
+
+    override fun emailStatusTickIcon() {
+        register_email_status_icon.setImageResource(R.drawable.purple_neon_tick)
+    }
+
+    override fun passwordStatusRemoveIcon() {
+        register_password_status_icon.setImageResource(0)
+    }
+
+    override fun passwordStatusEditIcon() {
+        register_password_status_icon.setImageResource(R.drawable.purple_neon_dots)
+    }
+
+    override fun passwordStatusCrossIcon() {
+        register_password_status_icon.setImageResource(R.drawable.purple_neon_cross)
+    }
+
+    override fun passwordStatusTickIcon() {
+        register_password_status_icon.setImageResource(R.drawable.purple_neon_tick)
+    }
+
+    override fun passwordConfirmationStatusRemoveIcon() {
+        register_passwordconfirmation_status_icon.setImageResource(0)
+    }
+
+    override fun passwordConfirmationStatusEditIcon() {
+        register_passwordconfirmation_status_icon.setImageResource(R.drawable.purple_neon_dots)
+    }
+
+    override fun passwordConfirmationStatusCrossIcon() {
+        register_passwordconfirmation_status_icon.setImageResource(R.drawable.purple_neon_cross)
+    }
+
+    override fun passwordConfirmationStatusTickIcon() {
+        register_passwordconfirmation_status_icon.setImageResource(R.drawable.purple_neon_tick)
+    }
     //endregion
 }

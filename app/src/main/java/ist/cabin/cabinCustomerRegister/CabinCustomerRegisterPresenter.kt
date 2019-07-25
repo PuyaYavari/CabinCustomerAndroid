@@ -15,6 +15,11 @@ class CabinCustomerRegisterPresenter(var view: CabinCustomerRegisterContracts.Vi
     var passwordConfirmation = ""
     var sex = -1 // 0: woman, 1: man
 
+    var focus = -1// -1: none, 0: email, 1: password, 2: passwordConfirmation
+    var emailHasIcon = false
+    var passwordHasIcon = false
+    var passwordConfirmationHasIcon = false
+
     //region Lifecycle
 
     override fun onCreate(bundle: Bundle?) {
@@ -53,14 +58,17 @@ class CabinCustomerRegisterPresenter(var view: CabinCustomerRegisterContracts.Vi
     }
 
     override fun setInputtedEmail(emailInput: String) {
+        focus = 0
         email = emailInput
     }
 
     override fun setInputtedPassword(passwordInput: String) {
+        focus = 1
         password = passwordInput
     }
 
     override fun setInputtedPasswordConfirmation(passwordConfirmationInput: String) {
+        focus = 2
         passwordConfirmation = passwordConfirmationInput
     }
 
@@ -90,6 +98,93 @@ class CabinCustomerRegisterPresenter(var view: CabinCustomerRegisterContracts.Vi
 
     override fun continueToAgreement() {
         router?.moveToAgreementPage()
+    }
+
+    override fun setEmailIcon() {
+        if (email != "") {
+            if (isEmailValid(email)) {
+                view?.emailStatusTickIcon()
+            } else {
+                if (focus == 0) {
+                    view?.emailStatusEditIcon()
+                } else {
+                    view?.emailStatusCrossIcon()
+                }
+            }
+            emailHasIcon = true
+        } else {
+            view?.emailStatusRemoveIcon()
+            emailHasIcon = false
+        }
+    }
+
+    override fun setPasswordIcon() {
+        if (password != "") {
+            if (isPasswordValid(password)) {
+                view?.passwordStatusTickIcon()
+            } else {
+                if (focus == 1) {
+                    view?.passwordStatusEditIcon()
+                } else {
+                    view?.passwordStatusCrossIcon()
+                }
+            }
+            passwordHasIcon = true
+        } else {
+            view?.passwordStatusRemoveIcon()
+            passwordHasIcon = false
+        }
+    }
+
+    override fun setPasswordConfirmationIcon() {
+        if (passwordConfirmation != "") {
+            if (arePasswordsSame()) {
+                view?.passwordConfirmationStatusTickIcon()
+            } else {
+                if (focus == 2) {
+                    view?.passwordConfirmationStatusEditIcon()
+                } else {
+                    view?.passwordConfirmationStatusCrossIcon()
+                }
+            }
+            passwordConfirmationHasIcon = true
+        } else {
+            view?.passwordConfirmationStatusRemoveIcon()
+            passwordConfirmationHasIcon = false
+        }
+    }
+
+    override fun setIcons() {
+        if (focus == -1) {
+            if (emailHasIcon)
+                setEmailIcon()
+            if (passwordHasIcon)
+                setPasswordIcon()
+            if (passwordConfirmationHasIcon)
+                setPasswordConfirmationIcon()
+        } else if (focus == 0) {
+            setEmailIcon()
+            if (passwordHasIcon)
+                setPasswordIcon()
+            if (passwordConfirmationHasIcon)
+                setPasswordConfirmationIcon()
+        } else if (focus == 1) {
+            setPasswordIcon()
+            if (emailHasIcon)
+                setEmailIcon()
+            if (passwordConfirmationHasIcon)
+                setPasswordConfirmationIcon()
+        } else if (focus == 2) {
+            setPasswordConfirmationIcon()
+            if (emailHasIcon)
+                setEmailIcon()
+            if (passwordHasIcon)
+                setPasswordIcon()
+        }
+    }
+
+    override fun removeFocus() {
+        focus = -1
     }
 
     //endregion

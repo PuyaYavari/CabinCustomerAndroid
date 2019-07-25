@@ -1,16 +1,15 @@
-package ist.cabin.cabinCustomerHome
+package ist.cabin.cabinCustomerHome.fragments.main
 
 import ist.cabin.cabinCustomerBase.BaseContracts
 
-object CabinCustomerHomeContracts {
+object CabinCustomerHomeMainFragmentContracts {
 
     interface View : BaseContracts.View {
-        fun setupPage()
-        fun showHome()
+        //TODO
     }
 
     interface Presenter : BaseContracts.Presenter {
-        fun seeHome()
+        //TODO
     }
 
     interface Interactor : BaseContracts.Interactor {
