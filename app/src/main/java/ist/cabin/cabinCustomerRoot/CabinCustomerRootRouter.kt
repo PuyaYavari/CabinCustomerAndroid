@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import ist.cabin.cabinCustomerBase.BaseContracts
 import ist.cabin.cabinCustomerLogin.CabinCustomerLoginActivity
+import ist.cabin.cabinCustomerRegister.CabinCustomerRegisterActivity
 
 class CabinCustomerRootRouter(var activity: Activity?) : CabinCustomerRootContracts.Router {
     override fun unregister() {
@@ -22,9 +23,11 @@ class CabinCustomerRootRouter(var activity: Activity?) : CabinCustomerRootContra
         startActivity(activity!!.applicationContext, intent, Bundle.EMPTY)
     }
 
-    override fun moveToSignupPage() {
-        // TODO: Signup button function
-        Log.d("SIGNUP BUTTON", "Pressed")
+    override fun moveToRegisterPage() {
+        val customerRegisterPage: BaseContracts.View = CabinCustomerRegisterActivity()
+        val intent = Intent(activity, customerRegisterPage::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(activity!!.applicationContext, intent, Bundle.EMPTY)
     }
 
     override fun moveToInfoPage() {

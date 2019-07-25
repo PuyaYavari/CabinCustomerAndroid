@@ -10,7 +10,7 @@ object CabinCustomerRootContracts {
 
     interface Presenter : BaseContracts.Presenter {
         fun moveToLoginPage()
-        fun moveToSignupPage()
+        fun moveToRegisterPage()
         fun moveToInfoPage()
     }
 
@@ -20,7 +20,7 @@ object CabinCustomerRootContracts {
 
     interface Router : BaseContracts.Router {
         fun moveToLoginPage()
-        fun moveToSignupPage()
+        fun moveToRegisterPage()
         fun moveToInfoPage()
     }
 
