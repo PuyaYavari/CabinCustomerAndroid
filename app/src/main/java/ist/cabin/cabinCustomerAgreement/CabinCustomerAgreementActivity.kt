@@ -3,7 +3,7 @@ package ist.cabin.cabinCustomerAgreement
 import android.os.Bundle
 import ist.cabin.cabinCustomerBase.BaseActivity
 import ist.cabin.cabincustomer.R
-import kotlinx.android.synthetic.main.cabin_customer_agreement.*
+import kotlinx.android.synthetic.main.cabin_customer_register_agreement.*
 
 class CabinCustomerAgreementActivity : BaseActivity(),
     CabinCustomerAgreementContracts.View {
@@ -14,7 +14,7 @@ class CabinCustomerAgreementActivity : BaseActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.cabin_customer_agreement)
+        setContentView(R.layout.cabin_customer_register_agreement)
         presenter?.onCreate(intent.extras)
 
         overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.slide_out_to_top)

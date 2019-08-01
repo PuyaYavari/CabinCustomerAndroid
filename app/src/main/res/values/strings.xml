@@ -58,4 +58,14 @@
         1029) of the original dataset, respectively. All the training process was done us-
         ing the bce_dice_loss as the loss function (see Section 4.6). Additionally, we also
         recorded a test sequence to test the proposed approach with our own data.</string>
+
+    <string name="persons_height">Boyunuz</string>
+    <string name="shoulders">Omuz</string>
+    <string name="breast">Göğüs</string>
+    <string name="waist">Bel</string>
+    <string name="hip">Kalça</string>
+    <string name="thigh">But</string>
+    <string name="lowerleg">Alt Bacak</string>
+    <string name="leg_height">İç Bacak Boyu</string>
+    <string name="centimeters_abbreviation">cm</string>
 </resources>

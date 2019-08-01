@@ -1,9 +1,13 @@
 package ist.cabin.cabinCustomerLogin
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.core.content.ContextCompat
 import ist.cabin.cabinCustomerBase.BaseActivity
+import ist.cabin.cabinCustomerBase.BaseContracts
+import ist.cabin.cabinCustomerManualMeasureInput.CabinCustomerManualMeasureInputActivity
 import ist.cabin.cabincustomer.R
 import kotlinx.android.synthetic.main.cabin_customer_login.*
 
@@ -22,6 +26,13 @@ class CabinCustomerLoginActivity : BaseActivity(),
 
         overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right)
         setupPage()
+
+        demo_login.setOnClickListener {
+            val customerHomePage: BaseContracts.View = CabinCustomerManualMeasureInputActivity() // TODO: DELETE THIS LINE
+            val intent = Intent(this, customerHomePage::class.java) // TODO: DELETE THIS LINE
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // TODO: DELETE THIS LINE
+            ContextCompat.startActivity(this!!.applicationContext, intent, Bundle.EMPTY) // TODO: DELETE THIS LINE
+        }
     }
 
     override fun onResume() {

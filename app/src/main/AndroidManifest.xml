@@ -23,6 +23,8 @@
         <activity android:name="ist.cabin.cabinCustomerAgreement.CabinCustomerAgreementActivity"/>
         <activity android:name="ist.cabin.cabinCustomerForgotpassword.CabinCustomerForgotpasswordActivity"/>
         <activity android:name="ist.cabin.cabinCustomerEmailconfirmation.CabinCustomerEmailconfirmationActivity"/>
+        <activity android:name="ist.cabin.cabinCustomerManualMeasureInput.CabinCustomerManualMeasureInputActivity"
+                  android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

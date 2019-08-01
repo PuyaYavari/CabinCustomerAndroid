@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="cabin_customer_grey_text_background" type="id"/>
+    <item name="cabin_customer_measure_name_text" type="id"/>
+    <item name="cabin_custom_measure_input" type="id"/>
+    <item name="centimeter_abbrevation" type="id"/>
+</resources>

@@ -1,8 +1,8 @@
-package ist.cabin.cabinCustomerRegister
+package ist.cabin.cabinCustomerManualMeasureInput
 
 import android.app.Activity
 
-class CabinCustomerRegisterRouter(var activity: Activity?) : CabinCustomerRegisterContracts.Router {
+class CabinCustomerManualMeasureInputRouter(var activity: Activity?) : CabinCustomerManualMeasureInputContracts.Router {
 
     override fun unregister() {
         activity = null
