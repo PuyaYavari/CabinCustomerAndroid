@@ -18,8 +18,9 @@ class CabinCustomerRegisterFragment : BaseFragment(), CabinCustomerRegisterFragm
     var presenter: CabinCustomerRegisterFragmentContracts.Presenter? = CabinCustomerRegisterFragmentPresenter(this)
     private lateinit var listener: RegisterFragmentListener
 
+
     //region Lifecycle
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is RegisterFragmentListener) {
             listener = context

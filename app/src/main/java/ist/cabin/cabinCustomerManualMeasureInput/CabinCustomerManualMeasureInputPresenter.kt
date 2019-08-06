@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import ist.cabin.cabincustomer.models.Measure
 
 class CabinCustomerManualMeasureInputPresenter(var view: CabinCustomerManualMeasureInputContracts.View?) :
     CabinCustomerManualMeasureInputContracts.Presenter, CabinCustomerManualMeasureInputContracts.InteractorOutput {
@@ -39,21 +40,25 @@ class CabinCustomerManualMeasureInputPresenter(var view: CabinCustomerManualMeas
 
     //region Presenter
 
-    override fun getMeasures(): MutableList<String> {
+    override fun getMeasures(): List<Measure>? {
         val measures = interactor?.getMeasures()
         Log.d("From Interactor", measures.toString())
         return measures!!
     }
 
-    override fun setupMeasuresList(measures: MutableList<String>) {
+    override fun setupMeasuresList(measures: List<Measure>?) {
         var inputBox: View
-        measures.forEach {
-            inputBox = view!!.createTextInputBox(it) //TODO: shouldn't get persons height
-            if (inputBox.parent != null) {
-                (inputBox.parent as ViewGroup).removeView(inputBox)
-                Log.d("textInputBox", "parent removed")
+        measures?.forEach {
+            if (it.name != null) {
+                inputBox = view!!.createTextInputBox(it.id, it.name.toString()) //TODO: shouldn't get persons height
+                if (inputBox.parent != null) {
+                    (inputBox.parent as ViewGroup).removeView(inputBox)
+                    Log.d("textInputBox", "parent removed")
+                }
+                view!!.addToMeasuresList(inputBox)
+            } else {
+                Log.e("error", "measure " + it.id.toString() + " has no name.")
             }
-            view!!.addToMeasuresList(inputBox)
         }
     }
 
@@ -64,6 +69,14 @@ class CabinCustomerManualMeasureInputPresenter(var view: CabinCustomerManualMeas
             false -> textSize = defaultSize - (text.length - 9) * 0.4f
         }
         return textSize
+    }
+
+    override fun confirmPage() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun addMeasureToMap(id: Int, value: Float) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     //endregion

@@ -1,23 +1,26 @@
 package ist.cabin.cabinCustomerManualMeasureInput
 
 import ist.cabin.cabinCustomerBase.BaseContracts
+import ist.cabin.cabincustomer.models.Measure
 
 object CabinCustomerManualMeasureInputContracts {
 
     interface View : BaseContracts.View {
         fun setupPage()
         fun addToMeasuresList(inputBox: android.view.View)
-        fun createTextInputBox(name: String): android.view.View
+        fun createTextInputBox(id: Int, name: String): android.view.View
     }
 
     interface Presenter : BaseContracts.Presenter {
-        fun getMeasures(): MutableList<String>
-        fun setupMeasuresList(measures: MutableList<String>)
+        fun getMeasures(): List<Measure>?
+        fun setupMeasuresList(measures: List<Measure>?)
         fun calculateTextSize(text: String, defaultSize: Float): Float
+        fun confirmPage()
+        fun addMeasureToMap(id: Int, value: Float)
     }
 
     interface Interactor : BaseContracts.Interactor {
-        fun getMeasures(): MutableList<String>
+        fun getMeasures(): List<Measure>?
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {

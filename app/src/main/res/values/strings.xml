@@ -68,4 +68,36 @@
     <string name="lowerleg">Alt Bacak</string>
     <string name="leg_height">İç Bacak Boyu</string>
     <string name="centimeters_abbreviation">cm</string>
+
+
+
+
+
+
+
+
+
+
+    <string name="ek_img_content">ExportKit Image</string>
+    <string name="__p__homepage_label_string">Anasayfa\
+    </string>
+    <string name="__p__cart_label_string">Sepetim</string>
+    <string name="__p__favorites_label_string">Favorilerim</string>
+    <string name="__p__order_label_string">Siparilerim</string>
+    <string name="__p__discover_label_string">Kefet</string>
+    <string name="header_label_string">Siparilerim</string>
+    <string name="tabbar_pending_label_string">Bekleyen</string>
+    <string name="tabbar_shipping_label_string">Kargoda</string>
+    <string name="tabbar_sent_label_string">Gnderilen</string>
+    <string name="sorting_label_string">Srala</string>
+    <string name="order1_order_count_label_string">+5</string>
+    <string name="order1_date_string">12/10/2019</string>
+    <string name="order1_payment_type_string">Kapda deme</string>
+    <string name="order1_datetime_string">12 : 30</string>
+    <string name="order1_price_label_string">255 TL</string>
+    <string name="order2_order_count_label_string">+5</string>
+    <string name="order2_date_string">12/10/2019</string>
+    <string name="order2_payment_type_string">Kredi/Banka Kart</string>
+    <string name="order2_datetime_string">12 : 30</string>
+    <string name="order2_price_label_string">10255 TL</string>
 </resources>

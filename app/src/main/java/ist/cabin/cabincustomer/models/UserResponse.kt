@@ -28,4 +28,14 @@ class UserResponseMapper() {
         }
         return measuresArray
     }
+
+    fun getMeasuresNamesAndIds(json: String): List<Measure>?  {
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        val userResponseAdapter = moshi.adapter<UserResponse>(UserResponse::class.java)
+
+        val map = userResponseAdapter.fromJson(json)
+        val measures = map?.userArray?.get(0)?.measures
+
+        return measures
+    }
 }

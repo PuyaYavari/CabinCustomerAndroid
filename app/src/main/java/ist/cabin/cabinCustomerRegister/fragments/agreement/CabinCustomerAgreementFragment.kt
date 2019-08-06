@@ -14,7 +14,8 @@ class CabinCustomerAgreementFragment : BaseFragment(), CabinCustomerAgreementFra
     var presenter: CabinCustomerAgreementFragmentContracts.Presenter? = CabinCustomerAgreementFragmentPresenter(this)
     private lateinit var listener: AgreementFragmentListener
 
-    override fun onAttach(context: Context?) {
+
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is AgreementFragmentListener) {
             listener = context

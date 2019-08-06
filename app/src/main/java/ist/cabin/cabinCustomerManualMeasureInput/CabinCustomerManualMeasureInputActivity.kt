@@ -68,9 +68,10 @@ class CabinCustomerManualMeasureInputActivity : BaseActivity(),
         } catch (exception: Exception) {
             Log.e("Error", exception.message.toString())
         }
+        manualmeasureinput_confirm_button.setOnClickListener { presenter?.confirmPage() }
     }
 
-    override fun createTextInputBox(name: String): View {
+    override fun createTextInputBox(id: Int, name: String): View {
         val boxParent = ConstraintLayout(this)
         val background = ImageView(this)
         val text = TextView(this)
@@ -112,6 +113,7 @@ class CabinCustomerManualMeasureInputActivity : BaseActivity(),
             (25 * this.resources.displayMetrics.density).toInt(),
             (0 * this.resources.displayMetrics.density).toInt())
         editText.textSize = listTextSize * TypedValue.COMPLEX_UNIT_SP
+        //editText.addTextChangedListener() //TODO: send values with ids
 
         centimeter.id = R.id.centimeter_abbrevation
         centimeter.text = resources.getText(R.string.centimeters_abbreviation)

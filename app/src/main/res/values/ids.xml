@@ -4,4 +4,5 @@
     <item name="cabin_customer_measure_name_text" type="id"/>
     <item name="cabin_custom_measure_input" type="id"/>
     <item name="centimeter_abbrevation" type="id"/>
+    <item name="cabin_customer_capture_indicator" type="id"/>
 </resources>

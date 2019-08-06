@@ -37,7 +37,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 
-    // MOSHI
+    /* MOSHI */
     implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
+
+    /* Camera */
+    //Fotoapparat
+    implementation 'io.fotoapparat:fotoapparat:2.6.1'
+    //Material Design
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
 }
