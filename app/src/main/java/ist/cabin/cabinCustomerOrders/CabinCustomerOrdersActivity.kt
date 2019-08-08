@@ -1,10 +1,16 @@
 package ist.cabin.cabinCustomerOrders
 
+import android.content.Context
 import android.os.Bundle
-import ist.cabin.cabinCustomerBase.BaseActivity
+import android.util.Log
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
+import ist.cabin.cabincustomer.R
+import kotlinx.android.synthetic.main.cabin_customer_orders_root.*
 
-class CabinCustomerOrdersActivity : BaseActivity(),
-    CabinCustomerOrdersContracts.View { //TODO: DON'T FORGET TO ADD THIS ACTIVITY TO THE MANIFEST FILE!!!
+class CabinCustomerOrdersActivity : FragmentActivity(),
+    CabinCustomerOrdersContracts.View {
+    private lateinit var mPager: ViewPager
 
     var presenter: CabinCustomerOrdersContracts.Presenter? = CabinCustomerOrdersPresenter(this)
 
@@ -12,8 +18,13 @@ class CabinCustomerOrdersActivity : BaseActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.) //TODO create the layout and add it here
+        setContentView(R.layout.cabin_customer_orders_root)
         presenter?.onCreate(intent.extras)
+
+        mPager = orders_pager
+        val pagerAdapter = CabinCustomerOrdersScreenSlidePagerAdapter(supportFragmentManager)
+        mPager.adapter = pagerAdapter
+
     }
 
     override fun onResume() {
@@ -31,6 +42,26 @@ class CabinCustomerOrdersActivity : BaseActivity(),
         presenter = null
         super.onDestroy()
     }
+
+    override fun onBackPressed() {
+        if (mPager.currentItem == 2) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed()
+        } else {
+            // Otherwise, select the previous step.
+            mPager.currentItem = 2
+        }
+    }
+
+    override fun getActivityContext(): Context? {
+        return this
+    }
+
+    override fun showErrorDialog(error: String?) {
+        Log.d("error", error)
+    }
+
 
     //endregion
 

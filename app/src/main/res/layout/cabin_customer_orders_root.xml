@@ -1,0 +1,221 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/orders_default_background_color">
+
+    <androidx.viewpager.widget.ViewPager android:layout_width="0dp"
+                                         android:layout_height="0dp"
+                                         android:id="@+id/orders_pager"
+                                         android:background="@color/orders_default_background_color"
+                                         app:layout_constraintTop_toTopOf="parent"
+                                         app:layout_constraintBottom_toBottomOf="parent"
+                                         app:layout_constraintEnd_toEndOf="parent"
+                                         app:layout_constraintStart_toStartOf="parent"
+                                         app:layout_constraintTop_toBottomOf="@+id/header"
+                                         android:layout_marginTop="40dp"
+                                         app:layout_constraintBottom_toTopOf="@+id/navbar"
+                                         app:layout_constraintVertical_bias="1.0">
+
+        <com.google.android.material.tabs.TabLayout android:layout_width="match_parent"
+                                                    android:layout_height="24dp"
+                                                    android:id="@+id/orders_tabs_layout"
+                                                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                                                    app:tabSelectedTextColor="@android:color/black"
+                                                    app:tabTextColor="@color/header_label_color"
+                                                    android:background="@color/orders_default_background_color"
+                                                    app:tabIndicator="@drawable/tabbar_indicator_shape"
+                                                    app:tabIndicatorGravity="bottom"
+                                                    app:tabIndicatorFullWidth="true"
+                                                    android:verticalScrollbarPosition="defaultPosition"/>
+    </androidx.viewpager.widget.ViewPager>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sorting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/orders_pager"
+            app:layout_constraintBottom_toBottomOf="@+id/orders_pager"
+            app:layout_constraintEnd_toEndOf="@+id/orders_pager"
+            app:layout_constraintStart_toStartOf="@+id/orders_pager" android:layout_marginTop="32dp"
+            android:layout_marginRight="8dp" android:layout_marginEnd="8dp" app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0">
+
+        <View android:id="@+id/sorting_frame"
+              android:background="@drawable/sorting_frame_shape"
+              android:layout_width="86dp"
+              android:layout_height="28dp" app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView android:id="@+id/sorting_label"
+                  android:fontFamily="Segoe UI"
+                  android:layout_gravity="center|center_horizontal"
+                  android:gravity="center"
+                  android:textSize="15sp"
+                  android:textColor="@color/header_label_color"
+                  android:layout_width="41dp"
+                  android:layout_height="23dp"
+                  android:text="@string/sorting_label_string"
+                  android:layout_alignTop="@+id/sorting_frame"
+                  android:layout_alignBottom="@+id/sorting_frame" android:layout_alignRight="@+id/sorting_frame"
+                  android:layout_alignEnd="@+id/sorting_frame"
+                  android:layout_toEndOf="@+id/sorting_icon" android:layout_toRightOf="@+id/sorting_icon"
+                  app:layout_constraintEnd_toEndOf="@+id/sorting_frame"
+                  app:layout_constraintBottom_toBottomOf="@+id/sorting_frame"
+                  app:layout_constraintHorizontal_bias="0.75"
+                  app:layout_constraintTop_toTopOf="@+id/sorting_frame"
+                  app:layout_constraintStart_toStartOf="@+id/sorting_frame"
+        />
+
+
+        <ImageView android:id="@+id/sorting_icon"
+                   android:src="@drawable/sort_icon"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="8dp"
+                   android:layout_marginRight="8dp" app:layout_constraintStart_toStartOf="parent"
+                   android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                   app:layout_constraintBottom_toBottomOf="@+id/sorting_label"
+                   app:layout_constraintTop_toTopOf="@+id/sorting_label"
+                   app:layout_constraintEnd_toStartOf="@+id/sorting_label"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navbar"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@color/navbar_background_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/navbar_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/homepage_icon"
+                    android:id="@+id/homepage_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="homepage_icon"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginBottom="4dp" android:background="@android:color/transparent"/>
+
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cart_icon"
+                    android:id="@+id/cart_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="cart_icon"
+                    app:layout_constraintEnd_toStartOf="@+id/discover_button"
+                    app:layout_constraintStart_toEndOf="@+id/homepage_button"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp" android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="4dp" android:layout_marginTop="4dp"
+                    android:background="@android:color/transparent"/>
+
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/discover_icon"
+                    android:id="@+id/discover_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="discover_icon"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp" android:background="@android:color/transparent"/>
+
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/orders_selected_icon"
+                    android:id="@+id/orders_selected_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="orders_selected_icon"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp" android:background="@android:color/transparent"
+                    android:layout_marginLeft="4dp" android:layout_marginStart="4dp"/>
+
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/favorites_icon"
+                    android:id="@+id/favorites_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="favorites_icon"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp" app:layout_constraintStart_toEndOf="@+id/orders_selected_button"
+                    android:layout_marginStart="8dp" android:layout_marginLeft="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/homepage_button"
+                    android:background="@android:color/transparent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/orders_default_background_color"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0">
+
+        <View android:id="@+id/header_background"
+              android:background="@color/orders_default_background_color"
+              android:alpha="0.44999998807907"
+              android:layout_width="match_parent"
+              android:layout_height="40dp" app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView android:id="@+id/header_label"
+                  android:fontFamily="Segoe UI"
+                  android:layout_gravity="center_horizontal|center"
+
+                  android:gravity="center"
+                  android:textSize="20sp"
+                  android:textColor="@color/header_label_color"
+                  android:layout_width="107dp"
+                  android:layout_height="31dp"
+                  android:text="@string/orders_page_header"
+                  android:textAllCaps="false" app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

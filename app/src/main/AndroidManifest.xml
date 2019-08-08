@@ -44,7 +44,7 @@
                   android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name="ist.cabin.cabinCustomerCameraPreview.CabinCustomerCameraPreviewActivity"/>
         <activity android:name="ist.cabin.cabinCustomerCamera.CabinCustomerCameraActivity"/>
-        <activity android:name="ist.cabin.temp.tempActivity"/>
+        <activity android:name="ist.cabin.cabinCustomerOrders.CabinCustomerOrdersActivity"/>
     </application>
 
 </manifest>

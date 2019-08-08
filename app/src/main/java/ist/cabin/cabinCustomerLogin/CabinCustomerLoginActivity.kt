@@ -7,7 +7,7 @@ import android.text.TextWatcher
 import androidx.core.content.ContextCompat
 import ist.cabin.cabinCustomerBase.BaseActivity
 import ist.cabin.cabinCustomerBase.BaseContracts
-import ist.cabin.cabinCustomerCamera.CabinCustomerCameraActivity
+import ist.cabin.cabinCustomerOrders.CabinCustomerOrdersActivity
 import ist.cabin.cabincustomer.R
 import kotlinx.android.synthetic.main.cabin_customer_login.*
 
@@ -28,8 +28,8 @@ class CabinCustomerLoginActivity : BaseActivity(),
         setupPage()
 
         demo_login.setOnClickListener {
-            val camera: BaseContracts.View = CabinCustomerCameraActivity() // TODO: DELETE THIS LINE
-            val intent = Intent(this, camera::class.java) // TODO: DELETE THIS LINE
+            val orders: BaseContracts.View = CabinCustomerOrdersActivity() // TODO: DELETE THIS LINE
+            val intent = Intent(this, orders::class.java) // TODO: DELETE THIS LINE
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // TODO: DELETE THIS LINE
             ContextCompat.startActivity(this.applicationContext, intent, Bundle.EMPTY) // TODO: DELETE THIS LINE
         }
