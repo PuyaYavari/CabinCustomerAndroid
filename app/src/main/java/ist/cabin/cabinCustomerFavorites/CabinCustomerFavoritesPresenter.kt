@@ -1,14 +1,13 @@
-package ist.cabin.cabinCustomerHome.fragments.favorite
+package ist.cabin.cabinCustomerFavorites
 
 import android.app.Activity
 import android.os.Bundle
 
-class CabinCustomerHomeFavoriteFragmentPresenter(var view: CabinCustomerHomeFavoriteFragmentContracts.View?) :
-    CabinCustomerHomeFavoriteFragmentContracts.Presenter, CabinCustomerHomeFavoriteFragmentContracts.InteractorOutput {
+class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.View?) :
+    CabinCustomerFavoritesContracts.Presenter, CabinCustomerFavoritesContracts.InteractorOutput {
 
-    var interactor: CabinCustomerHomeFavoriteFragmentContracts.Interactor? =
-        CabinCustomerHomeFavoriteFragmentInteractor(this)
-    var router: CabinCustomerHomeFavoriteFragmentContracts.Router? = null
+    var interactor: CabinCustomerFavoritesContracts.Interactor? = CabinCustomerFavoritesInteractor(this)
+    var router: CabinCustomerFavoritesContracts.Router? = null
 
     //region Lifecycle
 
@@ -17,7 +16,7 @@ class CabinCustomerHomeFavoriteFragmentPresenter(var view: CabinCustomerHomeFavo
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router = CabinCustomerHomeFavoriteFragmentRouter(activity)
+        router = CabinCustomerFavoritesRouter(activity)
 
         bundle?.let {
             //you can delete this if there's no need to get extras from the intent
@@ -37,7 +36,21 @@ class CabinCustomerHomeFavoriteFragmentPresenter(var view: CabinCustomerHomeFavo
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun moveToOrdersPage() {
+        router?.moveToOrdersPage()
+    }
+
+    override fun moveToHomePage() {
+        router?.moveToHomePage()
+    }
+
+    override fun moveToCartPage() {
+        router?.moveToCartPage()
+    }
+
+    override fun moveToDiscoverPage() {
+        router?.moveToDiscoverPage()
+    }
 
     //endregion
 

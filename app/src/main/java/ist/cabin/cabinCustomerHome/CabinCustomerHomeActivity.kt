@@ -1,16 +1,12 @@
 package ist.cabin.cabinCustomerHome
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager
+import android.widget.ImageButton
+import ist.cabin.cabinCustomerBase.BaseActivity
 import ist.cabin.cabincustomer.R
-import kotlinx.android.synthetic.main.cabin_customer_home_root.*
 
-class CabinCustomerHomeActivity :
-    CabinCustomerHomeContracts.View, FragmentActivity() {
-    private lateinit var mPager: ViewPager
+class CabinCustomerHomeActivity : BaseActivity(),
+    CabinCustomerHomeContracts.View {
 
     var presenter: CabinCustomerHomeContracts.Presenter? = CabinCustomerHomePresenter(this)
 
@@ -18,8 +14,10 @@ class CabinCustomerHomeActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.cabin_customer_home_root)
+        setContentView(R.layout.cabin_customer_home)
         presenter?.onCreate(intent.extras)
+
+        overridePendingTransition(0,0)
 
         setupPage()
     }
@@ -40,41 +38,16 @@ class CabinCustomerHomeActivity :
         super.onDestroy()
     }
 
-    override fun onBackPressed() {
-        if (mPager.currentItem == 2) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed()
-        } else {
-            // Otherwise, select the previous step.
-            mPager.currentItem = 2
-        }
-    }
-
-    override fun getActivityContext(): Context? {
-        return this
-    }
-
-    override fun showErrorDialog(error: String?) {
-        Log.d("error", error)
-    }
-
     //endregion
 
     //region View
 
-
-    override fun setupPage() {
-        mPager = home_pager
-        // The pager adapter, which provides the pages to the view pager widget.
-        val pagerAdapter = CabinCustomerHomeScreenSlidePagerAdapter(supportFragmentManager)
-        mPager.adapter = pagerAdapter
-        mPager.currentItem = 2
-        home_main_navbar_home_button.setOnClickListener { presenter?.seeHome() }
+    private fun setupPage() {
+        findViewById<ImageButton>(R.id.home_orders_button).setOnClickListener { presenter?.moveToOrdersPage() }
+        findViewById<ImageButton>(R.id.home_favorites_button).setOnClickListener { presenter?.moveToFavoritesPage() }
+        findViewById<ImageButton>(R.id.home_cart_button).setOnClickListener { presenter?.moveToCartPage() }
+        findViewById<ImageButton>(R.id.home_discover_button).setOnClickListener { presenter?.moveToDiscoverPage() }
     }
 
-    override fun showHome() {
-        mPager.setCurrentItem(2,true)
-    }
     //endregion
 }

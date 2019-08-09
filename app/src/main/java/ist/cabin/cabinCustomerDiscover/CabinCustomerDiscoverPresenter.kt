@@ -1,13 +1,13 @@
-package ist.cabin.cabinCustomerHome.fragments.main
+package ist.cabin.cabinCustomerDiscover
 
 import android.app.Activity
 import android.os.Bundle
 
-class CabinCustomerHomeMainFragmentPresenter(var view: CabinCustomerHomeMainFragmentContracts.View?) :
-    CabinCustomerHomeMainFragmentContracts.Presenter, CabinCustomerHomeMainFragmentContracts.InteractorOutput {
+class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.View?) :
+    CabinCustomerDiscoverContracts.Presenter, CabinCustomerDiscoverContracts.InteractorOutput {
 
-    var interactor: CabinCustomerHomeMainFragmentContracts.Interactor? = CabinCustomerHomeMainFragmentInteractor(this)
-    var router: CabinCustomerHomeMainFragmentContracts.Router? = null
+    var interactor: CabinCustomerDiscoverContracts.Interactor? = CabinCustomerDiscoverInteractor(this)
+    var router: CabinCustomerDiscoverContracts.Router? = null
 
     //region Lifecycle
 
@@ -16,7 +16,7 @@ class CabinCustomerHomeMainFragmentPresenter(var view: CabinCustomerHomeMainFrag
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router = CabinCustomerHomeMainFragmentRouter(activity)
+        router = CabinCustomerDiscoverRouter(activity)
 
         bundle?.let {
             //you can delete this if there's no need to get extras from the intent
@@ -36,7 +36,21 @@ class CabinCustomerHomeMainFragmentPresenter(var view: CabinCustomerHomeMainFrag
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun moveToOrdersPage() {
+        router?.moveToOrdersPage()
+    }
+
+    override fun moveToFavoritesPage() {
+        router?.moveToFavoritesPage()
+    }
+
+    override fun moveToHomePage() {
+        router?.moveToHomePage()
+    }
+
+    override fun moveToCartPage() {
+        router?.moveToCartPage()
+    }
 
     //endregion
 

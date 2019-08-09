@@ -1,15 +1,18 @@
-package ist.cabin.cabinCustomerHome.fragments.favorite
+package ist.cabin.cabinCustomerFavorites
 
 import ist.cabin.cabinCustomerBase.BaseContracts
 
-object CabinCustomerHomeFavoriteFragmentContracts {
+object CabinCustomerFavoritesContracts {
 
     interface View : BaseContracts.View {
         //TODO
     }
 
     interface Presenter : BaseContracts.Presenter {
-        //TODO
+        fun moveToOrdersPage()
+        fun moveToHomePage()
+        fun moveToCartPage()
+        fun moveToDiscoverPage()
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -21,7 +24,10 @@ object CabinCustomerHomeFavoriteFragmentContracts {
     }
 
     interface Router : BaseContracts.Router {
-        //TODO
+        fun moveToOrdersPage()
+        fun moveToHomePage()
+        fun moveToCartPage()
+        fun moveToDiscoverPage()
     }
 
 }

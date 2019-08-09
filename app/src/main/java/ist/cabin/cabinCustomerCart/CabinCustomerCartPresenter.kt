@@ -1,14 +1,13 @@
-package ist.cabin.cabinCustomerHome.fragments.basket
+package ist.cabin.cabinCustomerCart
 
 import android.app.Activity
 import android.os.Bundle
 
-class CabinCustomerHomeBasketFragmentPresenter(var view: CabinCustomerHomeBasketFragmentContracts.View?) :
-    CabinCustomerHomeBasketFragmentContracts.Presenter, CabinCustomerHomeBasketFragmentContracts.InteractorOutput {
+class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : CabinCustomerCartContracts.Presenter,
+    CabinCustomerCartContracts.InteractorOutput {
 
-    var interactor: CabinCustomerHomeBasketFragmentContracts.Interactor? =
-        CabinCustomerHomeBasketFragmentInteractor(this)
-    var router: CabinCustomerHomeBasketFragmentContracts.Router? = null
+    var interactor: CabinCustomerCartContracts.Interactor? = CabinCustomerCartInteractor(this)
+    var router: CabinCustomerCartContracts.Router? = null
 
     //region Lifecycle
 
@@ -17,11 +16,10 @@ class CabinCustomerHomeBasketFragmentPresenter(var view: CabinCustomerHomeBasket
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router = CabinCustomerHomeBasketFragmentRouter(activity)
+        router = CabinCustomerCartRouter(activity)
 
         bundle?.let {
             //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
         }
     }
 
@@ -37,7 +35,21 @@ class CabinCustomerHomeBasketFragmentPresenter(var view: CabinCustomerHomeBasket
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun moveToOrdersPage() {
+        router?.moveToOrdersPage()
+    }
+
+    override fun moveToFavoritesPage() {
+        router?.moveToFavoritesPage()
+    }
+
+    override fun moveToHomePage() {
+        router?.moveToHomePage()
+    }
+
+    override fun moveToDiscoverPage() {
+        router?.moveToDiscoverPage()
+    }
 
     //endregion
 
