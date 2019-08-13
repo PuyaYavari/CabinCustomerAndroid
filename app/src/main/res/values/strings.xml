@@ -20,7 +20,9 @@
     <string name="confirm">Onayla</string>
     <string name="back_to_root_button">GİRİŞ SAYFASINA DÖN</string>
 
-    <string name="emailconfirmation_text">Hesabınız başarıyla oluşturulmuştu. E-postanızı onayladıktan sonra hesabınıza giriş yapabilirsiniz.</string>
+    <string name="emailconfirmation_text">Hesabınız başarıyla oluşturulmuştu. E-postanızı onayladıktan sonra hesabınıza
+        giriş yapabilirsiniz.
+    </string>
 
     <string name="user_agreement">U-Nets (as NNs in general) need to have a fixed input dimension, and then,
         in order to achieve the central part and output mask dimension, a determined
@@ -57,7 +59,8 @@
         one for training and one for validation, representing the 90% and 10% (9256 and
         1029) of the original dataset, respectively. All the training process was done us-
         ing the bce_dice_loss as the loss function (see Section 4.6). Additionally, we also
-        recorded a test sequence to test the proposed approach with our own data.</string>
+        recorded a test sequence to test the proposed approach with our own data.
+    </string>
 
     <string name="persons_height">Boyunuz</string>
     <string name="shoulders">Omuz</string>
@@ -94,4 +97,7 @@
     <string name="order2_datetime_string">12 : 30</string>
     <string name="order2_price_label_string">10255 TL</string>
     <string name="orders_page_header">Siparişlerim</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

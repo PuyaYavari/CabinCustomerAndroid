@@ -30,9 +30,6 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter, Ma
 
     //region Presenter
 
-    override fun moveToRootPage(){
-        router?.moveToRootPage()
-    }
 
     //endregion
 

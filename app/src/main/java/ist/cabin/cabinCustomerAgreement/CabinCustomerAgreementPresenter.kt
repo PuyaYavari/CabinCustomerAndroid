@@ -4,9 +4,11 @@ import android.app.Activity
 import android.os.Bundle
 
 class CabinCustomerAgreementPresenter(var view: CabinCustomerAgreementContracts.View?) :
-    CabinCustomerAgreementContracts.Presenter, CabinCustomerAgreementContracts.InteractorOutput {
+    CabinCustomerAgreementContracts.Presenter,
+    CabinCustomerAgreementContracts.InteractorOutput {
 
-    var interactor: CabinCustomerAgreementContracts.Interactor? = CabinCustomerAgreementInteractor(this)
+    var interactor: CabinCustomerAgreementContracts.Interactor? =
+        CabinCustomerAgreementInteractor(this)
     var router: CabinCustomerAgreementContracts.Router? = null
 
     //region Lifecycle

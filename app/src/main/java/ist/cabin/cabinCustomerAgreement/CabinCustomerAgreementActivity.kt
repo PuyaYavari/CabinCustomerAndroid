@@ -8,7 +8,8 @@ import kotlinx.android.synthetic.main.cabin_customer_register_agreement.*
 class CabinCustomerAgreementActivity : BaseActivity(),
     CabinCustomerAgreementContracts.View {
 
-    var presenter: CabinCustomerAgreementContracts.Presenter? = CabinCustomerAgreementPresenter(this)
+    var presenter: CabinCustomerAgreementContracts.Presenter? =
+        CabinCustomerAgreementPresenter(this)
 
     //region Lifecycle
 

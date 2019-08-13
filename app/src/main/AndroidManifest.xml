@@ -33,21 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="ist.cabin.cabinCustomerRoot.CabinCustomerRootActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerLogin.CabinCustomerLoginActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerRegister.CabinCustomerRegisterActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerHome.CabinCustomerHomeActivity"/>
         <activity android:name="ist.cabin.cabinCustomerAgreement.CabinCustomerAgreementActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerForgotpassword.CabinCustomerForgotpasswordActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerEmailconfirmation.CabinCustomerEmailconfirmationActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerManualMeasureInput.CabinCustomerManualMeasureInputActivity"
-                  android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name="ist.cabin.cabinCustomerCameraPreview.CabinCustomerCameraPreviewActivity"/>
         <activity android:name="ist.cabin.cabinCustomerCamera.CabinCustomerCameraActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerOrders.CabinCustomerOrdersActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerCart.CabinCustomerCartActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerDiscover.CabinCustomerDiscoverActivity"/>
-        <activity android:name="ist.cabin.cabinCustomerFavorites.CabinCustomerFavoritesActivity"/>
     </application>
 
 </manifest>
