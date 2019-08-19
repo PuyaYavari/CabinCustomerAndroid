@@ -43,7 +43,9 @@ class CabinCustomerOrdersShippingFragmentPresenter(var view: CabinCustomerOrders
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun showOrderDetails() {
+        router?.moveToDetailsPage()
+    }
 
     //endregion
 

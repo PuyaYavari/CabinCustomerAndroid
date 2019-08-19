@@ -1,15 +1,17 @@
-package ist.cabin.cabincustomer.fragments.orders.fragments.sent
+package ist.cabin.cabincustomer.fragments.ordersDetail
 
 import ist.cabin.cabinCustomerBase.BaseContracts
 
-object CabinCustomerOrdersSentFragmentContracts {
+object CabinCustomerOrdersDetailContracts {
 
     interface View : BaseContracts.View {
-        //TODO
+        fun setupPendingPage()
+        fun setupShippingPage()
+        fun setupSentPage()
     }
 
     interface Presenter : BaseContracts.Presenter {
-        fun showOrderDetails()
+        fun setupPropperPage(pageID: Int)
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -21,7 +23,11 @@ object CabinCustomerOrdersSentFragmentContracts {
     }
 
     interface Router : BaseContracts.Router {
-        fun moveToDetailsPage()
+        //TODO
+    }
+
+    interface Detailbox {
+        fun getType(): Int
     }
 
 }

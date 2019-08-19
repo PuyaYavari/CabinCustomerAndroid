@@ -12,12 +12,9 @@
     <string name="title_activity_cabin_customer_root">cabinCustomerRoot</string>
     <string name="action_settings">Settings</string>
     <string name="default_error_message">ERROR</string>
-    <string name="Man">Erkek</string>
-    <string name="Woman">Kadın</string>
     <string name="agreement_confirmation_button">OKUDUM VE ONAYLIYORUM</string>
 
     <string name="forgetpassword_text">E-posta adresinizi girin.</string>
-    <string name="confirm">Onayla</string>
     <string name="back_to_root_button">GİRİŞ SAYFASINA DÖN</string>
 
     <string name="emailconfirmation_text">Hesabınız başarıyla oluşturulmuştu. E-postanızı onayladıktan sonra hesabınıza
@@ -80,6 +77,14 @@
     <string name="discover_label">Keşfet</string>
     <!---->
 
+    <!-- Static Labels -->
+    <string name="item_code_label">Ürün Kodu</string>
+    <string name="cargo_tracking_number_label">Kargo Takip Numarası</string>
+    <string name="cargo_price_label">Kargo Ücreti</string>
+    <string name="total_price_label">Toplam Ücret</string>
+    <string name="delivery_date_label">Teslim Tarihi</string>
+    <string name="order_id_label">Sipariş Numarası</string>
+    <!---->
 
     <string name="header_label_string">Siparişlerim</string>
     <string name="tabbar_pending_label_string">Bekleyen</string>
@@ -97,6 +102,21 @@
     <string name="order2_datetime_string">12 : 30</string>
     <string name="order2_price_label_string">10255 TL</string>
     <string name="orders_page_header">Siparişlerim</string>
+
+    <!-- translations -->
+    <string name="seller">Satıcı</string>
+    <string name="confirm">Onayla</string>
+    <string name="Man">Erkek</string>
+    <string name="Woman">Kadın</string>
+    <string name="order_detail">Sipariş Detayı</string>
+    <!---->
+
+    <string name="pending_orders_label">Bekleyen Siparişler</string>
+    <string name="shipping_orders_label">Kargodaki Siparişler</string>
+    <string name="sent_orders_label">Gönderilen Siparişler</string>
+    
+    <string name="date_seperator">/</string>
+    <string name="address_bar_seperator">></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

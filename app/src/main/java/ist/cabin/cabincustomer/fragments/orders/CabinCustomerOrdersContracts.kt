@@ -8,6 +8,10 @@ object CabinCustomerOrdersContracts {
         //TODO
     }
 
+    interface FragmentsView : BaseContracts.View {
+        fun orderboxOnClickListener()
+    }
+
     interface Presenter : BaseContracts.Presenter {
         fun moveToFavoritesPage()
         fun moveToHomePage()

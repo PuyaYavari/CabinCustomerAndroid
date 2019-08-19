@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabincustomer.R
 import kotlinx.android.synthetic.main.cabin_customer_orderbox_view.view.*
 
-class CabinCustomerOrdersAdapter(private val myDataset: Array<String>) :
+class CabinCustomerOrdersAdapter(val view: CabinCustomerOrdersContracts.FragmentsView
+                                 , private val myDataset: Array<String>) :
     RecyclerView.Adapter<CabinCustomerOrdersAdapter.OrdersViewHolder>() {
 
     // Provide a reference to the views for each data item
@@ -35,6 +36,7 @@ class CabinCustomerOrdersAdapter(private val myDataset: Array<String>) :
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.itemView.order_count_label.text = myDataset[position]
+        holder.itemView.order_background.setOnClickListener { view.orderboxOnClickListener() }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

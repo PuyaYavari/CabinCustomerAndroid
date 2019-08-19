@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="344dp"
+        android:layout_height="84dp"
+        android:id="@+id/orders_detail_orderbox_layout"
+        android:background="@drawable/orders_detailbox_left_top_right_borders_with_seperator">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/orders_detail_item_code_hint"
+            android:text="@string/item_code_label" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/orders_detail_order_image_layout"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.1"
+            android:textColor="@color/orders_detail_labels" app:layout_constraintVertical_bias="1.0"
+            android:textSize="12sp" android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/orders_detail_item_code" android:textStyle="bold"/>
+    <TextView
+            android:text="PY9494"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/orders_detail_item_code"
+            app:layout_constraintEnd_toEndOf="@+id/orders_detail_item_code_hint"
+            app:layout_constraintStart_toStartOf="@+id/orders_detail_item_code_hint"
+            app:layout_constraintBottom_toBottomOf="@+id/orders_detail_color_label"
+            app:layout_constraintTop_toTopOf="@+id/orders_detail_color_label"
+            android:textSize="12sp"
+            android:textColor="@color/orders_detail_labels"
+    />
+    <TextView
+            android:text="Mavi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/orders_detail_color_label"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.52"
+            android:textSize="12sp" app:layout_constraintHorizontal_bias="0.59"
+            android:textColor="@color/orders_detail_labels"/>
+    <TextView
+            android:text="M"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/orders_detail_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:textColor="@color/orders_detail_labels"
+            android:textSize="12sp" app:layout_constraintVertical_bias="0.51"
+            app:layout_constraintHorizontal_bias="0.76"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/orders_detail_size"
+            android:id="@+id/orders_detail_price_layout" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp">
+        <TextView
+                android:text="100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/orders_detail_price"
+                android:textSize="12sp"
+                android:textColor="@color/order_price_label_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center" android:layout_marginRight="16dp" android:layout_marginEnd="16dp"
+                app:layout_constraintHorizontal_bias="1.0"/>
+        <TextView
+                android:text="TL"
+                android:layout_width="16dp"
+                android:layout_height="16dp" android:id="@+id/orders_detail_order_price_unit" android:layout_weight="1"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/orders_detail_price"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" android:gravity="center"
+                android:textColor="@color/order_price_label_color"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="wrap_content"
+                                                       android:layout_height="match_parent"
+                                                       app:layout_constraintStart_toStartOf="parent"
+                                                       app:layout_constraintEnd_toEndOf="parent"
+                                                       app:layout_constraintTop_toTopOf="parent"
+                                                       app:layout_constraintBottom_toBottomOf="parent"
+                                                       app:layout_constraintHorizontal_bias="0.0"
+                                                       android:id="@+id/orders_detail_order_image_layout"
+                                                       android:layout_marginLeft="8dp"
+                                                       android:layout_marginStart="8dp"
+                                                       android:layout_marginTop="8dp"
+                                                       android:layout_marginBottom="8dp">
+        <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp" app:srcCompat="@drawable/order_picture_example"
+                android:id="@+id/orders_detail_order_image" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="20dp"
+                                                           android:layout_height="20dp"
+                                                           app:layout_constraintTop_toTopOf="parent"
+                                                           app:layout_constraintStart_toStartOf="parent"
+                                                           app:layout_constraintBottom_toBottomOf="parent"
+                                                           app:layout_constraintEnd_toEndOf="parent"
+                                                           android:id="@+id/orders_detail_ordercount_layout"
+                                                           android:background="@drawable/order_count_background_shape"
+                                                           app:layout_constraintHorizontal_bias="0.0"
+                                                           app:layout_constraintVertical_bias="0.0"
+        >
+
+            <TextView
+                    android:text="x8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/orders_detail_ordercount_label"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="8sp" android:textColor="@color/order_count_label_color"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

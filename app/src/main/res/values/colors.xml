@@ -25,4 +25,10 @@
     <color name="orders_default_background_color">#FFFFFF</color>
 
     <color name="_bg__orders_main_color">#FFFFFF</color>
+
+    <color name="orders_detail_table_background">#FFFFFF</color>
+    <color name="orders_detail_table_borders">#707070</color>
+    <color name="orders_detail_labels">#707070</color>
+
+    <color name="recyclerview_seperator">#F1F1F1</color>
 </resources>

@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
-import ist.cabin.cabincustomer.fragments.orders.CabinCustomerOrdersAdapter
 import ist.cabin.cabincustomer.R
+import ist.cabin.cabincustomer.fragments.orders.CabinCustomerOrdersAdapter
+import ist.cabin.cabincustomer.fragments.orders.CabinCustomerOrdersContracts
 
 class CabinCustomerOrdersSentFragment : BaseFragment(),
-    CabinCustomerOrdersSentFragmentContracts.View {
+    CabinCustomerOrdersSentFragmentContracts.View,
+    CabinCustomerOrdersContracts.FragmentsView{
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -26,7 +29,7 @@ class CabinCustomerOrdersSentFragment : BaseFragment(),
 
         val myDataset = arrayOf("9", "35", "3") //TODO: remove
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = CabinCustomerOrdersAdapter(myDataset)
+        viewAdapter = CabinCustomerOrdersAdapter(this, myDataset)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.main_orders_recyclerview).apply {
             setHasFixedSize(true)
@@ -60,7 +63,9 @@ class CabinCustomerOrdersSentFragment : BaseFragment(),
 
     //region View
 
-    //TODO: Implement your View methods here
+    override fun orderboxOnClickListener() {
+        presenter?.showOrderDetails()
+    }
 
     //endregion
 }

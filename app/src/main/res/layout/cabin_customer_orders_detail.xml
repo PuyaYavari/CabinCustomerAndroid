@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:id="@+id/cabin_customer_orders_detail_layout">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/orders_default_background_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            android:elevation="5dp">
+
+        <View android:id="@+id/header_background"
+              android:background="@color/orders_default_background_color"
+              android:alpha="0.44999998807907"
+              android:layout_width="match_parent"
+              android:layout_height="92dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <View
+                android:id="@+id/orders_details_header_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/orders_detail_labels"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/orders_detail_header_pagename_layout"
+                app:layout_constraintVertical_bias="0.0" android:alpha="0.2"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="48dp" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                android:id="@+id/orders_detail_header_pagename_layout">
+
+            <TextView android:id="@+id/header_label"
+                      android:fontFamily="Segoe UI"
+                      android:layout_gravity="center_horizontal|center"
+
+                      android:gravity="center"
+                      android:textSize="20sp"
+                      android:textColor="@color/header_label_color"
+                      android:layout_width="107dp"
+                      android:layout_height="31dp"
+                      android:text="@string/orders_page_header"
+                      android:textAllCaps="false"
+                      android:layout_marginTop="8dp"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintVertical_bias="0.0"/>
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_arrow_back_grey_24dp"
+                    android:id="@+id/orders_detail_back_button"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    android:contentDescription="back button" android:background="@android:color/transparent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="@+id/header_background"
+                app:layout_constraintStart_toStartOf="@+id/header_background" android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="8dp" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
+                app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="1.0"
+                android:id="@+id/order_id_layout" android:gravity="center_horizontal">
+            <TextView
+                    android:text="@string/order_id_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/orders_detail_order_id_label"
+                    android:textSize="10sp" android:textStyle="bold" android:textColor="@color/header_label_color"/>
+            <TextView
+                    android:text="111222333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/orders_detail_order_id"
+                    android:textSize="10sp" android:textColor="@color/header_label_color"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="@+id/header_background"
+                app:layout_constraintStart_toStartOf="@+id/header_background" android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/order_id_layout" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp" app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.0" android:id="@+id/address_bar_layout">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/orders_addressbar_order_type_label"
+                    android:layout_weight="1"
+                    android:textSize="10sp" android:textColor="@color/header_label_color"/>
+            <TextView
+                    android:text="@string/address_bar_seperator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/orders_addressbar_seperator"
+                    android:layout_weight="1"
+                    android:textSize="10sp" android:paddingLeft="5dp" android:paddingRight="5dp"
+                    android:textColor="@color/header_label_color"/>
+            <TextView
+                    android:text="@string/order_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/orders_detail_addressbar_current_label"
+                    android:layout_weight="1"
+                    android:textSize="10sp" android:textColor="@color/header_label_color" android:textStyle="bold"/>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView android:layout_width="wrap_content"
+                                               android:layout_height="0dp"
+                                               android:id="@+id/orders_detail_recyclerview"
+
+                                               app:layout_constraintTop_toTopOf="parent"
+                                               app:layout_constraintEnd_toEndOf="parent"
+                                               app:layout_constraintStart_toStartOf="parent"
+                                               android:paddingRight="8dp"
+                                               android:paddingLeft="8dp"
+                                               app:layout_constraintBottom_toTopOf="@+id/navbar"
+                                               app:layout_constraintTop_toBottomOf="@+id/header"
+                                               android:layout_marginTop="92dp"
+                                               app:layout_constraintVertical_bias="0.0"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navbar"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@color/navbar_background_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1.0"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

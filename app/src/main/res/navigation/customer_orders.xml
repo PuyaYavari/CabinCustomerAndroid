@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/customer_orders" app:startDestination="@id/cabinCustomerOrdersFragment2">
+            android:id="@+id/customer_orders" app:startDestination="@id/cabinCustomerOrdersFragment">
 
-    <fragment android:id="@+id/cabinCustomerOrdersFragment2"
+    <fragment android:id="@+id/cabinCustomerOrdersFragment"
               android:name="ist.cabin.cabincustomer.fragments.orders.CabinCustomerOrdersFragment"
-              android:label="CabinCustomerOrdersFragment"/>
+              android:label="CabinCustomerOrdersFragment">
+        <action android:id="@+id/action_Orders_to_OrdersDetail"
+                app:destination="@id/cabinCustomerOrdersDetailFragment"/>
+    </fragment>
+    <fragment android:id="@+id/cabinCustomerOrdersDetailFragment"
+              android:name="ist.cabin.cabincustomer.fragments.ordersDetail.CabinCustomerOrdersDetailFragment"
+              android:label="CabinCustomerOrdersDetailFragment">
+        <argument android:name="pageType" app:argType="integer" android:defaultValue="0"/>
+    </fragment>
 </navigation>

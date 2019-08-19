@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabincustomer.R
 
+
 class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts.View {
 
     var presenter: CabinCustomerOrdersContracts.Presenter? = CabinCustomerOrdersPresenter(this)
@@ -55,6 +56,5 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
     private fun setupPage () {
 
     }
-
     //endregion
 }
