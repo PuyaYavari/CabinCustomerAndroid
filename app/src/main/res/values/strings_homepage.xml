@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!--labels-->
+    <string name="profile_options_label">Hesap Ayarları</string>
+    <string name="body_measures_label">Vücüt Ölçülerim</string>
+    <string name="extradition_requests_label">İade Taleplerim</string>
+    <string name="help_label">Destek</string>
+    <string name="exit_label">Çıkış</string>
+    <string name="personal_data">Kişisel Bilgilerim</string>
+    <string name="address_data">Adres Bilgilerim</string>
+    <string name="change_password">Şifre Değişikliği</string>
+    <string name="announcement_choices">Duyuru Tercihlerim</string>
+    <string name="settings_label">Ayarlar</string>
+    <string name="info_label">Bilgi</string>
+    <!--/labels-->
+
+    <!--temp-->
+    <string name="Open">open</string>
+    <string name="Close">close</string>
+    <!--/temp-->
+</resources>
