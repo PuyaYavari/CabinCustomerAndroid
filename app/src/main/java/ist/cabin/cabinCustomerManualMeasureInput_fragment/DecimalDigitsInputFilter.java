@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.manualMeasureInput;
+package ist.cabin.cabinCustomerManualMeasureInput_fragment;
 
 import android.text.InputFilter;
 import android.text.Spanned;

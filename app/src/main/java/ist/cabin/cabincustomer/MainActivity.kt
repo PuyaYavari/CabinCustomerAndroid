@@ -1,16 +1,26 @@
 package ist.cabin.cabincustomer
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import ist.cabin.cabinCustomerBase.BaseActivity
+import kotlinx.android.synthetic.main.cabin_customer_main.*
+
 
 class MainActivity : BaseActivity(),
     MainContracts.View {
     private var currentNavController: LiveData<NavController>? = null
 
     var presenter: MainContracts.Presenter? = MainPresenter(this)
+
+    private lateinit var t: ActionBarDrawerToggle
 
     //region Lifecycle
 
@@ -22,6 +32,35 @@ class MainActivity : BaseActivity(),
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         } // Else, need to wait for onRestoreInstanceState
+
+        val dl: DrawerLayout = findViewById<View>(R.id.drawer_layout) as DrawerLayout
+        t = ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close)
+
+        dl.addDrawerListener(t)
+        t.syncState()
+
+        val nv: NavigationView = findViewById<View>(R.id.homepage_sidenav) as NavigationView
+        nv.setNavigationItemSelectedListener { item ->
+            val id = item.itemId
+            when (id) {
+                R.id.sidenav_profile_options -> presenter?.moveToProfileOptions()
+                R.id.sidenav_body_measure -> Toast.makeText(this@MainActivity, "Measures", Toast.LENGTH_SHORT).show()
+                R.id.sidenav_extradition -> Toast.makeText(this@MainActivity, "Extraditions", Toast.LENGTH_SHORT).show()
+                R.id.sidenav_help -> Toast.makeText(this@MainActivity, "Help", Toast.LENGTH_SHORT).show()
+                R.id.sidenav_exit -> Toast.makeText(this@MainActivity, "Exit", Toast.LENGTH_SHORT).show()
+                else -> true
+            }
+            drawer_layout.closeDrawer(GravityCompat.START)
+            true
+        }
+    }
+
+    override fun onBackPressed() {
+        if(drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {

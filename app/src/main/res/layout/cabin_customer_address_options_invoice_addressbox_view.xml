@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" android:id="@+id/address_options_invoice_addressbox_layout"
+              android:layout_marginBottom="16dp">
+
+    <View
+            android:id="@+id/invoice_addressbox_top_border"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/address_options_addressbox_border"
+            android:alpha="@dimen/address_options_addressbox_border_alpha"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp" android:id="@+id/invoice_addressbox_name_layout">
+
+        <ImageView
+                android:layout_width="9dp"
+                android:layout_height="16dp" app:srcCompat="@drawable/icon_cabin_colored_arrow"
+                android:id="@+id/invoice_addressbox_name_arrow" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp" android:layout_marginRight="16dp" android:layout_marginEnd="16dp"
+                app:layout_constraintHorizontal_bias="1.0"/>
+        <TextView
+                android:text="Some Address Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/invoice_addressbox_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp" app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
+                android:textColor="@color/colorPrimaryDark"/>
+        <View
+                android:id="@+id/invoice_addressbox_name_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/address_options_addressbox_name_divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="1.0"
+                android:layout_marginLeft="16dp" android:layout_marginStart="16dp" android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/invoice_addressbox_details_layout">
+
+        <TextView
+                android:text="Customer Name and Surname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/invoice_addressbox_details_customer_name"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
+                android:textColor="@color/address_options_addressbox_text"/>
+        <TextView
+                android:text="01234567890"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/invoice_addressbox_details_customer_phone"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_addressbox_details_customer_name"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+                android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="16dp" app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
+                android:textColor="@color/address_options_addressbox_text" android:alpha="0.5"/>
+        <TextView
+                android:text="Some Neighborhood, Some Street, Some Number, Some Apartment, Some Floor, Some Room"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" android:id="@+id/invoice_addressbox_details_customer_address"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_addressbox_details_customer_phone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp" app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.0" android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp" android:textSize="16sp"
+                android:textColor="@color/address_options_addressbox_text" android:alpha="0.5"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_addressbox_details_customer_address"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp" app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:id="@+id/invoice_addressbox_details_customer_region_city_layout">
+            <TextView
+                    android:text="Some Region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoice_addressbox_details_customer_address_region" android:layout_weight="1"
+                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+            <TextView
+                    android:text="@string/address_separator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoice_addressbox_details_customer_address_region_city_separator"
+                    android:layout_weight="1" android:textSize="16sp"
+                    android:textColor="@color/address_options_addressbox_text"/>
+            <TextView
+                    android:text="Some City"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoice_addressbox_details_customer_address_city" android:layout_weight="1"
+                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:id="@+id/invoice_addressbox_details_customer_tax_administration_layout"
+                      android:layout_marginTop="8dp"
+                      app:layout_constraintTop_toBottomOf="@+id/invoice_addressbox_details_customer_region_city_layout"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                      android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
+                      app:layout_constraintVertical_bias="0.0"
+                      app:layout_constraintHorizontal_bias="0.0">
+            <TextView
+                    android:text="@string/tax_administration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoice_addressbox_details_customer_tax_administration_label"
+                    android:layout_weight="1"
+                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+            <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoice_addressbox_details_customer_tax_administration_separator"
+                    android:layout_weight="1"
+                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+            <TextView
+                    android:text="Tax Administration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoice_addressbox_details_customer_tax_administration" android:layout_weight="1"
+                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"
+                    android:alpha="0.5" android:layout_marginLeft="28dp"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:orientation="horizontal" app:layout_constraintBottom_toBottomOf="parent"
+                      android:layout_marginTop="8dp"
+                      app:layout_constraintTop_toBottomOf="@+id/invoice_addressbox_details_customer_tax_administration_layout"
+                      app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                      android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
+                      app:layout_constraintVertical_bias="0.0" app:layout_constraintHorizontal_bias="0.0"
+                      android:id="@+id/invoice_addressbox_details_customer_tax_number_layout"
+                      android:layout_marginBottom="16dp">
+
+            <TextView
+                    android:text="@string/tax_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoice_addressbox_details_customer_tax_number_label" android:layout_weight="1"
+                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+            <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoice_addressbox_details_customer_tax_number_separator"
+                    android:layout_weight="1" android:textSize="16sp"
+                    android:textColor="@color/address_options_addressbox_text"/>
+            <TextView
+                    android:text="01234567890"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoice_addressbox_details_customer_tax_number"
+                    android:layout_weight="1"
+                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"
+                    android:alpha="0.5" android:layout_marginLeft="8dp"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+            android:id="@+id/invoice_addressbox_bottom_border"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/address_options_addressbox_border"
+            android:alpha="@dimen/address_options_addressbox_border_alpha" tools:layout_editor_absoluteY="-206dp"
+            tools:layout_editor_absoluteX="8dp"/>
+</LinearLayout>

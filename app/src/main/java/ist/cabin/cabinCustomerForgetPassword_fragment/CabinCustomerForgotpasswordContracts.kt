@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.forgetPassword
+package ist.cabin.cabinCustomerForgetPassword_fragment
 
 import ist.cabin.cabinCustomerBase.BaseContracts
 

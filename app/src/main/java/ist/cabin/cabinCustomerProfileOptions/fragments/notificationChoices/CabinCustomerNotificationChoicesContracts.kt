@@ -1,5 +1,7 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.notificationChoices
 
+import ist.cabin.cabinCustomerBase.BaseContracts
+
 object CabinCustomerNotificationChoicesContracts {
 
     interface View : BaseContracts.View {

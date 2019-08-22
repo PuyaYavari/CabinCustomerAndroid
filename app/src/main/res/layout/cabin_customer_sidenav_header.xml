@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="250dp"
+                                                   android:layout_height="80dp" android:id="@+id/sidenav_header_layout"
+                                                   android:background="@color/colorPrimary">
 
+    <TextView
+            android:text="somesamplemail@email.com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sidenav_email_address" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.0" android:textSize="12sp" android:textColor="@color/white"
+            app:layout_constraintVertical_bias="1.0"/>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/icon_notification"
+            android:id="@+id/sidenav_notification_button"
+            app:layout_constraintBottom_toBottomOf="@+id/sidenav_email_address"
+            app:layout_constraintTop_toTopOf="@+id/sidenav_email_address" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" android:layout_marginRight="16dp"
+            app:layout_constraintStart_toEndOf="@+id/sidenav_email_address" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="1.0"
+            android:background="@android:color/transparent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <size android:width="@dimen/address_options_ring_dime" android:height="@dimen/address_options_ring_dime"/>
+            <stroke android:width="3dp" android:color="@color/address_options_ring"/>
+        </shape>
+    </item>
+</selector>

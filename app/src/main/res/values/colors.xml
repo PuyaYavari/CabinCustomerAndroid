@@ -1,34 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="cabin_purple">#4B224F</color>
     <color name="white">#FFFFFF</color>
     <color name="green">#17ff00</color>
     <color name="red">#ff0000</color>
 
     <color name="colorPrimary">#674267</color>
     <color name="colorPrimaryDark">#4B224F</color>
-    <color name="colorAccent">#a42fa4</color>
+    <color name="colorAccent">#A42FA4</color>
 
-    <color name="_bg__pending_orders_color">#FFFFFF</color>
+    <!--MainActivity-->
     <color name="navbar_background_color">#f8f8f8</color>
-    <color name="__p__homepage_label_color">#8e8e93</color>
     <color name="header_background_color">#FFFFFF</color>
     <color name="header_label_color">#707070</color>
     <color name="tabbar_pending_label_color">#000000</color>
     <color name="tabbar_indicator_color">#000000</color>
-    <color name="sorting_icon2_color">#707070</color>
     <color name="order_count_background_color">#674267</color>
     <color name="order_count_label_color">#F1F1F1</color>
     <color name="order_price_label_color">#00c140</color>
     <color name="order_background_color">#F1F1F1</color>
-
     <color name="orders_default_background_color">#FFFFFF</color>
-
-    <color name="_bg__orders_main_color">#FFFFFF</color>
-
+    <color name="orders_sorting_button_background">#FFFFFF</color>
     <color name="orders_detail_table_background">#FFFFFF</color>
     <color name="orders_detail_table_borders">#707070</color>
     <color name="orders_detail_labels">#707070</color>
+    <!--/MainActivity-->
 
-    <color name="recyclerview_seperator">#F1F1F1</color>
+    <!--ProfileOptionsActivity-->
+    <color name="profile_options_main_menu_header_background">#FFFFFF</color>
+    <color name="profile_options_main_menu_boxes">#F1F1F1</color>
+    <color name="profile_options_main_menu_texts">#707070</color>
+
+    <color name="notification_choices_header_background">#FFFFFF</color>
+    <color name="notification_choices_texts">#707070</color>
+    <color name="notification_choices_divider">#707070</color>
+
+    <color name="change_password_header_background">#FFFFFF</color>
+    <color name="change_password_texts">#707070</color>
+    <color name="change_password_labels_background">#F1F1F1</color>
+    <color name="change_password_labels_separator">#707070</color>
+    <color name="change_password_inputs_separator">#707070</color>
+    <color name="change_password_labels">#707070</color>
+    <color name="change_password_button_labels">#FFFFFF</color>
+    <color name="change_password_hints">#D0D0D0</color>
+
+    <color name="address_options_header_background">#FFFFFF</color>
+    <color name="address_options_texts">#707070</color>
+    <color name="address_options_button_labels">#FFFFFF</color>
+    <color name="address_options_footer_background">#FFFFFF</color>
+    <color name="address_options_tab_buttons_unselected_background">#FFFFFF</color>
+    <color name="address_options_tab_buttons_unselected_label">#707070</color>
+    <color name="address_options_header_divider">#707070</color>
+    <color name="address_options_ring">#707070</color>
+    <color name="address_options_no_address_text">#000000</color>
+    <color name="address_options_no_address_hint">#707070</color>
+    <color name="address_options_addressbox_name_divider">#707070</color>
+    <color name="address_options_addressbox_text">#707070</color>
+    <color name="address_options_addressbox_border">#707070</color>
+
+    <color name="personal_data_options_header_background">#FFFFFF</color>
+    <color name="personal_data_options_texts">#707070</color>
+    <color name="personal_data_options_labels_background">#F1F1F1</color>
+    <color name="personal_data_options_labels_separator">#707070</color>
+    <color name="personal_data_options_inputs_separator">#707070</color>
+    <color name="personal_data_options_labels">#707070</color>
+    <color name="personal_data_options_button_labels">#FFFFFF</color>
+    <color name="personal_data_options_unselected_sex_button_background">#FFFFFF</color>
+    <color name="personal_data_options_selected_man_button_background">#658AF1</color>
+    <color name="personal_data_options_selected_woman_button_background">#EC5EC6</color>
+    <color name="personal_data_options_hints">#D0D0D0</color>
+
+    <color name="delivery_address_header_background">#FFFFFF</color>
+    <color name="delivery_address_texts">#707070</color>
+    <color name="delivery_address_labels_background">#F1F1F1</color>
+    <color name="delivery_address_labels_separator">#707070</color>
+    <color name="delivery_address_inputs_separator">#707070</color>
+    <color name="delivery_address_button_labels">#FFFFFF</color>
+    <color name="delivery_address_hints">#D0D0D0</color>
+
+    <color name="invoice_address_header_background">#FFFFFF</color>
+    <color name="invoice_address_texts">#707070</color>
+    <color name="invoice_address_labels_background">#F1F1F1</color>
+    <color name="invoice_address_labels_separator">#707070</color>
+    <color name="invoice_address_inputs_separator">#707070</color>
+    <color name="invoice_address_button_labels">#FFFFFF</color>
+    <color name="invoice_address_footer_background">#FFFFFF</color>
+    <color name="invoice_address_hints">#D0D0D0</color>
+    
+    <color name="addresses_province_district_spinner_separator">#F1F1F1</color>
+    <color name="addresses_province_district_spinner_borders">#707070</color>
+
+    <!--/ProfileOptionsActivity-->
 </resources>

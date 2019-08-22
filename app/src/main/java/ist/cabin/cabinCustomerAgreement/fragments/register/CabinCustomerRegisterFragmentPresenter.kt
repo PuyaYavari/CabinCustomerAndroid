@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.register
+package ist.cabin.cabinCustomerAgreement.fragments.register
 
 import android.app.Activity
 import android.os.Bundle

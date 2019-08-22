@@ -66,17 +66,12 @@ class CabinCustomerOrdersDetailAdapter(val fragment: BaseFragment ,private val m
                 if(prevType == -1 || prevType == OrdersListItemsTypeID.FOOTERBOX_TYPE) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         holder.itemView.orders_detail_orderbox_layout.background =
-                            fragment.context?.getDrawable(R.drawable.orders_detailbox_left_top_right_borders_with_seperator)
-                    }
-                } else if(prevType == OrdersListItemsTypeID.HEADERBOX_TYPE || prevType == OrdersListItemsTypeID.CARGOBOX_TYPE) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        holder.itemView.orders_detail_orderbox_layout.background =
-                            fragment.context?.getDrawable(R.drawable.orders_detailbox_left_right_borders_with_bottom_seperator)
+                            fragment.context?.getDrawable(R.drawable.orders_detailbox_left_top_right_borders_with_separator)
                     }
                 } else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         holder.itemView.orders_detail_orderbox_layout.background =
-                            fragment.context?.getDrawable(R.drawable.orders_detailbox_left_right_borders_with_bottom_seperator)
+                            fragment.context?.getDrawable(R.drawable.orders_detailbox_left_right_borders_with_bottom_separator)
                     }
                 }
                 prevType = OrdersListItemsTypeID.ORDERBOX_TYPE

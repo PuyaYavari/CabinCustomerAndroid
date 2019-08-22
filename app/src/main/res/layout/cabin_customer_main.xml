@@ -1,129 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   tools:context=".MainActivity">
+<androidx.drawerlayout.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".MainActivity"
+        tools:openDrawer="start"
+>
 
-    <fragment
-            android:id="@+id/nav_host_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:defaultNavHost="true"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+    >
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navbar"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:background="@color/navbar_background_color"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:menu="@menu/menu_cabin_customer_navbar">
+        <fragment
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:defaultNavHost="true"/>
 
-        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-                <!--android:id="@+id/navbar_frame"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:layout_constraintTop_toTopOf="parent"-->
-                <!--app:menu="@menu/menu_cabin_customer_navbar">-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/homepage_icon"-->
-                    <!--android:id="@+id/homepage_button"-->
-                    <!--app:layout_constraintStart_toStartOf="parent"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="homepage_icon"-->
-                    <!--android:layout_marginTop="4dp"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:background="@android:color/transparent"/>-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/cart_icon"-->
-                    <!--android:id="@+id/cart_button"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="cart_icon"-->
-                    <!--app:layout_constraintEnd_toStartOf="@id/discover_button"-->
-                    <!--app:layout_constraintStart_toEndOf="@id/homepage_button"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:layout_marginEnd="8dp"-->
-                    <!--android:layout_marginLeft="8dp"-->
-                    <!--android:layout_marginStart="8dp"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:layout_marginTop="4dp"-->
-                    <!--android:background="@android:color/transparent"/>-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/discover_icon"-->
-                    <!--android:id="@+id/discover_button"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="discover_icon"-->
-                    <!--app:layout_constraintHorizontal_bias="0.95"-->
-                    <!--app:layout_constraintStart_toStartOf="parent"-->
-                    <!--android:layout_marginRight="4dp"-->
-                    <!--android:layout_marginEnd="4dp"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:layout_marginTop="4dp"-->
-                    <!--android:background="@android:color/transparent"/>-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/orders_icon"-->
-                    <!--android:id="@+id/orders_button"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="orders_icon"-->
-                    <!--app:layout_constraintHorizontal_bias="0.05"-->
-                    <!--app:layout_constraintStart_toStartOf="parent"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:layout_marginTop="4dp"-->
-                    <!--android:background="@android:color/transparent"-->
-                    <!--android:layout_marginLeft="4dp"-->
-                    <!--android:layout_marginStart="4dp"/>-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/favorites_icon"-->
-                    <!--android:id="@+id/favorites_button"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="favorites_icon"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:layout_marginEnd="8dp"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:layout_marginTop="4dp"-->
-                    <!--app:layout_constraintStart_toEndOf="@id/orders_button"-->
-                    <!--android:layout_marginStart="8dp"-->
-                    <!--android:layout_marginLeft="8dp"-->
-                    <!--app:layout_constraintEnd_toStartOf="@id/homepage_button"-->
-                    <!--android:background="@color/navbar_background_color"/>-->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/navbar"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:background="@color/navbar_background_color"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:menu="@menu/menu_cabin_customer_navbar">
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
-        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.navigation.NavigationView
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:id="@+id/homepage_sidenav"
+            app:menu="@menu/menu_cabin_customer_sidenav"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/cabin_customer_sidenav_header"/>
+</androidx.drawerlayout.widget.DrawerLayout>

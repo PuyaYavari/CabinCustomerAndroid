@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.agreement
+package ist.cabin.cabinCustomerAgreement.fragments.agreement
 
 class CabinCustomerAgreementFragmentInteractor(var output: CabinCustomerAgreementFragmentContracts.InteractorOutput?) :
     CabinCustomerAgreementFragmentContracts.Interactor {

@@ -32,7 +32,7 @@
                 android:id="@+id/orders_detail_delivery_day"
                 android:textSize="10sp" android:textColor="@color/order_price_label_color"/>
         <TextView
-                android:text="@string/date_seperator"
+                android:text="@string/date_separator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView5"
@@ -44,7 +44,7 @@
                 android:id="@+id/orders_detail_delivery_month"
                 android:textSize="10sp" android:textColor="@color/order_price_label_color"/>
         <TextView
-                android:text="@string/date_seperator"
+                android:text="@string/date_separator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView7"

@@ -115,9 +115,35 @@
     <string name="shipping_orders_label">Kargodaki Siparişler</string>
     <string name="sent_orders_label">Gönderilen Siparişler</string>
     
-    <string name="date_seperator">/</string>
-    <string name="address_bar_seperator">></string>
+    <string name="date_separator">/</string>
+    <string name="address_separator">/</string>
+    <string name="address_bar_separator">></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+
+
+    <string name="email_label">E-mail</string>
+    <string name="sms_label">SMS</string>
+    <string name="phone_call_label">Telefon Görüşmesi</string>
+    <string name="name_label">Ad</string>
+    <string name="surname_label">Soyad</string>
+    <string name="birthday_label">Doğum Tarihi</string>
+    <string name="phone_label">Cep Telefonu</string>
+    <string name="sex_label">Cinsiyet</string>
+    <string name="province_label">İl</string>
+    <string name="district_label">İlçe</string>
+    <string name="address_label">Adres</string>
+    <string name="address_header_label">Adres Başlığı</string>
+    <string name="corporation_name_label">Firma Adı</string>
+    <string name="tax_number_label">Vergi Numarası</string>
+    <string name="tax_administration_label">Vergi Dairesi</string>
+    <string name="personal_label">Bireysel</string>
+    <string name="corporate_label">Kurumsal</string>
+
+    <string name="update">Güncelle</string>
+    <string name="save">Kaydet</string>
 </resources>

@@ -1,5 +1,7 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.mainMenu
 
+import ist.cabin.cabinCustomerBase.BaseContracts
+
 object CabinCustomerProfileOptionsMainMenuContracts {
 
     interface View : BaseContracts.View {
@@ -7,7 +9,10 @@ object CabinCustomerProfileOptionsMainMenuContracts {
     }
 
     interface Presenter : BaseContracts.Presenter {
-        //TODO
+        fun moveToPersonalDataPage()
+        fun moveToAddressOptionsPage()
+        fun moveToChangePasswordPage()
+        fun moveToNotificationChoicesPage()
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -19,7 +24,10 @@ object CabinCustomerProfileOptionsMainMenuContracts {
     }
 
     interface Router : BaseContracts.Router {
-        //TODO
+        fun moveToPersonalDataPage()
+        fun moveToAddressOptionsPage()
+        fun moveToChangePasswordPage()
+        fun moveToNotificationChoicesPage()
     }
 
 }

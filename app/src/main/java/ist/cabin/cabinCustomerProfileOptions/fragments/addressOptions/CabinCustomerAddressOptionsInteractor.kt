@@ -1,4 +1,4 @@
-package ist.cabin.cabinCustomerProfileOptions.fragment.addressOptions
+package ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions
 
 class CabinCustomerAddressOptionsInteractor(var output: CabinCustomerAddressOptionsContracts.InteractorOutput?) :
     CabinCustomerAddressOptionsContracts.Interactor {
@@ -9,7 +9,9 @@ class CabinCustomerAddressOptionsInteractor(var output: CabinCustomerAddressOpti
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
+    override fun getAddressData(): Int? { //TODO: FIX AND SEND PROPPER DATA
+        return 1
+    }
 
     //endregion
 }

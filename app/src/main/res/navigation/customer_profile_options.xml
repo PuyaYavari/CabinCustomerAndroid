@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/customer_profile_options">
+            android:id="@+id/customer_profile_options"
+            app:startDestination="@id/cabinCustomerProfileOptionsMainMenuFragment">
 
+    <fragment android:id="@+id/cabinCustomerProfileOptionsMainMenuFragment"
+              android:name="ist.cabin.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuFragment"
+              android:label="CabinCustomerProfileOptionsMainMenuFragment">
+        <action android:id="@+id/actionMainMenuToNotificationChoices"
+                app:destination="@id/cabinCustomerNotificationChoicesFragment"
+                app:enterAnim="@anim/slide_in_from_right" app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left" app:popExitAnim="@anim/slide_out_to_right"/>
+        <action android:id="@+id/actionMainMenuToChangePassword"
+                app:destination="@id/cabinCustomerChangePasswordFragment"
+                app:enterAnim="@anim/slide_in_from_right" app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left" app:popExitAnim="@anim/slide_out_to_right"/>
+        <action android:id="@+id/actionMainMenuToAddressOptions"
+                app:destination="@id/cabinCustomerAddressOptionsFragment"
+                app:enterAnim="@anim/slide_in_from_right" app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left" app:popExitAnim="@anim/slide_out_to_right"/>
+        <action android:id="@+id/actionMainMenuToPersonalDataOptions"
+                app:destination="@id/cabinCustomerPersonalDataOptionsFragment"
+                app:enterAnim="@anim/slide_in_from_right" app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left" app:popExitAnim="@anim/slide_out_to_right"/>
+    </fragment>
+    <fragment android:id="@+id/cabinCustomerNotificationChoicesFragment"
+              android:name="ist.cabin.cabinCustomerProfileOptions.fragments.notificationChoices.CabinCustomerNotificationChoicesFragment"
+              android:label="CabinCustomerNotificationChoicesFragment"/>
+    <fragment android:id="@+id/cabinCustomerChangePasswordFragment"
+              android:name="ist.cabin.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordFragment"
+              android:label="CabinCustomerChangePasswordFragment"/>
+    <fragment android:id="@+id/cabinCustomerAddressOptionsFragment"
+              android:name="ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsFragment"
+              android:label="CabinCustomerAddressOptionsFragment">
+        <action android:id="@+id/actionAddressOptionsToDeliveryAddress"
+                app:destination="@id/cabinCustomerDeliveryAddressFragment" app:enterAnim="@anim/slide_in_from_right"
+                app:exitAnim="@anim/slide_out_to_left" app:popEnterAnim="@anim/slide_in_from_left"
+                app:popExitAnim="@anim/slide_out_to_right"/>
+        <action android:id="@+id/actionAddressOptionsToInvoiceAddress"
+                app:destination="@id/cabinCustomerInvoiceAddressFragment" app:enterAnim="@anim/slide_in_from_right"
+                app:exitAnim="@anim/slide_out_to_left" app:popEnterAnim="@anim/slide_in_from_left"
+                app:popExitAnim="@anim/slide_out_to_right"/>
+    </fragment>
+    <fragment android:id="@+id/cabinCustomerPersonalDataOptionsFragment"
+              android:name="ist.cabin.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsFragment"
+              android:label="CabinCustomerPersonalDataOptionsFragment"/>
+    <fragment android:id="@+id/cabinCustomerDeliveryAddressFragment"
+              android:name="ist.cabin.cabinCustomerProfileOptions.fragments.deliveryAddress.CabinCustomerDeliveryAddressFragment"
+              android:label="CabinCustomerDeliveryAddressFragment">
+    </fragment>
+    <fragment android:id="@+id/cabinCustomerInvoiceAddressFragment"
+              android:name="ist.cabin.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment"
+              android:label="CabinCustomerInvoiceAddressFragment"/>
 </navigation>

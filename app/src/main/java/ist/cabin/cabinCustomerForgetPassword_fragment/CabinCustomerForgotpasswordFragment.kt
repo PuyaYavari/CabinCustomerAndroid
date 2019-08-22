@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.forgetPassword
+package ist.cabin.cabinCustomerForgetPassword_fragment
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,9 +11,11 @@ import android.widget.EditText
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabincustomer.R
 
-class CabinCustomerForgotpasswordFragment : BaseFragment(), CabinCustomerForgotpasswordContracts.View {
+class CabinCustomerForgotpasswordFragment : BaseFragment(),
+    CabinCustomerForgotpasswordContracts.View {
 
-    var presenter: CabinCustomerForgotpasswordContracts.Presenter? = CabinCustomerForgotpasswordPresenter(this)
+    var presenter: CabinCustomerForgotpasswordContracts.Presenter? =
+        CabinCustomerForgotpasswordPresenter(this)
     private lateinit var pageView: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

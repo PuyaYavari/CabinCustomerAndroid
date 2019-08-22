@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.manualMeasureInput
+package ist.cabin.cabinCustomerManualMeasureInput_fragment
 
 import ist.cabin.cabinCustomerBase.BaseContracts
 import ist.cabin.cabincustomer.models.Measure

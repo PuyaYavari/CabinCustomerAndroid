@@ -1,17 +1,27 @@
-package ist.cabin.cabinCustomerProfileOptions.fragment.addressOptions
+package ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions
+
+import ist.cabin.cabinCustomerBase.BaseContracts
 
 object CabinCustomerAddressOptionsContracts {
 
     interface View : BaseContracts.View {
-        //TODO
+        fun setupEmptyDeliveryAddressList()
+        fun setupEmptyInvoiceAddressList()
+        fun setupDeliveryAddressList()
+        fun setupInvoiceAddressList()
+        fun addDeliveryAddressListener()
+        fun addInvoiceAddressListener()
     }
 
     interface Presenter : BaseContracts.Presenter {
-        //TODO
+        fun setupDeliveryAddressList()
+        fun setupInvoiceAddressList()
+        fun moveToAddDeliveryAddressPage()
+        fun moveToAddInvoiceAddressPage()
     }
 
     interface Interactor : BaseContracts.Interactor {
-        //TODO
+        fun getAddressData(): Int?
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
@@ -19,7 +29,13 @@ object CabinCustomerAddressOptionsContracts {
     }
 
     interface Router : BaseContracts.Router {
-        //TODO
+        fun moveToAddDeliveryAddressPage()
+        fun moveToAddInvoiceAddressPage()
+    }
+
+    interface Addressbox {
+        fun getType(): Int
+        fun getAddressTypeID(): Int
     }
 
 }

@@ -1,5 +1,7 @@
 package ist.cabin.cabinCustomerProfileOptions
 
+import ist.cabin.cabinCustomerBase.BaseContracts
+
 object CabinCustomerProfileOptionsContracts {
 
     interface View : BaseContracts.View {
@@ -21,5 +23,4 @@ object CabinCustomerProfileOptionsContracts {
     interface Router : BaseContracts.Router {
         //TODO
     }
-
 }

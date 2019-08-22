@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.emailConfirmation
+package ist.cabin.cabinCustomerEmailConfirmation_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,11 @@ import android.widget.Button
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabincustomer.R
 
-class CabinCustomerEmailconfirmationFragment : BaseFragment(), CabinCustomerEmailconfirmationContracts.View {
+class CabinCustomerEmailconfirmationFragment : BaseFragment(),
+    CabinCustomerEmailconfirmationContracts.View {
 
-    var presenter: CabinCustomerEmailconfirmationContracts.Presenter? = CabinCustomerEmailconfirmationPresenter(this)
+    var presenter: CabinCustomerEmailconfirmationContracts.Presenter? =
+        CabinCustomerEmailconfirmationPresenter(this)
     private lateinit var pageView: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

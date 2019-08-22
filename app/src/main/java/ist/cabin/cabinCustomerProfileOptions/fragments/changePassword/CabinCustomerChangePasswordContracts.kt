@@ -1,5 +1,7 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.changePassword
 
+import ist.cabin.cabinCustomerBase.BaseContracts
+
 object CabinCustomerChangePasswordContracts {
 
     interface View : BaseContracts.View {

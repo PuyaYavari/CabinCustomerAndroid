@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.forgetPassword
+package ist.cabin.cabinCustomerForgetPassword_fragment
 
 class CabinCustomerForgotpasswordInteractor(var output: CabinCustomerForgotpasswordContracts.InteractorOutput?) :
     CabinCustomerForgotpasswordContracts.Interactor {

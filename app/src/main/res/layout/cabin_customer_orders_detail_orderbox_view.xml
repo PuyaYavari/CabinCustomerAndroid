@@ -5,7 +5,7 @@
         android:layout_width="344dp"
         android:layout_height="84dp"
         android:id="@+id/orders_detail_orderbox_layout"
-        android:background="@drawable/orders_detailbox_left_top_right_borders_with_seperator">
+        android:background="@drawable/orders_detailbox_left_top_right_borders_with_separator">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/orders_detail_item_code_hint"

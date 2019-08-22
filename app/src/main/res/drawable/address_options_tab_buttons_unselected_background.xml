@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <size android:width="@dimen/address_options_tab_buttons_width"
+                  android:height="@dimen/address_options_tab_buttons_height"/>
+            <solid android:color="@color/address_options_tab_buttons_unselected_background"/>
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+</selector>

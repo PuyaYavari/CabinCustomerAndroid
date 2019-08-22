@@ -5,5 +5,9 @@
 
     <fragment android:id="@+id/cabinCustomerHomeFragment"
               android:name="ist.cabin.cabincustomer.fragments.home.CabinCustomerHomeFragment"
-              android:label="CabinCustomerHomeFragment"/>
+              android:label="CabinCustomerHomeFragment">
+        <action android:id="@+id/action_cabinCustomerHomeFragment_to_customer_orders"
+                app:destination="@id/customer_orders"/>
+    </fragment>
+    <include app:graph="@navigation/customer_orders"/>
 </navigation>

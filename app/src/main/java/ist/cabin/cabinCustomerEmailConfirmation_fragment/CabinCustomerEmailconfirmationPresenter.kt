@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.emailConfirmation
+package ist.cabin.cabinCustomerEmailConfirmation_fragment
 
 import android.app.Activity
 import android.os.Bundle

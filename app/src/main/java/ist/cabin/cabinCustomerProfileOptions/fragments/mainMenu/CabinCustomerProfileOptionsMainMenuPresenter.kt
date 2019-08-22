@@ -38,7 +38,10 @@ class CabinCustomerProfileOptionsMainMenuPresenter(var view: CabinCustomerProfil
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun moveToPersonalDataPage() { router?.moveToPersonalDataPage() }
+    override fun moveToAddressOptionsPage() { router?.moveToAddressOptionsPage() }
+    override fun moveToChangePasswordPage() { router?.moveToChangePasswordPage() }
+    override fun moveToNotificationChoicesPage() { router?.moveToNotificationChoicesPage() }
 
     //endregion
 

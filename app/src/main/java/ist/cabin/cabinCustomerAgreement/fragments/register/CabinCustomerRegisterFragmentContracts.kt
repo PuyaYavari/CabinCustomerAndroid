@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.register
+package ist.cabin.cabinCustomerAgreement.fragments.register
 
 import ist.cabin.cabinCustomerBase.BaseContracts
 

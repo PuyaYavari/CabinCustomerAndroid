@@ -36,6 +36,7 @@
         <activity android:name="ist.cabin.cabinCustomerAgreement.CabinCustomerAgreementActivity"/>
         <activity android:name="ist.cabin.cabinCustomerCameraPreview.CabinCustomerCameraPreviewActivity"/>
         <activity android:name="ist.cabin.cabinCustomerCamera.CabinCustomerCameraActivity"/>
+        <activity android:name="ist.cabin.cabinCustomerProfileOptions.CabinCustomerProfileOptionsActivity"/>
     </application>
 
 </manifest>

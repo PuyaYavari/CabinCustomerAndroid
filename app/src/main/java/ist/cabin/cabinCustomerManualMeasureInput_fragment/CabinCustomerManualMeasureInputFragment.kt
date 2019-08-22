@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.manualMeasureInput
+package ist.cabin.cabinCustomerManualMeasureInput_fragment
 
 import android.os.Bundle
 import android.text.InputFilter
@@ -16,9 +16,11 @@ import androidx.core.content.res.ResourcesCompat
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabincustomer.R
 
-class CabinCustomerManualMeasureInputFragment : BaseFragment(), CabinCustomerManualMeasureInputContracts.View {
+class CabinCustomerManualMeasureInputFragment : BaseFragment(),
+    CabinCustomerManualMeasureInputContracts.View {
 
-    var presenter: CabinCustomerManualMeasureInputContracts.Presenter? = CabinCustomerManualMeasureInputPresenter(this)
+    var presenter: CabinCustomerManualMeasureInputContracts.Presenter? =
+        CabinCustomerManualMeasureInputPresenter(this)
     private lateinit var pageView: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -124,7 +126,7 @@ class CabinCustomerManualMeasureInputFragment : BaseFragment(), CabinCustomerMan
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT)
         centimeter.textSize = listTextSize * TypedValue.COMPLEX_UNIT_SP
-        centimeter.setTextColor(ContextCompat.getColor(this.context!!, R.color.cabin_purple))
+        centimeter.setTextColor(ContextCompat.getColor(this.context!!, R.color.colorPrimaryDark))
         centimeter.typeface = ResourcesCompat.getFont(this.context!!, R.font.century_gothic)
 
         boxParent.addView(background)

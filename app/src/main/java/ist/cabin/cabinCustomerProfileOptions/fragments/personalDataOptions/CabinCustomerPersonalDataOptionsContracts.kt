@@ -1,5 +1,7 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.personalDataOptions
 
+import ist.cabin.cabinCustomerBase.BaseContracts
+
 object CabinCustomerPersonalDataOptionsContracts {
 
     interface View : BaseContracts.View {

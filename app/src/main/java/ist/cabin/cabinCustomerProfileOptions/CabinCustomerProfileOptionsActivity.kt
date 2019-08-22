@@ -1,9 +1,11 @@
 package ist.cabin.cabinCustomerProfileOptions
 
 import android.os.Bundle
+import ist.cabin.cabinCustomerBase.BaseActivity
+import ist.cabin.cabincustomer.R
 
 class CabinCustomerProfileOptionsActivity : BaseActivity(),
-    CabinCustomerProfileOptionsContracts.View { //TODO: DON'T FORGET TO ADD THIS ACTIVITY TO THE MANIFEST FILE!!!
+    CabinCustomerProfileOptionsContracts.View {
 
     var presenter: CabinCustomerProfileOptionsContracts.Presenter? = CabinCustomerProfileOptionsPresenter(this)
 
@@ -11,7 +13,7 @@ class CabinCustomerProfileOptionsActivity : BaseActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.) //TODO create the layout and add it here
+        setContentView(R.layout.cabin_customer_profile_options_main)
         presenter?.onCreate(intent.extras)
     }
 

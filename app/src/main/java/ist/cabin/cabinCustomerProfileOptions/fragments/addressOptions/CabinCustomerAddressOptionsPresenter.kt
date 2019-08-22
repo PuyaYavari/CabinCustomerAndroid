@@ -1,6 +1,4 @@
-package package
-
-ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions
+package ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions
 
 import android.app.Activity
 import android.os.Bundle
@@ -22,7 +20,6 @@ class CabinCustomerAddressOptionsPresenter(var view: CabinCustomerAddressOptions
 
         bundle?.let {
             //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
         }
     }
 
@@ -38,7 +35,23 @@ class CabinCustomerAddressOptionsPresenter(var view: CabinCustomerAddressOptions
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun setupDeliveryAddressList() {
+        if (interactor?.getAddressData() == null) { view!!.setupEmptyDeliveryAddressList() }
+        else { view!!.setupDeliveryAddressList() }
+    }
+
+    override fun setupInvoiceAddressList() {
+        if (interactor?.getAddressData() == null) { view!!.setupEmptyInvoiceAddressList() }
+        else { view!!.setupInvoiceAddressList() }
+    }
+
+    override fun moveToAddDeliveryAddressPage() {
+        router?.moveToAddDeliveryAddressPage()
+    }
+
+    override fun moveToAddInvoiceAddressPage() {
+        router?.moveToAddInvoiceAddressPage()
+    }
 
     //endregion
 
