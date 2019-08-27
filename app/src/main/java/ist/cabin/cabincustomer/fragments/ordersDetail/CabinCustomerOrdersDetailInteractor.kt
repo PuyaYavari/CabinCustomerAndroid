@@ -9,7 +9,5 @@ class CabinCustomerOrdersDetailInteractor(var output: CabinCustomerOrdersDetailC
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
-
     //endregion
 }

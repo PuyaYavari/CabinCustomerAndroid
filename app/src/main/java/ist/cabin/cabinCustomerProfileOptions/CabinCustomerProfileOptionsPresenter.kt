@@ -20,7 +20,6 @@ class CabinCustomerProfileOptionsPresenter(var view: CabinCustomerProfileOptions
 
         bundle?.let {
             //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
         }
     }
 
@@ -36,13 +35,9 @@ class CabinCustomerProfileOptionsPresenter(var view: CabinCustomerProfileOptions
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
-
     //endregion
 
     //region InteractorOutput
-
-    //TODO: Implement your InteractorOutput methods here
 
     //endregion
 }

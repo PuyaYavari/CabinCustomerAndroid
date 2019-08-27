@@ -4,7 +4,7 @@ import ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions.CabinCusto
 
 class TaxInvoiceAddressBox: CabinCustomerAddressOptionsContracts.Addressbox {
 
-    /* setter getter for parameters */
+    /* setter getter for parameters *///TODO
 
     override fun getType(): Int {
         return AddressesListTypeID.TAX_INVOICE_ADDRESS_TYPE

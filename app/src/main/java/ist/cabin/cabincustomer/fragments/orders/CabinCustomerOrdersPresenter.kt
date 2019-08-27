@@ -20,10 +20,6 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
         val activity = view?.getActivityContext() as? Activity ?: return
         router = CabinCustomerOrdersRouter(activity)
 
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
     }
 
     override fun onDestroy() {
@@ -57,8 +53,6 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
     //endregion
 
     //region InteractorOutput
-
-    //TODO: Implement your InteractorOutput methods here
 
     //endregion
 }

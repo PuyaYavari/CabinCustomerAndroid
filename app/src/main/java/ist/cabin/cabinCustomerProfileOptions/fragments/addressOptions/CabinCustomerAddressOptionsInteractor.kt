@@ -9,8 +9,8 @@ class CabinCustomerAddressOptionsInteractor(var output: CabinCustomerAddressOpti
 
     //region Interactor
 
-    override fun getAddressData(): Int? { //TODO: FIX AND SEND PROPPER DATA
-        return 1
+    override fun getAddressData(): Unit? { //TODO: FIX AND SEND PROPPER DATA
+        return null
     }
 
     //endregion

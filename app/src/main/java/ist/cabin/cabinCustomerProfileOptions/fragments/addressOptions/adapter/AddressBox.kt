@@ -4,7 +4,7 @@ import ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions.CabinCusto
 
 class AddressBox(private val addressType: Int): CabinCustomerAddressOptionsContracts.Addressbox {
 
-    /* setter getter for parameters */
+    /* setter getter for parameters *///TODO
 
     override fun getType(): Int {
         return AddressesListTypeID.ADDRESS_TYPE

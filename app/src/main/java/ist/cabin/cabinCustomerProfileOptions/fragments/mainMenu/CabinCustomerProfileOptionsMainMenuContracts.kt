@@ -4,9 +4,7 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 
 object CabinCustomerProfileOptionsMainMenuContracts {
 
-    interface View : BaseContracts.View {
-        //TODO
-    }
+    interface View : BaseContracts.View
 
     interface Presenter : BaseContracts.Presenter {
         fun moveToPersonalDataPage()
@@ -15,13 +13,9 @@ object CabinCustomerProfileOptionsMainMenuContracts {
         fun moveToNotificationChoicesPage()
     }
 
-    interface Interactor : BaseContracts.Interactor {
-        //TODO
-    }
+    interface Interactor : BaseContracts.Interactor
 
-    interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
-    }
+    interface InteractorOutput : BaseContracts.InteractorOutput
 
     interface Router : BaseContracts.Router {
         fun moveToPersonalDataPage()

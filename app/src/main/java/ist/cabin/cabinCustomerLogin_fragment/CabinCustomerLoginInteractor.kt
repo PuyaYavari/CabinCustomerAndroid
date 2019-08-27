@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.login
+package ist.cabin.cabinCustomerLogin_fragment
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

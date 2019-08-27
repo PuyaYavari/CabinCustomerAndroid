@@ -5,23 +5,27 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 object CabinCustomerChangePasswordContracts {
 
     interface View : BaseContracts.View {
-        //TODO
+        fun onBackPressed()
+        fun activateAddButton()
+        fun deactivateAddButton()
+        fun showErrorMessage(title: String, message: String)
+        fun showErrorMessage(errorField: Int)
+        fun showSuccessMessage()
     }
 
     interface Presenter : BaseContracts.Presenter {
-        //TODO
+        fun setPassword(inputtedPassword: String)
+        fun setNewPassword(inputtedPassword: String)
+        fun setNewPasswordConfirmation(inputtedPassword: String)
+        fun confirmPage()
     }
 
     interface Interactor : BaseContracts.Interactor {
-        //TODO
+        fun sendPasswordData()
     }
 
-    interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
-    }
+    interface InteractorOutput : BaseContracts.InteractorOutput
 
-    interface Router : BaseContracts.Router {
-        //TODO
-    }
+    interface Router : BaseContracts.Router
 
 }

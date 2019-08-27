@@ -5,8 +5,8 @@ abstract class AddressesListTypeID {
     abstract val type: Int
 
     companion object {
-        val NO_ADDRESS_TYPE = 0
-        val ADDRESS_TYPE = 1
-        val TAX_INVOICE_ADDRESS_TYPE = 2
+        const val NO_ADDRESS_TYPE: Int = 0
+        const val ADDRESS_TYPE: Int = 1
+        const val TAX_INVOICE_ADDRESS_TYPE: Int = 2
     }
 }

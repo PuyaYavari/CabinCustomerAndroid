@@ -5,8 +5,10 @@
     <dimen name="default_header_divider_alpha">0.2</dimen>
 
     <dimen name="change_password_labels_background_elevation">3dp</dimen>
+    <dimen name="change_password_save_button_height">40dp</dimen>
 
     <dimen name="personal_data_options_labels_background_elevation">3dp</dimen>
+    <dimen name="personal_data_options_save_button_height">40dp</dimen>
 
     <dimen name="address_options_tab_buttons_width">167.5dp</dimen>
     <dimen name="address_options_tab_buttons_height">40dp</dimen>

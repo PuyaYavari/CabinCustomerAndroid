@@ -10,7 +10,5 @@ class CabinCustomerChangePasswordRouter(var activity: Activity?) : CabinCustomer
 
     //region Router
 
-    //TODO: Implement your Router methods here
-
     //endregion
 }

@@ -9,7 +9,9 @@ class CabinCustomerNotificationChoicesInteractor(var output: CabinCustomerNotifi
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
+    override fun recieveInitialData() {
+        //TODO: RECEIVE AND RETURN INITIAL DATA FROM BACKEND
+    }
 
     //endregion
 }

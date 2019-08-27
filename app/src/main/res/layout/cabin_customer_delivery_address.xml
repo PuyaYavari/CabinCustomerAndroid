@@ -380,6 +380,19 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:prompt="@string/delivery_and_invoice_address_province_hint"/>
+                <ImageView
+                        android:id="@+id/delivery_address_province_arrow"
+                        android:layout_width="9dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:rotation="90"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_cabin_colored_arrow" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
@@ -457,6 +470,19 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:prompt="@string/delivery_and_invoice_address_district_hint"/>
+                <ImageView
+                        android:id="@+id/delivery_address_district_arrow"
+                        android:layout_width="9dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:rotation="90"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_cabin_colored_arrow" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
@@ -636,7 +662,10 @@
                 android:background="@drawable/delivery_address_button_background"
                 android:text="@string/save"
                 android:textColor="@color/delivery_address_button_labels"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:clickable="false"
+                android:enabled="false"
+                android:alpha="0.5"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

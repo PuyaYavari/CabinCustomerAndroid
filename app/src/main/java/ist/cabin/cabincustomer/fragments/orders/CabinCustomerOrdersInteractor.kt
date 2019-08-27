@@ -9,7 +9,5 @@ class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.Int
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
-
     //endregion
 }

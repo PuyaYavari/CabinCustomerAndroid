@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.login
+package ist.cabin.cabinCustomerLogin_fragment
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,9 +11,11 @@ import android.widget.EditText
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabincustomer.R
 
-class CabinCustomerLoginFragment : BaseFragment(), CabinCustomerLoginContracts.View {
+class CabinCustomerLoginFragment : BaseFragment(),
+    CabinCustomerLoginContracts.View {
 
-    var presenter: CabinCustomerLoginContracts.Presenter? = CabinCustomerLoginPresenter(this)
+    var presenter: CabinCustomerLoginContracts.Presenter? =
+        CabinCustomerLoginPresenter(this)
     private lateinit var pageView: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

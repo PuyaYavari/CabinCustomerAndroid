@@ -9,7 +9,9 @@ class CabinCustomerInvoiceAddressInteractor(var output: CabinCustomerInvoiceAddr
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
+    override fun saveData() {
+        //TODO: save data
+    }
 
     //endregion
 }

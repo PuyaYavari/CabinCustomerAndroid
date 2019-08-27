@@ -10,7 +10,5 @@ class CabinCustomerDeliveryAddressRouter(var activity: Activity?) : CabinCustome
 
     //region Router
 
-    //TODO: Implement your Router methods here
-
     //endregion
 }

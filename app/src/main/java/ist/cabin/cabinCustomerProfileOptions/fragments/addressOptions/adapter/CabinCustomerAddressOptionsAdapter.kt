@@ -64,7 +64,8 @@ class CabinCustomerAddressOptionsAdapter (val fragment: CabinCustomerAddressOpti
                     holder.itemView.findViewById<Button>(R.id.address_options_no_address_add_button).text =
                         fragment.getActivityContext()?.resources?.getText(R.string.add_delivery_address)
                     holder.itemView.findViewById<Button>(R.id.address_options_no_address_add_button)
-                        .setOnClickListener { fragment.addDeliveryAddressListener() }
+                        .setOnClickListener { fragment.addDeliveryAddressListener(null,null,
+                            null,null,null,null,null) }
                 } else {
                     holder.itemView.findViewById<TextView>(R.id.address_options_no_address_text).text =
                         fragment.getActivityContext()?.resources?.getText(R.string.no_invoice_address_text)
@@ -73,23 +74,54 @@ class CabinCustomerAddressOptionsAdapter (val fragment: CabinCustomerAddressOpti
                     holder.itemView.findViewById<Button>(R.id.address_options_no_address_add_button).text =
                         fragment.getActivityContext()?.resources?.getText(R.string.add_invoice_address)
                     holder.itemView.findViewById<Button>(R.id.address_options_no_address_add_button)
-                        .setOnClickListener { fragment.addInvoiceAddressListener() }
+                        .setOnClickListener { fragment.addInvoiceAddressListener(null,null,null,
+                            null,null,null,null,null,null,null,null) }
                 }
             }
             AddressesListTypeID.ADDRESS_TYPE -> {
                 val holder = viewHolder as AddressViewHolder
                 if(myDataset[position].getAddressTypeID() == AddressTypeID.DELIVERY) {
                     holder.itemView.findViewById<LinearLayout>(R.id.address_options_delivery_addressbox_layout)
-                        .setOnClickListener { fragment.addDeliveryAddressListener() }
+                        .setOnClickListener { fragment.addDeliveryAddressListener( //TODO: REMOVE NULLS AND SEND DATA FROM DATASET TO LISTENER
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ) }
                 } else {
                     holder.itemView.findViewById<LinearLayout>(R.id.address_options_delivery_addressbox_layout)
-                        .setOnClickListener { fragment.addInvoiceAddressListener() }
+                        .setOnClickListener { fragment.addInvoiceAddressListener( //TODO: REMOVE NULLS AND SEND DATA FROM DATASET TO LISTENER
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            false,
+                            null,
+                            null,
+                            null) }
                 }
             }
             AddressesListTypeID.TAX_INVOICE_ADDRESS_TYPE -> {
                 val holder = viewHolder as TaxInvoiceAddressViewHolder
                 holder.itemView.findViewById<LinearLayout>(R.id.address_options_invoice_addressbox_layout)
-                    .setOnClickListener { fragment.addInvoiceAddressListener() }
+                    .setOnClickListener { fragment.addInvoiceAddressListener(//TODO: REMOVE NULLS AND SEND DATA FROM DATASET TO LISTENER
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        true,
+                        null,
+                        null,
+                        null) }
             }
             else -> throw IllegalStateException("unsupported item type")
         }

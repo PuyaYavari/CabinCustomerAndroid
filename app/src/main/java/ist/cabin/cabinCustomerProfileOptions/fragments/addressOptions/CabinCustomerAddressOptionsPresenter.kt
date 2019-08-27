@@ -9,6 +9,8 @@ class CabinCustomerAddressOptionsPresenter(var view: CabinCustomerAddressOptions
     var interactor: CabinCustomerAddressOptionsContracts.Interactor? = CabinCustomerAddressOptionsInteractor(this)
     var router: CabinCustomerAddressOptionsContracts.Router? = null
 
+    private var currentTab: Tab = Tab.DELIVERY
+
     //region Lifecycle
 
     override fun onCreate(bundle: Bundle?) {
@@ -33,31 +35,67 @@ class CabinCustomerAddressOptionsPresenter(var view: CabinCustomerAddressOptions
 
     //endregion
 
-    //region Presenter
+    override fun setupPage() {
+        if (currentTab == Tab.DELIVERY) { setupDeliveryAddressList() }
+        else { setupInvoiceAddressList() }
+    }
 
     override fun setupDeliveryAddressList() {
-        if (interactor?.getAddressData() == null) { view!!.setupEmptyDeliveryAddressList() }
+        if (interactor?.getAddressData() == null) { view!!.setupEmptyDeliveryAddressList() } //FIXME: NULL SHOULD BE REPLACED WITH PREOPER DATA FROM BACKEND
         else { view!!.setupDeliveryAddressList() }
+        currentTab = Tab.DELIVERY
     }
 
     override fun setupInvoiceAddressList() {
-        if (interactor?.getAddressData() == null) { view!!.setupEmptyInvoiceAddressList() }
+        if (interactor?.getAddressData() == null) { view!!.setupEmptyInvoiceAddressList() } //FIXME: NULL SHOULD BE REPLACED WITH PREOPER DATA FROM BACKEND
         else { view!!.setupInvoiceAddressList() }
+        currentTab = Tab.INVOICE
     }
 
-    override fun moveToAddDeliveryAddressPage() {
-        router?.moveToAddDeliveryAddressPage()
+    override fun moveToAddDeliveryAddressPage(
+        name: String?,
+        surname: String?,
+        phone: String?,
+        province: String?,
+        district: String?,
+        address: String?,
+        addressHeader: String?
+    ) {
+        router?.moveToAddDeliveryAddressPage(name, surname, phone, province, district, address, addressHeader)
     }
 
-    override fun moveToAddInvoiceAddressPage() {
-        router?.moveToAddInvoiceAddressPage()
+    override fun moveToAddInvoiceAddressPage(
+        name: String?,
+        surname: String?,
+        phone: String?,
+        province: String?,
+        district: String?,
+        address: String?,
+        addressHeader: String?,
+        isCorporate: Boolean?,
+        corporationName: String?,
+        taxNo: String?,
+        taxAdministration: String?
+    ) {
+        if (isCorporate == null){
+            router?.moveToAddInvoiceAddressPage(
+                name, surname, phone, province, district, address,
+                addressHeader, false, null, null, null)
+        } else {
+            router?.moveToAddInvoiceAddressPage(
+                name, surname, phone, province, district, address,
+                addressHeader, isCorporate, corporationName, taxNo, taxAdministration
+            )
+        }
     }
 
     //endregion
 
     //region InteractorOutput
 
-    //TODO: Implement your InteractorOutput methods here
-
     //endregion
+
+    private enum class Tab{
+        DELIVERY, INVOICE
+    }
 }

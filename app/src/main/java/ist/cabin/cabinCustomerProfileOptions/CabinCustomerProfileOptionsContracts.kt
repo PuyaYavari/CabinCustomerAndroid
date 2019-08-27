@@ -4,23 +4,13 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 
 object CabinCustomerProfileOptionsContracts {
 
-    interface View : BaseContracts.View {
-        //TODO
-    }
+    interface View : BaseContracts.View
 
-    interface Presenter : BaseContracts.Presenter {
-        //TODO
-    }
+    interface Presenter : BaseContracts.Presenter
 
-    interface Interactor : BaseContracts.Interactor {
-        //TODO
-    }
+    interface Interactor : BaseContracts.Interactor
 
-    interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
-    }
+    interface InteractorOutput : BaseContracts.InteractorOutput
 
-    interface Router : BaseContracts.Router {
-        //TODO
-    }
+    interface Router : BaseContracts.Router
 }

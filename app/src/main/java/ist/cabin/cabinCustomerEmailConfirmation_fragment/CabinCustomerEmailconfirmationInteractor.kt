@@ -9,7 +9,5 @@ class CabinCustomerEmailconfirmationInteractor(var output: CabinCustomerEmailcon
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
-
     //endregion
 }

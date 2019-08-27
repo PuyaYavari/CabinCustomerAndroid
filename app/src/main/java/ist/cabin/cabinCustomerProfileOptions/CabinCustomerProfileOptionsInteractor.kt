@@ -9,7 +9,5 @@ class CabinCustomerProfileOptionsInteractor(var output: CabinCustomerProfileOpti
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
-
     //endregion
 }

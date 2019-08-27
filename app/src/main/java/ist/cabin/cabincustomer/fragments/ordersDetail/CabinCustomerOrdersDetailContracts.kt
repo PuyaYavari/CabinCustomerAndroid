@@ -14,17 +14,11 @@ object CabinCustomerOrdersDetailContracts {
         fun setupPropperPage(pageID: Int)
     }
 
-    interface Interactor : BaseContracts.Interactor {
-        //TODO
-    }
+    interface Interactor : BaseContracts.Interactor
 
-    interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
-    }
+    interface InteractorOutput : BaseContracts.InteractorOutput
 
-    interface Router : BaseContracts.Router {
-        //TODO
-    }
+    interface Router : BaseContracts.Router 
 
     interface Detailbox {
         fun getType(): Int

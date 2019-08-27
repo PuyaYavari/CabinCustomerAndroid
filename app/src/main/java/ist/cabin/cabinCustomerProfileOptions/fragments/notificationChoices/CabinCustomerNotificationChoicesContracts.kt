@@ -4,24 +4,22 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 
 object CabinCustomerNotificationChoicesContracts {
 
-    interface View : BaseContracts.View {
-        //TODO
-    }
+    interface View : BaseContracts.View
 
     interface Presenter : BaseContracts.Presenter {
-        //TODO
+        fun setEmail(emailState: Boolean)
+        fun setPhone(phoneState: Boolean)
+        fun setSMS(smsState: Boolean)
+        fun reciveInitialData() //TODO: RECEIVE INITIAL DATA
     }
 
     interface Interactor : BaseContracts.Interactor {
-        //TODO
+        fun recieveInitialData() //TODO: RECEIVE INITIAL DATA
+        //TODO: SEND DATA TO BACKEND
     }
 
-    interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
-    }
+    interface InteractorOutput : BaseContracts.InteractorOutput
 
-    interface Router : BaseContracts.Router {
-        //TODO
-    }
+    interface Router : BaseContracts.Router
 
 }

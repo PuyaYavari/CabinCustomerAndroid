@@ -37,7 +37,5 @@ class CabinCustomerProfileOptionsActivity : BaseActivity(),
 
     //region View
 
-    //TODO: Implement your View methods here
-
     //endregion
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Switch
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabincustomer.R
 
@@ -46,6 +47,27 @@ class CabinCustomerNotificationChoicesFragment : BaseFragment(), CabinCustomerNo
     private fun setupPage() {
         pageView.findViewById<ImageButton>(R.id.notification_choices_back_button)
             .setOnClickListener { activity!!.onBackPressed() }
+
+        setInitialStates()
+
+        pageView.findViewById<Switch>(R.id.notification_choices_email_switch)
+            .setOnCheckedChangeListener { _, isChecked ->
+                presenter?.setEmail(isChecked)
+            }
+
+        pageView.findViewById<Switch>(R.id.notification_choices_phone_switch)
+            .setOnCheckedChangeListener { _, isChecked ->
+                presenter?.setPhone(isChecked)
+            }
+
+        pageView.findViewById<Switch>(R.id.notification_choices_sms_switch)
+            .setOnCheckedChangeListener { _, isChecked ->
+                presenter?.setSMS(isChecked)
+            }
+    }
+
+    private fun setInitialStates() {
+        //TODO: RECEIVE DATA FROM BACKEND AND VISUALIZE
     }
 
     //endregion

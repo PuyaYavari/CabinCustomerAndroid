@@ -9,7 +9,9 @@ class CabinCustomerChangePasswordInteractor(var output: CabinCustomerChangePassw
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
+    override fun sendPasswordData() {
+        //TODO: SEND JSON TO BACKEND
+    }
 
     //endregion
 }

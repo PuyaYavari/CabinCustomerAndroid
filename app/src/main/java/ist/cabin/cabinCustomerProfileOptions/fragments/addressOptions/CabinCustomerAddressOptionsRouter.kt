@@ -12,13 +12,36 @@ class CabinCustomerAddressOptionsRouter(var activity: Activity?) : CabinCustomer
 
     //region Router
 
-    override fun moveToAddDeliveryAddressPage() {
-        val action = CabinCustomerAddressOptionsFragmentDirections.actionAddressOptionsToDeliveryAddress()
+    override fun moveToAddDeliveryAddressPage(
+        name: String?,
+        surname: String?,
+        phone: String?,
+        province: String?,
+        district: String?,
+        address: String?,
+        addressHeader: String?
+    ) {
+        val action = CabinCustomerAddressOptionsFragmentDirections
+            .actionAddressOptionsToDeliveryAddress(name, surname, phone, province, district, address, addressHeader)
         activity!!.findNavController(R.id.profile_options_nav_host_fragment).navigate(action)
     }
 
-    override fun moveToAddInvoiceAddressPage() {
-        val action = CabinCustomerAddressOptionsFragmentDirections.actionAddressOptionsToInvoiceAddress()
+    override fun moveToAddInvoiceAddressPage(
+        name: String?,
+        surname: String?,
+        phone: String?,
+        province: String?,
+        district: String?,
+        address: String?,
+        addressHeader: String?,
+        isCorporate: Boolean,
+        corporationName: String?,
+        taxNo: String?,
+        taxAdministration: String?
+    ) {
+        val action = CabinCustomerAddressOptionsFragmentDirections
+            .actionAddressOptionsToInvoiceAddress(name, surname, phone, province, district, address,
+                addressHeader, isCorporate, corporationName, taxNo, taxAdministration)
         activity!!.findNavController(R.id.profile_options_nav_host_fragment).navigate(action)
     }
 

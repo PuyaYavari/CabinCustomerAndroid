@@ -22,7 +22,6 @@ class CabinCustomerProfileOptionsMainMenuPresenter(var view: CabinCustomerProfil
 
         bundle?.let {
             //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
         }
     }
 
@@ -46,8 +45,6 @@ class CabinCustomerProfileOptionsMainMenuPresenter(var view: CabinCustomerProfil
     //endregion
 
     //region InteractorOutput
-
-    //TODO: Implement your InteractorOutput methods here
 
     //endregion
 }

@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.login
+package ist.cabin.cabinCustomerLogin_fragment
 
 import ist.cabin.cabinCustomerBase.BaseContracts
 

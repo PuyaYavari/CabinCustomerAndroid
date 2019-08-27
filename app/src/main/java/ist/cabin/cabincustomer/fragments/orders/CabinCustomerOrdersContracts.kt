@@ -4,9 +4,7 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 
 object CabinCustomerOrdersContracts {
 
-    interface View : BaseContracts.View {
-        //TODO
-    }
+    interface View : BaseContracts.View
 
     interface FragmentsView : BaseContracts.View {
         fun orderboxOnClickListener()
@@ -19,13 +17,9 @@ object CabinCustomerOrdersContracts {
         fun moveToDiscoverPage()
     }
 
-    interface Interactor : BaseContracts.Interactor {
-        //TODO
-    }
+    interface Interactor : BaseContracts.Interactor
 
-    interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
-    }
+    interface InteractorOutput : BaseContracts.InteractorOutput
 
     interface Router : BaseContracts.Router {
         fun moveToFavoritesPage()

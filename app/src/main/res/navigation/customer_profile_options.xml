@@ -48,8 +48,98 @@
     <fragment android:id="@+id/cabinCustomerDeliveryAddressFragment"
               android:name="ist.cabin.cabinCustomerProfileOptions.fragments.deliveryAddress.CabinCustomerDeliveryAddressFragment"
               android:label="CabinCustomerDeliveryAddressFragment">
+        <argument
+                android:name="name"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="surname"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="phone"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="province"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="district"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="address"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="addressHeader"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
     </fragment>
     <fragment android:id="@+id/cabinCustomerInvoiceAddressFragment"
               android:name="ist.cabin.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment"
-              android:label="CabinCustomerInvoiceAddressFragment"/>
+              android:label="CabinCustomerInvoiceAddressFragment">
+        <argument
+                android:name="name"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="surname"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="phone"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="province"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="district"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="address"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="addressHeader"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="isCorporate"
+                app:argType="boolean"
+                android:defaultValue="false" />
+        <argument
+                android:name="corporationName"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="taxNo"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        <argument
+                android:name="taxAdministration"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+    </fragment>
 </navigation>

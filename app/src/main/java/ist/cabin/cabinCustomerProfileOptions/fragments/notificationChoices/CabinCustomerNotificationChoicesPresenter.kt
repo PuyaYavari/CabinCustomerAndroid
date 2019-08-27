@@ -10,6 +10,10 @@ class CabinCustomerNotificationChoicesPresenter(var view: CabinCustomerNotificat
         CabinCustomerNotificationChoicesInteractor(this)
     var router: CabinCustomerNotificationChoicesContracts.Router? = null
 
+    private var email: Boolean = false
+    private var phone: Boolean = false
+    private var sms: Boolean = false
+
     //region Lifecycle
 
     override fun onCreate(bundle: Bundle?) {
@@ -21,7 +25,6 @@ class CabinCustomerNotificationChoicesPresenter(var view: CabinCustomerNotificat
 
         bundle?.let {
             //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
         }
     }
 
@@ -35,15 +38,25 @@ class CabinCustomerNotificationChoicesPresenter(var view: CabinCustomerNotificat
 
     //endregion
 
-    //region Presenter
+    override fun setEmail(emailState: Boolean) {
+        this.email = emailState //TODO: SEND TO BACKEND
+    }
 
-    //TODO: Implement your Presenter methods here
+    override fun setPhone(phoneState: Boolean) {
+        this.phone = phoneState //TODO: SEND TO BACKEND
+    }
+
+    override fun setSMS(smsState: Boolean) {
+        this.sms = smsState //TODO: SEND TO BACKEND
+    }
+
+    override fun reciveInitialData() {
+        interactor?.recieveInitialData() //TODO: RECEIVE AND RETURN INITIAL DATA
+    }
 
     //endregion
 
     //region InteractorOutput
-
-    //TODO: Implement your InteractorOutput methods here
 
     //endregion
 }

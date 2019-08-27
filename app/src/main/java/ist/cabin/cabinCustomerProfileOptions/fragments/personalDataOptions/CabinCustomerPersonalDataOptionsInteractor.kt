@@ -9,7 +9,7 @@ class CabinCustomerPersonalDataOptionsInteractor(var output: CabinCustomerPerson
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
+    //TODO: CREATE JSONS AND SEND TO BACKEND
 
     //endregion
 }
