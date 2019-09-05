@@ -3,7 +3,7 @@
 
     <item>
         <shape android:shape="rectangle" >
-            <solid android:color="@color/orders_detail_table_borders" />
+            <solid android:color="@color/colorBordersPrimary" />
             <padding
             android:bottom="0.5dp"
             android:left="0.5dp"

@@ -118,6 +118,8 @@
     <string name="date_separator">/</string>
     <string name="address_separator">/</string>
     <string name="address_bar_separator">></string>
+    <string name="separator_dots">:</string>
+    <string name="separator_dash">-</string>
 
 
 
@@ -148,6 +150,13 @@
     <string name="tax_administration_label">Vergi Dairesi</string>
     <string name="personal_label">Bireysel</string>
     <string name="corporate_label">Kurumsal</string>
+    <string name="size_label">Beden</string>
+    <string name="color_label">Renk</string>
+    <string name="cargo_date_label">Kargoya Veriliş</string>
+    <string name="finish_trade_label">Alışverişi Tamamla</string>
+    <string name="sum_label">Toplam</string>
+    <string name="middle_sum_label">Ara Toplam</string>
+    <string name="cargo_sum">Kargo Toplam</string>
 
     <string name="update">Güncelle</string>
     <string name="save">Kaydet</string>

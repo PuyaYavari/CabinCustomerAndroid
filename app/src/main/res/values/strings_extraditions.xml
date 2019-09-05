@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--main-->
+    <string name="extraditions_header_label">İade Taleplerim</string>
+    <string name="product_id_label">Ürün Kodu</string>
+    <!--/main-->
+
+    <!--Extraditions List-->
+    <string name="no_extraditions_label">İade talebiniz bulunmamaktadır.</string>
+    <string name="no_extraditions_hint">Beklediğinizden farklı gelen ürünleri iade etmek
+için iade talebinizi buradan oluşturabilirsiniz.</string>
+    <string name="add_extradition_button_label">İade Talebi Oluştur</string>
+    <!--/Extraditions List-->
+
+    <!--Current Products List-->
+    <string name="extraditions_current_products_list_helper_text">İade talebi oluşturmak istediğiniz ürünleri seçiniz.</string>
+    <string name="extraditions_current_products_list_add_button_label">Devam</string>
+    <!--/Current Products List-->
+
+    <!--Add Extradition-->
+    <string name="add_extradition_extradition_reason_hint">İade Nedeninizi Giriniz</string>
+    <string name="add_extradition_extradition_reason_label">İade Nedeni</string>
+    <string name="add_extradition_product_images_label">Ürün Fotoğrafları</string>
+    <string name="add_extradition_add_button_label">Oluştur</string>
+    <!--/Add Extradition-->
+
+    <!--Congratulations-->
+    <string name="extraditions_congratulations_text">İade talebiniz markaya iletilmiştir.\n\n
+        Talebinizin durumunu "İade Taleplerim"\n
+        ekranından takip edebilirsiniz.</string>
+    <!--/Congratulations-->
+
+    <!--Extradition Detail-->
+    <string name="extradition_number_label">İade Numarası</string>
+    <string name="extradition_request_date">Talep Tarihi</string>
+    <string name="extradition_request_received">Talep Alındı</string>
+    <string name="extradition_being_analyzed">İnceleniyor</string>
+    <string name="extradition_done">Sonuçlandı</string>
+    <string name="extradition_being_analyzed_text">İade talebiniz incelenmek üzere ürünü satın aldığınız butiğe iletilmiştir.</string>
+    <string name="extradition_denied_text">İade talebiniz butik tarafından reddedilmiştir.\n\nRed sebebini aşağıda görüntüleyebilirsiniz.</string>
+    <string name="extradition_accepted_text">İade talebiniz butik tarafından onaylanmıştır. \n\n
+        İade sürecini tamamlamak için aşağıdaki\n
+        adımları izlemelisiniz.</string>
+    <string name="extradition_denied_reason_label">Red Sebebi</string>
+    <string name="extradition_denied_reason_hint">Reason Filled By Seller</string>
+    <string name="extradition_state_denied">Reddedildi</string>
+    <string name="extradition_state_accepted">Onaylandı</string>
+    <string name="extradition_state_waiting">Beklemede</string>
+    <string name="extradition_process_label">İade Süreci</string>
+    <string name="extradition_process_first_step">Ürünü zarar gelmeyecek şekilde faturasıyla birlikte kargo poşetine koyunuz.</string>
+    <string name="extradition_process_second_step">Kargo poşetinin üzerine iade numarası ve gönderim adresini yazarak ilgili adrese gönderiniz.</string>
+    <string name="extradition_process_sender_address_label">Gönderim Adresi</string>
+    <string name="extradition_accepted_address_label">Gönderim Adresi</string>
+    <string name="extradition_accepted_address_hint">Address Filled By Seller</string>
+    <string name="extradition_accepted_tracking_number_label">Takip Numarası</string>
+    <string name="extradition_accepted_tracking_number_hint">Takip Numarasını Girin</string>
+    <!--/Extradition Detail-->
+</resources>

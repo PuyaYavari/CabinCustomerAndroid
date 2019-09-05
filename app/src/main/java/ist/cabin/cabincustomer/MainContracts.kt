@@ -5,6 +5,7 @@ object MainContracts {
 
     interface Presenter: ist.cabin.cabinCustomerBase.BaseContracts.Presenter {
         fun moveToProfileOptions()
+        fun moveToExtraditions()
     }
 
     interface Interactor: ist.cabin.cabinCustomerBase.BaseContracts.Interactor
@@ -13,5 +14,6 @@ object MainContracts {
 
     interface Router: ist.cabin.cabinCustomerBase.BaseContracts.Router {
         fun moveToProfileOptions()
+        fun moveToExtraditions()
     }
 }

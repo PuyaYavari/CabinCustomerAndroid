@@ -1,6 +1,11 @@
 package ist.cabin.cabincustomer.fragments.cart
 
 import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import androidx.core.content.ContextCompat
+import ist.cabin.cabinCustomerBase.BaseContracts
+import ist.cabin.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity
 
 class CabinCustomerCartRouter(var activity: Activity?) :
     CabinCustomerCartContracts.Router {
@@ -11,20 +16,11 @@ class CabinCustomerCartRouter(var activity: Activity?) :
 
     //region Router
 
-    override fun moveToOrdersPage() {
-
-    }
-
-    override fun moveToFavoritesPage() {
-
-    }
-
-    override fun moveToHomePage() {
-
-    }
-
-    override fun moveToDiscoverPage() {
-
+    override fun moveToFinishTrade() {
+        val customerFinishTradeActivity: BaseContracts.View = CabinCustomerFinishTradeActivity()
+        val intent = Intent(activity, customerFinishTradeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        ContextCompat.startActivity(activity!!.applicationContext, intent, Bundle.EMPTY)
     }
 
     //endregion

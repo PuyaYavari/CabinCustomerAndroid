@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/customer_extraditions"
+        app:startDestination="@id/cabinCustomerExtraditionsListFragment">
+
+    <fragment
+            android:id="@+id/cabinCustomerExtraditionsListFragment"
+            android:name="ist.cabin.cabinCustomerExtraditions.fragments.extraditionsList.CabinCustomerExtraditionsListFragment"
+            android:label="CabinCustomerExtraditionsListFragment" >
+        <action
+                android:id="@+id/actionExtraditionsListToAddExtraditionCurrentItemsList"
+                app:destination="@id/cabinCustomerAddExtraditionCurrentItemsListFragment"
+                app:enterAnim="@anim/slide_in_from_bottom"
+                app:exitAnim="@anim/slide_out_to_top"
+                app:popEnterAnim="@anim/slide_in_from_top"
+                app:popExitAnim="@anim/slide_out_to_bottom" />
+        <action
+                android:id="@+id/actionExtraditionsListToExtraditionDetail"
+                app:destination="@id/cabinCustomerExtraditionDetailFragment"
+                app:enterAnim="@anim/slide_in_from_right"
+                app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left"
+                app:popExitAnim="@anim/slide_out_to_right" />
+        <action
+                android:id="@+id/actionExtraditionsListToExtraditionDetailDenied"
+                app:destination="@id/cabinCustomerExtraditionDetailDeniedFragment"
+                app:enterAnim="@anim/slide_in_from_right"
+                app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left"
+                app:popExitAnim="@anim/slide_out_to_right" />
+        <action
+                android:id="@+id/actionExtraditionsListToExtraditionDetailAccepted"
+                app:destination="@id/cabinCustomerExtraditionDetailAcceptedFragment"
+                app:enterAnim="@anim/slide_in_from_right"
+                app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left"
+                app:popExitAnim="@anim/slide_out_to_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerAddExtraditionFragment"
+            android:name="ist.cabin.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionFragment"
+            android:label="CabinCustomerAddExtraditionFragment" >
+        <action
+                android:id="@+id/actionAddExtraditionToExtraditionsCongratulations"
+                app:destination="@id/cabinCustomerExtraditionsCongratulationsFragment"
+                app:enterAnim="@anim/slide_in_from_bottom"
+                app:exitAnim="@anim/slide_out_to_top"
+                app:popEnterAnim="@anim/slide_in_from_bottom"
+                app:popExitAnim="@anim/slide_out_to_top"
+                app:popUpTo="@+id/cabinCustomerExtraditionsListFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerAddExtraditionCurrentItemsListFragment"
+            android:name="ist.cabin.cabinCustomerExtraditions.fragments.addExtraditionCurrentItemsList.CabinCustomerAddExtraditionCurrentItemsListFragment"
+            android:label="CabinCustomerAddExtraditionCurrentItemsListFragment" >
+        <action
+                android:id="@+id/actionAddExtraditionCurrentItemsListToAddExtradition"
+                app:destination="@id/cabinCustomerAddExtraditionFragment"
+                app:enterAnim="@anim/slide_in_from_bottom"
+                app:exitAnim="@anim/slide_out_to_top"
+                app:popEnterAnim="@anim/slide_in_from_top"
+                app:popExitAnim="@anim/slide_out_to_bottom" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerExtraditionsCongratulationsFragment"
+            android:name="ist.cabin.cabinCustomerExtraditions.fragments.congratulations.CabinCustomerExtraditionsCongratulationsFragment"
+            android:label="CabinCustomerExtraditionsCongratulationsFragment" />
+    <fragment
+            android:id="@+id/cabinCustomerExtraditionDetailFragment"
+            android:name="ist.cabin.cabinCustomerExtraditions.fragments.extraditionDetail.CabinCustomerExtraditionDetailFragment"
+            android:label="CabinCustomerExtraditionDetailFragment" />
+    <fragment
+            android:id="@+id/cabinCustomerExtraditionDetailDeniedFragment"
+            android:name="ist.cabin.cabinCustomerExtraditions.fragments.extraditionDetailDenied.CabinCustomerExtraditionDetailDeniedFragment"
+            android:label="CabinCustomerExtraditionDetailDeniedFragment" />
+    <fragment
+            android:id="@+id/cabinCustomerExtraditionDetailAcceptedFragment"
+            android:name="ist.cabin.cabinCustomerExtraditions.fragments.extraditionDetailAccepted.CabinCustomerExtraditionDetailAcceptedFragment"
+            android:label="CabinCustomerExtraditionDetailAcceptedFragment" />
+</navigation>

@@ -15,7 +15,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.1"
-            android:textColor="@color/orders_detail_labels" app:layout_constraintVertical_bias="1.0"
+            android:textColor="@color/colorTextsPrimary" app:layout_constraintVertical_bias="1.0"
             android:textSize="12sp" android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toTopOf="@+id/orders_detail_item_code" android:textStyle="bold"/>
     <TextView
@@ -27,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/orders_detail_color_label"
             app:layout_constraintTop_toTopOf="@+id/orders_detail_color_label"
             android:textSize="12sp"
-            android:textColor="@color/orders_detail_labels"
+            android:textColor="@color/colorTextsPrimary"
     />
     <TextView
             android:text="Mavi"
@@ -38,7 +38,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.52"
             android:textSize="12sp" app:layout_constraintHorizontal_bias="0.59"
-            android:textColor="@color/orders_detail_labels"/>
+            android:textColor="@color/colorTextsPrimary"/>
     <TextView
             android:text="M"
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:textColor="@color/orders_detail_labels"
+            app:layout_constraintTop_toTopOf="parent" android:textColor="@color/colorTextsPrimary"
             android:textSize="12sp" app:layout_constraintVertical_bias="0.51"
             app:layout_constraintHorizontal_bias="0.76"/>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/orders_detail_price"
                 android:textSize="12sp"
-                android:textColor="@color/order_price_label_color"
+                android:textColor="@color/colorPriceGreen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -81,7 +81,7 @@
                 app:layout_constraintStart_toEndOf="@+id/orders_detail_price"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" android:gravity="center"
-                android:textColor="@color/order_price_label_color"/>
+                android:textColor="@color/colorPriceGreen"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="wrap_content"
                                                        android:layout_height="match_parent"
@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content" android:id="@+id/orders_detail_ordercount_label"
                     app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                    android:textSize="8sp" android:textColor="@color/order_count_label_color"/>
+                    android:textSize="8sp" android:textColor="@color/colorButtonLabelsPrimary"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

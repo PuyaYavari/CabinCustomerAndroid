@@ -29,6 +29,8 @@ class MainActivity : BaseActivity(),
         setContentView(R.layout.cabin_customer_main)
         presenter?.onCreate(intent.extras)
 
+        overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.slide_out_to_top)
+
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         } // Else, need to wait for onRestoreInstanceState
@@ -41,11 +43,10 @@ class MainActivity : BaseActivity(),
 
         val nv: NavigationView = findViewById<View>(R.id.homepage_sidenav) as NavigationView
         nv.setNavigationItemSelectedListener { item ->
-            val id = item.itemId
-            when (id) {
+            when (item.itemId) {
                 R.id.sidenav_profile_options -> presenter?.moveToProfileOptions()
                 R.id.sidenav_body_measure -> Toast.makeText(this@MainActivity, "Measures", Toast.LENGTH_SHORT).show()
-                R.id.sidenav_extradition -> Toast.makeText(this@MainActivity, "Extraditions", Toast.LENGTH_SHORT).show()
+                R.id.sidenav_extradition -> presenter?.moveToExtraditions()
                 R.id.sidenav_help -> Toast.makeText(this@MainActivity, "Help", Toast.LENGTH_SHORT).show()
                 R.id.sidenav_exit -> Toast.makeText(this@MainActivity, "Exit", Toast.LENGTH_SHORT).show()
                 else -> true

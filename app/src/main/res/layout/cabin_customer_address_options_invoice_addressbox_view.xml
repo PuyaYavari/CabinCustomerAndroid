@@ -10,21 +10,29 @@
             android:id="@+id/invoice_addressbox_top_border"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/address_options_addressbox_border"
+            android:background="@color/colorBordersPrimary"
             android:alpha="@dimen/address_options_addressbox_border_alpha"/>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="54dp" android:id="@+id/invoice_addressbox_name_layout">
 
         <ImageView
+                android:id="@+id/invoice_addressbox_name_arrow"
                 android:layout_width="9dp"
-                android:layout_height="16dp" app:srcCompat="@drawable/icon_cabin_colored_arrow"
-                android:id="@+id/invoice_addressbox_name_arrow" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp" android:layout_marginRight="16dp" android:layout_marginEnd="16dp"
-                app:layout_constraintHorizontal_bias="1.0"/>
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
+                android:tint="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_cabin_colored_arrow" />
         <TextView
                 android:text="Some Address Name"
                 android:layout_width="wrap_content"
@@ -38,7 +46,7 @@
                 android:id="@+id/invoice_addressbox_name_divider"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:background="@color/address_options_addressbox_name_divider"
+                android:background="@color/colorBordersPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -60,7 +68,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                android:textColor="@color/address_options_addressbox_text"/>
+                android:textColor="@color/colorTextsPrimary"/>
         <TextView
                 android:text="01234567890"
                 android:layout_width="wrap_content"
@@ -72,7 +80,7 @@
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
                 android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginLeft="16dp" app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                android:textColor="@color/address_options_addressbox_text" android:alpha="0.5"/>
+                android:textColor="@color/colorTextsPrimary" android:alpha="0.5"/>
         <TextView
                 android:text="Some Neighborhood, Some Street, Some Number, Some Apartment, Some Floor, Some Room"
                 android:layout_width="0dp"
@@ -85,7 +93,7 @@
                 android:layout_marginStart="16dp" app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="0.0" android:layout_marginRight="16dp"
                 android:layout_marginEnd="16dp" android:textSize="16sp"
-                android:textColor="@color/address_options_addressbox_text" android:alpha="0.5"/>
+                android:textColor="@color/colorTextsPrimary" android:alpha="0.5"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -102,20 +110,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/invoice_addressbox_details_customer_address_region" android:layout_weight="1"
-                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+                    android:textSize="16sp" android:textColor="@color/colorTextsPrimary"/>
             <TextView
                     android:text="@string/address_separator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/invoice_addressbox_details_customer_address_region_city_separator"
                     android:layout_weight="1" android:textSize="16sp"
-                    android:textColor="@color/address_options_addressbox_text"/>
+                    android:textColor="@color/colorTextsPrimary"/>
             <TextView
                     android:text="Some City"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/invoice_addressbox_details_customer_address_city" android:layout_weight="1"
-                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+                    android:textSize="16sp" android:textColor="@color/colorTextsPrimary"/>
         </LinearLayout>
         <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:orientation="horizontal"
@@ -133,20 +141,20 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/invoice_addressbox_details_customer_tax_administration_label"
                     android:layout_weight="1"
-                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+                    android:textSize="16sp" android:textColor="@color/colorTextsPrimary"/>
             <TextView
                     android:text=":"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/invoice_addressbox_details_customer_tax_administration_separator"
                     android:layout_weight="1"
-                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+                    android:textSize="16sp" android:textColor="@color/colorTextsPrimary"/>
             <TextView
                     android:text="Tax Administration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/invoice_addressbox_details_customer_tax_administration" android:layout_weight="1"
-                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"
+                    android:textSize="16sp" android:textColor="@color/colorTextsPrimary"
                     android:alpha="0.5" android:layout_marginLeft="28dp"/>
         </LinearLayout>
         <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -164,21 +172,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/invoice_addressbox_details_customer_tax_number_label" android:layout_weight="1"
-                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"/>
+                    android:textSize="16sp" android:textColor="@color/colorTextsPrimary"/>
             <TextView
                     android:text=":"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/invoice_addressbox_details_customer_tax_number_separator"
                     android:layout_weight="1" android:textSize="16sp"
-                    android:textColor="@color/address_options_addressbox_text"/>
+                    android:textColor="@color/colorTextsPrimary"/>
             <TextView
                     android:text="01234567890"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/invoice_addressbox_details_customer_tax_number"
                     android:layout_weight="1"
-                    android:textSize="16sp" android:textColor="@color/address_options_addressbox_text"
+                    android:textSize="16sp" android:textColor="@color/colorTextsPrimary"
                     android:alpha="0.5" android:layout_marginLeft="8dp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -186,7 +194,7 @@
             android:id="@+id/invoice_addressbox_bottom_border"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/address_options_addressbox_border"
+            android:background="@color/colorBordersPrimary"
             android:alpha="@dimen/address_options_addressbox_border_alpha" tools:layout_editor_absoluteY="-206dp"
             tools:layout_editor_absoluteX="8dp"/>
 </LinearLayout>

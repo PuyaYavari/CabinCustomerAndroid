@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--menu-->
+    <string name="my_profile_data">Hesap Ayarlarım</string>
+    <string name="my_personal_data">Kişisel Bilgilerim</string>
+    <string name="my_address_data">Adres Bilgilerim</string>
+    <string name="change_password">Şifre Değişikliği</string>
+    <string name="my_notification_choices">Duyuru Tercihlerim</string>
+    <!--/menu-->
+
+
+    <!--personal data options-->
+    <string name="personal_data_options_name_hint">Adınızı Girin</string>
+    <string name="personal_data_options_surname_hint">Soyadınızı Girin</string>
+    <string name="personal_data_options_email_hint">E-posta Adresinizi Girin</string>
+    <string name="personal_data_options_birthday_hint">Doğum Tarihinizi Girin</string>
+    <string name="personal_data_options_phone_hint">Cep Telfonu Numaranızı Girin</string>
+    <!--/personal data options-->
+
+
+    <!--address options-->
+    <string name="add_delivery_address">Teslimat Adresi Ekle</string>
+    <string name="delivery_address">Teslimat Adresi</string>
+    <string name="add_invoice_address">Fatura Adresi Ekle</string>
+    <string name="invoice_address">Fatura Adresi</string>
+
+    <string name="no_delivery_address_text">Kayıtlı teslimat adresiniz bulunmamaktadır.</string>
+    <string name="no_delivery_address_hint">Siparişlerinizin teslimatı ve faturalarınız için adres
+        bilgilerinizi buradan ekleyebilirsiniz.</string>
+    <string name="no_invoice_address_text">Kayıtlı fatura adresiniz bulunmamaktadır.</string>
+    <string name="no_invoice_address_hint">Faturalarınızın gönderileceği adres için adres
+        bilgilerinizi buradan ekleyebilirsiniz.</string>
+
+    <string name="tax_administration">Vergi Dairesi</string>
+    <string name="tax_number">Vergi Numarası</string>
+
+    <string name="delivery_and_invoice_address_name_hint">Adınızı Giriniz</string>
+    <string name="delivery_and_invoice_address_surname_hint">Soyadınızı Giriniz</string>
+    <string name="delivery_and_invoice_address_phone_hint">Telfon Numaranızı Giriniz</string>
+    <string name="delivery_and_invoice_address_province_hint">İl Seçiniz</string>
+    <string name="delivery_and_invoice_address_district_hint">İlçe Seçiniz</string>
+    <string name="delivery_and_invoice_address_address_hint">Mahalle, Cadde, Sokak ve Diğer
+Bilgilerinizi Giriniz</string>
+    <string name="delivery_and_invoice_address_address_header_hint">Adres Başlığı Giriniz</string>
+
+    <string name="invoice_address_corporation_name_hint">Firma Adı Giriniz</string>
+    <string name="invoice_address_tax_number_hint">Vergi Numarası Giriniz</string>
+    <string name="invoice_address_tax_administration_hint">Vergi Dairesi Giriniz</string>
+    <!--/address options-->
+
+
+    <!--change password-->
+    <string name="change_password_current_password_label">Mevcut Şifre</string>
+    <string name="change_password_new_password_label">Yeni Şifre</string>
+    <string name="change_password_password_confirmation_label">Yeni Şifre (Tekrar)</string>
+
+    <string name="change_password_current_password_hint">Mevcut Şifreyi Giriniz</string>
+    <string name="change_password_new_password_hint">Şifreyi Giriniz</string>
+    <string name="change_password_password_confirmation_hint">Şifreyi Tekrar Giriniz</string>
+
+    <string name="change_password_password_error">Girdiğiniz şifre hatalı.</string>
+    <string name="change_password_new_password_error">Girmiş olduğunuz yeni şifre alttaki kurallara uygun olmalıdır:\n
+    - En az bir küçük harf\n
+    - En az bir sayı\n
+    - En az 8 karakter</string>
+    <string name="change_password_new_password_confirmation_error">Girmiş olduğunuz şifre tekrarı yeni şifre ile uyuşmamaktadır.</string>
+    <!--/change password-->
+
+
+    <!--notification choices-->
+    <string name="email_choice_text">İlgimi çekebilecek kampanyalarla ve butik
+        bültenleriyle ilgili e-mail almak istiyorum.</string>
+    <string name="sms_choice_text">İlgimi çekebilecek kampanyalarla ilgili sms
+        almak istiyorum.</string>
+    <string name="phone_call_choice_text">İlgimi çekebilecek kampanyalarla ilgili çağrı
+        almak istiyorum.</string>
+    <!--/notification choices-->
+
+
+</resources>

@@ -7,18 +7,16 @@ import ist.cabin.cabincustomer.fragments.orders.fragments.pending.CabinCustomerO
 import ist.cabin.cabincustomer.fragments.orders.fragments.sent.CabinCustomerOrdersSentFragment
 import ist.cabin.cabincustomer.fragments.orders.fragments.shipping.CabinCustomerOrdersShippingFragment
 
-class CabinCustomerOrdersScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-    private val NUM_PAGES = 3
+class CabinCustomerOrdersScreenSlidePagerAdapter(fm: FragmentManager, behavior: Int) : FragmentStatePagerAdapter(fm, behavior) {
 
     override fun getCount(): Int = NUM_PAGES
 
     override fun getItem(position: Int): Fragment {
-        if (position == 0)
-            return CabinCustomerOrdersPendingFragment()
-        else if (position == 1)
-            return CabinCustomerOrdersShippingFragment()
-        else
-            return CabinCustomerOrdersSentFragment()
+        return when (position) {
+            0 -> CabinCustomerOrdersPendingFragment()
+            1 -> CabinCustomerOrdersShippingFragment()
+            else -> CabinCustomerOrdersSentFragment()
+        }
 
     }
 
@@ -27,5 +25,9 @@ class CabinCustomerOrdersScreenSlidePagerAdapter(fm: FragmentManager) : Fragment
         1 -> "Kargoda"
         2 -> "Gönderilen"
         else -> ""
+    }
+
+    companion object {
+        private const val NUM_PAGES = 3
     }
 }

@@ -37,6 +37,8 @@
         <activity android:name="ist.cabin.cabinCustomerCameraPreview.CabinCustomerCameraPreviewActivity"/>
         <activity android:name="ist.cabin.cabinCustomerCamera.CabinCustomerCameraActivity"/>
         <activity android:name="ist.cabin.cabinCustomerProfileOptions.CabinCustomerProfileOptionsActivity"/>
+        <activity android:name="ist.cabin.cabinCustomerExtraditions.CabinCustomerExtraditionsActivity"/>
+        <activity android:name="ist.cabin.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity"/>
     </application>
 
 </manifest>

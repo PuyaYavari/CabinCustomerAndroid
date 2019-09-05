@@ -18,10 +18,10 @@
             android:text="@string/cargo_tracking_number_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/cargo_taracking_code_label" android:textSize="10sp"
-            android:textColor="@color/orders_detail_labels"/>
+            android:textColor="@color/colorTextsPrimary"/>
     <TextView
             android:text="111 222 333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/cargo_tacking_code" android:textSize="10sp"
-            android:textColor="@color/orders_detail_labels"/>
+            android:textColor="@color/colorTextsPrimary"/>
 </LinearLayout>

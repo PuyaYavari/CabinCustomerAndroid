@@ -27,4 +27,9 @@ interface BaseContracts {
         fun unregister()
     }
 
+    interface Product {
+        fun getID(): String
+        //TODO: COLOR, SIZE, PRICE, PRICE UNIT
+    }
+
 }

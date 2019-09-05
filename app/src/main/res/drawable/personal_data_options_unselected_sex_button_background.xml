@@ -4,7 +4,7 @@
         <shape android:shape="rectangle">
             <size android:height="40dp" android:width="40dp"/>
             <corners android:radius="5dp"/>
-            <solid android:color="@color/personal_data_options_unselected_sex_button_background"/>
+            <solid android:color="@color/colorButtonUnselectedPrimary"/>
         </shape>
     </item>
 </selector>

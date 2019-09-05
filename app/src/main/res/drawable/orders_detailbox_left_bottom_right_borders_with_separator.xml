@@ -3,7 +3,7 @@
 
     <item>
         <shape android:shape="rectangle" >
-            <solid android:color="@color/orders_detail_table_borders" />
+            <solid android:color="@color/colorBordersPrimary" />
             <padding
                     android:bottom="0.5dp"
                     android:left="0.5dp"
@@ -15,9 +15,9 @@
     </item>
     <item>
         <shape android:shape="rectangle">
-            <gradient android:centerColor="@color/order_background_color"
-                      android:startColor="@color/order_background_color"
-                      android:endColor="@color/order_background_color"
+            <gradient android:centerColor="@color/colorBoxesBackgroundPrimary"
+                      android:startColor="@color/colorBoxesBackgroundPrimary"
+                      android:endColor="@color/colorBoxesBackgroundPrimary"
                       android:centerX="0.5"
                       android:centerY="0.5"/>
             <padding android:top="0.5dp"/>

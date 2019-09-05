@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="my_profile_data">Hesap Ayarlarım</string>
-    <string name="my_personal_data">Kişisel Bilgilerim</string>
-    <string name="my_address_data">Adres Bilgilerim</string>
-    <string name="change_password">Şifre Değişikliği</string>
-    <string name="my_notification_choices">Duyuru Tercihlerim</string>
-</resources>

@@ -4,33 +4,35 @@
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/orders_default_background_color">
+        android:background="@color/colorPageBackgroundPrimary">
 
-    <androidx.viewpager.widget.ViewPager android:layout_width="0dp"
-                                         android:layout_height="0dp"
-                                         android:id="@+id/orders_pager"
-                                         android:background="@color/orders_default_background_color"
-                                         app:layout_constraintTop_toTopOf="parent"
-                                         app:layout_constraintBottom_toBottomOf="parent"
-                                         app:layout_constraintEnd_toEndOf="parent"
-                                         app:layout_constraintStart_toStartOf="parent"
-                                         app:layout_constraintTop_toBottomOf="@+id/header"
-                                         android:layout_marginTop="40dp"
-                                         app:layout_constraintBottom_toTopOf="@+id/navbar"
-                                         app:layout_constraintVertical_bias="1.0">
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/orders_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_header_height"
+            android:layout_marginBottom="@dimen/navbar_height"
+            android:background="@color/colorPageBackgroundPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.tabs.TabLayout android:layout_width="match_parent"
-                                                    android:layout_height="24dp"
-                                                    android:id="@+id/orders_tabs_layout"
-                                                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                                                    app:tabSelectedTextColor="@android:color/black"
-                                                    app:tabTextColor="@color/header_label_color"
-                                                    android:background="@color/orders_default_background_color"
-                                                    app:tabIndicator="@drawable/tabbar_indicator_shape"
-                                                    app:tabIndicatorGravity="bottom"
-                                                    app:tabIndicatorFullWidth="true"
-                                                    android:verticalScrollbarPosition="defaultPosition"
-                                                    app:tabRippleColor="@null"/>
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/orders_tabs_layout"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:background="@color/colorPrimary"
+                android:elevation="@dimen/default_header_elevation"
+                android:verticalScrollbarPosition="defaultPosition"
+                app:tabIndicator="@drawable/tabbar_indicator_shape"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorGravity="bottom"
+                app:tabRippleColor="@null"
+                app:tabSelectedTextColor="@color/colorHeaderLabelsPrimary"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="@color/colorHeaderLabelsPrimary" />
     </androidx.viewpager.widget.ViewPager>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,28 +53,30 @@
               app:layout_constraintTop_toTopOf="parent"
               app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
 
-        <TextView android:id="@+id/sorting_label"
-                  android:fontFamily="Segoe UI"
-                  android:layout_gravity="center|center_horizontal"
-                  android:gravity="center"
-                  android:textSize="15sp"
-                  android:textColor="@color/header_label_color"
-                  android:layout_width="41dp"
-                  android:layout_height="23dp"
-                  android:text="@string/sorting_label_string"
-                  android:layout_alignTop="@+id/sorting_frame"
-                  android:layout_alignBottom="@+id/sorting_frame" android:layout_alignRight="@+id/sorting_frame"
-                  android:layout_alignEnd="@+id/sorting_frame"
-                  android:layout_toEndOf="@+id/sorting_icon" android:layout_toRightOf="@+id/sorting_icon"
-                  app:layout_constraintEnd_toEndOf="@+id/sorting_frame"
-                  app:layout_constraintBottom_toBottomOf="@+id/sorting_frame"
-                  app:layout_constraintHorizontal_bias="0.75"
-                  app:layout_constraintTop_toTopOf="@+id/sorting_frame"
-                  app:layout_constraintStart_toStartOf="@+id/sorting_frame"
-        />
+        <TextView
+                android:id="@+id/sorting_label"
+                android:layout_width="41dp"
+                android:layout_height="23dp"
+                android:layout_alignTop="@+id/sorting_frame"
+                android:layout_alignEnd="@+id/sorting_frame"
+                android:layout_alignRight="@+id/sorting_frame"
+                android:layout_alignBottom="@+id/sorting_frame"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_toEndOf="@+id/sorting_icon"
+                android:layout_toRightOf="@+id/sorting_icon"
+                android:fontFamily="Segoe UI"
+                android:gravity="center"
+                android:text="@string/sorting_label_string"
+                android:textColor="@color/colorTextsPrimary"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/sorting_frame"
+                app:layout_constraintEnd_toEndOf="@+id/sorting_frame"
+                app:layout_constraintHorizontal_bias="0.75"
+                app:layout_constraintStart_toStartOf="@+id/sorting_frame"
+                app:layout_constraintTop_toTopOf="@+id/sorting_frame" />
 
         <ImageView android:id="@+id/sorting_icon"
-                   android:src="@drawable/sort_icon"
+                   app:srcCompat="@drawable/sort_icon"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_marginEnd="8dp"
@@ -84,49 +88,33 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navbar"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:background="@color/navbar_background_color"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="1.0"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/orders_default_background_color"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-        <View android:id="@+id/header_background"
-              android:background="@color/orders_default_background_color"
-              android:alpha="0.44999998807907"
-              android:layout_width="match_parent"
-              android:layout_height="40dp" app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+                android:id="@+id/header_label"
+                android:layout_width="107dp"
+                android:layout_height="@dimen/default_header_height"
 
-        <TextView android:id="@+id/header_label"
-                  android:fontFamily="Segoe UI"
-                  android:layout_gravity="center_horizontal|center"
-
-                  android:gravity="center"
-                  android:textSize="20sp"
-                  android:textColor="@color/header_label_color"
-                  android:layout_width="107dp"
-                  android:layout_height="31dp"
-                  android:text="@string/orders_page_header"
-                  android:textAllCaps="false" app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  app:layout_constraintBottom_toBottomOf="parent"
-                  app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-                  app:layout_constraintVertical_bias="0.0"/>
+                android:layout_gravity="center_horizontal|center"
+                android:fontFamily="Segoe UI"
+                android:gravity="center"
+                android:text="@string/orders_page_header"
+                android:textAllCaps="false"
+                android:textColor="@color/colorHeaderLabelsPrimary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

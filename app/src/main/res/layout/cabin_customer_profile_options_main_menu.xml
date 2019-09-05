@@ -4,41 +4,53 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:id="@+id/main_menu_layout">
+
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profile_options_menu_header_layout"
             android:layout_width="0dp"
-            android:layout_height="48dp" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="@dimen/default_header_height"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0"
-            android:id="@+id/profile_options_menu_header_layout" android:elevation="@dimen/default_header_elevation"
-            android:background="@color/profile_options_main_menu_header_background">
+            android:background="@color/colorPrimary"
+            android:elevation="@dimen/default_header_elevation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
         <TextView
-                android:text="@string/my_profile_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/profile_options_header_label"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent" android:textSize="20sp"
-                android:textColor="@color/profile_options_main_menu_texts"/>
-        <ImageButton
+                android:id="@+id/profile_options_header_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/icon_back_arrow"
-                android:id="@+id/profile_options_main_menu_back_button"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/my_profile_data"
+                android:textColor="@color/colorHeaderLabelsPrimary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+                android:id="@+id/profile_options_main_menu_back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:background="@color/colorPrimary"
                 android:contentDescription="back button"
-                android:background="@color/profile_options_main_menu_header_background"/>
+                android:tint="@color/colorHeaderLabelsPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_back_arrow" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -54,23 +66,31 @@
         <androidx.cardview.widget.CardView
                 android:layout_height="60dp"
                 android:id="@+id/personal_data_box"
-                app:cardBackgroundColor="@color/profile_options_main_menu_boxes"
+                app:cardBackgroundColor="@color/colorBoxesBackgroundPrimary"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="4dp" android:layout_marginTop="4dp"
                 android:layout_marginLeft="4dp" android:layout_marginRight="4dp">
             <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                                android:layout_height="match_parent"
                                                                android:id="@+id/personal_data_layout">
+
                 <ImageView
+                        android:id="@+id/profile_options_main_menu_personal_data_arrow"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" app:srcCompat="@drawable/icon_cabin_colored_arrow"
-                        android:id="@+id/profile_options_main_menu_personal_data_arrow" app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:tint="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/profile_options_main_menu_personal_data_label"
-                        android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                        app:layout_constraintHorizontal_bias="1.0"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_cabin_colored_arrow" />
                 <TextView
                         android:text="@string/my_personal_data"
                         android:layout_width="wrap_content"
@@ -83,7 +103,7 @@
                         app:layout_constraintStart_toEndOf="@+id/profile_options_main_menu_personal_data_icon"
                         android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
                         app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                        android:textColor="@color/profile_options_main_menu_texts"/>
+                        android:textColor="@color/colorTextsPrimary"/>
                 <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp" app:srcCompat="@drawable/icon_profile_selected"
@@ -100,24 +120,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/address_data_box"
-                app:cardBackgroundColor="@color/profile_options_main_menu_boxes"
+                app:cardBackgroundColor="@color/colorBoxesBackgroundPrimary"
                 android:layout_marginBottom="4dp" android:layout_marginTop="4dp"
                 android:layout_marginLeft="4dp" android:layout_marginRight="4dp"
         >
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/address_data_layout">
+
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" app:srcCompat="@drawable/icon_cabin_colored_arrow"
                         android:id="@+id/profile_options_main_menu_address_data_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:tint="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/profile_options_main_menu_address_data_label"
-                        android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                        app:layout_constraintHorizontal_bias="1.0"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_cabin_colored_arrow" />
 
                 <TextView
                         android:text="@string/my_address_data"
@@ -130,7 +157,7 @@
                         app:layout_constraintStart_toEndOf="@+id/profile_options_main_menu_address_data_icon"
                         android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
                         app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                        android:textColor="@color/profile_options_main_menu_texts"/>
+                        android:textColor="@color/colorTextsPrimary"/>
                 <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" app:srcCompat="@drawable/icon_address"
@@ -148,24 +175,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/password_change_box"
-                app:cardBackgroundColor="@color/profile_options_main_menu_boxes"
+                app:cardBackgroundColor="@color/colorBoxesBackgroundPrimary"
                 android:layout_marginBottom="4dp" android:layout_marginTop="4dp"
                 android:layout_marginLeft="4dp" android:layout_marginRight="4dp"
         >
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/password_change_layout">
+
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" app:srcCompat="@drawable/icon_cabin_colored_arrow"
                         android:id="@+id/profile_options_main_menu_password_change_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:tint="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/profile_options_main_menu_password_change_label"
-                        android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                        app:layout_constraintHorizontal_bias="1.0"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_cabin_colored_arrow" />
 
                 <TextView
                         android:text="@string/change_password"
@@ -179,7 +213,7 @@
                         app:layout_constraintStart_toEndOf="@+id/profile_options_main_menu_password_change_icon"
                         android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
                         app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                        android:textColor="@color/profile_options_main_menu_texts"/>
+                        android:textColor="@color/colorTextsPrimary"/>
                 <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" app:srcCompat="@drawable/icon_password"
@@ -196,7 +230,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/notification_options_box"
-                app:cardBackgroundColor="@color/profile_options_main_menu_boxes"
+                app:cardBackgroundColor="@color/colorBoxesBackgroundPrimary"
                 android:layout_marginBottom="4dp" android:layout_marginTop="4dp"
                 android:layout_marginLeft="4dp" android:layout_marginRight="4dp"
         >
@@ -205,16 +239,22 @@
                     android:layout_height="match_parent" android:id="@+id/notification_options_layout">
 
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" app:srcCompat="@drawable/icon_cabin_colored_arrow"
                         android:id="@+id/profile_options_main_menu_notification_options_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:tint="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/profile_options_main_menu_notification_options_text"
-                        android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                        app:layout_constraintHorizontal_bias="1.0"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_cabin_colored_arrow" />
 
                 <TextView
                         android:text="@string/my_notification_choices"
@@ -228,7 +268,7 @@
                         app:layout_constraintStart_toEndOf="@+id/profile_options_main_menu_notification_options_icon"
                         android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
                         app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                        android:textColor="@color/profile_options_main_menu_texts"/>
+                        android:textColor="@color/colorTextsPrimary"/>
                 <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" app:srcCompat="@drawable/icon_announcement"

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+            android:id="@+id/no_extradition_ring"
+            android:layout_width="155dp"
+            android:layout_height="155dp"
+            android:layout_marginTop="64dp"
+            android:alpha="0.45"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/extraditions_ring" />
+
+    <ImageView
+            android:id="@+id/no_extradition_extradition_image"
+            android:layout_width="110dp"
+            android:layout_height="135dp"
+            app:layout_constraintBottom_toBottomOf="@+id/no_extradition_ring"
+            app:layout_constraintEnd_toEndOf="@+id/no_extradition_ring"
+            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintStart_toStartOf="@+id/no_extradition_ring"
+            app:layout_constraintTop_toTopOf="@+id/no_extradition_ring"
+            app:srcCompat="@drawable/image_extradition" />
+
+    <TextView
+            android:id="@+id/no_extradition_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/no_extraditions_label"
+            android:textColor="@color/colorTextsPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_extradition_ring"
+            app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+            android:id="@+id/no_extraditions_hint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center"
+            android:text="@string/no_extraditions_hint"
+            android:textColor="@color/colorTextsPrimary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_extradition_label"
+            app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+            android:id="@+id/no_extraditions_add_extradition_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/default_button_background"
+            android:text="@string/add_extradition_button_label"
+            android:textColor="@color/colorButtonLabelsPrimary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_extraditions_hint"
+            app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

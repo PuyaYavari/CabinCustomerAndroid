@@ -4,50 +4,53 @@
                                                    android:layout_height="match_parent"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    android:id="@+id/personal_data_options_layout">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             android:id="@+id/personal_data_options_header_layout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/default_header_height"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
             android:elevation="@dimen/default_header_elevation"
-            android:background="@color/personal_data_options_header_background">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
         <TextView
-                android:text="@string/personal_data"
+                android:id="@+id/personal_data_options_header_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/personal_data_options_header_label"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/personal_data"
+                android:textColor="@color/colorHeaderLabelsPrimary"
                 android:textSize="20sp"
-                android:textColor="@color/personal_data_options_texts"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
+                android:id="@+id/personal_data_options_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/icon_back_arrow"
-                android:id="@+id/personal_data_options_back_button"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginLeft="8dp"
+                android:background="@color/colorPrimary"
                 android:contentDescription="back button"
-                android:background="@color/personal_data_options_header_background"/>
+                android:tint="@color/colorHeaderLabelsPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_back_arrow" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
@@ -66,7 +69,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_name_label_layout"
-                    android:background="@color/personal_data_options_labels_background"
+                    android:background="@color/colorLabelsBackgroundPrimary"
                     android:elevation="@dimen/personal_data_options_labels_background_elevation">
 
                 <TextView
@@ -78,12 +81,12 @@
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
                         app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                        android:textColor="@color/personal_data_options_labels"/>
+                        android:textColor="@color/colorTextsPrimary"/>
                 <View
                         android:id="@+id/personal_data_options_name_label_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_labels_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -105,13 +108,13 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:paddingLeft="16sp" android:hint="@string/personal_data_options_name_hint"
-                        android:textSize="16sp" android:textColor="@color/personal_data_options_texts"
-                        android:textColorHint="@color/personal_data_options_hints"/>
+                        android:textSize="16sp" android:textColor="@color/colorTextsPrimary"
+                        android:textColorHint="@color/colorHintsPrimary"/>
                 <View
                         android:id="@+id/personal_data_options_name_input_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_inputs_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -125,7 +128,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_surname_label_layout"
-                    android:background="@color/personal_data_options_labels_background"
+                    android:background="@color/colorLabelsBackgroundPrimary"
                     android:elevation="@dimen/personal_data_options_labels_background_elevation">
 
                 <TextView
@@ -137,12 +140,12 @@
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
                         app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                        android:textColor="@color/personal_data_options_labels"/>
+                        android:textColor="@color/colorTextsPrimary"/>
                 <View
                         android:id="@+id/personal_data_options_surname_label_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_labels_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -163,15 +166,15 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:textSize="16sp" android:textColor="@color/personal_data_options_texts"
+                        android:textSize="16sp" android:textColor="@color/colorTextsPrimary"
                         android:background="@null" android:hint="@string/personal_data_options_surname_hint"
                         android:paddingLeft="16dp"
-                        android:textColorHint="@color/personal_data_options_hints"/>
+                        android:textColorHint="@color/colorHintsPrimary"/>
                 <View
                         android:id="@+id/personal_data_options_surname_input_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_inputs_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -185,7 +188,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_birthday_label_layout"
-                    android:background="@color/personal_data_options_labels_background"
+                    android:background="@color/colorLabelsBackgroundPrimary"
                     android:elevation="@dimen/personal_data_options_labels_background_elevation">
 
                 <TextView
@@ -196,12 +199,12 @@
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="16dp"
                         android:layout_marginStart="16dp" app:layout_constraintHorizontal_bias="0.0"
-                        android:textSize="16sp" android:textColor="@color/personal_data_options_labels"/>
+                        android:textSize="16sp" android:textColor="@color/colorTextsPrimary"/>
                 <View
                         android:id="@+id/personal_data_options_birthday_label_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_labels_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -216,7 +219,7 @@
                         android:id="@+id/personal_data_options_birthday_input_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_inputs_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -233,8 +236,8 @@
                         android:hint="@string/personal_data_options_birthday_hint"
                         android:inputType="date"
                         android:paddingLeft="16dp"
-                        android:textColor="@color/personal_data_options_texts"
-                        android:textColorHint="@color/personal_data_options_hints"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textColorHint="@color/colorHintsPrimary"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/personal_data_options_birthday_input_separator"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -263,7 +266,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_email_label_layout"
-                    android:background="@color/personal_data_options_labels_background"
+                    android:background="@color/colorLabelsBackgroundPrimary"
                     android:elevation="@dimen/personal_data_options_labels_background_elevation">
 
                 <TextView
@@ -275,12 +278,12 @@
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
                         app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                        android:textColor="@color/personal_data_options_labels"/>
+                        android:textColor="@color/colorTextsPrimary"/>
                 <View
                         android:id="@+id/personal_data_options_email_label_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_labels_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -295,7 +298,7 @@
                         android:id="@+id/personal_data_options_email_input_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_inputs_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -310,9 +313,9 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:hint="@string/personal_data_options_email_hint" android:textSize="16sp"
-                        android:textColor="@color/personal_data_options_texts" android:background="@null"
+                        android:textColor="@color/colorTextsPrimary" android:background="@null"
                         android:paddingLeft="16dp"
-                        android:textColorHint="@color/personal_data_options_hints"/>
+                        android:textColorHint="@color/colorHintsPrimary"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
         <LinearLayout
@@ -322,7 +325,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_phone_label_layout"
-                    android:background="@color/personal_data_options_labels_background"
+                    android:background="@color/colorLabelsBackgroundPrimary"
                     android:elevation="@dimen/personal_data_options_labels_background_elevation">
 
                 <TextView
@@ -333,12 +336,12 @@
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="16dp"
                         android:layout_marginStart="16dp" app:layout_constraintHorizontal_bias="0.0"
-                        android:textSize="16sp" android:textColor="@color/personal_data_options_labels"/>
+                        android:textSize="16sp" android:textColor="@color/colorTextsPrimary"/>
                 <View
                         android:id="@+id/personal_data_options_phone_label_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_labels_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -354,7 +357,7 @@
                         android:id="@+id/personal_data_options_phone_input_separator5"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_inputs_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -369,9 +372,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:hint="@string/personal_data_options_phone_hint" android:textSize="16sp"
-                        android:textColor="@color/personal_data_options_texts" android:background="@null"
+                        android:textColor="@color/colorTextsPrimary" android:background="@null"
                         android:paddingLeft="16dp"
-                        android:textColorHint="@color/personal_data_options_hints"
+                        android:textColorHint="@color/colorHintsPrimary"
                         />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
@@ -382,7 +385,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_sex_label_layout"
-                    android:background="@color/personal_data_options_labels_background"
+                    android:background="@color/colorLabelsBackgroundPrimary"
                     android:elevation="@dimen/personal_data_options_labels_background_elevation">
 
                 <TextView
@@ -394,12 +397,12 @@
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
                         app:layout_constraintHorizontal_bias="0.0" android:textSize="16sp"
-                        android:textColor="@color/personal_data_options_labels"/>
+                        android:textColor="@color/colorTextsPrimary"/>
                 <View
                         android:id="@+id/personal_data_options_sex_label_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_labels_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -414,7 +417,7 @@
                         android:id="@+id/personal_data_options_sex_input_separator"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/personal_data_options_inputs_separator"
+                        android:background="@color/colorBordersPrimary"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -449,25 +452,23 @@
 
     <Button
             android:id="@+id/personal_data_options_save_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="@dimen/personal_data_options_save_button_height"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/personal_data_options_save_button_background"
+            android:alpha="0.5"
+            android:background="@drawable/default_button_background"
+            android:clickable="false"
+            android:enabled="false"
             android:text="@string/save"
-            android:textColor="@color/personal_data_options_button_labels"
+            android:textColor="@color/colorButtonLabelsPrimary"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/personal_data_options_linear_layout"
-            app:layout_constraintVertical_bias="0.0"
-            android:clickable="false"
-            android:enabled="false"
-            android:alpha="0.5"/>
+            app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

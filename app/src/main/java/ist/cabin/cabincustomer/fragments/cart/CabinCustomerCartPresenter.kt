@@ -10,6 +10,8 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
         CabinCustomerCartInteractor(this)
     var router: CabinCustomerCartContracts.Router? = null
 
+    private var priceDetailIsVisible: Boolean = false
+
     //region Lifecycle
 
     override fun onCreate(bundle: Bundle?) {
@@ -36,20 +38,18 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
 
     //region Presenter
 
-    override fun moveToOrdersPage() {
-        router?.moveToOrdersPage()
+    override fun togglePriceDetail() {
+        priceDetailIsVisible = if (!priceDetailIsVisible) {
+            view!!.showPriceDetail()
+            true
+        } else {
+            view!!.hidePriceDetail()
+            false
+        }
     }
 
-    override fun moveToFavoritesPage() {
-        router?.moveToFavoritesPage()
-    }
-
-    override fun moveToHomePage() {
-        router?.moveToHomePage()
-    }
-
-    override fun moveToDiscoverPage() {
-        router?.moveToDiscoverPage()
+    override fun moveToFinishTrade() {
+        router?.moveToFinishTrade()
     }
 
     //endregion

@@ -4,50 +4,53 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:id="@+id/notification_choices_layout">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             android:id="@+id/notification_choices_header_layout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/default_header_height"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
             android:elevation="@dimen/default_header_elevation"
-            android:background="@color/notification_choices_header_background">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
         <TextView
-                android:text="@string/my_notification_choices"
+                android:id="@+id/notification_choices_header_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/notification_choices_header_label"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/my_notification_choices"
+                android:textColor="@color/colorHeaderLabelsPrimary"
                 android:textSize="20sp"
-                android:textColor="@color/notification_choices_texts"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
+                android:id="@+id/notification_choices_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/icon_back_arrow"
-                android:id="@+id/notification_choices_back_button"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginLeft="8dp"
+                android:background="@color/colorPrimary"
                 android:contentDescription="back button"
-                android:background="@color/notification_choices_header_background"/>
+                android:tint="@color/colorHeaderLabelsPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_back_arrow" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
@@ -82,7 +85,7 @@
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintVertical_bias="0.0" android:textColor="@color/notification_choices_texts"
+                    app:layout_constraintVertical_bias="0.0" android:textColor="@color/colorTextsPrimary"
                     android:textSize="16sp"/>
             <TextView
                     android:text="@string/email_choice_text"
@@ -98,7 +101,7 @@
                     android:id="@+id/notification_choices_email_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/notification_choices_divider"
+                    android:background="@color/colorBordersPrimary"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -129,7 +132,7 @@
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintVertical_bias="0.0" android:textColor="@color/notification_choices_texts"
+                    app:layout_constraintVertical_bias="0.0" android:textColor="@color/colorTextsPrimary"
                     android:textSize="16sp"/>
             <TextView
                     android:text="@string/sms_choice_text"
@@ -145,7 +148,7 @@
                     android:id="@+id/notification_choices_sms_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/notification_choices_divider"
+                    android:background="@color/colorBordersPrimary"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
@@ -176,7 +179,7 @@
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintVertical_bias="0.0" android:textColor="@color/notification_choices_texts"
+                    app:layout_constraintVertical_bias="0.0" android:textColor="@color/colorTextsPrimary"
                     android:textSize="16sp"/>
             <TextView
                     android:text="@string/phone_call_choice_text"
@@ -192,7 +195,7 @@
                     android:id="@+id/notification_choices_phone_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/notification_choices_divider"
+                    android:background="@color/colorBordersPrimary"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"

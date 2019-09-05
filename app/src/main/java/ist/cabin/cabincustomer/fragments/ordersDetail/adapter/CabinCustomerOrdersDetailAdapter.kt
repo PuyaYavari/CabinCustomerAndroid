@@ -57,6 +57,10 @@ class CabinCustomerOrdersDetailAdapter(val fragment: BaseFragment ,private val m
         var prevType = -1
         if (position != 0) {
             prevType = getItemViewType(position - 1)
+        } else {
+            val param = viewHolder.itemView.layoutParams as RecyclerView.LayoutParams
+            param.topMargin = 20
+            viewHolder.itemView.layoutParams = param
         }
 
         when (viewType) {

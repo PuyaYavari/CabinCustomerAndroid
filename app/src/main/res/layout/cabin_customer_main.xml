@@ -30,8 +30,8 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/navbar"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:background="@color/navbar_background_color"
+                android:layout_height="@dimen/navbar_height"
+                android:background="@color/colorNavigationBarBackgroundPrimary"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,5 +50,8 @@
             app:menu="@menu/menu_cabin_customer_sidenav"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
+            android:background="@color/white"
+            app:itemTextColor="@color/colorPrimaryDark"
+            app:itemIconTint="@color/colorPrimaryDark"
             app:headerLayout="@layout/cabin_customer_sidenav_header"/>
 </androidx.drawerlayout.widget.DrawerLayout>

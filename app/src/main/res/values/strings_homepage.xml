@@ -14,8 +14,8 @@
     <string name="info_label">Bilgi</string>
     <!--/labels-->
 
-    <!--temp-->
+    <!--default_price_strike-->
     <string name="Open">open</string>
     <string name="Close">close</string>
-    <!--/temp-->
+    <!--/default_price_strike-->
 </resources>

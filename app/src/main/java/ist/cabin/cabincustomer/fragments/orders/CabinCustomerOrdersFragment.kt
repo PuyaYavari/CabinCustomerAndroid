@@ -21,7 +21,7 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
         mPager = pageView.findViewById(R.id.orders_pager)
         val pagerAdapter =
             CabinCustomerOrdersScreenSlidePagerAdapter(
-                childFragmentManager
+                childFragmentManager, 0
             )
         mPager.adapter = pagerAdapter
 

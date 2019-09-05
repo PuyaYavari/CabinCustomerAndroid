@@ -6,5 +6,5 @@
         android:background="@drawable/province_district_spinner_background"
         android:gravity="center"
         android:padding="4dp"
-        android:textColor="@color/delivery_address_texts"
+        android:textColor="@color/colorTextsPrimary"
         android:textSize="16sp" />

@@ -67,27 +67,27 @@ class CabinCustomerAddressOptionsFragment : BaseFragment(), CabinCustomerAddress
     override fun setupEmptyDeliveryAddressList() {
         pageView.findViewById<Button>(R.id.address_options_delivery_address_tab_button).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_selected_background, context.theme)
+                background = resources.getDrawable(R.drawable.light_button_background, context.theme)
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    background = resources.getDrawable(R.drawable.address_options_tab_buttons_selected_background)
+                    background = resources.getDrawable(R.drawable.light_button_background)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.address_options_button_labels, context.theme))
+                setTextColor(resources.getColor(R.color.colorButtonLabelsPrimary, context.theme))
             } else {
-                setTextColor(resources.getColor(R.color.address_options_button_labels))
+                setTextColor(resources.getColor(R.color.colorButtonLabelsPrimary))
             }
         }
 
         pageView.findViewById<Button>(R.id.address_options_invoice_address_tab_button).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_unselected_background, context.theme)
+                background = resources.getDrawable(R.drawable.default_button_unselected_background, context.theme)
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_unselected_background)
+                background = resources.getDrawable(R.drawable.default_button_unselected_background)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.address_options_tab_buttons_unselected_label, context.theme))
+                setTextColor(resources.getColor(R.color.colorButtonUnselectedLabelPrimary, context.theme))
             } else {
-                setTextColor(resources.getColor(R.color.address_options_tab_buttons_unselected_label))
+                setTextColor(resources.getColor(R.color.colorButtonUnselectedLabelPrimary))
             }
         }
 
@@ -114,27 +114,27 @@ class CabinCustomerAddressOptionsFragment : BaseFragment(), CabinCustomerAddress
     override fun setupDeliveryAddressList() {
         pageView.findViewById<Button>(R.id.address_options_delivery_address_tab_button).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_selected_background, context.theme)
+                background = resources.getDrawable(R.drawable.light_button_background, context.theme)
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_selected_background)
+                background = resources.getDrawable(R.drawable.light_button_background)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.address_options_button_labels, context.theme))
+                setTextColor(resources.getColor(R.color.colorButtonLabelsPrimary, context.theme))
             } else {
-                setTextColor(resources.getColor(R.color.address_options_button_labels))
+                setTextColor(resources.getColor(R.color.colorButtonLabelsPrimary))
             }
         }
 
         pageView.findViewById<Button>(R.id.address_options_invoice_address_tab_button).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_unselected_background, context.theme)
+                background = resources.getDrawable(R.drawable.default_button_unselected_background, context.theme)
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_unselected_background)
+                background = resources.getDrawable(R.drawable.default_button_unselected_background)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.address_options_tab_buttons_unselected_label, context.theme))
+                setTextColor(resources.getColor(R.color.colorButtonUnselectedLabelPrimary, context.theme))
             } else {
-                setTextColor(resources.getColor(R.color.address_options_tab_buttons_unselected_label))
+                setTextColor(resources.getColor(R.color.colorButtonUnselectedLabelPrimary))
             }
         }
 
@@ -165,27 +165,27 @@ class CabinCustomerAddressOptionsFragment : BaseFragment(), CabinCustomerAddress
     override fun setupEmptyInvoiceAddressList() {
         pageView.findViewById<Button>(R.id.address_options_invoice_address_tab_button).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_selected_background, context.theme)
+                background = resources.getDrawable(R.drawable.light_button_background, context.theme)
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_selected_background)
+                background = resources.getDrawable(R.drawable.light_button_background)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.address_options_button_labels, context.theme))
+                setTextColor(resources.getColor(R.color.colorButtonLabelsPrimary, context.theme))
             } else {
-                setTextColor(resources.getColor(R.color.address_options_button_labels))
+                setTextColor(resources.getColor(R.color.colorButtonLabelsPrimary))
             }
         }
 
         pageView.findViewById<Button>(R.id.address_options_delivery_address_tab_button).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_unselected_background, context.theme)
+                background = resources.getDrawable(R.drawable.default_button_unselected_background, context.theme)
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_unselected_background)
+                background = resources.getDrawable(R.drawable.default_button_unselected_background)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.address_options_tab_buttons_unselected_label, context.theme))
+                setTextColor(resources.getColor(R.color.colorButtonUnselectedLabelPrimary, context.theme))
             } else {
-                setTextColor(resources.getColor(R.color.address_options_tab_buttons_unselected_label))
+                setTextColor(resources.getColor(R.color.colorButtonUnselectedLabelPrimary))
             }
         }
 
@@ -213,27 +213,27 @@ class CabinCustomerAddressOptionsFragment : BaseFragment(), CabinCustomerAddress
     override fun setupInvoiceAddressList() {
         pageView.findViewById<Button>(R.id.address_options_invoice_address_tab_button).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_selected_background, context.theme)
+                background = resources.getDrawable(R.drawable.light_button_background, context.theme)
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_selected_background)
+                background = resources.getDrawable(R.drawable.light_button_background)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.address_options_button_labels, context.theme))
+                setTextColor(resources.getColor(R.color.colorButtonLabelsPrimary, context.theme))
             } else {
-                setTextColor(resources.getColor(R.color.address_options_button_labels))
+                setTextColor(resources.getColor(R.color.colorButtonLabelsPrimary))
             }
         }
 
         pageView.findViewById<Button>(R.id.address_options_delivery_address_tab_button).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_unselected_background, context.theme)
+                background = resources.getDrawable(R.drawable.default_button_unselected_background, context.theme)
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                background = resources.getDrawable(R.drawable.address_options_tab_buttons_unselected_background)
+                background = resources.getDrawable(R.drawable.default_button_unselected_background)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.address_options_tab_buttons_unselected_label, context.theme))
+                setTextColor(resources.getColor(R.color.colorButtonUnselectedLabelPrimary, context.theme))
             } else {
-                setTextColor(resources.getColor(R.color.address_options_tab_buttons_unselected_label))
+                setTextColor(resources.getColor(R.color.colorButtonUnselectedLabelPrimary))
             }
         }
 

@@ -2,5 +2,5 @@
     android:viewportWidth="31.21" android:width="31dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#00000000"
         android:pathData="M23.158,0.5c-2.7,0 -5.86,3.1 -7.553,5.1 -1.692,-2 -4.851,-5.1 -7.552,-5.1C3.271,0.5 0.5,4.278 0.5,9.086Q0.5,17.075 15.605,26 30.71,17.075 30.71,9.425C30.71,4.617 27.939,0.5 23.158,0.5Z"
-        android:strokeColor="#000" android:strokeWidth="1"/>
+        android:strokeColor="@color/colorPrimaryDark" android:strokeWidth="@dimen/defaultStrokeWidth"/>
 </vector>

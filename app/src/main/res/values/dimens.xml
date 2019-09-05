@@ -1,8 +1,11 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="default_header_height">48dp</dimen>
     <dimen name="default_header_elevation">5dp</dimen>
     <dimen name="default_footer_elevation">5dp</dimen>
     <dimen name="default_header_divider_alpha">0.2</dimen>
+    <dimen name="navbar_height">48dp</dimen>
+    <dimen name="defaultStrokeWidth">0.5</dimen>
 
     <dimen name="change_password_labels_background_elevation">3dp</dimen>
     <dimen name="change_password_save_button_height">40dp</dimen>
@@ -11,7 +14,7 @@
     <dimen name="personal_data_options_save_button_height">40dp</dimen>
 
     <dimen name="address_options_tab_buttons_width">167.5dp</dimen>
-    <dimen name="address_options_tab_buttons_height">40dp</dimen>
+    <dimen name="address_options_tab_buttons_height">35dp</dimen>
     <dimen name="address_options_add_button_height">40dp</dimen>
     <dimen name="address_options_ring_dime">155dp</dimen>
     <dimen name="address_options_addressbox_border_alpha">0.2</dimen>
@@ -30,4 +33,15 @@
     <dimen name="invoice_address_save_button_height">40dp</dimen>
 
     <dimen name="deliver_address_spinner_item_alpha">0.8</dimen>
+
+    <dimen name="extraditions_add_button_height">40dp</dimen>
+    <dimen name="extraditions_extraditionbox_elevation">3dp</dimen>
+    <dimen name="extraditions_extradition_detail_denied_reason_layout_height">128dp</dimen>
+    <dimen name="extraditions_extradition_detail_label_layout_elevation">3dp</dimen>
+    <dimen name="extraditions_extradition_detail_accepted_address_layout_height">128dp</dimen>
+    <dimen name="extraditions_extradition_detail_accepted_tracking_number_layout_height">72dp</dimen>
+
+    <dimen name="cart_productbox_texts_alpha">0.5</dimen>
+
+    <dimen name="finish_trade_price_bar_height">56dp</dimen>
 </resources>
