@@ -23,16 +23,17 @@
                 android:id="@+id/orders_tabs_layout"
                 android:layout_width="match_parent"
                 android:layout_height="28dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorBelowHeaderPrimary"
                 android:elevation="@dimen/default_header_elevation"
                 android:verticalScrollbarPosition="defaultPosition"
                 app:tabIndicator="@drawable/tabbar_indicator_shape"
+                app:tabIndicatorColor="@color/colorPrimary"
                 app:tabIndicatorFullWidth="true"
                 app:tabIndicatorGravity="bottom"
                 app:tabRippleColor="@null"
-                app:tabSelectedTextColor="@color/colorHeaderLabelsPrimary"
+                app:tabSelectedTextColor="@color/colorPrimary"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabTextColor="@color/colorHeaderLabelsPrimary" />
+                app:tabTextColor="@color/colorTextsPrimary" />
     </androidx.viewpager.widget.ViewPager>
 
     <androidx.constraintlayout.widget.ConstraintLayout

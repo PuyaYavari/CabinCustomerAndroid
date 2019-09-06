@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="finish_trade_address_select_button_label">Ödeme Seçenekleri</string>
+    <string name="finish_trade_address_select_header_label">Teslimat Bilgileri</string>
+    <string name="finish_trade_payment_button_label">Sipariş Özeti</string>
+    <string name="finish_trade_payment_header_label">Ödeme Bilgileri</string>
+    <string name="finish_trade_overview_button_label">Sepeti Onayla</string>
+    <string name="finish_trade_overview_header_label">Sipariş Özeti</string>
 </resources>

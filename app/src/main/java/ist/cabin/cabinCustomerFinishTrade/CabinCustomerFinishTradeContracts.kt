@@ -5,12 +5,11 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 object CabinCustomerFinishTradeContracts {
 
     interface View : BaseContracts.View {
-        fun showPriceDetail()
-        fun hidePriceDetail()
+
     }
 
     interface Presenter : BaseContracts.Presenter {
-        fun togglePriceDetail()
+
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -24,5 +23,4 @@ object CabinCustomerFinishTradeContracts {
     interface Router : BaseContracts.Router {
         //TODO
     }
-
 }

@@ -1,4 +1,4 @@
-package ist.cabin.cabinCustomerFinishTrade
+package ist.cabin.cabinCustomerFinishTrade.fragments.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -17,7 +17,8 @@ class CabinCustomerFinishTradePagerAdapter(fm: FragmentManager, behavior: Int) :
         }
     }
 
-    override fun getCount(): Int = NUM_PAGES
+    override fun getCount(): Int =
+        NUM_PAGES
 
     companion object {
         private const val NUM_PAGES = 3

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
             android:elevation="@dimen/default_header_elevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
@@ -74,7 +76,9 @@
                 <ImageView
                         android:id="@+id/finish_trade_trade_first_state_icon"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -85,7 +89,7 @@
                 <ImageView
                         android:id="@+id/finish_trade_trade_second_state_icon"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -95,8 +99,8 @@
 
                 <ImageView
                         android:id="@+id/finish_trade_trade_third_state_icon"
-                        android:layout_width="23dp"
-                        android:layout_height="23dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:background="@drawable/icon_success_background"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -115,9 +119,9 @@
                     android:layout_marginEnd="0dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingLeft="2.5dp"
+                    android:paddingLeft="10.5dp"
                     android:paddingTop="8dp"
-                    android:paddingRight="2.5dp"
+                    android:paddingRight="10.5dp"
                     android:paddingBottom="8dp">
 
                 <ImageView
@@ -156,13 +160,15 @@
                         app:srcCompat="@drawable/cabin_statebar_empty_node" />
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/finish_trade_statebar_idicator_layout"
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                    android:id="@+id/finish_trade_statebar_indicator_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="30dp"
+                    app:layoutDescription="@xml/finish_trade_statebar_indicator_transitions"
+                    tools:showPaths="true">
 
                 <ImageView
-                        android:id="@+id/finish_trade_statebar_idicator"
+                        android:id="@+id/finish_trade_statebar_indicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -171,7 +177,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/icon_bike" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.motion.widget.MotionLayout>
 
         </LinearLayout>
 
