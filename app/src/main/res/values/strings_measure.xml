@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="measure_select_method_auto_button_label">Otomatik</string>
+    <string name="measure_select_method_manual_button_label">Manuel</string>
+    
+    <string name="measure_auto_tutorial_hairstyle_text">Ölçülerinizin doğru bulunabilmesi için 
+        saçlarınız toplu olmalı</string>
+    <string name="measure_auto_tutorial_outfit_text">Vücut hatlarınızın belli olması için dar
+        kıyafetler giymeniz gerekmektedir. </string>
+    <string name="measure_auto_tutorial_shoes_text">Boyunuzun doğru algılanabilmesi için
+        ayakkabılarınız çıkarılmış olması
+        gerekmektedir.</string>
+
+</resources>

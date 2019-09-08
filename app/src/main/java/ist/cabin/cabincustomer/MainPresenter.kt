@@ -34,6 +34,10 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter, Ma
         router?.moveToProfileOptions()
     }
 
+    override fun moveToMeasure() {
+        router?.moveToMeasure()
+    }
+
     override fun moveToExtraditions() {
         router?.moveToExtraditions()
     }

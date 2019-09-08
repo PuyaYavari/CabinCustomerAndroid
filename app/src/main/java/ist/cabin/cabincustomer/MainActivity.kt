@@ -45,7 +45,7 @@ class MainActivity : BaseActivity(),
         nv.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.sidenav_profile_options -> presenter?.moveToProfileOptions()
-                R.id.sidenav_body_measure -> Toast.makeText(this@MainActivity, "Measures", Toast.LENGTH_SHORT).show()
+                R.id.sidenav_body_measure -> presenter?.moveToMeasure()
                 R.id.sidenav_extradition -> presenter?.moveToExtraditions()
                 R.id.sidenav_help -> Toast.makeText(this@MainActivity, "Help", Toast.LENGTH_SHORT).show()
                 R.id.sidenav_exit -> Toast.makeText(this@MainActivity, "Exit", Toast.LENGTH_SHORT).show()

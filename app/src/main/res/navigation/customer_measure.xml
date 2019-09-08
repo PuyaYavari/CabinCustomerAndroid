@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/customer_measure"
+        app:startDestination="@id/cabinCustomerMeasureSelectMethodFragment">
+
+    <fragment
+            android:id="@+id/cabinCustomerMeasureSelectMethodFragment"
+            android:name="ist.cabin.cabinCustomerMeasure.fragments.selectMethod.CabinCustomerMeasureSelectMethodFragment"
+            android:label="CabinCustomerMeasureSelectMethodFragment" >
+        <action
+                android:id="@+id/actionMeasureSelectMethodToMeasureAutoTutorial"
+                app:destination="@id/cabinCustomerMeasureAutoTutorialFragment"
+                app:enterAnim="@anim/slide_in_from_right"
+                app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left"
+                app:popExitAnim="@anim/slide_out_to_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerMeasureAutoTutorialFragment"
+            android:name="ist.cabin.cabinCustomerMeasure.fragments.autoTutorial.CabinCustomerMeasureAutoTutorialFragment"
+            android:label="CabinCustomerMeasureAutoTutorialFragment" />
+</navigation>

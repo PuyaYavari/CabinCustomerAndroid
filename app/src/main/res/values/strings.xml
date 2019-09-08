@@ -160,4 +160,5 @@
 
     <string name="update">Güncelle</string>
     <string name="save">Kaydet</string>
+    <string name="continue_label">Devam</string>
 </resources>

@@ -5,6 +5,7 @@ object MainContracts {
 
     interface Presenter: ist.cabin.cabinCustomerBase.BaseContracts.Presenter {
         fun moveToProfileOptions()
+        fun moveToMeasure()
         fun moveToExtraditions()
     }
 
@@ -14,6 +15,7 @@ object MainContracts {
 
     interface Router: ist.cabin.cabinCustomerBase.BaseContracts.Router {
         fun moveToProfileOptions()
+        fun moveToMeasure()
         fun moveToExtraditions()
     }
 }

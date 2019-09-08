@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPageBackgroundPrimary">
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/measure_auto_tutorial_header_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="5dp"
+            app:layoutDescription="@xml/measure_auto_tutorial"
+            app:layout_constraintBottom_toBottomOf="@+id/measure_auto_tutorial_30ph_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:id="@+id/measure_auto_tutorial_header_bottom_triangle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_header_triangle_shadow"
+                android:elevation="5dp"
+                android:paddingBottom="2dp"
+                android:scaleType="fitXY"
+                android:scaleX="1.2"
+                android:scaleY="1.5"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/component_header_triangle"
+                tools:layout_editor_absoluteY="18dp" />
+
+        <ImageView
+                android:id="@+id/measure_auto_tutorial_header_top_triangle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_header_triangle_shadow"
+                android:elevation="15dp"
+                android:paddingBottom="5dp"
+                android:scaleType="fitXY"
+                android:scaleX="1.2"
+                android:scaleY="1"
+                android:tint="@color/colorAccent"
+                app:srcCompat="@drawable/component_header_triangle" />
+
+        <ImageView
+                android:id="@+id/measure_auto_tutorial_header_middle_triangle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_header_triangle_shadow"
+                android:elevation="10dp"
+                android:paddingBottom="3dp"
+                android:scaleType="fitXY"
+                android:scaleX="-1.5"
+                android:scaleY="1.2"
+                android:tint="@color/colorPrimary"
+                app:srcCompat="@drawable/component_header_triangle"
+                tools:layout_editor_absoluteY="6dp" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    <View
+            android:id="@+id/measure_auto_tutorial_background_frame"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/measure_auto_tutorial_60ph_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/measure_auto_tutorial_60ph_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.6019152"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/measure_auto_tutorial_images_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="10dp"
+            app:layoutDescription="@xml/measure_auto_tutorial"
+            app:layout_constraintBottom_toBottomOf="@+id/measure_auto_tutorial_65ph_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/measure_auto_tutorial_30ph_guideline">
+
+        <ImageView
+                android:id="@+id/measure_auto_tutorial_hair_style"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="16dp"
+                android:adjustViewBounds="true"
+                android:elevation="5dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="@id/measure_auto_tutorial_images_guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/image_woman_head" />
+
+        <ImageView
+                android:id="@+id/measure_auto_tutorial_outfit"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="16dp"
+                android:adjustViewBounds="true"
+                android:elevation="5dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/image_running_woman" />
+
+        <ImageView
+                android:id="@+id/measure_auto_tutorial_shoes"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="16dp"
+                android:adjustViewBounds="true"
+                android:elevation="5dp"
+                android:rotation="-15"
+                android:scaleType="fitXY"
+                android:scaleX="0.75"
+                android:scaleY="0.75"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/image_foot" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/measure_auto_tutorial_images_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.88" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    <ImageView
+            android:id="@+id/measure_auto_tutorial_hexagon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/component_primary_dark_hexagon"
+            android:elevation="5dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@+id/measure_auto_tutorial_60ph_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/measure_auto_tutorial_30ph_guideline"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/component_primary_dark_hexagon" />
+
+    <ImageView
+            android:id="@+id/measure_auto_tutorial_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="110dp"
+            android:maxHeight="110dp"
+            android:scaleType="fitXY"
+            android:tint="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@id/measure_auto_tutorial_60ph_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintStart_toStartOf="@+id/measure_auto_tutorial_hexagon"
+            app:layout_constraintTop_toTopOf="@+id/measure_auto_tutorial_30ph_guideline"
+            app:layout_constraintVertical_bias="0.25"
+            app:srcCompat="@drawable/circle_cabin_color" />
+
+    <ImageView
+            android:id="@+id/measure_auto_tutorial_divided_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@id/measure_auto_tutorial_60ph_guideline"
+            app:layout_constraintEnd_toEndOf="@+id/measure_auto_tutorial_circle"
+            app:layout_constraintStart_toEndOf="@+id/measure_auto_tutorial_circle"
+            app:layout_constraintTop_toTopOf="@+id/measure_auto_tutorial_30ph_guideline"
+            app:layout_constraintVertical_bias="0.65"
+            app:srcCompat="@drawable/component_segmented_ring" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/measure_auto_tutorial_30ph_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/measure_auto_tutorial_texts_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutDescription="@xml/measure_auto_tutorial"
+            app:layout_constraintBottom_toTopOf="@+id/measure_auto_tutorial_next_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/measure_auto_tutorial_60ph_guideline">
+
+        <TextView
+                android:id="@+id/measure_auto_tutorial_hairstyle_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/measure_auto_tutorial_hairstyle_text"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+                android:id="@+id/measure_auto_tutorial_outfit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/measure_auto_tutorial_outfit_text"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+                android:id="@+id/measure_auto_tutorial_shoes_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/measure_auto_tutorial_shoes_text"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        <View
+                android:id="@+id/measure_auto_tutorial_hairstyle_indicator"
+                android:layout_width="20dp"
+                android:layout_height="5dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorPrimaryDark"
+                android:elevation="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/measure_auto_tutorial_outfit_indicator"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/measure_auto_tutorial_shoes_text" />
+
+        <View
+                android:id="@+id/measure_auto_tutorial_outfit_indicator"
+                android:layout_width="20dp"
+                android:layout_height="5dp"
+                android:background="@color/colorAccent"
+                android:elevation="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/measure_auto_tutorial_shoes_text" />
+
+        <View
+                android:id="@+id/measure_auto_tutorial_shoes_indicator"
+                android:layout_width="20dp"
+                android:layout_height="5dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/colorAccent"
+                android:elevation="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/measure_auto_tutorial_outfit_indicator"
+                app:layout_constraintTop_toBottomOf="@+id/measure_auto_tutorial_shoes_text" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    <Button
+            android:id="@+id/measure_auto_tutorial_next_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/default_button_background"
+            android:text="@string/continue_label"
+            android:textColor="@color/colorButtonLabelsPrimary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/measure_auto_tutorial_75pv_guideline"
+            app:layout_constraintStart_toStartOf="@+id/measure_auto_tutorial_25pv_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/measure_auto_tutorial_25pv_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/measure_auto_tutorial_75pv_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.75"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/measure_auto_tutorial_65ph_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.65"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
