@@ -27,11 +27,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             android:background="@color/colorPrimary"
-            android:elevation="@dimen/default_header_elevation">
+            android:elevation="@dimen/defaultHeaderElevation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/default_header_height"
+                android:layout_height="@dimen/defaultHeaderHeight"
 
                 >
 
@@ -39,7 +39,7 @@
                     android:id="@+id/extraditions_header_divider"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:alpha="@dimen/default_header_divider_alpha"
+                    android:alpha="@dimen/defaultHeaderDividerAlpha"
                     android:background="@color/colorHeaderLabelsPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +95,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/extraditions_header_helper_text_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/default_header_height"
+                android:layout_height="@dimen/defaultHeaderHeight"
                 >
 
             <TextView

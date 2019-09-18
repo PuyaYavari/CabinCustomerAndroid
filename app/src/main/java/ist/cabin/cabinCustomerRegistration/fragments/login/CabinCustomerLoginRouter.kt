@@ -1,4 +1,4 @@
-package ist.cabin.cabinCustomerLogin_fragment
+package ist.cabin.cabinCustomerRegistration.fragments.login
 
 import android.app.Activity
 
@@ -11,13 +11,6 @@ class CabinCustomerLoginRouter(var activity: Activity?) :
 
     //region Router
 
-    override fun moveToHomePage() {
-
-    }
-
-    override fun moveToForgetpasswordPage() {
-
-    }
 
     //endregion
 }

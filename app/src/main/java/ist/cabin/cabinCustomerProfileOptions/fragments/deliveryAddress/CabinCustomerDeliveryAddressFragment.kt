@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.fragment.navArgs
 import ist.cabin.cabinCustomerBase.BaseFragment
-import ist.cabin.cabincustomer.Constants
+import ist.cabin.cabinCustomerBase.Constants
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerDeliveryAddressFragment : BaseFragment(), CabinCustomerDeliveryAddressContracts.View {

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import ist.cabin.cabinCustomerBase.BaseFragment
+import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
 
 
@@ -17,6 +18,7 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_orders, container, false)
+        (activity!! as MainActivity).showNavbar()
 
         mPager = pageView.findViewById(R.id.orders_pager)
         val pagerAdapter =

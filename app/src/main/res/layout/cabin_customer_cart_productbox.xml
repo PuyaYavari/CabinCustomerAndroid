@@ -8,7 +8,6 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBoxesBackgroundPrimary"
             android:orientation="horizontal"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
@@ -21,6 +20,7 @@
         <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
                 android:layout_height="150dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 app:cardCornerRadius="5dp">
 
@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_weight="0"
-                        android:alpha="@dimen/cart_productbox_texts_alpha"
+                        android:alpha="@dimen/cartProductboxTextsAlpha"
                         android:text="Some Product ID"
                         android:textColor="@color/colorTextsPrimary"
                         android:textSize="12sp" />
@@ -105,7 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/size_label"
+                        android:text="@string/size"
                         android:textColor="@color/colorTextsPrimary"
                         android:textSize="12sp" />
 
@@ -119,12 +119,12 @@
                         android:textSize="12sp" />
 
                 <TextView
-                        android:id="@+id/cart_productbox_size_id"
+                        android:id="@+id/cart_productbox_size"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_weight="0"
-                        android:alpha="@dimen/cart_productbox_texts_alpha"
+                        android:alpha="@dimen/cartProductboxTextsAlpha"
                         android:text="Size"
                         android:textColor="@color/colorTextsPrimary"
                         android:textSize="12sp" />
@@ -161,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/color_label"
+                        android:text="@string/color"
                         android:textColor="@color/colorTextsPrimary"
                         android:textSize="12sp" />
 
@@ -180,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_weight="0"
-                        android:alpha="@dimen/cart_productbox_texts_alpha"
+                        android:alpha="@dimen/cartProductboxTextsAlpha"
                         android:text="Color"
                         android:textColor="@color/colorTextsPrimary"
                         android:textSize="12sp" />
@@ -223,7 +223,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="4dp"
                             android:layout_weight="0"
-                            android:alpha="@dimen/cart_productbox_texts_alpha"
+                            android:alpha="@dimen/cartProductboxTextsAlpha"
                             android:text="day"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp" />
@@ -233,7 +233,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:alpha="@dimen/cart_productbox_texts_alpha"
+                            android:alpha="@dimen/cartProductboxTextsAlpha"
                             android:text="month"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp" />
@@ -245,7 +245,7 @@
                             android:layout_marginLeft="4dp"
                             android:layout_marginRight="4dp"
                             android:layout_weight="0"
-                            android:alpha="@dimen/cart_productbox_texts_alpha"
+                            android:alpha="@dimen/cartProductboxTextsAlpha"
                             android:text="@string/separator_dash"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp" />
@@ -256,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="4dp"
                             android:layout_weight="0"
-                            android:alpha="@dimen/cart_productbox_texts_alpha"
+                            android:alpha="@dimen/cartProductboxTextsAlpha"
                             android:text="day"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp" />
@@ -266,7 +266,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:alpha="@dimen/cart_productbox_texts_alpha"
+                            android:alpha="@dimen/cartProductboxTextsAlpha"
                             android:text="month"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp" />
@@ -303,7 +303,7 @@
                             android:layout_width="32dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:alpha="@dimen/cart_productbox_texts_alpha"
+                            android:alpha="@dimen/cartProductboxTextsAlpha"
                             android:background="@drawable/default_borders"
                             android:gravity="center"
                             android:text="1"
@@ -344,7 +344,7 @@
                                 android:id="@+id/cart_productbox_product_before_discount_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:alpha="@dimen/cart_productbox_texts_alpha"
+                                android:alpha="@dimen/cartProductboxTextsAlpha"
                                 android:gravity="right|end"
                                 android:text="000"
                                 android:textColor="@color/colorTextsPrimary"
@@ -355,7 +355,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="2dp"
-                                android:alpha="@dimen/cart_productbox_texts_alpha"
+                                android:alpha="@dimen/cartProductboxTextsAlpha"
                                 android:gravity="right|end"
                                 android:text="TL"
                                 android:textColor="@color/colorTextsPrimary"
@@ -373,7 +373,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="0000"
-                                android:textColor="@color/colorPricePurple" />
+                                android:textColor="@color/colorPricePurple"
+                                android:textSize="14sp" />
 
                         <TextView
                                 android:id="@+id/cart_productbox_product_price_unit"

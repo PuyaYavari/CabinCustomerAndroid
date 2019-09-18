@@ -8,10 +8,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/delivery_address_header_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/default_header_height"
+            android:layout_height="@dimen/defaultHeaderHeight"
             android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
-            android:elevation="@dimen/default_header_elevation"
+            android:elevation="@dimen/defaultHeaderElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,14 +66,14 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/delivery_address_table_height"
+                android:layout_height="@dimen/deliveryAddressTableHeight"
                 android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/delivery_address_labels_background_elevation">
+                    android:elevation="@dimen/deliveryAddressLabelsBackgroundElevation">
 
                 <TextView
                         android:id="@+id/delivery_address_name_label"
@@ -115,7 +115,7 @@
                         android:id="@+id/delivery_address_name"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:alpha="@dimen/delivery_address_input_alpha"
+                        android:alpha="@dimen/deliveryAddressInputAlpha"
                         android:background="@null"
                         android:ems="10"
                         android:hint="@string/delivery_and_invoice_address_name_hint"
@@ -148,14 +148,14 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/delivery_address_table_height"
+                android:layout_height="@dimen/deliveryAddressTableHeight"
                 android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/delivery_address_labels_background_elevation">
+                    android:elevation="@dimen/deliveryAddressLabelsBackgroundElevation">
 
                 <TextView
                         android:id="@+id/delivery_address_surname_label"
@@ -197,7 +197,7 @@
                         android:id="@+id/delivery_address_surname"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:alpha="@dimen/delivery_address_input_alpha"
+                        android:alpha="@dimen/deliveryAddressInputAlpha"
                         android:background="@null"
                         android:ems="10"
                         android:hint="@string/delivery_and_invoice_address_surname_hint"
@@ -230,14 +230,14 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/delivery_address_table_height"
+                android:layout_height="@dimen/deliveryAddressTableHeight"
                 android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/delivery_address_labels_background_elevation">
+                    android:elevation="@dimen/deliveryAddressLabelsBackgroundElevation">
 
                 <TextView
                         android:id="@+id/delivery_address_phone_label"
@@ -279,7 +279,7 @@
                         android:id="@+id/delivery_address_phone"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:alpha="@dimen/delivery_address_input_alpha"
+                        android:alpha="@dimen/deliveryAddressInputAlpha"
                         android:background="@null"
                         android:ems="10"
                         android:hint="@string/delivery_and_invoice_address_phone_hint"
@@ -312,14 +312,14 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/delivery_address_table_height"
+                android:layout_height="@dimen/deliveryAddressTableHeight"
                 android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/delivery_address_labels_background_elevation">
+                    android:elevation="@dimen/deliveryAddressLabelsBackgroundElevation">
 
                 <TextView
                         android:id="@+id/delivery_address_province_label"
@@ -402,14 +402,14 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/delivery_address_table_height"
+                android:layout_height="@dimen/deliveryAddressTableHeight"
                 android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/delivery_address_labels_background_elevation">
+                    android:elevation="@dimen/deliveryAddressLabelsBackgroundElevation">
 
                 <TextView
                         android:id="@+id/delivery_address_district_label"
@@ -493,14 +493,14 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/delivery_address_table_address_height"
+                android:layout_height="@dimen/deliveryAddressTableAddressHeight"
                 android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/delivery_address_labels_background_elevation">
+                    android:elevation="@dimen/deliveryAddressLabelsBackgroundElevation">
 
                 <TextView
                         android:id="@+id/delivery_address_address_label"
@@ -543,7 +543,7 @@
                         android:id="@+id/delivery_address_address"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:alpha="@dimen/delivery_address_input_alpha"
+                        android:alpha="@dimen/deliveryAddressInputAlpha"
                         android:background="@null"
                         android:ems="10"
                         android:gravity="top"
@@ -577,14 +577,14 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/delivery_address_table_height"
+                android:layout_height="@dimen/deliveryAddressTableHeight"
                 android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="114dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/delivery_address_labels_background_elevation">
+                    android:elevation="@dimen/deliveryAddressLabelsBackgroundElevation">
 
                 <TextView
                         android:id="@+id/delivery_address_address_header_label"
@@ -626,7 +626,7 @@
                         android:id="@+id/delivery_address_address_header"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:alpha="@dimen/delivery_address_input_alpha"
+                        android:alpha="@dimen/deliveryAddressInputAlpha"
                         android:background="@null"
                         android:ems="10"
                         android:hint="@string/delivery_and_invoice_address_address_header_hint"
@@ -660,7 +660,7 @@
         <Button
                 android:id="@+id/delivery_address_add_button"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/delivery_address_save_button_height"
+                android:layout_height="@dimen/deliveryAddressSaveButtonHeight"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"

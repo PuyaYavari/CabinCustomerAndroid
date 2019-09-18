@@ -1,8 +1,7 @@
-package ist.cabin.cabinCustomerLogin_fragment
+package ist.cabin.cabinCustomerRegistration.fragments.login
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 
 class CabinCustomerLoginPresenter(var view: CabinCustomerLoginContracts.View?) : CabinCustomerLoginContracts.Presenter,
     CabinCustomerLoginContracts.InteractorOutput {
@@ -45,20 +44,14 @@ class CabinCustomerLoginPresenter(var view: CabinCustomerLoginContracts.View?) :
     }
 
     override fun setInputtedEmail(emailInput: String) {
-        Log.d("email set to",emailInput)
         email = emailInput
     }
 
     override fun setInputtedPassword(passwordInput: String) {
-        Log.d("password set to",passwordInput)
         password = passwordInput
     }
 
     override fun switchLoginButton() {
-        Log.d("email", email)
-        Log.d("password", password)
-
-
         if (isEmailValid(email) && password.isNotEmpty()) {
             view?.enableLoginButton()
         } else {
@@ -67,14 +60,14 @@ class CabinCustomerLoginPresenter(var view: CabinCustomerLoginContracts.View?) :
     }
 
     override fun login() {
-        Log.d("login button", "pressed")
-        interactor?.login(email, password)
-        //TODO: check if data valid
-        router?.moveToHomePage()
+        val context = view?.getActivityContext()
+        if (context != null)
+            interactor?.login(context ,email, password)
+        //TODO: ELSE
     }
 
     override fun forgetPassword() {
-        router?.moveToForgetpasswordPage()
+        //TODO
     }
 
     //endregion

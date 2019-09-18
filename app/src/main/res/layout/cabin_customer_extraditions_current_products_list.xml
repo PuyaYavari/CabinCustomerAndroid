@@ -7,13 +7,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_marginTop="@dimen/default_header_height">
+            android:layout_height="match_parent" android:layout_marginTop="@dimen/defaultHeaderHeight">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/extraditions_current_products_list_recyclerview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/default_header_height"
+                android:layout_marginTop="@dimen/defaultHeaderHeight"
                 app:layout_constraintBottom_toTopOf="@+id/extraditions_current_products_list_footer_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/colorFooterPrimary"
-                android:elevation="@dimen/default_footer_elevation"
+                android:elevation="@dimen/defaultFooterElevation"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
             <Button
                     android:id="@+id/extraditions_current_products_list_add_button"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/extraditions_add_button_height"
+                    android:layout_height="@dimen/extraditionsAddButtonHeight"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"

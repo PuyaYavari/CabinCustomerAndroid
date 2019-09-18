@@ -1,47 +1,50 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="default_header_height">48dp</dimen>
-    <dimen name="default_header_elevation">5dp</dimen>
-    <dimen name="default_footer_elevation">5dp</dimen>
-    <dimen name="default_header_divider_alpha">0.2</dimen>
-    <dimen name="navbar_height">48dp</dimen>
-    <dimen name="defaultStrokeWidth">0.5</dimen>
+    <dimen name="defaultHeaderHeight">48dp</dimen>
+    <dimen name="defaultHeaderHeightNegative">-48dp</dimen>
+    <dimen name="defaultHeaderElevation">5dp</dimen>
+    <dimen name="defaultFooterElevation">5dp</dimen>
+    <dimen name="defaultHeaderDividerAlpha">0.2</dimen>
+    <dimen name="navbarHeight">48dp</dimen>
+    <dimen name="defaultStrokeWidth">0.75</dimen>
 
-    <dimen name="change_password_labels_background_elevation">3dp</dimen>
-    <dimen name="change_password_save_button_height">40dp</dimen>
+    <dimen name="changePasswordLabelsBackgroundElevation">3dp</dimen>
+    <dimen name="changePasswordSaveButtonHeight">40dp</dimen>
 
-    <dimen name="personal_data_options_labels_background_elevation">3dp</dimen>
-    <dimen name="personal_data_options_save_button_height">40dp</dimen>
+    <dimen name="personalDataOptionsLabelsBackgroundElevation">3dp</dimen>
+    <dimen name="personalDataOptionsSaveButtonHeight">40dp</dimen>
 
-    <dimen name="address_options_tab_buttons_width">167.5dp</dimen>
-    <dimen name="address_options_tab_buttons_height">35dp</dimen>
-    <dimen name="address_options_add_button_height">40dp</dimen>
-    <dimen name="address_options_ring_dime">155dp</dimen>
-    <dimen name="address_options_addressbox_border_alpha">0.2</dimen>
+    <dimen name="addressOptionsTabButtonsWidth">167.5dp</dimen>
+    <dimen name="addressOptionsTabButtonsHeight">35dp</dimen>
+    <dimen name="addressOptionsAddButtonHeight">40dp</dimen>
+    <dimen name="addressOptionsRingDime">155dp</dimen>
+    <dimen name="addressOptionsAddressboxBorderAlpha">0.2</dimen>
 
-    <dimen name="delivery_address_labels_background_elevation">3dp</dimen>
-    <dimen name="delivery_address_table_height">50dp</dimen>
-    <dimen name="delivery_address_table_address_height">100dp</dimen>
-    <dimen name="delivery_address_input_alpha">0.8</dimen>
-    <dimen name="delivery_address_save_button_height">40dp</dimen>
+    <dimen name="deliveryAddressLabelsBackgroundElevation">3dp</dimen>
+    <dimen name="deliveryAddressTableHeight">50dp</dimen>
+    <dimen name="deliveryAddressTableAddressHeight">100dp</dimen>
+    <dimen name="deliveryAddressInputAlpha">0.8</dimen>
+    <dimen name="deliveryAddressSaveButtonHeight">40dp</dimen>
 
-    <dimen name="invoice_address_labels_background_elevation">3dp</dimen>
-    <dimen name="invoice_address_table_height">50dp</dimen>
-    <dimen name="invoice_address_table_address_height">100dp</dimen>
-    <dimen name="invoice_address_table_radio_height">44dp</dimen>
-    <dimen name="invoice_address_input_alpha">0.8</dimen>
-    <dimen name="invoice_address_save_button_height">40dp</dimen>
+    <dimen name="invoiceAddressLabelsBackgroundElevation">3dp</dimen>
+    <dimen name="invoiceAddressTableHeight">50dp</dimen>
+    <dimen name="invoiceAddressTableAddressHeight">100dp</dimen>
+    <dimen name="invoiceAddressTableRadioHeight">44dp</dimen>
+    <dimen name="invoiceAddressInputAlpha">0.8</dimen>
+    <dimen name="invoiceAddressSaveButtonHeight">40dp</dimen>
 
-    <dimen name="deliver_address_spinner_item_alpha">0.8</dimen>
+    <dimen name="deliverAddressSpinnerItemAlpha">0.8</dimen>
 
-    <dimen name="extraditions_add_button_height">40dp</dimen>
-    <dimen name="extraditions_extraditionbox_elevation">3dp</dimen>
-    <dimen name="extraditions_extradition_detail_denied_reason_layout_height">128dp</dimen>
-    <dimen name="extraditions_extradition_detail_label_layout_elevation">3dp</dimen>
-    <dimen name="extraditions_extradition_detail_accepted_address_layout_height">128dp</dimen>
-    <dimen name="extraditions_extradition_detail_accepted_tracking_number_layout_height">72dp</dimen>
+    <dimen name="extraditionsAddButtonHeight">40dp</dimen>
+    <dimen name="extraditionsExtraditionboxElevation">3dp</dimen>
+    <dimen name="extraditionsExtraditionDetailDeniedReasonLayoutHeight">128dp</dimen>
+    <dimen name="extraditionsExtraditionDetailLabelLayoutElevation">3dp</dimen>
+    <dimen name="extraditionsExtraditionDetailAcceptedAddressLayoutHeight">128dp</dimen>
+    <dimen name="extraditionsExtraditionDetailAcceptedTrackingNumberLayoutHeight">72dp</dimen>
 
-    <dimen name="cart_productbox_texts_alpha">0.5</dimen>
+    <dimen name="cartProductboxTextsAlpha">0.5</dimen>
 
-    <dimen name="finish_trade_price_bar_height">56dp</dimen>
+    <dimen name="finishTradePriceBarHeight">56dp</dimen>
+
+    <dimen name="discoverBellowHeaderBarHeight">40dp</dimen>
+    <dimen name="discoverTotalHeaderHeight">88dp</dimen><!-- defaultHeaderHeight + discoverBellowHeaderBarHeight -->
 </resources>

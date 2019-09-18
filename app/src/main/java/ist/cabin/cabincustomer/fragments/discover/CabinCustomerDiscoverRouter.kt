@@ -1,6 +1,9 @@
 package ist.cabin.cabincustomer.fragments.discover
 
 import android.app.Activity
+import androidx.navigation.findNavController
+import ist.cabin.cabinCustomerBase.models.local.MODELProduct
+import ist.cabin.cabincustomer.R
 
 class CabinCustomerDiscoverRouter(var activity: Activity?) :
     CabinCustomerDiscoverContracts.Router {
@@ -11,20 +14,9 @@ class CabinCustomerDiscoverRouter(var activity: Activity?) :
 
     //region Router
 
-    override fun moveToOrdersPage() {
-
-    }
-
-    override fun moveToFavoritesPage() {
-
-    }
-
-    override fun moveToHomePage() {
-
-    }
-
-    override fun moveToCartPage() {
-
+    override fun moveToProductDetail(product: MODELProduct) {
+        val action = CabinCustomerDiscoverFragmentDirections.actionDiscoverToProductDetail()//TODO: SEND PRODUCT
+        activity!!.findNavController(R.id.nav_host_fragment).navigate(action)
     }
 
     //endregion

@@ -1,5 +1,6 @@
-package ist.cabin.cabinCustomerLogin_fragment
+package ist.cabin.cabinCustomerRegistration.fragments.login
 
+import android.content.Context
 import ist.cabin.cabinCustomerBase.BaseContracts
 
 object CabinCustomerLoginContracts {
@@ -19,15 +20,11 @@ object CabinCustomerLoginContracts {
     }
 
     interface Interactor : BaseContracts.Interactor {
-        fun login(email: String, password: String)
+        fun login(context: Context ,email: String, password: String)
     }
 
-    interface InteractorOutput : BaseContracts.InteractorOutput {
-    }
+    interface InteractorOutput : BaseContracts.InteractorOutput
 
-    interface Router : BaseContracts.Router {
-        fun moveToHomePage()
-        fun moveToForgetpasswordPage()
-    }
+    interface Router : BaseContracts.Router
 
 }

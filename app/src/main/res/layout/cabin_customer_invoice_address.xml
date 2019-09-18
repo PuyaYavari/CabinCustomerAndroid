@@ -9,10 +9,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/invoice_address_header_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/default_header_height"
+            android:layout_height="@dimen/defaultHeaderHeight"
             android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
-            android:elevation="@dimen/default_header_elevation"
+            android:elevation="@dimen/defaultHeaderElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,14 +78,14 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/invoice_address_table_height"
+                    android:layout_height="@dimen/invoiceAddressTableHeight"
                     android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="114dp"
                         android:layout_height="match_parent"
                         android:background="@color/colorLabelsBackgroundPrimary"
-                        android:elevation="@dimen/invoice_address_labels_background_elevation">
+                        android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                     <TextView
                             android:id="@+id/invoice_address_name_label"
@@ -143,7 +143,7 @@
                             android:id="@+id/invoice_address_name"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:alpha="@dimen/invoice_address_input_alpha"
+                            android:alpha="@dimen/invoiceAddressInputAlpha"
                             android:background="@null"
                             android:ems="10"
                             android:hint="@string/delivery_and_invoice_address_name_hint"
@@ -161,14 +161,14 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/invoice_address_table_height"
+                    android:layout_height="@dimen/invoiceAddressTableHeight"
                     android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="114dp"
                         android:layout_height="match_parent"
                         android:background="@color/colorLabelsBackgroundPrimary"
-                        android:elevation="@dimen/invoice_address_labels_background_elevation">
+                        android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                     <TextView
                             android:id="@+id/invoice_address_surname_label"
@@ -211,7 +211,7 @@
                             android:id="@+id/invoice_address_surname"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:alpha="@dimen/invoice_address_input_alpha"
+                            android:alpha="@dimen/invoiceAddressInputAlpha"
                             android:background="@null"
                             android:ems="10"
                             android:hint="@string/delivery_and_invoice_address_surname_hint"
@@ -245,14 +245,14 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/invoice_address_table_height"
+                    android:layout_height="@dimen/invoiceAddressTableHeight"
                     android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="114dp"
                         android:layout_height="match_parent"
                         android:background="@color/colorLabelsBackgroundPrimary"
-                        android:elevation="@dimen/invoice_address_labels_background_elevation">
+                        android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                     <TextView
                             android:id="@+id/invoice_address_phone_label"
@@ -295,7 +295,7 @@
                             android:id="@+id/invoice_address_phone"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:alpha="@dimen/invoice_address_input_alpha"
+                            android:alpha="@dimen/invoiceAddressInputAlpha"
                             android:background="@null"
                             android:ems="10"
                             android:hint="@string/delivery_and_invoice_address_phone_hint"
@@ -328,14 +328,14 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/invoice_address_table_height"
+                    android:layout_height="@dimen/invoiceAddressTableHeight"
                     android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="114dp"
                         android:layout_height="match_parent"
                         android:background="@color/colorLabelsBackgroundPrimary"
-                        android:elevation="@dimen/invoice_address_labels_background_elevation">
+                        android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                     <TextView
                             android:id="@+id/invoice_address_province_label"
@@ -419,14 +419,14 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/invoice_address_table_height"
+                    android:layout_height="@dimen/invoiceAddressTableHeight"
                     android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="114dp"
                         android:layout_height="match_parent"
                         android:background="@color/colorLabelsBackgroundPrimary"
-                        android:elevation="@dimen/invoice_address_labels_background_elevation">
+                        android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                     <TextView
                             android:id="@+id/invoice_address_district_label"
@@ -509,14 +509,14 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/invoice_address_table_address_height"
+                    android:layout_height="@dimen/invoiceAddressTableAddressHeight"
                     android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="114dp"
                         android:layout_height="match_parent"
                         android:background="@color/colorLabelsBackgroundPrimary"
-                        android:elevation="@dimen/invoice_address_labels_background_elevation">
+                        android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                     <TextView
                             android:id="@+id/invoice_address_address_label"
@@ -560,7 +560,7 @@
                             android:id="@+id/invoice_address_address"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:alpha="@dimen/invoice_address_input_alpha"
+                            android:alpha="@dimen/invoiceAddressInputAlpha"
                             android:background="@null"
                             android:ems="10"
                             android:gravity="top"
@@ -594,14 +594,14 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/invoice_address_table_height"
+                    android:layout_height="@dimen/invoiceAddressTableHeight"
                     android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="114dp"
                         android:layout_height="match_parent"
                         android:background="@color/colorLabelsBackgroundPrimary"
-                        android:elevation="@dimen/invoice_address_labels_background_elevation">
+                        android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                     <TextView
                             android:id="@+id/invoice_address_address_header_label"
@@ -644,7 +644,7 @@
                             android:id="@+id/invoice_address_address_header"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:alpha="@dimen/invoice_address_input_alpha"
+                            android:alpha="@dimen/invoiceAddressInputAlpha"
                             android:background="@null"
                             android:ems="10"
                             android:hint="@string/delivery_and_invoice_address_address_header_hint"
@@ -677,7 +677,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/invoice_address_table_radio_height"
+                    android:layout_height="@dimen/invoiceAddressTableRadioHeight"
                     android:layout_marginTop="8dp">
 
                 <View
@@ -711,14 +711,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="50dp"
-                            android:text="@string/personal_label" />
+                            android:text="@string/personal" />
 
                     <RadioButton
                             android:id="@+id/invoice_address_corporate_invoice_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="50dp"
-                            android:text="@string/corporate_label" />
+                            android:text="@string/corporate" />
                 </RadioGroup>
 
                 <View
@@ -743,14 +743,14 @@
 
                 <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/invoice_address_table_height"
+                        android:layout_height="@dimen/invoiceAddressTableHeight"
                         android:orientation="horizontal">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="114dp"
                             android:layout_height="match_parent"
                             android:background="@color/colorLabelsBackgroundPrimary"
-                            android:elevation="@dimen/invoice_address_labels_background_elevation">
+                            android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                         <TextView
                                 android:id="@+id/invoice_address_corporation_name_label"
@@ -793,7 +793,7 @@
                                 android:id="@+id/invoice_address_corporation_name"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:alpha="@dimen/invoice_address_input_alpha"
+                                android:alpha="@dimen/invoiceAddressInputAlpha"
                                 android:background="@null"
                                 android:ems="10"
                                 android:hint="@string/invoice_address_corporation_name_hint"
@@ -826,14 +826,14 @@
 
                 <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/invoice_address_table_height"
+                        android:layout_height="@dimen/invoiceAddressTableHeight"
                         android:orientation="horizontal">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="114dp"
                             android:layout_height="match_parent"
                             android:background="@color/colorLabelsBackgroundPrimary"
-                            android:elevation="@dimen/invoice_address_labels_background_elevation">
+                            android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                         <TextView
                                 android:id="@+id/invoice_address_tax_number_label"
@@ -876,7 +876,7 @@
                                 android:id="@+id/invoice_address_tax_number"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:alpha="@dimen/invoice_address_input_alpha"
+                                android:alpha="@dimen/invoiceAddressInputAlpha"
                                 android:background="@null"
                                 android:ems="10"
                                 android:hint="@string/invoice_address_tax_number_hint"
@@ -909,14 +909,14 @@
 
                 <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/invoice_address_table_height"
+                        android:layout_height="@dimen/invoiceAddressTableHeight"
                         android:orientation="horizontal">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="114dp"
                             android:layout_height="match_parent"
                             android:background="@color/colorLabelsBackgroundPrimary"
-                            android:elevation="@dimen/invoice_address_labels_background_elevation">
+                            android:elevation="@dimen/invoiceAddressLabelsBackgroundElevation">
 
                         <TextView
                                 android:id="@+id/invoice_address_tax_administration_label"
@@ -959,7 +959,7 @@
                                 android:id="@+id/invoice_address_tax_administration"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:alpha="@dimen/invoice_address_input_alpha"
+                                android:alpha="@dimen/invoiceAddressInputAlpha"
                                 android:background="@null"
                                 android:ems="10"
                                 android:hint="@string/invoice_address_tax_administration_hint"
@@ -994,7 +994,7 @@
             <Button
                     android:id="@+id/invoice_address_add_button"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/invoice_address_save_button_height"
+                    android:layout_height="@dimen/invoiceAddressSaveButtonHeight"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"

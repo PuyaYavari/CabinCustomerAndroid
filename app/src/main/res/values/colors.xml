@@ -15,14 +15,16 @@
 <!--    <color name="colorAccent">#4b2870</color>-->
 
     <color name="colorTextsPrimary">#707070</color>
+    <color name="colorLightTextsPrimary">#B7B7B7</color>
     <color name="colorBordersPrimary">#707070</color>
+    <color name="colorLightBordersPrimary">#C8C8C8</color>
     <color name="colorButtonLabelsPrimary">#FFFFFF</color>
     <color name="colorSeparatorPrimary">#707070</color>
     <color name="colorNavigationBarBackgroundPrimary">#FFFFFF</color>
     <color name="colorHeaderLabelsPrimary">#FFFFFF</color>
     <color name="colorBelowHeaderPrimary">#FFFFFF</color>
     <color name="colorBoxesBackgroundPrimary">#F8F8F8</color>
-    <color name="colorPageBackgroundPrimary">#F8F8F8</color>
+    <color name="colorPageBackgroundPrimary">#FCFCFC</color>
     <color name="colorLabelsBackgroundPrimary">#F1F1F1</color>
     <color name="colorHintsPrimary">#D0D0D0</color>
     <color name="colorFooterPrimary">#FFFFFF</color>
@@ -41,4 +43,6 @@
     <color name="colorStateRed">#ff3a30</color>
 
     <color name="colorCaution">#ff3a30</color>
+
+    <color name="colorRegistrationCardsBackgroundPrimary">#FCFCFC</color>
 </resources>

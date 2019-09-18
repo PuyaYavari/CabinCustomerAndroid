@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorBordersPrimary"
-            android:alpha="@dimen/address_options_addressbox_border_alpha"/>
+            android:alpha="@dimen/addressOptionsAddressboxBorderAlpha"/>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="54dp" android:id="@+id/delivery_addressbox_name_layout">
@@ -131,6 +131,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorBordersPrimary"
-            android:alpha="@dimen/address_options_addressbox_border_alpha" tools:layout_editor_absoluteY="-206dp"
+            android:alpha="@dimen/addressOptionsAddressboxBorderAlpha" tools:layout_editor_absoluteY="-206dp"
             tools:layout_editor_absoluteX="8dp"/>
 </LinearLayout>

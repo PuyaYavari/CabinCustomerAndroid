@@ -11,9 +11,11 @@
         tools:openDrawer="start"
 >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/main_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            app:layoutDescription="@xml/navbar_transitions"
     >
 
         <fragment
@@ -30,18 +32,17 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/navbar"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/navbar_height"
+                android:layout_height="@dimen/navbarHeight"
                 android:background="@color/colorNavigationBarBackgroundPrimary"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="1.0"
-                app:menu="@menu/menu_cabin_customer_navbar">
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
+                app:menu="@menu/menu_cabin_customer_navbar"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
     <com.google.android.material.navigation.NavigationView
             android:layout_width="250dp"

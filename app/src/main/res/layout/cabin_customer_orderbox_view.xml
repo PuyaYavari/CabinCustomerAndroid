@@ -64,7 +64,7 @@
                       android:textColor="@color/colorButtonLabelsPrimary"
                       android:layout_width="19dp"
                       android:layout_height="18dp"
-                      android:text="@string/order1_order_count_label_string"
+                      android:text="+5"
                       app:layout_constraintBottom_toBottomOf="@+id/order_count_background"
                       app:layout_constraintEnd_toEndOf="@+id/order_count_background"
                       app:layout_constraintStart_toStartOf="@+id/order_count_background"
@@ -92,7 +92,7 @@
                 android:layout_gravity="center_horizontal|center"
                 android:fontFamily="Segoe UI"
                 android:gravity="center"
-                android:text="@string/order1_date_string"
+                android:text="year/month/day"
                 android:textColor="@color/colorTextsPrimary"
                 android:textSize="12sp" />
 
@@ -104,7 +104,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="Segoe UI"
                 android:gravity="center"
-                android:text="@string/order1_datetime_string"
+                android:text="hour:min"
                 android:textColor="@color/colorTextsPrimary"
                 android:textSize="12sp" />
     </LinearLayout>
@@ -169,7 +169,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="Segoe UI"
                 android:gravity="right|end"
-                android:text="@string/order1_payment_type_string"
+                android:text="Kapıda ödeme"
                 android:textColor="@color/colorTextsPrimary"
                 android:textSize="12sp" />
 

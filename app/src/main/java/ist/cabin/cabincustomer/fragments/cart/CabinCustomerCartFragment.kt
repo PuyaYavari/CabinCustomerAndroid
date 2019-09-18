@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
+import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
 
 
@@ -23,6 +24,7 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_cart, container, false)
+        (activity!! as MainActivity).showNavbar()
         setupPage()
         return pageView
     }

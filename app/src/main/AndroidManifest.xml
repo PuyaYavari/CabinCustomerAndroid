@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
             android:allowBackup="true"
@@ -26,20 +28,39 @@
             </meta-data>
         </provider>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="ist.cabin.cabinCustomerAgreement.CabinCustomerAgreementActivity" android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerCameraPreview.CabinCustomerCameraPreviewActivity" android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerCamera.CabinCustomerCameraActivity" android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerProfileOptions.CabinCustomerProfileOptionsActivity" android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerExtraditions.CabinCustomerExtraditionsActivity" android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity" android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerMeasure.CabinCustomerMeasureActivity" android:screenOrientation="portrait"/>
+        <activity android:name="ist.cabin.cabinCustomerAgreement.CabinCustomerAgreementActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"/>
+        <activity android:name="ist.cabin.cabinCustomerCameraPreview.CabinCustomerCameraPreviewActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"/>
+        <activity android:name="ist.cabin.cabinCustomerCamera.CabinCustomerCameraActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"/>
+        <activity android:name="ist.cabin.cabinCustomerProfileOptions.CabinCustomerProfileOptionsActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"/>
+        <activity android:name="ist.cabin.cabinCustomerExtraditions.CabinCustomerExtraditionsActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"/>
+        <activity android:name="ist.cabin.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"/>
+        <activity android:name="ist.cabin.cabinCustomerMeasure.CabinCustomerMeasureActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"/>
+        <activity android:name="ist.cabin.cabinCustomerRegistration.CabinCustomerRegistrationActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

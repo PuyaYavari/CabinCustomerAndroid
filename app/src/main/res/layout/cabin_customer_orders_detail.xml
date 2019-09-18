@@ -9,11 +9,11 @@
         android:layout_height="match_parent" android:id="@+id/cabin_customer_orders_detail_layout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/header"
+            android:id="@+id/orders_header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:elevation="@dimen/default_header_elevation"
+            android:elevation="@dimen/defaultHeaderElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/orders_detail_header_pagename_layout"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/default_header_height"
+                android:layout_height="@dimen/defaultHeaderHeight"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
                     android:id="@+id/orders_details_header_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:alpha="@dimen/default_header_divider_alpha"
+                    android:alpha="@dimen/defaultHeaderDividerAlpha"
                     android:background="@color/colorHeaderLabelsPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
                     app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                    android:id="@+id/header_label"
+                    android:id="@+id/orders_header_label"
                     android:layout_width="107dp"
                     android:layout_height="31dp"
 
@@ -51,7 +51,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="Segoe UI"
                     android:gravity="center"
-                    android:text="@string/orders_page_header"
+                    android:text="@string/orders_header"
                     android:textAllCaps="false"
                     android:textColor="@color/colorHeaderLabelsPrimary"
                     android:textSize="20sp"
@@ -170,12 +170,12 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
 
-            android:layout_marginBottom="@dimen/navbar_height"
+            android:layout_marginBottom="@dimen/navbarHeight"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
+            app:layout_constraintTop_toBottomOf="@+id/orders_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

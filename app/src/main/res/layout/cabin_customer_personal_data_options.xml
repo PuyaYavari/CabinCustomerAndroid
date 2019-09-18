@@ -8,10 +8,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/personal_data_options_header_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/default_header_height"
+            android:layout_height="@dimen/defaultHeaderHeight"
             android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
-            android:elevation="@dimen/default_header_elevation"
+            android:elevation="@dimen/defaultHeaderElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_name_label_layout"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/personal_data_options_labels_background_elevation">
+                    android:elevation="@dimen/personalDataOptionsLabelsBackgroundElevation">
 
                 <TextView
                         android:text="@string/name_label"
@@ -129,7 +129,7 @@
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_surname_label_layout"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/personal_data_options_labels_background_elevation">
+                    android:elevation="@dimen/personalDataOptionsLabelsBackgroundElevation">
 
                 <TextView
                         android:text="@string/surname_label"
@@ -189,7 +189,7 @@
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_birthday_label_layout"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/personal_data_options_labels_background_elevation">
+                    android:elevation="@dimen/personalDataOptionsLabelsBackgroundElevation">
 
                 <TextView
                         android:text="@string/birthday_label"
@@ -267,7 +267,7 @@
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_email_label_layout"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/personal_data_options_labels_background_elevation">
+                    android:elevation="@dimen/personalDataOptionsLabelsBackgroundElevation">
 
                 <TextView
                         android:text="@string/email_label"
@@ -326,7 +326,7 @@
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_phone_label_layout"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/personal_data_options_labels_background_elevation">
+                    android:elevation="@dimen/personalDataOptionsLabelsBackgroundElevation">
 
                 <TextView
                         android:text="@string/phone_label"
@@ -386,7 +386,7 @@
                     android:layout_width="114dp"
                     android:layout_height="match_parent" android:id="@+id/personal_data_options_sex_label_layout"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/personal_data_options_labels_background_elevation">
+                    android:elevation="@dimen/personalDataOptionsLabelsBackgroundElevation">
 
                 <TextView
                         android:text="@string/sex_label"
@@ -453,7 +453,7 @@
     <Button
             android:id="@+id/personal_data_options_save_button"
             android:layout_width="0dp"
-            android:layout_height="@dimen/personal_data_options_save_button_height"
+            android:layout_height="@dimen/personalDataOptionsSaveButtonHeight"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"

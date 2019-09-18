@@ -132,7 +132,7 @@ class CabinCustomerCameraActivity : BaseActivity(),
             mRotationSensor = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
             mSensorManager!!.registerListener(this, mRotationSensor, SENSOR_DELAY)
         } catch (e: Exception) {
-            Toast.makeText(this, "Hardware compatibility issue", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Hardware compatibility JSONIssue", Toast.LENGTH_LONG).show()
         }
 
         // camera

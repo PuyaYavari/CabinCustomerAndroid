@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/customer_discover" app:startDestination="@id/cabinCustomerDiscoverFragment2">
+            android:id="@+id/customer_discover" app:startDestination="@id/cabinCustomerDiscoverFragment">
 
-    <fragment android:id="@+id/cabinCustomerDiscoverFragment2"
+    <fragment android:id="@+id/cabinCustomerDiscoverFragment"
               android:name="ist.cabin.cabincustomer.fragments.discover.CabinCustomerDiscoverFragment"
-              android:label="CabinCustomerDiscoverFragment"/>
+              android:label="CabinCustomerDiscoverFragment">
+        <action
+                android:id="@+id/actionDiscoverToProductDetail"
+                app:destination="@id/cabinCustomerProductDetailFragment"
+                app:enterAnim="@anim/slide_in_from_bottom"
+                app:exitAnim="@anim/slide_out_to_top"
+                app:popEnterAnim="@anim/slide_in_from_top"
+                app:popExitAnim="@anim/slide_out_to_bottom" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerProductDetailFragment"
+            android:name="ist.cabin.cabincustomer.fragments.productDetail.CabinCustomerProductDetailFragment"
+            android:label="CabinCustomerProductDetailFragment" />
 </navigation>

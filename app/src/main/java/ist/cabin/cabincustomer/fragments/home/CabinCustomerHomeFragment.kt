@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import ist.cabin.cabinCustomerBase.BaseFragment
+import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerHomeFragment : BaseFragment(), CabinCustomerHomeContracts.View {
@@ -14,6 +16,7 @@ class CabinCustomerHomeFragment : BaseFragment(), CabinCustomerHomeContracts.Vie
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_home, container, false)
+        (activity!! as MainActivity).showNavbar()
         setupPage()
         return pageView
     }
@@ -42,7 +45,7 @@ class CabinCustomerHomeFragment : BaseFragment(), CabinCustomerHomeContracts.Vie
     //region View
 
     private fun setupPage() {
-
+        pageView.findViewById<ImageButton>(R.id.go_to_login_login_button).setOnClickListener { presenter?.moveToRegistration() }
     }
 
     //endregion

@@ -1,115 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.motion.widget.MotionLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/discover_motion_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPageBackgroundPrimary"
+        app:layoutDescription="@xml/discover_transitions">
 
 
-    <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
-            <!--android:id="@+id/navbar"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="48dp"-->
-            <!--android:background="@color/navbar_background_color"-->
-            <!--app:layout_constraintTop_toTopOf="parent"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintVertical_bias="1.0">-->
-
-        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-                <!--android:id="@+id/navbar_frame"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:layout_constraintTop_toTopOf="parent">-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/homepage_icon"-->
-                    <!--android:id="@+id/discover_homepage_button"-->
-                    <!--app:layout_constraintStart_toStartOf="parent"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="homepage_icon"-->
-                    <!--android:layout_marginTop="4dp"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--android:layout_marginBottom="4dp" android:background="@android:color/transparent"/>-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/cart_icon"-->
-                    <!--android:id="@+id/discover_cart_button"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="cart_icon"-->
-                    <!--app:layout_constraintEnd_toStartOf="@+id/discover_selected_button"-->
-                    <!--app:layout_constraintStart_toEndOf="@+id/discover_homepage_button"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:layout_marginEnd="8dp" android:layout_marginLeft="8dp"-->
-                    <!--android:layout_marginStart="8dp"-->
-                    <!--android:layout_marginBottom="4dp" android:layout_marginTop="4dp"-->
-                    <!--android:background="@android:color/transparent"/>-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/discover_selected_icon"-->
-                    <!--android:id="@+id/discover_selected_button"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="discover_selected_icon"-->
-                    <!--app:layout_constraintHorizontal_bias="0.95"-->
-                    <!--app:layout_constraintStart_toStartOf="parent"-->
-                    <!--android:layout_marginRight="4dp"-->
-                    <!--android:layout_marginEnd="4dp"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:layout_marginTop="4dp" android:background="@android:color/transparent"/>-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/orders_icon"-->
-                    <!--android:id="@+id/discover_orders_button"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="orders_icon"-->
-                    <!--app:layout_constraintHorizontal_bias="0.05"-->
-                    <!--app:layout_constraintStart_toStartOf="parent"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:layout_marginTop="4dp"-->
-                    <!--android:background="@android:color/transparent"-->
-                    <!--android:layout_marginLeft="4dp"-->
-                    <!--android:layout_marginStart="4dp"/>-->
-
-            <!--<ImageButton-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/favorites_icon"-->
-                    <!--android:id="@+id/discover_favorites_button"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:contentDescription="favorites_icon"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:layout_marginEnd="8dp"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:layout_marginTop="4dp" app:layout_constraintStart_toEndOf="@+id/discover_orders_button"-->
-                    <!--android:layout_marginStart="8dp" android:layout_marginLeft="8dp"-->
-                    <!--app:layout_constraintEnd_toStartOf="@+id/discover_homepage_button"-->
-                    <!--android:background="@android:color/transparent"/>-->
-
-
-        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <!--</com.google.android.material.bottomnavigation.BottomNavigationView>-->
-    <TextView
-            android:text="DISCOVER"
-            android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/discover_header"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/orders_detail_delivery_day" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/colorBelowHeaderPrimary"
+            android:elevation="@dimen/defaultHeaderElevation"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:textSize="36sp"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/discover_header_label_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/defaultHeaderHeight"
+                android:background="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:visibility="visible">
+
+            <TextView
+                    android:id="@+id/discover_header_label"
+                    android:layout_width="107dp"
+                    android:layout_height="@dimen/defaultHeaderHeight"
+                    android:layout_gravity="center_horizontal|center"
+                    android:fontFamily="Segoe UI"
+                    android:gravity="center"
+                    android:text="@string/discover_label"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorHeaderLabelsPrimary"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/discoverBellowHeaderBarHeight"
+                android:background="@color/colorBelowHeaderPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/discover_header_label_layout"
+                app:layout_constraintVertical_bias="0.0">
+
+            <View
+                    android:id="@+id/discover_header_bottom_bar_vertical_divider"
+                    android:layout_width="0.2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/colorBordersPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/discover_header_bottom_bar_arrange_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/discover_header_bottom_bar_v50gl"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                            android:id="@+id/discover_header_bottom_bar_sort_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/icon_sort" />
+
+                    <TextView
+                            android:id="@+id/discover_header_bottom_bar_sort_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:layout_weight="1"
+                            android:text="@string/sort"
+                            android:textColor="@color/colorTextsPrimary"
+                            android:textSize="16sp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/discover_header_bottom_bar_filter_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/discover_header_bottom_bar_v50gl"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                            android:id="@+id/discover_header_bottom_bar_filter_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/icon_filter" />
+
+                    <TextView
+                            android:id="@+id/discover_header_bottom_bar_filter_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:layout_weight="1"
+                            android:text="@string/filter"
+                            android:textColor="@color/colorTextsPrimary"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/discover_header_bottom_bar_v50gl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/discover_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/discoverTotalHeaderHeight"/>
+</androidx.constraintlayout.motion.widget.MotionLayout>

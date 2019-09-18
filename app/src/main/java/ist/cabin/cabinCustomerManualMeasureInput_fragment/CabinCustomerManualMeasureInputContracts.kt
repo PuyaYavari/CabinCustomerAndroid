@@ -1,7 +1,7 @@
 package ist.cabin.cabinCustomerManualMeasureInput_fragment
 
 import ist.cabin.cabinCustomerBase.BaseContracts
-import ist.cabin.cabincustomer.models.Measure
+import ist.cabin.cabinCustomerBase.models.backend.JSONMeasure
 
 object CabinCustomerManualMeasureInputContracts {
 
@@ -11,15 +11,15 @@ object CabinCustomerManualMeasureInputContracts {
     }
 
     interface Presenter : BaseContracts.Presenter {
-        fun getMeasures(): List<Measure>?
-        fun setupMeasuresList(measures: List<Measure>?)
+        fun getMeasures(): List<JSONMeasure>?
+        fun setupMeasuresList(JSONMeasures: List<JSONMeasure>?)
         fun calculateTextSize(text: String, defaultSize: Float): Float
         fun confirmPage()
         fun addMeasureToMap(id: Int, value: Float)
     }
 
     interface Interactor : BaseContracts.Interactor {
-        fun getMeasures(): List<Measure>?
+        fun getMeasures(): List<JSONMeasure>?
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {

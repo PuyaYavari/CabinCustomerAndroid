@@ -3,7 +3,7 @@ package ist.cabin.cabinCustomerProfileOptions.fragments.personalDataOptions
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import ist.cabin.cabincustomer.Constants
+import ist.cabin.cabinCustomerBase.Constants
 import java.util.*
 
 class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalDataOptionsContracts.View?) :

@@ -2,8 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <size android:width="@dimen/address_options_tab_buttons_width"
-                  android:height="@dimen/address_options_tab_buttons_height"/>
+            <size android:width="@dimen/addressOptionsTabButtonsWidth"
+                  android:height="@dimen/addressOptionsTabButtonsHeight"/>
             <solid android:color="@color/colorButtonUnselectedPrimary"/>
             <corners android:radius="5dp"/>
         </shape>

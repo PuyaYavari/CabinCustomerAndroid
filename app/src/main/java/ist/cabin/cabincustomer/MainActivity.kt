@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LiveData
@@ -21,6 +22,7 @@ class MainActivity : BaseActivity(),
     var presenter: MainContracts.Presenter? = MainPresenter(this)
 
     private lateinit var t: ActionBarDrawerToggle
+    private lateinit var mainTransitionContainer: MotionLayout
 
     //region Lifecycle
 
@@ -54,6 +56,8 @@ class MainActivity : BaseActivity(),
             drawer_layout.closeDrawer(GravityCompat.START)
             true
         }
+
+        mainTransitionContainer = findViewById(R.id.main_layout)
     }
 
     override fun onBackPressed() {
@@ -110,4 +114,23 @@ class MainActivity : BaseActivity(),
         return currentNavController?.value?.navigateUp() ?: false
     }
 
+    override fun showNavbar() {
+        if (findViewById<BottomNavigationView>(R.id.navbar).translationY != 0f) {
+            mainTransitionContainer.setTransition(
+                R.id.main_layout_navbar_hidden,
+                R.id.main_layout_default
+            )
+            mainTransitionContainer.transitionToEnd()
+        }
+    }
+
+    override fun hideNavbar() {
+        if (findViewById<BottomNavigationView>(R.id.navbar).translationY == 0f) {
+            mainTransitionContainer.setTransition(
+                R.id.main_layout_default,
+                R.id.main_layout_navbar_hidden
+            )
+            mainTransitionContainer.transitionToEnd()
+        }
+    }
 }

@@ -13,7 +13,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
             android:background="@color/colorBoxesBackgroundPrimary"
-            android:elevation="@dimen/extraditions_extraditionbox_elevation"
+            android:elevation="@dimen/extraditionsExtraditionboxElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

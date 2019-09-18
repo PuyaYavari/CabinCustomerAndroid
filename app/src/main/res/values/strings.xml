@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Cabin</string>
     <string name="cabin_logo">Cabin_logo</string>
-    <string name="sign_in">GİRİŞ</string>
-    <string name="sign_up">KAYDOL</string>
+
     <string name="root_info">DAHA FAZLA BİLGİ İÇİN</string>
     <string name="slogan">Sınırsızca denemek için.</string>
     <string name="e_mail_hint">E-POSTA</string>
@@ -13,6 +12,8 @@
     <string name="action_settings">Settings</string>
     <string name="default_error_message">ERROR</string>
     <string name="agreement_confirmation_button">OKUDUM VE ONAYLIYORUM</string>
+    <string name="login_with">ile bağlan</string>
+    <string name="not_registered_question">Üye değil misin?</string>
 
     <string name="forgetpassword_text">E-posta adresinizi girin.</string>
     <string name="back_to_root_button">GİRİŞ SAYFASINA DÖN</string>
@@ -69,6 +70,19 @@
     <string name="leg_height">İç Bacak Boyu</string>
     <string name="centimeters_abbreviation">cm</string>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- NAVBAR -->
     <string name="homepage_label">Anasayfa</string>
     <string name="cart_label">Sepetim</string>
@@ -84,55 +98,6 @@
     <string name="total_price_label">Toplam Ücret</string>
     <string name="delivery_date_label">Teslim Tarihi</string>
     <string name="order_id_label">Sipariş Numarası</string>
-    <!---->
-
-    <string name="header_label_string">Siparişlerim</string>
-    <string name="tabbar_pending_label_string">Bekleyen</string>
-    <string name="tabbar_shipping_label_string">Kargoda</string>
-    <string name="tabbar_sent_label_string">Gönderilen</string>
-    <string name="sorting_label_string">Sırala</string>
-    <string name="order1_order_count_label_string">+5</string>
-    <string name="order1_date_string">12/10/2019</string>
-    <string name="order1_payment_type_string">Kapıda ödeme</string>
-    <string name="order1_datetime_string">12 : 30</string>
-    <string name="order1_price_label_string">255 TL</string>
-    <string name="order2_order_count_label_string">+5</string>
-    <string name="order2_date_string">12/10/2019</string>
-    <string name="order2_payment_type_string">Kredi/Banka Kart</string>
-    <string name="order2_datetime_string">12 : 30</string>
-    <string name="order2_price_label_string">10255 TL</string>
-    <string name="orders_page_header">Siparişlerim</string>
-
-    <!-- translations -->
-    <string name="seller">Satıcı</string>
-    <string name="confirm">Onayla</string>
-    <string name="Man">Erkek</string>
-    <string name="Woman">Kadın</string>
-    <string name="order_detail">Sipariş Detayı</string>
-    <!---->
-
-    <string name="pending_orders_label">Bekleyen Siparişler</string>
-    <string name="shipping_orders_label">Kargodaki Siparişler</string>
-    <string name="sent_orders_label">Gönderilen Siparişler</string>
-    
-    <string name="date_separator">/</string>
-    <string name="address_separator">/</string>
-    <string name="address_bar_separator">></string>
-    <string name="separator_dots">:</string>
-    <string name="separator_dash">-</string>
-
-
-
-
-
-
-
-
-
-
-
-
-
     <string name="email_label">E-mail</string>
     <string name="sms_label">SMS</string>
     <string name="phone_call_label">Telefon Görüşmesi</string>
@@ -148,17 +113,41 @@
     <string name="corporation_name_label">Firma Adı</string>
     <string name="tax_number_label">Vergi Numarası</string>
     <string name="tax_administration_label">Vergi Dairesi</string>
-    <string name="personal_label">Bireysel</string>
-    <string name="corporate_label">Kurumsal</string>
-    <string name="size_label">Beden</string>
-    <string name="color_label">Renk</string>
     <string name="cargo_date_label">Kargoya Veriliş</string>
     <string name="finish_trade_label">Alışverişi Tamamla</string>
-    <string name="sum_label">Toplam</string>
     <string name="middle_sum_label">Ara Toplam</string>
-    <string name="cargo_sum">Kargo Toplam</string>
+    <string name="cargo_sum_label">Kargo Toplam</string>
+    <string name="free_shipment_label">Ücretsiz Kargo</string>
+    <string name="product_explanation_label">Ürün Açıklaması</string>
+    <!---->
 
+    <!-- translations -->
+    <string name="sign_in">GİRİŞ</string>
+    <string name="sign_up">KAYDOL</string>
+    <string name="seller">Satıcı</string>
+    <string name="confirm">Onayla</string>
+    <string name="Man">Erkek</string>
+    <string name="Woman">Kadın</string>
+    <string name="order_detail">Sipariş Detayı</string>
+    <string name="sort">Sırala</string>
+    <string name="filter">Filtrele</string>
+    <string name="size">Beden</string>
+    <string name="color">Renk</string>
+    <string name="sum_label">Toplam</string>
     <string name="update">Güncelle</string>
     <string name="save">Kaydet</string>
     <string name="continue_label">Devam</string>
+    <string name="personal">Bireysel</string>
+    <string name="corporate">Kurumsal</string>
+    <string name="or">veya</string>
+    <string name="register">Üye ol</string>
+    <!---->
+
+    <!--separators-->
+    <string name="date_separator">/</string>
+    <string name="address_separator">/</string>
+    <string name="address_bar_separator">></string>
+    <string name="separator_dots">:</string>
+    <string name="separator_dash">-</string>
+    <!--/separators-->
 </resources>

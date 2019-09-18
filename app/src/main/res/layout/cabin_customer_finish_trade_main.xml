@@ -11,9 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/finish_trade_header_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/default_header_height"
+            android:layout_height="@dimen/defaultHeaderHeight"
             android:background="@color/colorPrimary"
-            android:elevation="@dimen/default_header_elevation"
+            android:elevation="@dimen/defaultHeaderElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -187,7 +187,7 @@
             android:id="@+id/finish_trade_pager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/finish_trade_price_bar_height"
+            android:layout_marginBottom="@dimen/finishTradePriceBarHeight"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -294,7 +294,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cargo_sum"
+                            android:text="@string/cargo_sum_label"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -484,7 +484,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/finish_trade_price_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/finish_trade_price_bar_height"
+                android:layout_height="@dimen/finishTradePriceBarHeight"
                 android:background="@color/colorPageBackgroundPrimary"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"

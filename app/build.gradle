@@ -73,6 +73,23 @@ dependencies {
 
     /* Motion Layout */
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+
+    //Retrofit2
+    def retrofit2_version = "2.5.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+    implementation "com.squareup.retrofit2:converter-scalars:2.4.0"
+
+    //Okhttp3
+    def okhttp3_version = "3.12.0"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
+    //Kotlin Coroutines
+    def kotlinCoroutineVersion = "1.0.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
 }
 
 

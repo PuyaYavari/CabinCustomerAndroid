@@ -2,7 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="@dimen/delivery_address_input_alpha"
+        android:alpha="@dimen/deliveryAddressInputAlpha"
         android:gravity="start|center_vertical"
         android:paddingLeft="16dp"
         android:textColor="@color/colorTextsPrimary"

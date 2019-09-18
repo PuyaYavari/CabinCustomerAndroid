@@ -37,16 +37,8 @@ class CabinCustomerHomePresenter(var view: CabinCustomerHomeContracts.View?) : C
 
     //region Presenter
 
-    override fun moveToOrdersPage() {
-        router?.moveToOrdersPage()
-    }
-
-    override fun moveToFavoritesPage() {
-        router?.moveToFavoritesPage()
-    }
-
-    override fun moveToDiscoverPage() {
-        router?.moveToDiscoverPage()
+    override fun moveToRegistration() {
+        router?.moveToRegistration()
     }
 
     //endregion

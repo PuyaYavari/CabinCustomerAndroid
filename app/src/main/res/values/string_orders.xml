@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="orders_tabbar_pending_label_string">Bekleyen</string>
+    <string name="orders_tabbar_shipping_label_string">Kargoda</string>
+    <string name="orders_tabbar_sent_label_string">Gönderilen</string>
+    <string name="orders_header">Siparişlerim</string>
+    <string name="pending_orders_label">Bekleyen Siparişler</string>
+    <string name="shipping_orders_label">Kargodaki Siparişler</string>
+    <string name="sent_orders_label">Gönderilen Siparişler</string>
+</resources>

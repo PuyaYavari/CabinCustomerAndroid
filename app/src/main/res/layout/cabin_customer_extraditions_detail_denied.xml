@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/default_header_height">
+        android:layout_marginTop="@dimen/defaultHeaderHeight">
 
     <LinearLayout
             android:layout_width="0dp"
@@ -349,7 +349,7 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/extraditions_extradition_detail_denied_reason_layout_height"
+                android:layout_height="@dimen/extraditionsExtraditionDetailDeniedReasonLayoutHeight"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="32dp"
                 android:orientation="horizontal">
@@ -358,7 +358,7 @@
                     android:layout_width="114dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/extraditions_extradition_detail_label_layout_elevation">
+                    android:elevation="@dimen/extraditionsExtraditionDetailLabelLayoutElevation">
 
                 <TextView
                         android:id="@+id/extradition_detail_denied_reason_label"
@@ -402,7 +402,7 @@
                         android:id="@+id/extradition_detail_denied_reason"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:alpha="@dimen/delivery_address_input_alpha"
+                        android:alpha="@dimen/deliveryAddressInputAlpha"
                         android:background="@null"
                         android:ems="10"
                         android:gravity="top"

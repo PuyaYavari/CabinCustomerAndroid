@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import ist.cabin.cabincustomer.models.Measure
+import ist.cabin.cabinCustomerBase.models.backend.JSONMeasure
 
 class CabinCustomerManualMeasureInputPresenter(var view: CabinCustomerManualMeasureInputContracts.View?) :
     CabinCustomerManualMeasureInputContracts.Presenter,
@@ -44,15 +44,15 @@ class CabinCustomerManualMeasureInputPresenter(var view: CabinCustomerManualMeas
 
     //region Presenter
 
-    override fun getMeasures(): List<Measure>? {
+    override fun getMeasures(): List<JSONMeasure>? {
         val measures = interactor?.getMeasures()
         Log.d("From Interactor", measures.toString())
         return measures!!
     }
 
-    override fun setupMeasuresList(measures: List<Measure>?) {
+    override fun setupMeasuresList(JSONMeasures: List<JSONMeasure>?) {
         var inputBox: View
-        measures?.forEach {
+        JSONMeasures?.forEach {
             if (it.name != null) {
                 inputBox = view!!.createTextInputBox(it.id, it.name.toString()) //TODO: shouldn't get persons height
                 if (inputBox.parent != null) {

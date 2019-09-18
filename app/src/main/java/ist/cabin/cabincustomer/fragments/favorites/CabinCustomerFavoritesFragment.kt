@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ist.cabin.cabinCustomerBase.BaseFragment
+import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesContracts.View {
@@ -14,6 +15,7 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_favorites, container, false)
+        (activity!! as MainActivity).showNavbar()
         setupPage()
         return pageView
     }

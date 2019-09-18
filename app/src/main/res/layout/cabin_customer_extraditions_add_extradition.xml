@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/default_header_height">
+            android:layout_marginTop="@dimen/defaultHeaderHeight">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/add_extradition_products_recyclerview_layout"
@@ -58,7 +58,7 @@
                     android:layout_width="116dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorLabelsBackgroundPrimary"
-                    android:elevation="@dimen/change_password_labels_background_elevation">
+                    android:elevation="@dimen/changePasswordLabelsBackgroundElevation">
 
                 <TextView
                         android:id="@+id/add_extradition_reason_label"
@@ -336,7 +336,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/colorFooterPrimary"
-                android:elevation="@dimen/default_footer_elevation"
+                android:elevation="@dimen/defaultFooterElevation"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -358,7 +358,7 @@
             <Button
                     android:id="@+id/add_extradition_add_button"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/extraditions_add_button_height"
+                    android:layout_height="@dimen/extraditionsAddButtonHeight"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"

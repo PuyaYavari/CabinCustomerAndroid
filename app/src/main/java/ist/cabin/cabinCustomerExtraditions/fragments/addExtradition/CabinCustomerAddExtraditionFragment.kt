@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabinCustomerExtraditions.CabinCustomerExtraditionsActivity
-import ist.cabin.cabincustomer.Constants
+import ist.cabin.cabinCustomerBase.Constants
 import ist.cabin.cabincustomer.R
 
 

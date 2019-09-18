@@ -2,6 +2,7 @@ package ist.cabin.cabincustomer.fragments.discover
 
 import android.app.Activity
 import android.os.Bundle
+import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 
 class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.View?) :
     CabinCustomerDiscoverContracts.Presenter,
@@ -10,6 +11,7 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
     var interactor: CabinCustomerDiscoverContracts.Interactor? =
         CabinCustomerDiscoverInteractor(this)
     var router: CabinCustomerDiscoverContracts.Router? = null
+    private var currentPage = 0
 
     //region Lifecycle
 
@@ -38,27 +40,28 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
 
     //region Presenter
 
-    override fun moveToOrdersPage() {
-        router?.moveToOrdersPage()
+    override fun moveToProductDetail(product: MODELProduct) {
+        router?.moveToProductDetail(product)
     }
 
-    override fun moveToFavoritesPage() {
-        router?.moveToFavoritesPage()
-    }
-
-    override fun moveToHomePage() {
-        router?.moveToHomePage()
-    }
-
-    override fun moveToCartPage() {
-        router?.moveToCartPage()
+    override fun getItemData(page: Int, pageSize: Int) {
+        val context = view?.getActivityContext()
+        if (context != null && currentPage < page)
+            interactor?.getItemData(context, page, pageSize)
     }
 
     //endregion
 
     //region InteractorOutput
 
-    //TODO: Implement your InteractorOutput methods here
+    override fun addData(products: List<MODELProduct>?) {
+        currentPage += 1
+        view?.addData(products)
+    }
+
+    override fun resetPage() {
+        currentPage = 0
+    }
 
     //endregion
 }

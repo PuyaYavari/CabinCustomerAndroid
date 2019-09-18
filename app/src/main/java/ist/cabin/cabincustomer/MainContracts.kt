@@ -1,7 +1,10 @@
 package ist.cabin.cabincustomer
 
 object MainContracts {
-    interface View: ist.cabin.cabinCustomerBase.BaseContracts.View
+    interface View: ist.cabin.cabinCustomerBase.BaseContracts.View {
+        fun hideNavbar()
+        fun showNavbar()
+    }
 
     interface Presenter: ist.cabin.cabinCustomerBase.BaseContracts.Presenter {
         fun moveToProfileOptions()

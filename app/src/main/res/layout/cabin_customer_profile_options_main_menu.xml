@@ -8,10 +8,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/profile_options_menu_header_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/default_header_height"
+            android:layout_height="@dimen/defaultHeaderHeight"
             android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
-            android:elevation="@dimen/default_header_elevation"
+            android:elevation="@dimen/defaultHeaderElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

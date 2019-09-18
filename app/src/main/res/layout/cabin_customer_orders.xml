@@ -10,13 +10,13 @@
             android:id="@+id/orders_pager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_header_height"
-            android:layout_marginBottom="@dimen/navbar_height"
+            android:layout_marginTop="@dimen/defaultHeaderHeight"
+            android:layout_marginBottom="@dimen/navbarHeight"
             android:background="@color/colorPageBackgroundPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintTop_toBottomOf="@+id/orders_header"
             app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabLayout
@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="28dp"
                 android:background="@color/colorBelowHeaderPrimary"
-                android:elevation="@dimen/default_header_elevation"
+                android:elevation="@dimen/defaultHeaderElevation"
                 android:verticalScrollbarPosition="defaultPosition"
                 app:tabIndicator="@drawable/tabbar_indicator_shape"
                 app:tabIndicatorColor="@color/colorPrimary"
@@ -67,7 +67,7 @@
                 android:layout_toRightOf="@+id/sorting_icon"
                 android:fontFamily="Segoe UI"
                 android:gravity="center"
-                android:text="@string/sorting_label_string"
+                android:text="@string/sort"
                 android:textColor="@color/colorTextsPrimary"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/sorting_frame"
@@ -90,7 +90,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/header"
+            android:id="@+id/orders_header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
@@ -101,14 +101,14 @@
             app:layout_constraintVertical_bias="0.0">
 
         <TextView
-                android:id="@+id/header_label"
+                android:id="@+id/orders_header_label"
                 android:layout_width="107dp"
-                android:layout_height="@dimen/default_header_height"
+                android:layout_height="@dimen/defaultHeaderHeight"
 
                 android:layout_gravity="center_horizontal|center"
                 android:fontFamily="Segoe UI"
                 android:gravity="center"
-                android:text="@string/orders_page_header"
+                android:text="@string/orders_header"
                 android:textAllCaps="false"
                 android:textColor="@color/colorHeaderLabelsPrimary"
                 android:textSize="20sp"

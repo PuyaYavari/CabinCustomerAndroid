@@ -3,7 +3,7 @@ package ist.cabin.cabinCustomerProfileOptions.fragments.changePassword
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import ist.cabin.cabincustomer.Constants
+import ist.cabin.cabinCustomerBase.Constants
 
 class CabinCustomerChangePasswordPresenter(var view: CabinCustomerChangePasswordContracts.View?) :
     CabinCustomerChangePasswordContracts.Presenter, CabinCustomerChangePasswordContracts.InteractorOutput {

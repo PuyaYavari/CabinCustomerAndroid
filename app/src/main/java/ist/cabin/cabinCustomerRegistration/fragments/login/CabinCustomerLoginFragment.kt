@@ -1,4 +1,4 @@
-package ist.cabin.cabinCustomerLogin_fragment
+package ist.cabin.cabinCustomerRegistration.fragments.login
 
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabincustomer.R
 
@@ -48,8 +49,8 @@ class CabinCustomerLoginFragment : BaseFragment(),
     //region View
 
     private fun setupPage() {
-        pageView.findViewById<Button>(R.id.login_button).setOnClickListener { presenter?.login() }
-        pageView.findViewById<Button>(R.id.forget_password_button).setOnClickListener { presenter?.forgetPassword() }
+        pageView.findViewById<Button>(R.id.login_login_button).setOnClickListener { presenter?.login() }
+        pageView.findViewById<TextView>(R.id.login_forget_password_text).setOnClickListener { presenter?.forgetPassword() }
         pageView.findViewById<EditText>(R.id.login_email_input).addTextChangedListener ( object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -69,15 +70,15 @@ class CabinCustomerLoginFragment : BaseFragment(),
     }
 
     override fun enableLoginButton() {
-        pageView.findViewById<Button>(R.id.login_button).isEnabled = true
-        pageView.findViewById<Button>(R.id.login_button).isClickable = true
-        pageView.findViewById<Button>(R.id.login_button).alpha = 1.0F
+        pageView.findViewById<Button>(R.id.login_login_button).isEnabled = true
+        pageView.findViewById<Button>(R.id.login_login_button).isClickable = true
+        pageView.findViewById<Button>(R.id.login_login_button).alpha = 1.0F
     }
 
     override fun disableLoginbutton() {
-        pageView.findViewById<Button>(R.id.login_button).isEnabled = false
-        pageView.findViewById<Button>(R.id.login_button).isClickable = false
-        pageView.findViewById<Button>(R.id.login_button).alpha = 0.5F
+        pageView.findViewById<Button>(R.id.login_login_button).isEnabled = false
+        pageView.findViewById<Button>(R.id.login_login_button).isClickable = false
+        pageView.findViewById<Button>(R.id.login_login_button).alpha = 0.5F
     }
 
     //endregion

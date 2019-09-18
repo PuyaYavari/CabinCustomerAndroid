@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetStart="@id/main_layout_default"
+        motion:constraintSetEnd="@id/main_layout_navbar_hidden"
+        motion:duration="300"/>
+    <Transition
+        motion:constraintSetStart="@id/main_layout_navbar_hidden"
+        motion:constraintSetEnd="@id/main_layout_default"
+        motion:duration="300"/>
+
+    <ConstraintSet android:id="@+id/main_layout_default">
+        <Constraint
+            android:id="@+id/nav_host_fragment"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                />
+        <Constraint
+            android:id="@+id/navbar"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_height="@dimen/navbarHeight"
+                android:layout_width="match_parent"
+                motion:layout_constraintVertical_bias="1"
+                />
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/main_layout_navbar_hidden">
+        <Constraint
+                android:id="@+id/nav_host_fragment"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                />
+        <Constraint
+                android:id="@+id/navbar"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_height="@dimen/navbarHeight"
+                android:layout_width="match_parent"
+                android:translationY="@dimen/navbarHeight"
+                motion:layout_constraintVertical_bias="1"
+                />
+    </ConstraintSet>
+
+</MotionScene>
