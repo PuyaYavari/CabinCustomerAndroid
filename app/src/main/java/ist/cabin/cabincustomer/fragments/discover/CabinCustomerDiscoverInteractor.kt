@@ -2,9 +2,12 @@ package ist.cabin.cabincustomer.fragments.discover
 
 import android.content.Context
 import android.util.Log
+import com.squareup.moshi.Moshi
 import ist.cabin.cabinCustomerBase.Constants
 import ist.cabin.cabinCustomerBase.NetworkManager
 import ist.cabin.cabinCustomerBase.NetworkManagerContracts
+import ist.cabin.cabinCustomerBase.models.adapters.APIProductAdapter
+import ist.cabin.cabinCustomerBase.models.adapters.JSONProductAdapter
 import ist.cabin.cabinCustomerBase.models.backend.APIProduct
 import ist.cabin.cabinCustomerBase.models.backend.JSONIssue
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
@@ -21,6 +24,9 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
 
     override fun getItemData(context: Context, page: Int, pageSize: Int) {
         val responseClass = MODELProducts()
+        val moshi: Moshi = Moshi.Builder()
+            .add(JSONProductAdapter(Moshi.Builder().build()))
+            .build()
         var products: MutableList<MODELProduct>? = null
         NetworkManager.requestFactory<APIProduct>(
             context,
@@ -29,6 +35,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             pageSize,
             null,
             responseClass,
+            APIProductAdapter(moshi),
             object : NetworkManagerContracts.ResponseCallbacks{
                 override fun onSuccess(value: Any?) {
                     Log.d("Discover SUCCESS", value.toString())

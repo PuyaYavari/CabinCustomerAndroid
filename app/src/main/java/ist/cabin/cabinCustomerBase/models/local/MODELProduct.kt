@@ -29,11 +29,11 @@ class MODELProduct : LocalDataModel{
             cargoDurationID = cargoDurationData.id
             cargoDuration = cargoDurationData.name
 
-            val cargoTypeData = jsonModel.shippingType?.get(0) ?: throw java.lang.Exception("Cargo Type Not Mapped.")
+            val cargoTypeData = jsonModel.shippingType[0] ?: throw java.lang.Exception("Cargo Type Not Mapped.")
             cargoTypeID = cargoTypeData.id
             cargoType = cargoDurationData.name
 
-            jsonModel.colors?.forEach {
+            jsonModel.colors.forEach {
                 val color = MODELColor()
                 if (color.mapFrom(it))
                     colors.add(color)

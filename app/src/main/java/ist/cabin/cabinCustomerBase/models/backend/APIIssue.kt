@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
-@JsonClass(generateAdapter = true)
+@JsonClass(generateAdapter = false)
 data class APIIssue (@Json(name = "ISSUE") var JSONIssue: List<JSONIssue>)
 
 object IssueResponseMapper {

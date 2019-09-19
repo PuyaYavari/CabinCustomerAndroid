@@ -24,7 +24,7 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     private lateinit var viewAdapter: CabinCustomerDiscoverAdapter
     private lateinit var viewManager: GridLayoutManager
 
-    private val pageSize = 10
+    private val pageSize = 20
     private var page = 1
 
     private lateinit var discoverHeaderTransitionContainer: MotionLayout
@@ -34,6 +34,10 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
         discoverHeaderTransitionContainer = pageView.findViewById(R.id.discover_motion_layout)
         showHeaderAndNavbar()
         (activity!! as MainActivity).showNavbar()
+
+        viewAdapter = CabinCustomerDiscoverAdapter(this, myDataset)
+        viewManager = GridLayoutManager(this.context, 2)
+
         setupPage()
         return pageView
     }
@@ -65,9 +69,6 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
         presenter?.getItemData(page,pageSize)
 
         recyclerView = pageView.findViewById(R.id.discover_recyclerview)
-
-        viewAdapter = CabinCustomerDiscoverAdapter(this, myDataset)
-        viewManager = GridLayoutManager(this.context, 2)
 
         recyclerView.apply {
             setHasFixedSize(false)
@@ -117,6 +118,12 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     override fun addData(products: List<MODELProduct>?) {
         if (products != null)
             myDataset.addAll(products as Iterable<MODELProduct>)
+        viewAdapter.notifyDataSetChanged()
+    }
+
+    private fun clearPage(){ //FIXME
+        myDataset.clear()
+        presenter?.resetPage()
         viewAdapter.notifyDataSetChanged()
     }
 

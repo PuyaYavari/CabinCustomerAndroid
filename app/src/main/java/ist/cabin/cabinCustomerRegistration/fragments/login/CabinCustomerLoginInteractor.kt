@@ -38,6 +38,7 @@ class CabinCustomerLoginInteractor(var output: CabinCustomerLoginContracts.Inter
             null,
             data,
             null,
+            null,
             object : NetworkManagerContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     Log.d("Login OnSuccess", value.toString())

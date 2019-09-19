@@ -12,6 +12,7 @@ import retrofit2.http.Url
 object NetworkManagerContracts {
     interface ApiServices{
         @Headers("APIKEY: "+Constants.API_KEY,
+                    "TOKEN: TOKEN", //FIXME: SEND TOKEN
                     "Content-Type: application/json")
         @POST
         fun sendRequest(@Body json: Request<Any>, @Url url: String): Call<String?>

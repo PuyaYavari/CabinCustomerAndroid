@@ -9,6 +9,8 @@ class MODELImage: LocalDataModel {
 
     override fun <T> mapFrom(modelData: T): Boolean {
         return try {
+            if (modelData == null)
+                Log.e("IMAGE", "IS NULL")
             val jsonModel = modelData as JSONImage
             url = jsonModel.url
             if (jsonModel.priority != null)

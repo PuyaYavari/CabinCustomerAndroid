@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.util.Log
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import ist.cabin.cabinCustomerBase.models.Paging
@@ -55,15 +56,18 @@ object NetworkManager {
     }
 
 
+    @Throws(Exception::class)
     inline fun <reified T>requestFactory(context: Context,
                                          url: String,
                                          page: Int?,
                                          pageSize: Int?,
                                          data: Any?,
                                          responseClass: LocalDataModel?,
+                                         responseAdapter: JsonAdapter<T>?,
                                          ResponseCallbacks: NetworkManagerContracts.ResponseCallbacks){
         val apiServices = retrofit().create(NetworkManagerContracts.ApiServices::class.java)
-        val adapter = Moshi.Builder().add(KotlinJsonAdapterFactory()).build().adapter<T>(T::class.java)
+        val adapter: JsonAdapter<T>? = responseAdapter
+            ?: Moshi.Builder().add(KotlinJsonAdapterFactory()).build().adapter<T>(T::class.java)
         if (isNetworkConnected(context)) {
             val call = apiServices.sendRequest(Request(getActiveUserData(), getPaging(page, pageSize), data), url)
             call.enqueue(object : Callback<String?> {
@@ -74,7 +78,7 @@ object NetworkManager {
                                 val responseBody: Any? = response.body()
                                 val issue = IssueResponseMapper.issueResponseMapper(responseBody.toString())
                                 if (issue == null) {
-                                    val dataModel = adapter.fromJson(responseBody.toString())
+                                    val dataModel = adapter?.fromJson(responseBody.toString()) ?: throw Exception("Some Exception")
                                     if (responseClass != null)
                                         ResponseCallbacks.onSuccess(responseClass.mapFrom(dataModel))
                                     else
