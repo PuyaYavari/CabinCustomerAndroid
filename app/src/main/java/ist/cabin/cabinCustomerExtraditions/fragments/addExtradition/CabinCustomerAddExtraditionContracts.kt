@@ -28,12 +28,11 @@ object CabinCustomerAddExtraditionContracts {
         fun moveToCongratulationsPage()
     }
 
-    interface Product : BaseContracts.Product {
+    interface Product : BaseContracts.Product { //FIXME: REMOVE
         var ER: String
         var temp: Int
 
         fun getProductImage(): Int
-        //TODO: GETTER SETTERS FOR ALL ATTRIBUTES
     }
 
 }

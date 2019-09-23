@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailContracts.View,
-                                        private val myDataset: List<List<String>>):
+                                        private val myDataset: List<MODELColor>):
     RecyclerView.Adapter<CabinCustomerProductColorsAdapter.ProductColorViewHolder>(){
 
     // Provide a reference to the views for each data item
@@ -34,8 +35,13 @@ class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailCont
     override fun onBindViewHolder(holder: ProductColorViewHolder, position: Int) {
         holder.itemView.apply {
             findViewById<ImageView>(R.id.colorbox_color_sample).imageTintList =
-                ColorStateList.valueOf(Color.parseColor(myDataset[position][0]))
-            findViewById<TextView>(R.id.colorbox_color_name).text = myDataset[position][1]
+                ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode))
+            findViewById<TextView>(R.id.colorbox_color_name).text = myDataset[position].name
+            setOnClickListener {
+                view.showMeasuresOfColor(myDataset[position].id)
+                view.setSelectedColor(myDataset[position])
+                view.setSelectedSize(null)
+            }
         }
     }
 

@@ -1,7 +1,7 @@
 package ist.cabin.cabinCustomerBase.models.adapters
 
-import android.util.Log
 import com.squareup.moshi.*
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONColor
 import ist.cabin.cabinCustomerBase.models.backend.JSONImage
 import ist.cabin.cabinCustomerBase.models.backend.JSONSize
@@ -23,10 +23,14 @@ class JSONColorAdapter (moshi: Moshi) : JsonAdapter<JSONColor>() {
         moshi.adapter<Boolean?>(Boolean::class.javaObjectType, emptySet(), "isFavorite")
 
     private val listOfJSONImageAdapter: JsonAdapter<List<JSONImage>> =
-        moshi.adapter<List<JSONImage>>(Types.newParameterizedType(List::class.java, JSONImage::class.java), emptySet(), "images")
+        Moshi.Builder().add(JSONImageAdapter(Moshi.Builder().build())).build()
+            .adapter<List<JSONImage>>(Types.newParameterizedType(List::class.java, JSONImage::class.java),
+                emptySet(), "images")
 
     private val listOfJSONSizeAdapter: JsonAdapter<List<JSONSize>> =
-        moshi.adapter<List<JSONSize>>(Types.newParameterizedType(List::class.java, JSONSize::class.java), emptySet(), "sizes")
+        Moshi.Builder().add(JSONSizeAdapter(Moshi.Builder().build())).build()
+            .adapter<List<JSONSize>>(Types.newParameterizedType(List::class.java, JSONSize::class.java),
+                emptySet(), "sizes")
 
     override fun toString(): String = "GeneratedJsonAdapter(JSONColor)"
 
@@ -58,14 +62,17 @@ class JSONColorAdapter (moshi: Moshi) : JsonAdapter<JSONColor>() {
                     }
                 }
             } catch (exception: Exception) {
-                Log.e("JSONColorAdapter", exception.toString())
+                Logger.warn(
+                    this::class.java.name, "A field is null and is being skipped.",
+                    exception
+                )
                 reader.skipValue()
             }
         }
         reader.endObject()
         var imagePresent = false
         var sizePresent = false
-        return try {
+        try {
             val result = JSONColor(
                 id = id!!,
                 name = name,
@@ -85,10 +92,14 @@ class JSONColorAdapter (moshi: Moshi) : JsonAdapter<JSONColor>() {
             }
             if (imagePresent && sizePresent)
                 return result
-            null
+            return null
         } catch(exception: Exception){
-            Log.e("JSONColorAdapter", exception.message.toString())
-            null
+            Logger.warn(
+                this::class.java.name,
+                "A field is null, this object will be null and won't be visible in app.",
+                exception
+            )
+            return null
         }
     }
 

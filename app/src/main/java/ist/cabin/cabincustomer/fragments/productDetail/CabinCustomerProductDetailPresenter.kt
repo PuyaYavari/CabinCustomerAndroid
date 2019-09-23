@@ -1,7 +1,10 @@
 package ist.cabin.cabincustomer.fragments.productDetail
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
+import ist.cabin.cabinCustomerBase.models.local.MODELSize
 
 class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailContracts.View?) :
     CabinCustomerProductDetailContracts.Presenter,
@@ -38,7 +41,15 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun addToCart(
+        context: Context,
+        amount: Int,
+        productId: Int,
+        color: MODELColor,
+        size: MODELSize
+    ) {
+        interactor?.addToCart(context, amount, productId, color, size)
+    }
 
     //endregion
 

@@ -1,6 +1,6 @@
 package ist.cabin.cabinCustomerBase.models.local
 
-import android.util.Log
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONSeller
 
 class MODELSeller: LocalDataModel {
@@ -14,7 +14,7 @@ class MODELSeller: LocalDataModel {
             id = jsonModel.id
             true
         } catch (exception: Exception){
-            Log.e("Seller Mapper", exception.message.toString())
+            Logger.warn(this::class.java.name, "A problem occurred while mapping Seller.", exception)
             false
         }
     }

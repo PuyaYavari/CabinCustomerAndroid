@@ -17,5 +17,9 @@
     <fragment
             android:id="@+id/cabinCustomerProductDetailFragment"
             android:name="ist.cabin.cabincustomer.fragments.productDetail.CabinCustomerProductDetailFragment"
-            android:label="CabinCustomerProductDetailFragment" />
+            android:label="CabinCustomerProductDetailFragment" >
+        <argument
+                android:name="product"
+                app:argType="ist.cabin.cabinCustomerBase.models.local.MODELProduct" />
+    </fragment>
 </navigation>

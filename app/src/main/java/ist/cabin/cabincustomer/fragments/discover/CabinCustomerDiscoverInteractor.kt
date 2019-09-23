@@ -3,9 +3,10 @@ package ist.cabin.cabincustomer.fragments.discover
 import android.content.Context
 import android.util.Log
 import com.squareup.moshi.Moshi
+import ist.cabin.cabinCustomerBase.BaseContracts
 import ist.cabin.cabinCustomerBase.Constants
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.NetworkManager
-import ist.cabin.cabinCustomerBase.NetworkManagerContracts
 import ist.cabin.cabinCustomerBase.models.adapters.APIProductAdapter
 import ist.cabin.cabinCustomerBase.models.adapters.JSONProductAdapter
 import ist.cabin.cabinCustomerBase.models.backend.APIProduct
@@ -36,17 +37,18 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             null,
             responseClass,
             APIProductAdapter(moshi),
-            object : NetworkManagerContracts.ResponseCallbacks{
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    Log.d("Discover SUCCESS", value.toString())
+                    Logger.info(this::class.java.name, "SUCCESS, Value: $value", null)
                     if (value == true)
                         products = responseClass.products
-                    output?.addData(products)
+                    if (products != null)
+                        output?.addData(products)
                     //TODO: ELSE
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Log.d("Discover ISSUE", value.toString())
+                    Logger.info(this::class.java.name, "ISSUE, Value: $value", null)
                     //TODO: SHOW ISSUE
                 }
 
@@ -58,17 +60,17 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Log.e("Discover FAILURE", throwable.message.toString())
+                    Logger.info(this::class.java.name, "FAILURE, ${throwable.message}", null)
                     //TODO: SHOW DEFAULT FAILURE ERROR
                 }
 
                 override fun onServerDown() {
-                    Log.d("Discover SERVER DOWN", "")
+                    Logger.info(this::class.java.name, "SERVER DOWN", null)
                     //TODO: SHOW DEFAULT FAILURE ERROR
                 }
 
                 override fun onException(exception: Exception) {
-                    Log.e("Discover EXCEPTION", exception.message.toString())
+                    Logger.info(this::class.java.name, "EXCEPTION", exception)
                     //TODO: HANDLE
                 }
         })

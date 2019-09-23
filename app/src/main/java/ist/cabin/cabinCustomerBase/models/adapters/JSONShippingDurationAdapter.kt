@@ -1,7 +1,7 @@
 package ist.cabin.cabinCustomerBase.models.adapters
 
-import android.util.Log
 import com.squareup.moshi.*
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONShippingDuration
 
 class JSONShippingDurationAdapter (moshi: Moshi) : JsonAdapter<JSONShippingDuration>() {
@@ -34,7 +34,10 @@ class JSONShippingDurationAdapter (moshi: Moshi) : JsonAdapter<JSONShippingDurat
                     }
                 }
             } catch (exception: Exception) {
-                Log.e("ShippiDuratAdapter", exception.message.toString())
+                Logger.warn(
+                    this::class.java.name, "A field is null and is being skipped.",
+                    exception
+                )
                 reader.skipValue()
             }
         }
@@ -45,6 +48,11 @@ class JSONShippingDurationAdapter (moshi: Moshi) : JsonAdapter<JSONShippingDurat
                 name = name!!)
             result
         } catch (exception: Exception){
+            Logger.warn(
+                this::class.java.name,
+                "A field is null, this object will be null and won't be visible in app.",
+                exception
+            )
             null
         }
     }

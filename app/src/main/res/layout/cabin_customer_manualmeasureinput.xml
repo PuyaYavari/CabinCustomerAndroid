@@ -134,7 +134,7 @@
                         <!--app:layout_constraintTop_toTopOf="@+id/manualmeasureinput_shoulders_input_background"-->
                         <!--app:layout_constraintEnd_toStartOf="@+id/manualmeasureinput_shoulders_input"-->
                         <!--app:layout_constraintStart_toStartOf="@+id/manualmeasureinput_shoulders_input_background"-->
-                        <!--android:textColor="@color/white"/>-->
+                        <!--android:textColor="@hexCode/white"/>-->
             <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
             <!--<androidx.constraintlayout.widget.ConstraintLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -187,7 +187,7 @@
                         <!--app:layout_constraintTop_toTopOf="@+id/manualmeasureinput_breasts_input_background"-->
                         <!--app:layout_constraintEnd_toStartOf="@+id/manualmeasureinput_breasts_input"-->
                         <!--app:layout_constraintStart_toStartOf="@+id/manualmeasureinput_breasts_input_background"-->
-                        <!--android:textColor="@color/white"/>-->
+                        <!--android:textColor="@hexCode/white"/>-->
             <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
             <!--<androidx.constraintlayout.widget.ConstraintLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -240,7 +240,7 @@
                         <!--app:layout_constraintTop_toTopOf="@+id/manualmeasureinput_waist_input_background"-->
                         <!--app:layout_constraintEnd_toStartOf="@+id/manualmeasureinput_waist_input"-->
                         <!--app:layout_constraintStart_toStartOf="@+id/manualmeasureinput_waist_input_background"-->
-                        <!--android:textColor="@color/white"/>-->
+                        <!--android:textColor="@hexCode/white"/>-->
             <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
             <!--<androidx.constraintlayout.widget.ConstraintLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -299,7 +299,7 @@
                         <!--app:layout_constraintTop_toTopOf="@+id/manualmeasureinput_hip_input_background"-->
                         <!--app:layout_constraintEnd_toStartOf="@+id/manualmeasureinput_hip_input"-->
                         <!--app:layout_constraintStart_toStartOf="@+id/manualmeasureinput_hip_input_background"-->
-                        <!--android:textColor="@color/white"/>-->
+                        <!--android:textColor="@hexCode/white"/>-->
             <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
             <!--<androidx.constraintlayout.widget.ConstraintLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -351,7 +351,7 @@
                         <!--app:layout_constraintTop_toTopOf="@+id/manualmeasureinput_thigh_input_background"-->
                         <!--app:layout_constraintEnd_toStartOf="@+id/manualmeasureinput_thigh_input"-->
                         <!--app:layout_constraintStart_toStartOf="@+id/manualmeasureinput_thigh_input_background"-->
-                        <!--android:textColor="@color/white"/>-->
+                        <!--android:textColor="@hexCode/white"/>-->
             <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
             <!--<androidx.constraintlayout.widget.ConstraintLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -404,7 +404,7 @@
                         <!--app:layout_constraintTop_toTopOf="@+id/manualmeasureinput_lowerleg_input_background"-->
                         <!--app:layout_constraintEnd_toStartOf="@+id/manualmeasureinput_lowerleg_input"-->
                         <!--app:layout_constraintStart_toStartOf="@+id/manualmeasureinput_lowerleg_input_background"-->
-                        <!--android:textColor="@color/white"/>-->
+                        <!--android:textColor="@hexCode/white"/>-->
             <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
             <!--<androidx.constraintlayout.widget.ConstraintLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -457,7 +457,7 @@
                         <!--app:layout_constraintTop_toTopOf="@+id/manualmeasureinput_legheight_input_background"-->
                         <!--app:layout_constraintEnd_toStartOf="@+id/manualmeasureinput_legheight_input"-->
                         <!--app:layout_constraintStart_toStartOf="@+id/manualmeasureinput_legheight_input_background"-->
-                        <!--android:textColor="@color/white" android:textSize="10sp"/>-->
+                        <!--android:textColor="@hexCode/white" android:textSize="10sp"/>-->
             <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
         </LinearLayout>
     </ScrollView>

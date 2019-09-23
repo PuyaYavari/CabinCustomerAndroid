@@ -2,9 +2,9 @@ package ist.cabin.cabinCustomerRegistration.fragments.login
 
 import android.content.Context
 import android.util.Log
+import ist.cabin.cabinCustomerBase.BaseContracts
 import ist.cabin.cabinCustomerBase.Constants
 import ist.cabin.cabinCustomerBase.NetworkManager
-import ist.cabin.cabinCustomerBase.NetworkManagerContracts
 import ist.cabin.cabinCustomerBase.models.backend.APILogin
 import ist.cabin.cabinCustomerBase.models.backend.APIUser
 import ist.cabin.cabinCustomerBase.models.backend.JSONIssue
@@ -39,7 +39,7 @@ class CabinCustomerLoginInteractor(var output: CabinCustomerLoginContracts.Inter
             data,
             null,
             null,
-            object : NetworkManagerContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     Log.d("Login OnSuccess", value.toString())
 //                    val user = UserResponseMapper.mapUserLoginResponse(value)

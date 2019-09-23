@@ -1,6 +1,6 @@
 package ist.cabin.cabinCustomerBase.models.local
 
-import android.util.Log
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.APIProduct
 
 class MODELProducts: LocalDataModel {
@@ -16,7 +16,7 @@ class MODELProducts: LocalDataModel {
             }
             true
         } catch (exception: Exception) {
-            Log.e("Products Mapper", exception.message.toString())
+            Logger.warn(this::class.java.name, "A problem occurred while mapping Products.", exception)
             false
         }
     }

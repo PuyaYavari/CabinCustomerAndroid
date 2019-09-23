@@ -1,6 +1,8 @@
 package ist.cabin.cabincustomer.fragments.cart
 
+import android.content.Context
 import ist.cabin.cabinCustomerBase.BaseContracts
+import ist.cabin.cabinCustomerBase.models.backend.JSONColor
 
 object CabinCustomerCartContracts {
 
@@ -15,7 +17,13 @@ object CabinCustomerCartContracts {
     }
 
     interface Interactor : BaseContracts.Interactor {
-        //TODO
+        fun getCart()
+        fun updateProduct(
+            context: Context,
+            amount: Int,
+            color: JSONColor,
+            productId: Int
+        )
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {

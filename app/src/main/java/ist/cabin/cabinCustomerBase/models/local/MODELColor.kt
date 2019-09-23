@@ -1,14 +1,12 @@
 package ist.cabin.cabinCustomerBase.models.local
 
-import android.graphics.Color
-import android.os.Build
-import android.util.Log
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONColor
 
 class MODELColor: LocalDataModel {
     var id: Int = -1
-    lateinit var name: String
-    lateinit var color: Color
+    var name: String = ""
+    lateinit var hexCode: String
     var favourite: Boolean = false
     var images: MutableList<MODELImage> = mutableListOf()
     var sizes: MutableList<MODELSize> = mutableListOf()
@@ -18,12 +16,14 @@ class MODELColor: LocalDataModel {
         return try {
             val jsonModel = modelData as JSONColor
             id = jsonModel.id
-            name = jsonModel.name ?: throw Exception("Color name is null!")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                color = Color.valueOf(Color.parseColor(jsonModel.hexCode))
-            } else {
-//                color = Color.argb() //TODO: WITH RGB
-            }
+            if (jsonModel.name == null)
+                Logger.info(this::class.java.name, "Color name is null.", null)
+            else
+                name = jsonModel.name
+
+
+            hexCode = jsonModel.hexCode
+
             if (jsonModel.isFavorite != null)
                 favourite = jsonModel.isFavorite
             jsonModel.images.forEach {
@@ -31,7 +31,7 @@ class MODELColor: LocalDataModel {
                 if (image.mapFrom(it)) {
                     images.add(image)
                 } else {
-                    Log.e("IMAGE", "NOT MAPPED!")
+                    Logger.info(this::class.java.name, "Image not mapped.", null)
                 }
             }
             jsonModel.sizes.forEach {
@@ -41,8 +41,20 @@ class MODELColor: LocalDataModel {
             } //FIXME: RETURN FALSE FOR IMPORTANT FIELDS MISSING
             true
         } catch (exception: Exception){
-            Log.e("Color Mapper", exception.message.toString())
+            Logger.warn(this::class.java.name,"A problem occurred while mapping Color.",exception)
             false
         }
+    }
+
+    fun populateWith(id: Int, name: String, hexCode: String, favourite: Boolean?, images: MutableList<MODELImage>?, sizes: MutableList<MODELSize>?) {
+        this.id = id
+        this.name = name
+        this.hexCode = hexCode
+        if (favourite != null)
+            this.favourite = favourite
+        if (images != null)
+            this.images = images
+        if (sizes != null)
+            this.sizes = sizes
     }
 }

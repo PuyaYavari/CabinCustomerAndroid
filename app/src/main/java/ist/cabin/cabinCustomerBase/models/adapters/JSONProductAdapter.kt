@@ -1,7 +1,7 @@
 package ist.cabin.cabinCustomerBase.models.adapters
 
-import android.util.Log
 import com.squareup.moshi.*
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.*
 
 class JSONProductAdapter (moshi: Moshi) : JsonAdapter<JSONProduct>() {
@@ -68,7 +68,10 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<JSONProduct>() {
                         }
                 }
             } catch (exception: Exception){
-                Log.e("JSONProductAdapter", exception.message.toString())
+                Logger.warn(
+                    this::class.java.name, "A field is null and is being skipped.",
+                    exception
+                )
                 reader.skipValue()
             }
         }
@@ -90,7 +93,11 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<JSONProduct>() {
             }
             null
         } catch (exception: Exception) {
-            Log.e("JSONProductAdapter", exception.message.toString())
+            Logger.warn(
+                this::class.java.name,
+                "A field is null, this object will be null and won't be visible in app.",
+                exception
+            )
             null
         }
     }

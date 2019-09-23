@@ -1,9 +1,16 @@
 package ist.cabin.cabinCustomerBase.models.local
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONProduct
+import kotlinx.android.parcel.Parcelize
 
-class MODELProduct : LocalDataModel{
+@Parcelize
+class MODELProduct : LocalDataModel, Parcelable{
+
+    var id: Int = -1
     lateinit var sellerName: String
     lateinit var productName: String
     lateinit var productID: String
@@ -19,6 +26,7 @@ class MODELProduct : LocalDataModel{
         return try {
             val jsonModel = modelData as JSONProduct
             val seller = MODELSeller()
+            id = jsonModel.id
             if (seller.mapFrom(jsonModel.seller[0]))
                 sellerName = seller.name
             productName = jsonModel.title
@@ -31,7 +39,7 @@ class MODELProduct : LocalDataModel{
 
             val cargoTypeData = jsonModel.shippingType[0] ?: throw java.lang.Exception("Cargo Type Not Mapped.")
             cargoTypeID = cargoTypeData.id
-            cargoType = cargoDurationData.name
+            cargoType = cargoTypeData.name
 
             jsonModel.colors.forEach {
                 val color = MODELColor()
@@ -40,7 +48,7 @@ class MODELProduct : LocalDataModel{
             }
             true
         } catch (exception: Exception){
-            Log.e("Product Mapper", exception.message.toString())
+            Logger.warn(this::class.java.name, "A problem occurred while mapping Product.", exception)
             false
         }
 

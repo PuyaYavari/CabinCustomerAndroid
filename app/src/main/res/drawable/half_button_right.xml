@@ -27,6 +27,6 @@
 
     <!--<stroke-->
             <!--android:width="0dp"-->
-            <!--android:color="#000000" />-->
+            <!--android:hexCode="#000000" />-->
 
 </shape>

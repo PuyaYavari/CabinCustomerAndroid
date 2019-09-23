@@ -64,57 +64,55 @@ object NetworkManager {
                                          data: Any?,
                                          responseClass: LocalDataModel?,
                                          responseAdapter: JsonAdapter<T>?,
-                                         ResponseCallbacks: NetworkManagerContracts.ResponseCallbacks){
-        val apiServices = retrofit().create(NetworkManagerContracts.ApiServices::class.java)
+                                         ResponseCallbacks: BaseContracts.ResponseCallbacks
+    ){
+        val apiServices = retrofit().create(BaseContracts.ApiServices::class.java)
         val adapter: JsonAdapter<T>? = responseAdapter
             ?: Moshi.Builder().add(KotlinJsonAdapterFactory()).build().adapter<T>(T::class.java)
-        if (isNetworkConnected(context)) {
-            val call = apiServices.sendRequest(Request(getActiveUserData(), getPaging(page, pageSize), data), url)
-            call.enqueue(object : Callback<String?> {
-                override fun onResponse(call: Call<String?>, response: Response<String?>) {
-                    when {
-                        response.isSuccessful -> {
-                            try {
-                                val responseBody: Any? = response.body()
-                                val issue = IssueResponseMapper.issueResponseMapper(responseBody.toString())
-                                if (issue == null) {
-                                    val dataModel = adapter?.fromJson(responseBody.toString()) ?: throw Exception("Some Exception")
-                                    if (responseClass != null)
-                                        ResponseCallbacks.onSuccess(responseClass.mapFrom(dataModel))
-                                    else
-                                        ResponseCallbacks.onSuccess(dataModel)
-                                } else {
-                                    ResponseCallbacks.onIssue(issue)
-                                }
-                            } catch (exception: Exception) {
-                                ResponseCallbacks.onException(exception)
-                            }
-                        }
-                        (response.code() in 300..500) -> {
-                            try {
-                                val responseBody: Any? = response.body()
-                                val issue = IssueResponseMapper.issueResponseMapper(responseBody.toString())
-                                if (issue == null)
-                                    ResponseCallbacks.onError(response.errorBody().toString(), null)
-                                else
-                                    ResponseCallbacks.onError(issue.message, issue.url)
-                            } catch (exception: Exception) {
-                                ResponseCallbacks.onException(exception)
-                            }
-                        }
-                        else -> ResponseCallbacks.onServerDown()
-                    }
-                }
 
-                override fun onFailure(call: Call<String?>, t: Throwable) {
-                    Log.d("FAIL", t.toString())
-                    Log.d("FAIL MESSAGE", t.message.toString()) //TODO WHAT CAN I DO SOMETIMES!?
-                    ResponseCallbacks.onFailure(t)
+        val call = apiServices.sendRequest(Request(getActiveUserData(), getPaging(page, pageSize), data), url)
+        call.enqueue(object : Callback<String?> {
+            override fun onResponse(call: Call<String?>, response: Response<String?>) {
+                when {
+                    response.isSuccessful -> {
+                        try {
+                            val responseBody: Any? = response.body()
+                            val issue = IssueResponseMapper.issueResponseMapper(responseBody.toString())
+                            if (issue == null) {
+                                val dataModel = adapter?.fromJson(responseBody.toString()) ?: throw Exception("Some Exception")
+                                if (responseClass != null)
+                                    ResponseCallbacks.onSuccess(responseClass.mapFrom(dataModel))
+                                else
+                                    ResponseCallbacks.onSuccess(dataModel)
+                            } else {
+                                ResponseCallbacks.onIssue(issue)
+                            }
+                        } catch (exception: Exception) {
+                            ResponseCallbacks.onException(exception)
+                        }
+                    }
+                    (response.code() in 300..500) -> {
+                        try {
+                            val responseBody: Any? = response.body()
+                            val issue = IssueResponseMapper.issueResponseMapper(responseBody.toString())
+                            if (issue == null)
+                                ResponseCallbacks.onError(response.errorBody().toString(), null)
+                            else
+                                ResponseCallbacks.onError(issue.message, issue.url)
+                        } catch (exception: Exception) {
+                            ResponseCallbacks.onException(exception)
+                        }
+                    }
+                    else -> ResponseCallbacks.onServerDown()
                 }
-            })
-        } else {
-            //TODO:NETWORK NOT CONNECTED ERROR
-        }
+            }
+
+            override fun onFailure(call: Call<String?>, t: Throwable) {
+                Log.d("FAIL", t.toString())
+                Log.d("FAIL MESSAGE", t.message.toString()) //TODO WHAT CAN I DO SOMETIMES!?
+                ResponseCallbacks.onFailure(t) //TODO CHECK IF INTERNET CONNECTED
+            }
+        })
     }
 
 }

@@ -19,4 +19,6 @@ object Constants {
     const val LOGIN_URL: String = "login/login"
     const val REGISTER_URL: String = "register/addUser"
     const val PRODUCT_DETAIL_URL: String = "explore/listProduct"
+    const val CART_UPDATE_URL: String = "basket/UpdateProduct"
+    const val DISCOVER_ADD_TO_CART_URL: String = "explore/AddProduct"
 }

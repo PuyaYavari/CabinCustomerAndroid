@@ -1,6 +1,7 @@
 package ist.cabin.cabinCustomerBase.models.adapters
 
 import com.squareup.moshi.*
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONImage
 
 class JSONImageAdapter (moshi: Moshi) : JsonAdapter<JSONImage>() {
@@ -32,7 +33,11 @@ class JSONImageAdapter (moshi: Moshi) : JsonAdapter<JSONImage>() {
                     }
                 }
             } catch (exception: Exception) {
-                return null
+                Logger.warn(
+                    this::class.java.name, "A field is null and is being skipped.",
+                    exception
+                )
+                reader.skipValue()
             }
         }
         reader.endObject()
@@ -42,8 +47,13 @@ class JSONImageAdapter (moshi: Moshi) : JsonAdapter<JSONImage>() {
                 priority = priority
             )
             result
-        } catch (exception: Exception) {
-            return null
+        } catch(exception: Exception){
+            Logger.warn(
+                this::class.java.name,
+                "A field is null, this object will be null and won't be visible in app.",
+                exception
+            )
+            null
         }
     }
 

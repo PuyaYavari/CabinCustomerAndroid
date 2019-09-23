@@ -2,7 +2,9 @@ package ist.cabin.cabincustomer.fragments.discover
 
 import android.content.Context
 import ist.cabin.cabinCustomerBase.BaseContracts
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
+import ist.cabin.cabinCustomerBase.models.local.MODELSize
 
 object CabinCustomerDiscoverContracts {
 

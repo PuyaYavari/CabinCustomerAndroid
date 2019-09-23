@@ -1,8 +1,8 @@
 package ist.cabin.cabinCustomerBase
 
 object GlobalData {
-    lateinit var session: String
-    var userId: Int = 0
+    var session: String? = "test"
+    var userId: Int = 1
 
     /**
      *  Checks if a user data is saved in phone.
