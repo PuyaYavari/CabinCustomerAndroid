@@ -67,17 +67,18 @@ fun BottomNavigationView.setupWithNavController(
         // Obtain its id
         val graphId = navHostFragment.navController.graph.id
 
-        if (index == 0) {
-            ordersFragmentGraphId = graphId
-        } else if (index == 1) {
-            favoritesFragmentGraphId = graphId
-        } else if (index == 2) {
-            homeFragmentGraphId = graphId
-        } else if (index == 3) {
-            cartFragmentGraphId = graphId
-        } else if (index == 4) {
-            discoverFragmentGraphId = graphId
+        // Update livedata with the selected graph
+        when (index) {
+            0 -> ordersFragmentGraphId = graphId
+            1 -> favoritesFragmentGraphId = graphId
+            2 -> homeFragmentGraphId = graphId
+            3 -> cartFragmentGraphId = graphId
+            4 -> discoverFragmentGraphId = graphId
         }
+
+        // Save to the map
+
+        // Attach or detach nav host fragment depending on whether it's the selected item.
 
         // Save to the map
         graphIdToTagMap[graphId] = fragmentTag

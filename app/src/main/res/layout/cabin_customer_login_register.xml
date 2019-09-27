@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/customer_login_register"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+    <ImageView
+            android:id="@+id/login_register_header_top_triangle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/component_header_triangle_shadow"
+            android:elevation="15dp"
+            android:paddingBottom="5dp"
+            android:scaleType="fitXY"
+            android:scaleX="1.2"
+            android:scaleY="1"
+            android:tint="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@id/login_register_25ph_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/component_header_triangle" />
+
+    <ImageView
+            android:id="@+id/login_register_header_middle_triangle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/component_header_triangle_shadow"
+            android:elevation="10dp"
+            android:paddingBottom="3dp"
+            android:scaleType="fitXY"
+            android:scaleX="-1.5"
+            android:scaleY="1.2"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/login_register_25ph_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/component_header_triangle" />
+
+
+    <ImageView
+            android:id="@+id/login_register_header_bottom_triangle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/component_header_triangle_shadow"
+            android:elevation="5dp"
+            android:paddingBottom="2dp"
+            android:scaleType="fitXY"
+            android:scaleX="1.2"
+            android:scaleY="1.5"
+            android:tint="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toTopOf="@id/login_register_25ph_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/component_header_triangle" />
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/login_register_header_motion_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/login_register_25ph_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layoutDescription="@xml/login_register_transitions"
+            android:elevation="10dp">
+
+        <ImageView
+                android:id="@+id/login_register_cabin_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/login_register_card_motion_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/cabin_logo" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/login_register_25ph_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/login_register_card_motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingBottom="16dp"
+            app:layoutDescription="@xml/login_register_transitions"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/login_register_25ph_guideline">
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/register_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="visible"
+                app:cardBackgroundColor="@color/colorRegistrationCardsBackgroundPrimary"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+            <androidx.core.widget.NestedScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="24dp">
+
+                    <EditText
+                            android:id="@+id/register_email_input"
+                            style="@style/Widget.AppCompat.AutoCompleteTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/default_text_input_background"
+                            android:ems="10"
+                            android:hint="@string/e_mail_hint"
+                            android:inputType="textEmailAddress"
+                            android:textColorHint="@color/colorHintsPrimary"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <EditText
+                            android:id="@+id/register_password_input"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:background="@drawable/default_text_input_background"
+                            android:ems="10"
+                            android:hint="@string/password_hint"
+                            android:inputType="textPassword"
+                            android:textColorHint="@color/colorHintsPrimary"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_email_input"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <ImageButton
+                            android:id="@+id/register_password_show_password_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@android:color/transparent"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@+id/register_password_input"
+                            app:layout_constraintEnd_toEndOf="@+id/register_password_input"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="@+id/register_password_input"
+                            app:layout_constraintTop_toTopOf="@+id/register_password_input"
+                            app:srcCompat="@drawable/icon_show_password" />
+
+                    <EditText
+                            android:id="@+id/register_password_confirmation_input"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:background="@drawable/default_text_input_background"
+                            android:ems="10"
+                            android:hint="@string/password_confirmation_hint"
+                            android:inputType="textPassword"
+                            android:textColorHint="@color/colorHintsPrimary"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_password_input"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <ImageButton
+                            android:id="@+id/register_password_confirmation_show_password_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@android:color/transparent"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@+id/register_password_confirmation_input"
+                            app:layout_constraintEnd_toEndOf="@+id/register_password_confirmation_input"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="@+id/register_password_confirmation_input"
+                            app:layout_constraintTop_toTopOf="@+id/register_password_confirmation_input"
+                            app:srcCompat="@drawable/icon_show_password" />
+
+                    <LinearLayout
+                            android:id="@+id/register_sex_select_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/loginRegisterCardViewMargins"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_password_confirmation_input"
+                            app:layout_constraintVertical_bias="0.0">
+
+
+                        <Button
+                                android:id="@+id/register_woman_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="24dp"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/cabin_register_woman_button"
+                                android:text="@string/Woman"
+                                android:textColor="@color/colorTextsPrimary"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <Button
+                                android:id="@+id/register_man_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="24dp"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/cabin_register_man_button"
+                                android:text="@string/Man"
+                                android:textColor="@color/colorTextsPrimary"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                    </LinearLayout>
+
+
+                    <CheckBox
+                            android:id="@+id/register_email_permit_checkbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:button="@drawable/register_email_permit_checkbox"
+                            android:paddingStart="8dp"
+                            android:text="@string/register_email_permit_text"
+                            android:textColor="@color/colorTextsPrimary"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_sex_select_layout"
+                            app:layout_constraintVertical_bias="0.0" />
+
+
+                    <Button
+                            android:id="@+id/register_register_button"
+                            android:layout_width="0dp"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:alpha="0.5"
+                            android:background="@drawable/default_button_background"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:text="@string/register"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorButtonLabelsPrimary"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_email_permit_checkbox"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                            android:id="@+id/register_accept_agreement_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:lineSpacingExtra="4sp"
+                            android:text="@string/register_accept_agreement_text"
+                            android:textColor="@color/colorTextsPrimary"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_register_button"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <LinearLayout
+                            android:id="@+id/register_card_view_or_separator_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_accept_agreement_text"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/horizontal_divider_0_2" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:paddingStart="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingRight="8dp"
+                                android:text="@string/or"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorTextsPrimary"
+                                android:textSize="12sp" />
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/horizontal_divider_0_2" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:id="@+id/register_card_view_alternative_register_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/register_card_view_or_separator_layout"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/icon_google" />
+
+                        <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/icon_facebook" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:id="@+id/register_card_view_register_with_separator_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_card_view_alternative_register_layout"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/horizontal_divider_0_2" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:paddingStart="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingRight="8dp"
+                                android:text="@string/login_with"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorTextsPrimary"
+                                android:textSize="12sp" />
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/horizontal_divider_0_2" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_card_view_register_with_separator_layout"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:text="@string/registered_question"
+                                android:textSize="12sp" />
+
+                        <TextView
+                                android:id="@+id/register_card_view_login_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginRight="2dp"
+                                android:layout_weight="0"
+                                android:text="@string/sign_in"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/login_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="visible"
+                app:cardBackgroundColor="@color/colorRegistrationCardsBackgroundPrimary"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+            <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="24dp">
+
+                    <EditText
+                            android:id="@+id/login_email_input"
+                            style="@style/Widget.AppCompat.AutoCompleteTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/default_text_input_background"
+                            android:ems="10"
+                            android:hint="@string/e_mail_hint"
+                            android:inputType="textEmailAddress"
+                            android:textColorHint="@color/colorHintsPrimary"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <EditText
+                            android:id="@+id/login_password_input"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:background="@drawable/default_text_input_background"
+                            android:ems="10"
+                            android:hint="@string/password_hint"
+                            android:inputType="textPassword"
+                            android:textColorHint="@color/colorHintsPrimary"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/login_email_input"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                            android:id="@+id/login_forget_password_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:text="@string/forget_password"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/login_password_input"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/login_password_input"
+                            app:layout_constraintTop_toBottomOf="@+id/login_password_input"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <Button
+                            android:id="@+id/login_login_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/addressOptionsAddButtonHeight"
+                            android:layout_marginTop="@dimen/loginRegisterCardViewMargins"
+                            android:layout_marginBottom="@dimen/loginRegisterCardViewMargins"
+                            android:alpha="0.5"
+                            android:background="@drawable/default_button_background"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:text="@string/sign_in"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorButtonLabelsPrimary"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/login_password_input"
+                            app:layout_constraintStart_toStartOf="@+id/login_password_input"
+                            app:layout_constraintTop_toBottomOf="@+id/login_forget_password_text"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <LinearLayout
+                            android:id="@+id/login_card_view_or_separator_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/login_login_button"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/horizontal_divider_0_2" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:paddingStart="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingRight="8dp"
+                                android:text="@string/or"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorTextsPrimary"
+                                android:textSize="12sp" />
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/horizontal_divider_0_2" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:id="@+id/login_card_view_alternative_login_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/login_card_view_or_separator_layout"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/icon_google" />
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/icon_facebook" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:id="@+id/login_card_view_login_with_separator_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/login_card_view_alternative_login_layout"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/horizontal_divider_0_2" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:paddingStart="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingRight="8dp"
+                                android:text="@string/login_with"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorTextsPrimary"
+                                android:textSize="12sp" />
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/horizontal_divider_0_2" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/login_card_view_login_with_separator_layout"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:text="@string/not_registered_question"
+                                android:textSize="14sp" />
+
+                        <TextView
+                                android:id="@+id/login_card_view_register_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginRight="2dp"
+                                android:layout_weight="0"
+                                android:text="@string/register"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

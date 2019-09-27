@@ -26,7 +26,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
         color: MODELColor,
         size: MODELSize
     ) {
-        val data =  REQUESTAddToCart(
+        val data =  REQUESTAPIAddToCart(
             listOf(REQUESTProduct(
                 amount,
                 productId,

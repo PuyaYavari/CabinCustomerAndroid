@@ -20,7 +20,7 @@ import ist.cabin.cabincustomer.R
 
 class CabinCustomerProductDetailFragment : BaseFragment(),
     CabinCustomerProductDetailContracts.View {
-    val args: CabinCustomerProductDetailFragmentArgs by navArgs()
+    private val args: CabinCustomerProductDetailFragmentArgs by navArgs()
 
     private var colorSizesDataset : MutableMap<Int ,MutableList<MODELSize>> = mutableMapOf()
     private val colorsViewManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
@@ -47,6 +47,7 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
     ): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_product_detail, container, false)
         mPager = pageView.findViewById(R.id.product_detail_product_image_pager) ?: throw (Exception("Couldn't find image pager."))
+
         setupPage()
         return pageView
     }
@@ -98,6 +99,7 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
 
         //pageView.findViewById<LinearLayout>(R.id.peoduct_datail_product_explanation_layout).visibility = View.VISIBLE //FIXME: MUST CHECK FOR EXPLANATION AND WRITE IF ANY EXISTS
 
+//        pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).text = "sepete eklesin"
         pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).setOnClickListener {
             if (selectedSize != null) {
                 try {

@@ -35,7 +35,7 @@ class CabinCustomerOrdersAdapter(val view: CabinCustomerOrdersContracts.Fragment
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.itemView.order_count_label.text = myDataset[position]
+        holder.itemView.order_count.text = myDataset[position]
         holder.itemView.order_background.setOnClickListener { view.orderboxOnClickListener() }
     }
 

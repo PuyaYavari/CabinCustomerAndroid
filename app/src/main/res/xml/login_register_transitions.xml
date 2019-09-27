@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+<!--Header-->
+    <Transition
+        motion:constraintSetStart="@id/loginRegisterClearHeader"
+        motion:constraintSetEnd="@id/loginRegisterVisibleHeader"
+        motion:duration="1000"/>
+
+    <ConstraintSet android:id="@+id/loginRegisterClearHeader">
+        <Constraint android:id="@+id/login_register_cabin_logo"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.0"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:translationY="-60dp"/>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/loginRegisterVisibleHeader">
+        <Constraint android:id="@+id/login_register_cabin_logo"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintVertical_bias="1.0"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+    </ConstraintSet>
+<!--/Header-->
+
+
+<!--Cards-->
+    <Transition
+        motion:constraintSetStart="@id/loginRegisterNothingVisible"
+        motion:constraintSetEnd="@id/loginVisible"
+        motion:duration="1000"/>
+
+    <Transition
+        motion:constraintSetStart="@id/loginVisible"
+        motion:constraintSetEnd="@id/registerVisible"
+        motion:duration="1000"/>
+
+    <Transition
+            motion:constraintSetStart="@id/registerVisible"
+            motion:constraintSetEnd="@id/loginVisible"
+            motion:duration="1000"/>
+
+    <ConstraintSet android:id="@+id/loginRegisterNothingVisible">
+        <Constraint android:id="@+id/login_card_view"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.0"
+            android:visibility="gone"/>
+        <Constraint android:id="@+id/register_card_view"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintVertical_bias="0.0"
+                android:visibility="gone"/>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/loginVisible">
+        <Constraint android:id="@+id/login_card_view"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintVertical_bias="0.0"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="visible"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+        <Constraint android:id="@+id/register_card_view"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintVertical_bias="0.0"
+                android:visibility="gone"/>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/registerVisible">
+        <Constraint android:id="@+id/login_card_view"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintVertical_bias="0.0"
+                android:visibility="gone"/>
+        <Constraint android:id="@+id/register_card_view"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintVertical_bias="0.0"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="visible"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+    </ConstraintSet>
+<!--/Cards-->
+</MotionScene>

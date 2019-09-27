@@ -14,6 +14,7 @@
     <string name="agreement_confirmation_button">OKUDUM VE ONAYLIYORUM</string>
     <string name="login_with">ile bağlan</string>
     <string name="not_registered_question">Üye değil misin?</string>
+    <string name="registered_question">Üye misin?</string>
 
     <string name="forgetpassword_text">E-posta adresinizi girin.</string>
     <string name="back_to_root_button">GİRİŞ SAYFASINA DÖN</string>
@@ -82,6 +83,11 @@
 
 
 
+    <string name="register_email_permit_text">Kampanyalardan haberdar olmak için elektronik
+        ileti almak istiyorum.</string>
+
+    <string name="register_accept_agreement_text">Üye olarak Üyelik Koşulları\'nı ve Kişisel Verilerin
+        Korunması Metni\'ni kabul ediyorum.</string>
 
     <!-- NAVBAR -->
     <string name="homepage_label">Anasayfa</string>
@@ -119,6 +125,7 @@
     <string name="cargo_sum_label">Kargo Toplam</string>
     <string name="free_shipment_label">Ücretsiz Kargo</string>
     <string name="product_explanation_label">Ürün Açıklaması</string>
+    <string name="add_to_cart_label">Sepete Ekle</string>
     <!---->
 
     <!-- translations -->

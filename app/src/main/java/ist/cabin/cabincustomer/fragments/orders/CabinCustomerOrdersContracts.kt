@@ -11,10 +11,7 @@ object CabinCustomerOrdersContracts {
     }
 
     interface Presenter : BaseContracts.Presenter {
-        fun moveToFavoritesPage()
-        fun moveToHomePage()
-        fun moveToCartPage()
-        fun moveToDiscoverPage()
+
     }
 
     interface Interactor : BaseContracts.Interactor
@@ -22,10 +19,6 @@ object CabinCustomerOrdersContracts {
     interface InteractorOutput : BaseContracts.InteractorOutput
 
     interface Router : BaseContracts.Router {
-        fun moveToFavoritesPage()
-        fun moveToHomePage()
-        fun moveToCartPage()
-        fun moveToDiscoverPage()
     }
 
 }

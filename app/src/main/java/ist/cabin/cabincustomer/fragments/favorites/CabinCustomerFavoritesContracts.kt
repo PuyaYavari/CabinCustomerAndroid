@@ -1,22 +1,43 @@
 package ist.cabin.cabincustomer.fragments.favorites
 
+import android.content.Context
 import ist.cabin.cabinCustomerBase.BaseContracts
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
+import ist.cabin.cabinCustomerBase.models.local.MODELProduct
+import ist.cabin.cabinCustomerBase.models.local.MODELSize
 
 object CabinCustomerFavoritesContracts {
 
     interface View : BaseContracts.View {
-        //TODO
+        fun moveToProductDetail(product: MODELProduct)
+        fun addToCart(
+            context: Context,
+            amount: Int,
+            productId: Int,
+            color: MODELColor,
+            size: MODELSize
+        )
     }
 
     interface Presenter : BaseContracts.Presenter {
-        fun moveToOrdersPage()
-        fun moveToHomePage()
-        fun moveToCartPage()
-        fun moveToDiscoverPage()
+        fun moveToProductDetail(product: MODELProduct)
+        fun addToCart(
+            context: Context,
+            amount: Int,
+            productId: Int,
+            color: MODELColor,
+            size: MODELSize
+        )
     }
 
     interface Interactor : BaseContracts.Interactor {
-        //TODO
+        fun addToCart(
+            context: Context,
+            amount: Int,
+            productId: Int,
+            color: MODELColor,
+            size: MODELSize
+        )
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
@@ -24,10 +45,7 @@ object CabinCustomerFavoritesContracts {
     }
 
     interface Router : BaseContracts.Router {
-        fun moveToOrdersPage()
-        fun moveToHomePage()
-        fun moveToCartPage()
-        fun moveToDiscoverPage()
+        fun moveToProductDetail(product: MODELProduct)
     }
 
 }

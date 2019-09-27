@@ -1,8 +1,21 @@
 package ist.cabin.cabinCustomerBase
 
+import ist.cabin.cabinCustomerBase.models.local.MODELUser
+
 object GlobalData {
-    var session: String? = "test"
-    var userId: Int = 1
+    var session: String = ""
+    var userId: Int = 0
+    var activeUser: MODELUser? = null
+        set(value) {
+            field = value
+            if (value != null) {
+                session = value.getSession()
+                userId = value.getId()
+            } else {
+                session = ""
+                userId = 0
+            }
+        }
 
     /**
      *  Checks if a user data is saved in phone.

@@ -4,4 +4,4 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class APIUser (@Json(name = "USER") var users: List<JSONUser>?)
+data class REQUESTAPIRegister (@Json(name = "USER") val user: List<REQUESTRegister>)

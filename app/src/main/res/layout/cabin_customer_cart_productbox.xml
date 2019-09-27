@@ -24,6 +24,7 @@
                 android:layout_height="150dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
                 app:cardCornerRadius="5dp">
 
             <ImageView
@@ -346,10 +347,9 @@
                                 android:id="@+id/cart_productbox_product_before_discount_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:alpha="@dimen/cartProductboxTextsAlpha"
                                 android:gravity="right|end"
                                 android:text="000"
-                                android:textColor="@color/colorTextsPrimary"
+                                android:textColor="@color/colorLightTextsPrimary"
                                 android:textSize="10sp" />
 
                         <TextView
@@ -357,10 +357,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="2dp"
-                                android:alpha="@dimen/cartProductboxTextsAlpha"
                                 android:gravity="right|end"
                                 android:text="TL"
-                                android:textColor="@color/colorTextsPrimary"
+                                android:textColor="@color/colorLightTextsPrimary"
                                 android:textSize="10sp" />
                     </LinearLayout>
 

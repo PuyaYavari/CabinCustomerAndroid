@@ -7,5 +7,4 @@ import com.squareup.moshi.JsonClass
 data class JSONUser (@Json(name = "ID") var id: Int,
                      @Json(name = "NAME") var firstname: String?,
                      @Json(name = "SURNAME") var lastname: String?,
-                     @Json(name = "SESSION") var session: String?,
-                     @Json(name = "MEASURES") var JSONMeasures: List<JSONMeasure>?)
+                     @Json(name = "SESSION") var session: String)

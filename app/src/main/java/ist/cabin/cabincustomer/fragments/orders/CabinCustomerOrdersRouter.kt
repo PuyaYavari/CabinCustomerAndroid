@@ -11,21 +11,5 @@ class CabinCustomerOrdersRouter(var activity: Activity?) :
 
     //region Router
 
-    override fun moveToHomePage() {
-
-    }
-
-    override fun moveToFavoritesPage() {
-
-    }
-
-    override fun moveToCartPage() {
-
-    }
-
-    override fun moveToDiscoverPage() {
-
-    }
-
     //endregion
 }

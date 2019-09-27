@@ -14,7 +14,6 @@ import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
 
 
-
 class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContracts.View {
 
     var presenter: CabinCustomerDiscoverContracts.Presenter? = CabinCustomerDiscoverPresenter(this)
@@ -66,6 +65,24 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     //region View
 
     private fun setupPage() {
+//        if (){
+//            clearPage()
+            reloadProducts()
+//        }
+    }
+
+    override fun showHeaderAndNavbar() {
+        if (pageView.findViewById<ConstraintLayout>(R.id.discover_header).translationY == resources.getDimension(R.dimen.defaultHeaderHeightNegative)) {
+            (activity!! as MainActivity).showNavbar()
+            discoverHeaderTransitionContainer.setTransition(
+                R.id.discoverHeaderHidden,
+                R.id.discoverHeaderVisible
+            )
+            discoverHeaderTransitionContainer.transitionToEnd()
+        }
+    }
+
+    private fun reloadProducts(){
         presenter?.getItemData(page,pageSize)
 
         recyclerView = pageView.findViewById(R.id.discover_recyclerview)
@@ -88,15 +105,10 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
         }
     }
 
-    override fun showHeaderAndNavbar() {
-        if (pageView.findViewById<ConstraintLayout>(R.id.discover_header).translationY == resources.getDimension(R.dimen.defaultHeaderHeightNegative)) {
-            (activity!! as MainActivity).showNavbar()
-            discoverHeaderTransitionContainer.setTransition(
-                R.id.discoverHeaderHidden,
-                R.id.discoverHeaderVisible
-            )
-            discoverHeaderTransitionContainer.transitionToEnd()
-        }
+    private fun clearPage(){ //FIXME
+        myDataset.clear()
+        presenter?.resetPage()
+        viewAdapter.notifyDataSetChanged()
     }
 
     override fun hideHeaderAndNavbar() {
@@ -118,12 +130,6 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     override fun addData(products: List<MODELProduct>?) {
         if (products != null)
             myDataset.addAll(products as Iterable<MODELProduct>)
-        viewAdapter.notifyDataSetChanged()
-    }
-
-    private fun clearPage(){ //FIXME
-        myDataset.clear()
-        presenter?.resetPage()
         viewAdapter.notifyDataSetChanged()
     }
 

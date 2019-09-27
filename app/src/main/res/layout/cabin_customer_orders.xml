@@ -6,89 +6,6 @@
         android:layout_height="match_parent"
         android:background="@color/colorPageBackgroundPrimary">
 
-    <androidx.viewpager.widget.ViewPager
-            android:id="@+id/orders_pager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/defaultHeaderHeight"
-            android:layout_marginBottom="@dimen/navbarHeight"
-            android:background="@color/colorPageBackgroundPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orders_header"
-            app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.tabs.TabLayout
-                android:id="@+id/orders_tabs_layout"
-                android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:background="@color/colorBelowHeaderPrimary"
-                android:elevation="@dimen/defaultHeaderElevation"
-                android:verticalScrollbarPosition="defaultPosition"
-                app:tabIndicator="@drawable/tabbar_indicator_shape"
-                app:tabIndicatorColor="@color/colorPrimary"
-                app:tabIndicatorFullWidth="true"
-                app:tabIndicatorGravity="bottom"
-                app:tabRippleColor="@null"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabTextColor="@color/colorTextsPrimary" />
-    </androidx.viewpager.widget.ViewPager>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/sorting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/orders_pager"
-            app:layout_constraintBottom_toBottomOf="@+id/orders_pager"
-            app:layout_constraintEnd_toEndOf="@+id/orders_pager"
-            app:layout_constraintStart_toStartOf="@+id/orders_pager" android:layout_marginTop="32dp"
-            android:layout_marginRight="8dp" android:layout_marginEnd="8dp" app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintHorizontal_bias="1.0">
-
-        <View android:id="@+id/sorting_frame"
-              android:background="@drawable/sorting_frame_shape"
-              android:layout_width="86dp"
-              android:layout_height="28dp" app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-                android:id="@+id/sorting_label"
-                android:layout_width="41dp"
-                android:layout_height="23dp"
-                android:layout_alignTop="@+id/sorting_frame"
-                android:layout_alignEnd="@+id/sorting_frame"
-                android:layout_alignRight="@+id/sorting_frame"
-                android:layout_alignBottom="@+id/sorting_frame"
-                android:layout_gravity="center|center_horizontal"
-                android:layout_toEndOf="@+id/sorting_icon"
-                android:layout_toRightOf="@+id/sorting_icon"
-                android:fontFamily="Segoe UI"
-                android:gravity="center"
-                android:text="@string/sort"
-                android:textColor="@color/colorTextsPrimary"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/sorting_frame"
-                app:layout_constraintEnd_toEndOf="@+id/sorting_frame"
-                app:layout_constraintHorizontal_bias="0.75"
-                app:layout_constraintStart_toStartOf="@+id/sorting_frame"
-                app:layout_constraintTop_toTopOf="@+id/sorting_frame" />
-
-        <ImageView android:id="@+id/sorting_icon"
-                   app:srcCompat="@drawable/sort_icon"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginEnd="8dp"
-                   android:layout_marginRight="8dp" app:layout_constraintStart_toStartOf="parent"
-                   android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                   app:layout_constraintBottom_toBottomOf="@+id/sorting_label"
-                   app:layout_constraintTop_toTopOf="@+id/sorting_label"
-                   app:layout_constraintEnd_toStartOf="@+id/sorting_label"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/orders_header"
             android:layout_width="0dp"
@@ -118,5 +35,35 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/orders_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/defaultHeaderHeight"
+            android:layout_marginBottom="@dimen/navbarHeight"
+            android:background="@color/colorPageBackgroundPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orders_header"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/orders_tabs_layout"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:background="@color/colorBelowHeaderPrimary"
+                android:elevation="@dimen/defaultHeaderElevation"
+                android:verticalScrollbarPosition="defaultPosition"
+                app:tabIndicator="@drawable/tabbar_indicator_shape"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorGravity="bottom"
+                app:tabRippleColor="@null"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="@color/colorTextsPrimary" />
+    </androidx.viewpager.widget.ViewPager>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

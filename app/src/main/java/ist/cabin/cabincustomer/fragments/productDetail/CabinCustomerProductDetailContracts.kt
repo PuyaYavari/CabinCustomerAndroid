@@ -42,7 +42,6 @@ object CabinCustomerProductDetailContracts {
     }
 
     interface Router : BaseContracts.Router {
-        //TODO
     }
 
     interface SizeAdapter {

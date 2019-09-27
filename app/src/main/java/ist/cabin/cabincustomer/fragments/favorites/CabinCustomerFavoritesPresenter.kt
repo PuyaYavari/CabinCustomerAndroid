@@ -1,7 +1,11 @@
 package ist.cabin.cabincustomer.fragments.favorites
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
+import ist.cabin.cabinCustomerBase.models.local.MODELProduct
+import ist.cabin.cabinCustomerBase.models.local.MODELSize
 
 class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.View?) :
     CabinCustomerFavoritesContracts.Presenter,
@@ -38,20 +42,18 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
 
     //region Presenter
 
-    override fun moveToOrdersPage() {
-        router?.moveToOrdersPage()
+    override fun moveToProductDetail(product: MODELProduct) {
+        router?.moveToProductDetail(product)
     }
 
-    override fun moveToHomePage() {
-        router?.moveToHomePage()
-    }
-
-    override fun moveToCartPage() {
-        router?.moveToCartPage()
-    }
-
-    override fun moveToDiscoverPage() {
-        router?.moveToDiscoverPage()
+    override fun addToCart(
+        context: Context,
+        amount: Int,
+        productId: Int,
+        color: MODELColor,
+        size: MODELSize
+    ) {
+        interactor?.addToCart(context, amount, productId, color, size)
     }
 
     //endregion
