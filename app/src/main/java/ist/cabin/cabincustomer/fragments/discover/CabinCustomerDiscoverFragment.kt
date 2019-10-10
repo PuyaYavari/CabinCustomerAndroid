@@ -32,6 +32,7 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
         (activity!! as MainActivity).setHeader(resources.getString(R.string.discover_label),null)
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideBackButton()
         showHeaderAndNavbar()
 
         viewAdapter = CabinCustomerDiscoverAdapter(this, myDataset)

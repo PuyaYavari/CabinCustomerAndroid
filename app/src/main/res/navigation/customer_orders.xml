@@ -6,8 +6,13 @@
     <fragment android:id="@+id/cabinCustomerOrdersFragment"
               android:name="ist.cabin.cabincustomer.fragments.orders.CabinCustomerOrdersFragment"
               android:label="CabinCustomerOrdersFragment">
-        <action android:id="@+id/action_Orders_to_OrdersDetail"
-                app:destination="@id/cabinCustomerOrdersDetailFragment"/>
+        <action
+                android:id="@+id/action_Orders_to_OrdersDetail"
+                app:destination="@id/cabinCustomerOrdersDetailFragment"
+                app:enterAnim="@anim/slide_in_from_right"
+                app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left"
+                app:popExitAnim="@anim/slide_out_to_right" />
     </fragment>
     <fragment android:id="@+id/cabinCustomerOrdersDetailFragment"
               android:name="ist.cabin.cabincustomer.fragments.ordersDetail.CabinCustomerOrdersDetailFragment"

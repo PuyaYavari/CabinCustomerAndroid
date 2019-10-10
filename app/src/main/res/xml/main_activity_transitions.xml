@@ -22,6 +22,12 @@
         motion:constraintSetStart="@id/main_layout_default"
         motion:constraintSetEnd="@id/main_layout_not_logged_in"
         motion:duration="500">
+        <KeyFrameSet>
+            <KeyAttribute
+                motion:motionTarget="@+id/nav_host_fragment_layout"
+                motion:framePosition="0"
+                android:alpha="0"/>
+        </KeyFrameSet>
     </Transition>
     <Transition
         motion:constraintSetStart="@id/main_layout_not_logged_in"
@@ -54,7 +60,7 @@
             android:alpha="0"
             />
         <Constraint
-            android:id="@+id/nav_host_fragment"
+            android:id="@+id/nav_host_fragment_layout"
             motion:layout_constraintBottom_toTopOf="@+id/navbar"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
@@ -87,25 +93,14 @@
                 android:elevation="@dimen/defaultHeaderElevation"
                 android:translationY="@dimen/defaultHeaderHeightNegative"
                 />
-        <Constraint android:id="@+id/not_logged_in_layout"
-                motion:layout_constraintBottom_toBottomOf="parent"
-                motion:layout_constraintEnd_toEndOf="parent"
-                motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintTop_toTopOf="parent"
-                android:layout_height="0dp"
-                android:layout_width="0dp"
-                android:layout_marginBottom="@dimen/navbarHeight"
-                android:layout_marginTop="@dimen/defaultHeaderHeight"
-                android:visibility="gone"
-                android:alpha="0"
-                />
+
         <Constraint
-                android:id="@+id/nav_host_fragment"
-                motion:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/nav_host_fragment_layout"
+                motion:layout_constraintBottom_toTopOf="@+id/navbar"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintTop_toTopOf="parent"
-                android:layout_height="0dp"
+                motion:layout_constraintTop_toBottomOf="@+id/main_header"
+                android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:visibility="visible"
                 />
@@ -135,7 +130,7 @@
                 android:translationY="0dp"
                 />
         <Constraint
-                android:id="@+id/nav_host_fragment"
+                android:id="@+id/nav_host_fragment_layout"
                 motion:layout_constraintBottom_toTopOf="@+id/navbar"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
@@ -143,12 +138,13 @@
                 android:layout_height="0dp"
                 android:layout_width="0dp"
                 android:visibility="invisible"
+                android:alpha="0"
                 />
         <Constraint android:id="@+id/not_logged_in_layout"
-                motion:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment"
-                motion:layout_constraintEnd_toEndOf="@+id/nav_host_fragment"
-                motion:layout_constraintStart_toStartOf="@+id/nav_host_fragment"
-                motion:layout_constraintTop_toTopOf="@+id/nav_host_fragment"
+                motion:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment_layout"
+                motion:layout_constraintEnd_toEndOf="@+id/nav_host_fragment_layout"
+                motion:layout_constraintStart_toStartOf="@+id/nav_host_fragment_layout"
+                motion:layout_constraintTop_toTopOf="@+id/nav_host_fragment_layout"
                 android:layout_height="0dp"
                 android:layout_width="0dp"
                 android:visibility="visible"

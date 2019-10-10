@@ -3,6 +3,8 @@ package ist.cabin.cabinCustomerBase
 import ist.cabin.cabinCustomerBase.models.local.MODELUser
 
 object GlobalData {
+    var appRunning = false
+
     var loggedIn = false
     var userEmail: String? = ""
     var session: String? = ""

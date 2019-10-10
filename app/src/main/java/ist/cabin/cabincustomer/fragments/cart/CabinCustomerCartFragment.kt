@@ -34,28 +34,35 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_cart, container, false)
-        (activity!! as MainActivity).layoutBackToDefault()
+
         (activity!! as MainActivity).setHeader(resources.getString(R.string.cart_label),null)
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
-        if (GlobalData.loggedIn)
+        (activity!! as MainActivity).hideBackButton()
+
+        if (GlobalData.loggedIn) {
+            (activity!! as MainActivity).layoutBackToDefault()
             setupPage()
-        else
+        } else
             (activity!! as MainActivity).showNeedLogin()
+
         return pageView
     }
 
     override fun onResume() {
         super.onResume()
-        (activity!! as MainActivity).layoutBackToDefault()
+
         (activity!! as MainActivity).setHeader(resources.getString(R.string.cart_label),null)
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideBackButton()
+
         if (GlobalData.loggedIn) {
             setupPage()
             (activity!! as MainActivity).hideNeedLogin()
         } else
             (activity!! as MainActivity).showNeedLogin()
+
         presenter?.onResume()
     }
 

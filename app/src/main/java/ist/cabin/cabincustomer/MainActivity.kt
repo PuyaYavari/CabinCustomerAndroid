@@ -158,7 +158,8 @@ class MainActivity : BaseActivity(),
     }
 
     override fun showNeedLogin() {
-        if (mainTransitionContainer != null) {
+        if (mainTransitionContainer != null &&
+                findViewById<ConstraintLayout>(R.id.not_logged_in_layout).visibility != View.VISIBLE) {
             mainTransitionContainer?.setTransition(
                 R.id.main_layout_default,
                 R.id.main_layout_not_logged_in

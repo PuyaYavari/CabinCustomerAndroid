@@ -52,7 +52,6 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
         pageView = inflater.inflate(R.layout.cabin_customer_product_detail, container, false)
         mPager = pageView.findViewById(R.id.product_detail_product_image_pager) ?: throw (Exception("Couldn't find image pager."))
 
-        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).hideNavbar()
 
         (activity!! as MainActivity).lockDrawer()
@@ -410,12 +409,12 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
 
     override fun showMessage(message: String?) {
         pageView.findViewById<ConstraintLayout>(R.id.product_detail_info_popup).apply {
-            translationY = -height.toFloat()
+            visibility = View.VISIBLE
             if (message != null)
                 pageView.findViewById<TextView>(R.id.product_detail_info_popup_text).text = message
             Handler().postDelayed({
-                translationY = 0f
-            }, 5000) //FIXME: ANIMATION
+                visibility = View.INVISIBLE
+            }, 3000) //FIXME: ANIMATION
         }
     }
 

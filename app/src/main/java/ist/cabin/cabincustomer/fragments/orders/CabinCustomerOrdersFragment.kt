@@ -20,14 +20,16 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_orders, container, false)
 
-        (activity!! as MainActivity).layoutBackToDefault()
         (activity!! as MainActivity).setHeader(resources.getString(R.string.order_label),null)
         (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideBackButton()
 
-        if (GlobalData.loggedIn)
+        if (GlobalData.loggedIn) {
+            (activity!! as MainActivity).layoutBackToDefault()
             setupPage()
+        } else if (GlobalData.appRunning)
+            (activity!! as MainActivity).showNeedLogin()
 
         return pageView
     }
@@ -35,13 +37,16 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
     override fun onResume() {
         super.onResume()
 
-        (activity!! as MainActivity).layoutBackToDefault()
         (activity!! as MainActivity).setHeader(resources.getString(R.string.order_label),null)
         (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).lockDrawer()
-        if (GlobalData.loggedIn)
+        (activity!! as MainActivity).hideBackButton()
+
+        if (GlobalData.loggedIn) {
             setupPage()
+            (activity!! as MainActivity).hideNeedLogin()
+        } else
+            (activity!! as MainActivity).showNeedLogin()
 
         presenter?.onResume()
     }
