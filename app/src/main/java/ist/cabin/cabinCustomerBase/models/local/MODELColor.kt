@@ -26,14 +26,15 @@ class MODELColor: LocalDataModel {
 
             if (jsonModel.isFavorite != null)
                 favourite = jsonModel.isFavorite
-            jsonModel.images.forEach {
-                val image = MODELImage()
-                if (image.mapFrom(it)) {
-                    images.add(image)
-                } else {
-                    Logger.info(this::class.java.name, "Image not mapped.", null)
+            if (jsonModel.images != null)
+                jsonModel.images.forEach {
+                    val image = MODELImage()
+                    if (image.mapFrom(it)) {
+                        images.add(image)
+                    } else {
+                        Logger.info(this::class.java.name, "Image not mapped.", null)
+                    }
                 }
-            }
             jsonModel.sizes.forEach {
                 val size = MODELSize()
                 if (size.mapFrom(it))

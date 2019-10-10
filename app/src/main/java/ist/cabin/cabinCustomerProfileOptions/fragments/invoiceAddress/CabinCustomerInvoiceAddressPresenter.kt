@@ -1,10 +1,11 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.invoiceAddress
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import ist.cabin.cabinCustomerBase.Constants
+import ist.cabin.cabinCustomerBase.models.local.*
 
 class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddressContracts.View?) :
     CabinCustomerInvoiceAddressContracts.Presenter, CabinCustomerInvoiceAddressContracts.InteractorOutput {
@@ -12,18 +13,10 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
     var interactor: CabinCustomerInvoiceAddressContracts.Interactor? = CabinCustomerInvoiceAddressInteractor(this)
     var router: CabinCustomerInvoiceAddressContracts.Router? = null
 
-    private lateinit var name: String
-    private lateinit var surname: String
-    private lateinit var address: String
-    private lateinit var addressHeader: String
+    private val address = MODELAddress()
+
     private lateinit var countryCode: String
     private var phone: String = ""
-    private var province: String = "istanbul" //TODO: SAVE SOMEWHERE AND USE IDS
-    private var district: String = "Adalar" //TODO: INITIAL DATA MUST MATCH DATA SHOWN IN UI
-    private var isCorporate: Boolean = false
-    private lateinit var corporationName: String
-    private lateinit var taxNumber: String
-    private lateinit var taxAdministration: String
 
     private var nameFilled = false
     private var surnameFilled = false
@@ -43,10 +36,6 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
         val activity = view?.getActivityContext() as? Activity ?: return
         router = CabinCustomerInvoiceAddressRouter(activity)
 
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
     }
 
     override fun onDestroy() {
@@ -61,10 +50,14 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
 
     //region Presenter
 
+    override fun setId(id: Int?) {
+        this.address.id = id
+    }
+
     override fun setName(inputtedName: String) {
         if (inputtedName.length <= Constants.MAX_NAME_LENGTH) {
-            this.name = inputtedName
-            nameFilled = name.isNotEmpty()
+            this.address.name = inputtedName
+            nameFilled = inputtedName.isNotEmpty()
         } else {
             nameFilled = false
             Log.e("input error", "name too long!")
@@ -75,7 +68,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
 
     override fun setSurname(inputtedSurname: String) {
         if (inputtedSurname.length <= Constants.MAX_SURNAME_LENGTH) {
-            this.surname = inputtedSurname
+            this.address.surname = inputtedSurname
             surnameFilled = inputtedSurname.isNotEmpty()
         } else {
             surnameFilled = false
@@ -96,25 +89,28 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
             phone = ""
             phoneFilled = false
         }
+        this.address.phone = this.phone
 
         validatePage()
     }
 
-    override fun setProvince(inputtedProvince: String) {
-        this.province = inputtedProvince
+    override fun setProvince(province: MODELProvince) {
+        this.address.province = province.name
+        this.address.provinceId = province.id
 
         validatePage()
     }
 
-    override fun setDistrict(inputtedDistrict: String) {
-        this.district = inputtedDistrict
+    override fun setDistrict(district: MODELDistrict) {
+        this.address.district = district.name
+        this.address.districtId = district.id
 
         validatePage()
     }
 
     override fun setAddress(inputtedAddress: String) {
         if(inputtedAddress.length <= Constants.MAX_ADDRESS_LENGTH) {
-            this.address = inputtedAddress
+            this.address.address = inputtedAddress
             addressFilled = inputtedAddress.isNotEmpty()
         } else {
             addressFilled = false
@@ -126,7 +122,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
 
     override fun setAddressHeader(inputtedAddressHeader: String) {
         if(inputtedAddressHeader.length <= Constants.MAX_ADDRESS_HEADER_LENGTH) {
-            this.addressHeader = inputtedAddressHeader
+            this.address.header = inputtedAddressHeader
             addressHeaderFilled = inputtedAddressHeader.isNotEmpty()
         } else {
             addressHeaderFilled = false
@@ -137,6 +133,8 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
     }
 
     override fun setInvoiceType(isCorporate: Boolean) {
+        address.isCorporate = isCorporate
+
         if(isCorporate) view!!.showCorporateInvoiceData()
         else view!!.hideCorporateInvoiceData()
 
@@ -145,7 +143,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
 
     override fun setCorporationName(inputtedCorporationName: String) {
         if (inputtedCorporationName.length <= Constants.MAX_CORPORATION_NAME_LENGTH) {
-            this.corporationName = inputtedCorporationName
+            this.address.corporationName = inputtedCorporationName
             corporationNameFilled = inputtedCorporationName.isNotEmpty()
         } else {
             corporationNameFilled = false
@@ -157,7 +155,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
 
     override fun setTaxNumber(inputtedTaxNumber: String) {
         if (inputtedTaxNumber.length <= Constants.MAX_TAX_NUMBER_LENGTH) {
-            this.taxNumber = inputtedTaxNumber
+            this.address.taxNumber = inputtedTaxNumber
             taxNumberFilled = inputtedTaxNumber.isNotEmpty()
         } else {
             taxNumberFilled = false
@@ -169,7 +167,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
 
     override fun setTaxAdministration(inputtedTaxAdministration: String) {
         if (inputtedTaxAdministration.length <= Constants.MAX_TAX_ADMINISTRATION_LENGTH) {
-            this.taxAdministration = inputtedTaxAdministration
+            this.address.taxAdministration = inputtedTaxAdministration
             taxAdministrationFilled = inputtedTaxAdministration.isNotEmpty()
         } else {
             taxAdministrationFilled = false
@@ -179,32 +177,30 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
         validatePage()
     }
 
-    override fun isCorporate(isCorporate: Boolean) {
-        this.isCorporate = isCorporate
-        if (isCorporate) view!!.showCorporateInvoiceData()
-        else view!!.hideCorporateInvoiceData()
-
-        validatePage()
+    override fun saveAddress(context: Context) {
+        interactor?.saveAddress(context, address)
     }
 
-    override fun saveData() {
-        interactor?.saveData() //TODO: SEND DATA TO BE SAVED
-        view!!.onBackPressed()
+    override fun updateAddress(context: Context) {
+        interactor?.updateAddress(context, address)
+    }
+
+    override fun getProvinces(context: Context) {
+        interactor?.getProvinces(context)
+    }
+
+    override fun getDistrictsOfProvince(context: Context, province: MODELProvince) {
+        interactor?.getDistrictsOfProvince(context, province)
     }
 
     private fun validatePage() {
-        if (addressHeaderFilled)
-            Toast.makeText(view!!.getActivityContext(), "nameFilled $nameFilled\nsurnameFilled $surnameFilled\n" +
-                    "phoneFilled $phoneFilled\naddressFilled $addressFilled\naddressHeaderFilled $addressHeaderFilled\n" +
-                    "isCorporate $isCorporate\ncorporationNameFilled $corporationNameFilled\ntaxNumberFilled $taxNumberFilled\n" +
-                    "taxAdministrationFilled $taxAdministrationFilled", Toast.LENGTH_SHORT).show()
-
-        if (isCorporate) {
+        if (this.address.isCorporate) {
             if (nameFilled && surnameFilled && phoneFilled && addressFilled && addressHeaderFilled &&
                 corporationNameFilled && taxNumberFilled && taxAdministrationFilled) view!!.enableAddButton()
             else view!!.disableAddButton()
         } else {
-            if (nameFilled && surnameFilled && phoneFilled && addressFilled && addressHeaderFilled) view!!.enableAddButton()
+            if (nameFilled && surnameFilled && phoneFilled && addressFilled && addressHeaderFilled)
+                view!!.enableAddButton()
             else view!!.disableAddButton()
         }
     }
@@ -213,7 +209,18 @@ class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddress
 
     //region InteractorOutput
 
-    //TODO: Implement your InteractorOutput methods here
+    override fun setProvinces(provinces: MODELProvinces) {
+        view?.provinces = provinces.getProvinces()
+    }
+
+    override fun setDistricts(districts: MODELDistricts) {
+        view?.districts = districts.getDistricts()
+    }
+
+    override fun feedback(message: String?) {
+        //TODO: SHOW MESSAGE
+        view?.onBackPressed()
+    }
 
     //endregion
 }

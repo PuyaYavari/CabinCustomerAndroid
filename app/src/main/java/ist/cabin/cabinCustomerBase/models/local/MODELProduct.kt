@@ -1,8 +1,6 @@
 package ist.cabin.cabinCustomerBase.models.local
 
-import android.os.Parcel
 import android.os.Parcelable
-import android.util.Log
 import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONProduct
 import kotlinx.android.parcel.Parcelize
@@ -10,35 +8,37 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class MODELProduct : LocalDataModel, Parcelable{
 
-    var id: Int = -1
-    lateinit var sellerName: String
-    lateinit var productName: String
-    lateinit var productID: String
-    var price: Double? = null
-    var cargoDurationID: Int? = null
-    lateinit var cargoDuration: String
-    var cargoTypeID: Int? = null
-    lateinit var cargoType: String
-    var colors: MutableList<MODELColor> = mutableListOf()
+    private var id: Int = -1
+    private lateinit var sellerName: String
+    private lateinit var productName: String
+    private lateinit var productId: String
+    private var price: Double? = null
+    private var amount: Int? = null
+    private var cargoDurationId: Int? = null
+    private lateinit var cargoDuration: String
+    private var cargoTypeId: Int? = null
+    private lateinit var cargoType: String
+    private var colors: MutableList<MODELColor> = mutableListOf()
 
     @Throws(java.lang.Exception::class)
     override fun <T> mapFrom(modelData: T): Boolean {
         return try {
             val jsonModel = modelData as JSONProduct
-            val seller = MODELSeller()
+            val seller = MODELSellerName()
             id = jsonModel.id
-            if (seller.mapFrom(jsonModel.seller[0]))
+            if (seller.mapFrom(jsonModel.sellerName[0]))
                 sellerName = seller.name
             productName = jsonModel.title
-            productID = jsonModel.code
+            productId = jsonModel.code
             price = jsonModel.price
+            amount = jsonModel.amount
 
             val cargoDurationData = jsonModel.shippingDuration?.get(0) ?: throw java.lang.Exception("Cargo Duration Not Mapped.")
-            cargoDurationID = cargoDurationData.id
+            cargoDurationId = cargoDurationData.id
             cargoDuration = cargoDurationData.name
 
             val cargoTypeData = jsonModel.shippingType[0] ?: throw java.lang.Exception("Cargo Type Not Mapped.")
-            cargoTypeID = cargoTypeData.id
+            cargoTypeId = cargoTypeData.id
             cargoType = cargoTypeData.name
 
             jsonModel.colors.forEach {
@@ -53,4 +53,32 @@ class MODELProduct : LocalDataModel, Parcelable{
         }
 
     }
+
+    fun incAmount(count: Int){
+        var amount = this.amount
+        if (amount != null)
+            amount += count
+        this.amount = amount
+    }
+
+    fun decAmount(count: Int){
+        var amount = this.amount
+        if (amount != null)
+            amount -= count
+        this.amount = amount
+    }
+
+    fun getId() = this.id
+    fun getSellerName() = this.sellerName
+    fun getProductName() = this.productName
+    fun getProductId() = this.productId
+    fun getPrice() = this.price
+    fun getAmount() = this.amount
+    fun getCargoDurationId() = this.cargoDurationId
+    fun getCargoDuration() = this.cargoDuration
+    fun getCargoTypeId() = this.cargoTypeId
+    fun getCargoType() = this.cargoType
+    fun getColors() = this.colors
+
+    fun setAmount(amount: Int?) { this.amount = amount }
 }

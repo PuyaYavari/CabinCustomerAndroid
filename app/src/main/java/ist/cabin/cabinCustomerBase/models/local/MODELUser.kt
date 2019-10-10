@@ -23,7 +23,9 @@ class MODELUser: LocalDataModel {
         }
     }
 
-    fun setData(name: String?, surname: String?) {
+    fun setData(id: Int, session: String, name: String?, surname: String?) {
+        this.id = id
+        this.session = session
         this.name = name
         this.surname = surname
     }

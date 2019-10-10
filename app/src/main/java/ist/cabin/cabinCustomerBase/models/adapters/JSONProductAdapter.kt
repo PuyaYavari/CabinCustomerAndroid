@@ -6,7 +6,7 @@ import ist.cabin.cabinCustomerBase.models.backend.*
 
 class JSONProductAdapter (moshi: Moshi) : JsonAdapter<JSONProduct>() {
     private val options: JsonReader.Options =
-        JsonReader.Options.of("ID", "CODE", "TITLE", "PRICE", "SELLER", "SHIPPING_DURATION", "SHIPPING_TYPE", "COLOR")
+        JsonReader.Options.of("ID", "CODE", "TITLE", "PRICE", "AMOUNT", "SELLER", "SHIPPING_DURATION", "SHIPPING_TYPE", "COLOR")
 
     private val intAdapter: JsonAdapter<Int> =
         moshi.adapter<Int>(Int::class.java, emptySet(), "id")
@@ -17,10 +17,10 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<JSONProduct>() {
     private val doubleAdapter: JsonAdapter<Double> =
         moshi.adapter<Double>(Double::class.java, emptySet(), "price")
 
-    private val listOfJSONSellerAdapter: JsonAdapter<List<JSONSeller>> =
-        Moshi.Builder().add(JSONSellerAdapter(Moshi.Builder().build())).build()
-            .adapter<List<JSONSeller>>(Types.newParameterizedType(List::class.java, JSONSeller::class.java),
-                emptySet(), "seller")
+    private val listOfJSONSellerNameAdapter: JsonAdapter<List<JSONSellerName>> =
+        Moshi.Builder().add(JSONSellerNameAdapter(Moshi.Builder().build())).build()
+            .adapter<List<JSONSellerName>>(Types.newParameterizedType(List::class.java, JSONSellerName::class.java),
+                emptySet(), "sellerName")
 
     private val nullableListOfJSONShippingDurationAdapter: JsonAdapter<List<JSONShippingDuration>?> =
         Moshi.Builder().add(JSONShippingDurationAdapter(Moshi.Builder().build())).build()
@@ -45,7 +45,8 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<JSONProduct>() {
         var code: String? = null
         var title: String? = null
         var price: Double? = null
-        var seller: List<JSONSeller>? = null
+        var amount: Int? = null
+        var sellerName: List<JSONSellerName>? = null
         var shippingDuration: List<JSONShippingDuration>? = null
         var shippingType: List<JSONShippingType>? = null
         var colors: List<JSONColor>? = null
@@ -57,10 +58,11 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<JSONProduct>() {
                         1 -> code = stringAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'code' was null at ${reader.path}")
                         2 -> title = stringAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'title' was null at ${reader.path}")
                         3 -> price = doubleAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'price' was null at ${reader.path}")
-                        4 -> seller = listOfJSONSellerAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'seller' was null at ${reader.path}")
-                        5 -> shippingDuration = nullableListOfJSONShippingDurationAdapter.fromJson(reader)
-                        6 -> shippingType = listOfJSONShippingTypeAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'shippingType' was null at ${reader.path}")
-                        7 -> colors = listOfJSONColorAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'colors' was null at ${reader.path}")
+                        4 -> amount = intAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'amount' was null at ${reader.path}")
+                        5 -> sellerName = listOfJSONSellerNameAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'sellerName' was null at ${reader.path}")
+                        6 -> shippingDuration = nullableListOfJSONShippingDurationAdapter.fromJson(reader)
+                        7 -> shippingType = listOfJSONShippingTypeAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'shippingType' was null at ${reader.path}")
+                        8 -> colors = listOfJSONColorAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'colors' was null at ${reader.path}")
                         -1 -> {
                             // Unknown name, skip it.
                             reader.skipName()
@@ -82,7 +84,8 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<JSONProduct>() {
                 code = code!!,
                 title = title!!,
                 price = price!!,
-                seller = seller!!,
+                amount = amount,
+                sellerName = sellerName!!,
                 shippingDuration = shippingDuration!!,
                 shippingType = shippingType!!,
                 colors = colors!!
@@ -116,8 +119,10 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<JSONProduct>() {
         stringAdapter.toJson(writer, value.title)
         writer.name("PRICE")
         doubleAdapter.toJson(writer, value.price)
+        writer.name("AMOUNT")
+        intAdapter.toJson(writer, value.amount)
         writer.name("SELLER")
-        listOfJSONSellerAdapter.toJson(writer, value.seller)
+        listOfJSONSellerNameAdapter.toJson(writer, value.sellerName)
         writer.name("SHIPPING_DURATION")
         nullableListOfJSONShippingDurationAdapter.toJson(writer, value.shippingDuration)
         writer.name("SHIPPING_TYPE")

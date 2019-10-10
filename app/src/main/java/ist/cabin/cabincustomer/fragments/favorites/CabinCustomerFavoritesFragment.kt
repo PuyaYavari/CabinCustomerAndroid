@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
+import ist.cabin.cabinCustomerBase.GlobalData
 import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
@@ -28,13 +29,30 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_favorites, container, false)
+
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.favorites_label),null)
+        (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).showNavbar()
-        setupPage()
+        (activity!! as MainActivity).lockDrawer()
+
+        if (GlobalData.loggedIn)
+            setupPage()
+
         return pageView
     }
 
     override fun onResume() {
         super.onResume()
+
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.favorites_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).showNavbar()
+        (activity!! as MainActivity).lockDrawer()
+        if (GlobalData.loggedIn)
+            setupPage()
+
         presenter?.onResume()
     }
 

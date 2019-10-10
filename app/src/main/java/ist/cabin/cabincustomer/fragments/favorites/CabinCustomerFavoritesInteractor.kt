@@ -26,11 +26,11 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
         color: MODELColor,
         size: MODELSize
     ) {
-        val data =  REQUESTAPIAddToCart(
+        val data =  REQUESTAPIProduct(
             listOf(
                 REQUESTProduct(
-                    amount,
                     productId,
+                    amount,
                     listOf(
                         REQUESTColor(
                             productId,

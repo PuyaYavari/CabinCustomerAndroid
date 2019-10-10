@@ -1,6 +1,7 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.changePassword
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import ist.cabin.cabinCustomerBase.Constants
@@ -91,9 +92,9 @@ class CabinCustomerChangePasswordPresenter(var view: CabinCustomerChangePassword
         else view!!.deactivateAddButton()
     }
 
-    override fun confirmPage() {
+    override fun confirmPage(context: Context) {
         if (isPasswordValid(newPassword) && newPassword == newPasswordConfirmation) {
-            interactor?.sendPasswordData()
+            interactor?.sendPasswordData(context, newPassword, password)
         } else if (!isPasswordValid(newPassword)){
             view!!.showErrorMessage(ChangePasswordFieldIDs.NEW_PASSWORD)
         } else if (newPassword != newPasswordConfirmation) {

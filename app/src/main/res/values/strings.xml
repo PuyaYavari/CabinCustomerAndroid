@@ -157,4 +157,10 @@
     <string name="separator_dots">:</string>
     <string name="separator_dash">-</string>
     <!--/separators-->
+
+    <string name="default_success_message">İşlem başarı ile gerçekleştirildi.</string>
+    <string name="product_added_to_cart">Ürün sepete eklendi.</string>
+    <string name="a_problem_occurred">Bir hata oluştu.</string>
+    <string name="login_required">Bu sayfayı görüntülemek için giriş yapmanız gerekmektedir.</string>
+
 </resources>

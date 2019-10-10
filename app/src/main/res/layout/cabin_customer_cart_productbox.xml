@@ -132,25 +132,35 @@
                         android:textColor="@color/colorTextsPrimary"
                         android:textSize="12sp" />
 
-                <TextView
-                        android:id="@+id/cart_productbox_size_caution_separator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
+                <LinearLayout
+                        android:id="@+id/cart_productbox_size_caution_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="0"
-                        android:text="@string/separator_dash"
-                        android:textColor="@color/colorCaution"
-                        android:textSize="12sp" />
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
-                <TextView
-                        android:id="@+id/cart_productbox_size_caution"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Some Caution Text"
-                        android:textColor="@color/colorCaution"
-                        android:textSize="12sp" />
+                    <TextView
+                            android:id="@+id/cart_productbox_size_caution_separator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_weight="0"
+                            android:text="@string/separator_dash"
+                            android:textColor="@color/colorCaution"
+                            android:textSize="12sp" />
+
+                    <TextView
+                            android:id="@+id/cart_productbox_size_caution"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="Some Caution Text"
+                            android:textColor="@color/colorCaution"
+                            android:textSize="12sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -213,67 +223,17 @@
                         android:textColor="@color/colorTextsPrimary"
                         android:textSize="12sp" />
 
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                <TextView
+                        android:id="@+id/cart_productbox_product_cargo_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
                         android:layout_weight="0"
-                        android:orientation="horizontal">
-
-                    <TextView
-                            android:id="@+id/cart_productbox_product_cargo_date_from_day"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="4dp"
-                            android:layout_weight="0"
-                            android:alpha="@dimen/cartProductboxTextsAlpha"
-                            android:text="day"
-                            android:textColor="@color/colorTextsPrimary"
-                            android:textSize="12sp" />
-
-                    <TextView
-                            android:id="@+id/cart_productbox_product_cargo_date_from_month"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:alpha="@dimen/cartProductboxTextsAlpha"
-                            android:text="month"
-                            android:textColor="@color/colorTextsPrimary"
-                            android:textSize="12sp" />
-
-                    <TextView
-                            android:id="@+id/cart_productbox_product_cargo_date_text_separator"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"
-                            android:layout_weight="0"
-                            android:alpha="@dimen/cartProductboxTextsAlpha"
-                            android:text="@string/separator_dash"
-                            android:textColor="@color/colorTextsPrimary"
-                            android:textSize="12sp" />
-
-                    <TextView
-                            android:id="@+id/cart_productbox_product_cargo_date_to_day"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="4dp"
-                            android:layout_weight="0"
-                            android:alpha="@dimen/cartProductboxTextsAlpha"
-                            android:text="day"
-                            android:textColor="@color/colorTextsPrimary"
-                            android:textSize="12sp" />
-
-                    <TextView
-                            android:id="@+id/cart_productbox_product_cargo_date_to_month"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:alpha="@dimen/cartProductboxTextsAlpha"
-                            android:text="month"
-                            android:textColor="@color/colorTextsPrimary"
-                            android:textSize="12sp" />
-                </LinearLayout>
+                        android:alpha="@dimen/cartProductboxTextsAlpha"
+                        android:text="Some Duration"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -337,11 +297,13 @@
                         app:layout_constraintVertical_bias="0.0">
 
                     <LinearLayout
+                            android:id="@+id/cart_productbox_product_before_discount_price_layout"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:background="@drawable/default_price_strike"
                             android:gravity="right"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                         <TextView
                                 android:id="@+id/cart_productbox_product_before_discount_price"

@@ -4,16 +4,38 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="4dp">
+        android:clipToPadding="false"
+        android:paddingStart="4dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="8dp">
 
-    <CheckBox
-            android:id="@+id/product_detail_product_sizebox_checkbox"
+    <ImageView
+            android:id="@+id/product_detail_product_sizebox_background"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@drawable/circle_cabin_color"
+            android:elevation="4dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+            android:id="@+id/product_detail_product_sizebox"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:button="@drawable/cabin_sizes_checkbox"
-            android:checked="false"
-            android:scrollbarAlwaysDrawHorizontalTrack="false"
-            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/circle_cabin_color"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,13 +46,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"
+            android:elevation="6dp"
             android:gravity="center"
             android:lineSpacingExtra="5sp"
             android:text="00/00"
             android:textColor="@color/colorTextsPrimary"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/product_detail_product_sizebox_checkbox"
-            app:layout_constraintEnd_toEndOf="@+id/product_detail_product_sizebox_checkbox"
-            app:layout_constraintStart_toStartOf="@+id/product_detail_product_sizebox_checkbox"
-            app:layout_constraintTop_toTopOf="@+id/product_detail_product_sizebox_checkbox" />
+            app:layout_constraintBottom_toBottomOf="@+id/product_detail_product_sizebox"
+            app:layout_constraintEnd_toEndOf="@+id/product_detail_product_sizebox"
+            app:layout_constraintStart_toStartOf="@+id/product_detail_product_sizebox"
+            app:layout_constraintTop_toTopOf="@+id/product_detail_product_sizebox" />
 </androidx.constraintlayout.widget.ConstraintLayout>

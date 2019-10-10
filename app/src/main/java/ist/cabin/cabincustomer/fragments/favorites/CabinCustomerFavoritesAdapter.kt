@@ -31,10 +31,10 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
             findViewById<ImageView>(R.id.favorites_productbox_image).apply {
                 setOnClickListener { fragment.moveToProductDetail(myDataset[position]) }
             } //TODO:SET IMAGE
-            findViewById<TextView>(R.id.favorites_productbox_seller_name).text = data.sellerName
+            findViewById<TextView>(R.id.favorites_productbox_seller_name).text = data.getSellerName()
             findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price) //TODO
             findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price_unit) //TODO
-            findViewById<TextView>(R.id.favorites_productbox_product_price).text = data.price.toString()
+            findViewById<TextView>(R.id.favorites_productbox_product_price).text = data.getPrice().toString()
             findViewById<TextView>(R.id.favorites_productbox_product_price_unit) //TODO
             findViewById<Button>(R.id.favorites_productbox_add_to_cart_button).setOnClickListener {
                 //TODO:CALL VIEWS AddToCart THE CORRECT WAY

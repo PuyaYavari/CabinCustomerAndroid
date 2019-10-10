@@ -14,6 +14,7 @@ class APIProductAdapter (moshi: Moshi) : JsonAdapter<APIProduct>() {
 
     override fun toString(): String = "GeneratedJsonAdapter(APIProduct)"
 
+    @FromJson
     override fun fromJson(reader: JsonReader): APIProduct {
         var products: List<JSONProduct?>? = null
         reader.beginObject()
@@ -36,6 +37,7 @@ class APIProductAdapter (moshi: Moshi) : JsonAdapter<APIProduct>() {
         return result
     }
 
+    @ToJson
     override fun toJson(writer: JsonWriter, value: APIProduct?) {
         if (value == null) {
             throw NullPointerException("value was null! Wrap in .nullSafe() to write nullable values.")

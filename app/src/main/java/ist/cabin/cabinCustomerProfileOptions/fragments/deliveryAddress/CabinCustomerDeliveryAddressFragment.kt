@@ -12,6 +12,8 @@ import android.widget.*
 import androidx.navigation.fragment.navArgs
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabinCustomerBase.Constants
+import ist.cabin.cabinCustomerBase.models.local.MODELDistrict
+import ist.cabin.cabinCustomerBase.models.local.MODELProvince
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerDeliveryAddressFragment : BaseFragment(), CabinCustomerDeliveryAddressContracts.View {
@@ -24,10 +26,72 @@ class CabinCustomerDeliveryAddressFragment : BaseFragment(), CabinCustomerDelive
     private lateinit var provinceSpinner: Spinner
     private lateinit var districtSpinner: Spinner
 
-    var provinces = arrayOf("istanbul", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara"
-        , "izmir", "ankara", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara"
-        , "izmir", "ankara", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara") //TODO: REMOVE
-    var districts = arrayOf("Beylikduzu", "Esenyurt", "Buyukcekmece") //TODO: REMOVE
+    private var operationType = OperationType.ADD
+
+    private var provinceSet = FieldSet.YES
+    private var districtSet = FieldSet.YES
+
+    override var provinces: List<MODELProvince?> = listOf()
+        set(value) {
+            field = value
+            ArrayAdapter(
+                this.context!!,
+                R.layout.cabin_customer_province_district_spinner_selected_item,
+                field
+            ).also { adapter ->
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
+                // Apply the adapter to the spinner
+                provinceSpinner.adapter = adapter
+                if (provinceSet == FieldSet.NO) {
+                    val argProvince = args.address?.province
+                    if (argProvince != null) {
+                        var index = 0
+                        var found = false
+                        while (index < field.size && !found) {
+                            val province = field[index].toString()
+                            if (province == argProvince) {
+                                provinceSpinner.setSelection(index)
+                                found = true
+                            }
+                            index++
+                        }
+                    }
+                    provinceSet = FieldSet.YES
+                }
+            }
+        }
+
+    override var districts: List<MODELDistrict?> = listOf()
+        set(value) {
+            field = value
+            ArrayAdapter(
+                this.context!!,
+                R.layout.cabin_customer_province_district_spinner_selected_item,
+                field
+            ).also { adapter ->
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
+                // Apply the adapter to the spinner
+                districtSpinner.adapter = adapter
+                if (districtSet == FieldSet.NO) {
+                    val argDistrict = args.address?.district
+                    if (argDistrict != null) {
+                        var index = 0
+                        var found = false
+                        while (index < field.size && !found) {
+                            val province = field[index].toString()
+                            if (province == argDistrict) {
+                                districtSpinner.setSelection(index)
+                                found = true
+                            }
+                            index++
+                        }
+                    }
+                    districtSet = FieldSet.YES
+                }
+            }
+        }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_delivery_address, container, false)
@@ -63,6 +127,12 @@ class CabinCustomerDeliveryAddressFragment : BaseFragment(), CabinCustomerDelive
     }
 
     private fun setupPage() {
+        if (args.address != null) {
+            operationType = OperationType.EDIT
+            provinceSet = FieldSet.NO
+            districtSet = FieldSet.NO
+        }
+
         pageView.findViewById<ImageButton>(R.id.delivery_address_back_button)
             .setOnClickListener { activity!!.onBackPressed() }
 
@@ -123,28 +193,38 @@ class CabinCustomerDeliveryAddressFragment : BaseFragment(), CabinCustomerDelive
         }
 
         provinceSpinner = pageView.findViewById(R.id.delivery_address_province_spinner)
-        ArrayAdapter(
-            this.context!!,
-            R.layout.cabin_customer_province_district_spinner_selected_item,
-            provinces
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
-            // Apply the adapter to the spinner
-            provinceSpinner.adapter = adapter
+        //FIXME: DOESN'T WORK AFTER A FIELD IS FOCUSED
+        provinceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val province = parent?.getItemAtPosition(p2) as MODELProvince
+                val context = context
+                if (context != null) {
+                    presenter?.getDistrictsOfProvince(context, province)
+                    presenter?.setProvince(province)
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
 
         districtSpinner = pageView.findViewById(R.id.delivery_address_district_spinner)
-        ArrayAdapter(
-            this.context!!,
-            R.layout.cabin_customer_province_district_spinner_selected_item,
-            districts
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
-            // Apply the adapter to the spinner
-            districtSpinner.adapter = adapter
+        //FIXME: DOESN'T WORK AFTER A FIELD IS FOCUSED
+        districtSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val district = parent?.getItemAtPosition(p2) as MODELDistrict
+                val context = context
+                if (context != null) {
+                    presenter?.setDistrict(district)
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
+
+        val context = this.context
+        if (context != null)
+            presenter?.getProvinces(context)
+
 
         pageView.findViewById<EditText>(R.id.delivery_address_address).apply {
             if(presenter != null) filters = arrayOf(
@@ -175,11 +255,17 @@ class CabinCustomerDeliveryAddressFragment : BaseFragment(), CabinCustomerDelive
         }
 
         pageView.findViewById<Button>(R.id.delivery_address_add_button).setOnClickListener {
-            presenter?.saveData()
-            onBackPressed()
+            val context = this.context
+            if (context != null) {
+                if (operationType == OperationType.ADD)
+                    presenter?.saveAddress(context)
+                else
+                    presenter?.updateAddress(context)
+            }
         }
 
-        setupInitialData()
+        if (operationType == OperationType.EDIT)
+            setupInitialData()
     }
 
     override fun enableAddButton() {
@@ -199,15 +285,20 @@ class CabinCustomerDeliveryAddressFragment : BaseFragment(), CabinCustomerDelive
     }
 
     private fun setupInitialData() {
-        pageView.findViewById<EditText>(R.id.delivery_address_name).setText(args.name)
-        pageView.findViewById<EditText>(R.id.delivery_address_surname).setText(args.surname)
-        pageView.findViewById<EditText>(R.id.delivery_address_phone).setText(args.phone)
-        if (args.province != null)
-            pageView.findViewById<EditText>(R.id.delivery_address_province_spinner).setText(args.province)
-        if (args.district != null)
-            pageView.findViewById<EditText>(R.id.delivery_address_district_spinner).setText(args.district)
-        pageView.findViewById<EditText>(R.id.delivery_address_address).setText(args.address)
-        pageView.findViewById<EditText>(R.id.delivery_address_address_header).setText(args.addressHeader)
+        presenter?.setId(args.address?.id)
+        pageView.findViewById<EditText>(R.id.delivery_address_name).setText(args.address?.name)
+        pageView.findViewById<EditText>(R.id.delivery_address_surname).setText(args.address?.surname)
+        pageView.findViewById<EditText>(R.id.delivery_address_phone).setText(args.address?.phone?.substring(4))
+        pageView.findViewById<EditText>(R.id.delivery_address_address).setText(args.address?.address)
+        pageView.findViewById<EditText>(R.id.delivery_address_address_header).setText(args.address?.header)
+    }
+
+    private enum class FieldSet {
+        NO, YES
+    }
+
+    private enum class OperationType {
+        ADD, EDIT
     }
 
     //endregion

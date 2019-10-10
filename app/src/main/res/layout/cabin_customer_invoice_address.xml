@@ -386,7 +386,7 @@
                             android:prompt="@string/delivery_and_invoice_address_district_hint"/>
 
                     <View
-                            android:id="@+id/invoice_address_province_inpit_separator"
+                            android:id="@+id/invoice_address_province_input_separator"
                             android:layout_width="0dp"
                             android:layout_height="1dp"
                             android:layout_marginEnd="16dp"
@@ -693,12 +693,11 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                 <RadioGroup
+                        android:id="@+id/invoice_address_redio_group"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
                         android:gravity="center"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -711,6 +710,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="50dp"
+                            android:checked="true"
                             android:text="@string/personal" />
 
                     <RadioButton
@@ -739,7 +739,8 @@
                     android:id="@+id/invoice_address_corporate_invoice_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -800,12 +801,12 @@
                                 android:inputType="textShortMessage"
                                 android:paddingLeft="16dp"
                                 android:textColor="@color/colorTextsPrimary"
+                                android:textColorHint="@color/colorHintsPrimary"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:textColorHint="@color/colorHintsPrimary"/>
+                                app:layout_constraintTop_toTopOf="parent" />
 
                         <View
                                 android:id="@+id/invoice_address_corporation_name_input_separator"
@@ -883,12 +884,12 @@
                                 android:inputType="number"
                                 android:paddingLeft="16dp"
                                 android:textColor="@color/colorTextsPrimary"
+                                android:textColorHint="@color/colorHintsPrimary"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:textColorHint="@color/colorHintsPrimary"/>
+                                app:layout_constraintTop_toTopOf="parent" />
 
                         <View
                                 android:id="@+id/invoice_address_tax_number_input_separator"
@@ -966,12 +967,12 @@
                                 android:inputType="textShortMessage"
                                 android:paddingLeft="16dp"
                                 android:textColor="@color/colorTextsPrimary"
+                                android:textColorHint="@color/colorHintsPrimary"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:textColorHint="@color/colorHintsPrimary"/>
+                                app:layout_constraintTop_toTopOf="parent" />
 
                         <View
                                 android:id="@+id/invoice_address_tax_administration_input_separator"

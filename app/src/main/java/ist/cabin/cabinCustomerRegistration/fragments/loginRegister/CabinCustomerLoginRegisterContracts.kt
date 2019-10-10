@@ -13,6 +13,8 @@ object CabinCustomerLoginRegisterContracts {
         fun disableRegisterButton()
         fun selectWoman()
         fun selectMan()
+        fun closeActivity()
+        fun setActiveUser(user: MODELUser)
     }
 
     interface Presenter : BaseContracts.Presenter {
@@ -27,8 +29,6 @@ object CabinCustomerLoginRegisterContracts {
         fun login()
         fun register()
         fun forgetPassword()
-        fun toRegister()
-        fun toLogin()
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -38,6 +38,8 @@ object CabinCustomerLoginRegisterContracts {
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
         fun setActiveUser(user: MODELUser)
+        fun closeActivity()
+        fun sendLoginRequest()
     }
 
     interface Router : BaseContracts.Router

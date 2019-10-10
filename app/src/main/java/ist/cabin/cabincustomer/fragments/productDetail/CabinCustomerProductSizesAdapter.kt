@@ -3,7 +3,7 @@ package ist.cabin.cabincustomer.fragments.productDetail
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
@@ -13,6 +13,7 @@ class CabinCustomerProductSizesAdapter(val view: CabinCustomerProductDetailContr
                                        private var myDataset: List<MODELSize>):
     RecyclerView.Adapter<CabinCustomerProductSizesAdapter.ProductSizeViewHolder>(),
     CabinCustomerProductDetailContracts.SizeAdapter{
+    var selectedSize = -1
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -34,12 +35,16 @@ class CabinCustomerProductSizesAdapter(val view: CabinCustomerProductDetailContr
     override fun onBindViewHolder(holder: ProductSizeViewHolder, position: Int) {
         holder.itemView.apply {
             findViewById<TextView>(R.id.product_detail_product_sizebox_text).text = myDataset[position].name
-            findViewById<CheckBox>(R.id.product_detail_product_sizebox_checkbox)
-                .setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked)
-                    view.setSelectedSize(myDataset[position])
-                else
-                    view.setSelectedSize(null)
+            if (position == selectedSize)
+                findViewById<ImageView>(R.id.product_detail_product_sizebox_background).visibility = View.VISIBLE
+            else
+                findViewById<ImageView>(R.id.product_detail_product_sizebox_background).visibility = View.GONE
+            findViewById<ImageView>(R.id.product_detail_product_sizebox).setOnClickListener {
+                view.setSelectedSize(myDataset[position])
+                notifyItemChanged(selectedSize)
+                selectedSize = position
+                findViewById<ImageView>(R.id.product_detail_product_sizebox_background).visibility =
+                    View.VISIBLE
             }
         }
     }
@@ -48,6 +53,7 @@ class CabinCustomerProductSizesAdapter(val view: CabinCustomerProductDetailContr
 
     override fun setDataset(sizes: List<MODELSize>) {
         myDataset = sizes
+        selectedSize = -1
         notifyDataSetChanged()
     }
 }

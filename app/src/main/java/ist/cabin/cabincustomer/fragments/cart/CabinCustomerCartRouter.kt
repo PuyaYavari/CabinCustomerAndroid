@@ -22,6 +22,5 @@ class CabinCustomerCartRouter(var activity: Activity?) :
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         ContextCompat.startActivity(activity!!.applicationContext, intent, Bundle.EMPTY)
     }
-
     //endregion
 }

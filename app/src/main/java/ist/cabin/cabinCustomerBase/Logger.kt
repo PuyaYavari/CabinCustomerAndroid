@@ -2,11 +2,11 @@ package ist.cabin.cabinCustomerBase
 
 import android.util.Log
 
-object Logger: BaseContracts.ExceptionHandler {
+object Logger: BaseContracts.Logger {
     override fun debug(
         location: String?,
         message: String,
-        exception: Exception
+        exception: Exception?
     ) {
         try {
             if (location != null)
@@ -22,7 +22,7 @@ object Logger: BaseContracts.ExceptionHandler {
     override fun error(
         location: String?,
         message: String,
-        exception: Exception
+        exception: Throwable
     ) {
         try {
             if (location != null)
@@ -54,7 +54,7 @@ object Logger: BaseContracts.ExceptionHandler {
     override fun verbose(
         location: String?,
         message: String,
-        exception: Exception
+        exception: Exception?
     ) {
         try {
             if (location != null)
@@ -67,7 +67,7 @@ object Logger: BaseContracts.ExceptionHandler {
         }
     }
 
-    override fun warn(location: String?, message: String, exception: Exception) {
+    override fun warn(location: String?, message: String, exception: Exception?) {
         try {
             if (location != null)
                 Log.w("Warn", "LOCATION: $location \nMESSAGE: $message", exception)

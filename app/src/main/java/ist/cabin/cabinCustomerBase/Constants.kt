@@ -16,9 +16,23 @@ object Constants {
     const val MAX_EXTRADITION_REASON_LENGTH = 512
 
     const val BASE_URL: String = "http://192.168.1.25/webapi/"
+    //const val BASE_URL = "http://213.14.150.247:8080/webapi/"
     const val LOGIN_URL: String = "login/login"
+    const val LOGOUT_URL: String = "login/logout"
     const val REGISTER_URL: String = "register/addUser"
     const val PRODUCT_DETAIL_URL: String = "explore/listProduct"
     const val CART_UPDATE_URL: String = "basket/UpdateProduct"
+    const val CART_LIST_ALL_URL: String = "basket/listProduct"
     const val DISCOVER_ADD_TO_CART_URL: String = "explore/AddProduct"
+    const val LIST_PERSONAL_INFO_URL: String = "accountSettings/listPersonalInfo"
+    const val UPDATE_PERSONAL_INFO_URL: String = "accountSettings/updatePersonalInfo"
+    const val LIST_ADDRESSES_URL: String = "accountSettings/listAddress"
+    const val ADD_ADDRESS_URL: String = "accountSettings/addAddress"
+    const val UPDATE_ADDRESS_URL: String = "accountSettings/updateAddress"
+    const val REMOVE_ADDRESS_URL: String = "accountSettings/removeAddress"
+    const val LIST_CITY_URL: String = "accountSettings/listCity"
+    const val LIST_DISTRICT_URL: String = "accountSettings/listDistrict"
+    const val CHANGE_PASSWORD_URL: String = "accountSettings/changeUserPassword"
+    const val LIST_ANNOUNCEMENT_URL: String = "accountSettings/listUserAnnouncementPreference"
+    const val UPDATE_ANNOUNCEMENT_URL: String = "accountSettings/updateUserAnnouncementPreference"
 }

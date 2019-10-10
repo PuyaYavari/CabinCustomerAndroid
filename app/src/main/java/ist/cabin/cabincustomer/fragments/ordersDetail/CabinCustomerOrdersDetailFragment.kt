@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
+import ist.cabin.cabinCustomerBase.GlobalData
 import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
 import ist.cabin.cabincustomer.fragments.ordersDetail.adapter.*
@@ -24,13 +24,29 @@ class CabinCustomerOrdersDetailFragment : BaseFragment(), CabinCustomerOrdersDet
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_orders_detail, container, false)
+
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.orders_header),null)
+        (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).showNavbar()
-        setupPage()
+        (activity!! as MainActivity).lockDrawer()
+
+        if (GlobalData.loggedIn)
+            setupPage()
         return pageView
     }
 
     override fun onResume() {
         super.onResume()
+
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.orders_header),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).showNavbar()
+        (activity!! as MainActivity).lockDrawer()
+
+        if (GlobalData.loggedIn)
+            setupPage()
         presenter?.onResume()
     }
 
@@ -53,7 +69,6 @@ class CabinCustomerOrdersDetailFragment : BaseFragment(), CabinCustomerOrdersDet
     //region View
 
     private fun setupPage() {
-        pageView.findViewById<ImageButton>(R.id.orders_detail_back_button).setOnClickListener { activity!!.onBackPressed() }
         recyclerView = pageView.findViewById(R.id.orders_detail_recyclerview)
 
         val pageTypeID = args.pageType

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/customer_cart" app:startDestination="@id/cabinCustomerCartFragment2">
+            android:id="@+id/customer_cart" app:startDestination="@id/cabinCustomerCartFragment">
 
-    <fragment android:id="@+id/cabinCustomerCartFragment2"
+    <fragment android:id="@+id/cabinCustomerCartFragment"
               android:name="ist.cabin.cabincustomer.fragments.cart.CabinCustomerCartFragment"
               android:label="CabinCustomerCartFragment"/>
 </navigation>

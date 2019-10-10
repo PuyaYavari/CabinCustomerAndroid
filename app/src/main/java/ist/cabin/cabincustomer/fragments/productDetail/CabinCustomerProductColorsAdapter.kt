@@ -15,6 +15,8 @@ class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailCont
                                         private val myDataset: List<MODELColor>):
     RecyclerView.Adapter<CabinCustomerProductColorsAdapter.ProductColorViewHolder>(){
 
+    private var selectedColorPosition = 0
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder.
@@ -35,12 +37,19 @@ class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailCont
     override fun onBindViewHolder(holder: ProductColorViewHolder, position: Int) {
         holder.itemView.apply {
             findViewById<ImageView>(R.id.colorbox_color_sample).imageTintList =
-                ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode))
+                ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode)) //TODO: SET TICK TINT SO IT WILL BE VISIBLE
             findViewById<TextView>(R.id.colorbox_color_name).text = myDataset[position].name
+            if (position == selectedColorPosition)
+                findViewById<ImageView>(R.id.colorbox_color_sample_tick).visibility = View.VISIBLE
+            else
+                findViewById<ImageView>(R.id.colorbox_color_sample_tick).visibility = View.GONE
             setOnClickListener {
-                view.showMeasuresOfColor(myDataset[position].id)
+                view.showSizesOfColor(myDataset[position].id)
                 view.setSelectedColor(myDataset[position])
                 view.setSelectedSize(null)
+                notifyItemChanged(selectedColorPosition)
+                selectedColorPosition = position
+                findViewById<ImageView>(R.id.colorbox_color_sample_tick).visibility = View.VISIBLE
             }
         }
     }

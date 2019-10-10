@@ -20,63 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/orders_detail_header_pagename_layout"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/defaultHeaderHeight"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
 
-            <View
-                    android:id="@+id/orders_details_header_divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="@dimen/defaultHeaderDividerAlpha"
-                    android:background="@color/colorHeaderLabelsPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                    android:id="@+id/orders_header_label"
-                    android:layout_width="107dp"
-                    android:layout_height="31dp"
-
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="Segoe UI"
-                    android:gravity="center"
-                    android:text="@string/orders_header"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorHeaderLabelsPrimary"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-            <ImageButton
-                    android:id="@+id/orders_detail_back_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="back button"
-                    android:tint="@color/colorHeaderLabelsPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/icon_back_arrow" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -85,7 +29,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/orders_detail_header_pagename_layout">
+                app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                     android:id="@+id/address_bar_layout"
@@ -170,7 +114,6 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
 
-            android:layout_marginBottom="@dimen/navbarHeight"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             app:layout_constraintBottom_toBottomOf="parent"

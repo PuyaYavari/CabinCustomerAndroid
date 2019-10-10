@@ -22,9 +22,9 @@ class JSONColorAdapter (moshi: Moshi) : JsonAdapter<JSONColor>() {
     private val nullableBooleanAdapter: JsonAdapter<Boolean?> =
         moshi.adapter<Boolean?>(Boolean::class.javaObjectType, emptySet(), "isFavorite")
 
-    private val listOfJSONImageAdapter: JsonAdapter<List<JSONImage>> =
+    private val listOfJSONImageAdapter: JsonAdapter<List<JSONImage>?> =
         Moshi.Builder().add(JSONImageAdapter(Moshi.Builder().build())).build()
-            .adapter<List<JSONImage>>(Types.newParameterizedType(List::class.java, JSONImage::class.java),
+            .adapter<List<JSONImage>?>(Types.newParameterizedType(List::class.java, JSONImage::class.java),
                 emptySet(), "images")
 
     private val listOfJSONSizeAdapter: JsonAdapter<List<JSONSize>> =
@@ -79,10 +79,10 @@ class JSONColorAdapter (moshi: Moshi) : JsonAdapter<JSONColor>() {
                 hexCode = hexCode!!,
                 rgbCode = rgbCode,
                 isFavorite = isFavorite,
-                images = images!!,
+                images = images,
                 sizes = sizes!!
             )
-            images.forEach {
+            images?.forEach {
                 if (it != null)
                     imagePresent = true
             }

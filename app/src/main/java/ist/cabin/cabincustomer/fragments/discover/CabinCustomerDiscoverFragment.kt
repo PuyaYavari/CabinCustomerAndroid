@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
@@ -26,13 +24,15 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     private val pageSize = 20
     private var page = 1
 
-    private lateinit var discoverHeaderTransitionContainer: MotionLayout
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_discover, container, false)
-        discoverHeaderTransitionContainer = pageView.findViewById(R.id.discover_motion_layout)
+
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).hideNeedLogin()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.discover_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).lockDrawer()
         showHeaderAndNavbar()
-        (activity!! as MainActivity).showNavbar()
 
         viewAdapter = CabinCustomerDiscoverAdapter(this, myDataset)
         viewManager = GridLayoutManager(this.context, 2)
@@ -72,14 +72,7 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     }
 
     override fun showHeaderAndNavbar() {
-        if (pageView.findViewById<ConstraintLayout>(R.id.discover_header).translationY == resources.getDimension(R.dimen.defaultHeaderHeightNegative)) {
-            (activity!! as MainActivity).showNavbar()
-            discoverHeaderTransitionContainer.setTransition(
-                R.id.discoverHeaderHidden,
-                R.id.discoverHeaderVisible
-            )
-            discoverHeaderTransitionContainer.transitionToEnd()
-        }
+        (activity!! as MainActivity).showNavbar()
     }
 
     private fun reloadProducts(){
@@ -112,18 +105,10 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     }
 
     override fun hideHeaderAndNavbar() {
-        if (pageView.findViewById<ConstraintLayout>(R.id.discover_header).translationY == 0f) {
-            (activity!! as MainActivity).hideNavbar()
-            discoverHeaderTransitionContainer.setTransition(
-                R.id.discoverHeaderVisible,
-                R.id.discoverHeaderHidden
-            )
-            discoverHeaderTransitionContainer.transitionToEnd()
-        }
+        (activity!! as MainActivity).hideNavbar()
     }
 
     override fun moveToProductDetail(product: MODELProduct) {
-        hideHeaderAndNavbar()
         presenter?.moveToProductDetail(product)
     }
 

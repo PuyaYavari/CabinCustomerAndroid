@@ -6,467 +6,265 @@
         android:layout_height="match_parent"
         android:background="@color/colorPageBackgroundPrimary">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cart_header_layout"
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cart_products_recyclerview"
             android:layout_width="0dp"
-            android:layout_height="@dimen/defaultHeaderHeight"
-            android:background="@color/colorPrimary"
-            android:elevation="@dimen/defaultHeaderElevation"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/cart_finish_trade_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cart_finish_trade_price_detail_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPageBackgroundPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cart_finish_trade_layout">
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0.1dp"
+                android:background="@color/colorSeparatorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
+                android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                    android:id="@+id/cart_header_label"
-                    android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/cart_label"
-                    android:textColor="@color/colorHeaderLabelsPrimary"
-                    android:textSize="20sp" />
+                    android:layout_margin="4dp">
 
-            <TextView
-                    android:id="@+id/cart_header_product_count_label_start_separator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" ("
-                    android:textColor="@color/colorHeaderLabelsPrimary"
-                    android:textSize="20sp" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/middle_sum_label"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                    android:id="@+id/cart_header_product_count_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="count"
-                    android:textColor="@color/colorHeaderLabelsPrimary"
-                    android:textSize="20sp" />
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                    android:id="@+id/cart_header_product_count_label_end_separator"
-                    android:layout_width="wrap_content"
+                    <TextView
+                            android:id="@+id/cart_finish_trade_price_detail_middle_sum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0000"
+                            android:textColor="@color/colorTextsPrimary"
+                            android:textSize="12sp" />
+
+                    <TextView
+                            android:id="@+id/cart_finish_trade_price_detail_middle_sum_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginLeft="2dp"
+                            android:text="TL"
+                            android:textColor="@color/colorTextsPrimary"
+                            android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=")"
-                    android:textColor="@color/colorHeaderLabelsPrimary"
-                    android:textSize="20sp" />
+                    android:layout_margin="4dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cargo_sum_label"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                            android:id="@+id/cart_finish_trade_price_detail_cargo_sum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0000"
+                            android:textColor="@color/colorTextsPrimary"
+                            android:textSize="12sp" />
+
+                    <TextView
+                            android:id="@+id/cart_finish_trade_price_detail_cargo_sum_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginLeft="2dp"
+                            android:text="TL"
+                            android:textColor="@color/colorTextsPrimary"
+                            android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                    android:id="@+id/cart_finish_trade_price_detail_cargo_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="4dp"></LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="vertical"></LinearLayout>
+
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/cart_products_recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="104dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cart_header_layout"
-            app:layout_constraintVertical_bias="1.0">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/navbarHeight"
-            android:orientation="vertical"
+            android:id="@+id/cart_finish_trade_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPageBackgroundPrimary"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cart_finish_trade_price_detail_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPageBackgroundPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cart_finish_trade_layout"
-                app:layout_constraintVertical_bias="0.0">
-
-            <View
-                    android:layout_width="0dp"
-                    android:layout_height="0.1dp"
-                    android:background="@color/colorSeparatorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-            <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/middle_sum_label"
-                            android:textColor="@color/colorTextsPrimary"
-                            android:textSize="12sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                                android:id="@+id/cart_finish_trade_price_detail_middle_sum"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0000"
-                                android:textColor="@color/colorTextsPrimary"
-                                android:textSize="12sp" />
-
-                        <TextView
-                                android:id="@+id/cart_finish_trade_price_detail_middle_sum_unit"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="2dp"
-                                android:layout_marginLeft="2dp"
-                                android:text="TL"
-                                android:textColor="@color/colorTextsPrimary"
-                                android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/cargo_sum_label"
-                            android:textColor="@color/colorTextsPrimary"
-                            android:textSize="12sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                                android:id="@+id/cart_finish_trade_price_detail_cargo_sum"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0000"
-                                android:textColor="@color/colorTextsPrimary"
-                                android:textSize="12sp" />
-
-                        <TextView
-                                android:id="@+id/cart_finish_trade_price_detail_cargo_sum_unit"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="2dp"
-                                android:layout_marginLeft="2dp"
-                                android:text="TL"
-                                android:textColor="@color/colorTextsPrimary"
-                                android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        android:orientation="vertical"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="4dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        <TextView
-                                android:id="@+id/cart_finish_trade_price_detail_first_cargo_label"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Some Cargo Label"
-                                android:textColor="@color/colorTextsPrimary"
-                                android:textSize="10sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="1.0"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                    android:id="@+id/cart_finish_trade_price_detail_first_cargo_sum"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0000"
-                                    android:textColor="@color/colorTextsPrimary"
-                                    android:textSize="10sp" />
-
-                            <TextView
-                                    android:id="@+id/cart_finish_trade_price_detail_first_cargo_sum_unit"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="2dp"
-                                    android:layout_marginLeft="2dp"
-                                    android:text="TL"
-                                    android:textColor="@color/colorTextsPrimary"
-                                    android:textSize="10sp" />
-
-                        </LinearLayout>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:orientation="vertical">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                    android:id="@+id/first_in_cart_discard_label"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Some Store Discount"
-                                    android:textColor="@color/colorTextsPrimary"
-                                    android:textSize="12sp" />
-
-                            <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text=" - "
-                                    android:textColor="@color/colorTextsPrimary"
-                                    android:textSize="12sp" />
-
-                            <TextView
-                                    android:id="@+id/first_in_cart_discard_text"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Some Store %x Discount"
-                                    android:textColor="@color/colorTextsPrimary"
-                                    android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="1.0"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="- "
-                                    android:textColor="@color/colorPricePurple"
-                                    android:textSize="12sp" />
-
-                            <TextView
-                                    android:id="@+id/cart_finish_trade_price_detail_first_in_cart_discard"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0000"
-                                    android:textColor="@color/colorPricePurple"
-                                    android:textSize="12sp" />
-
-                            <TextView
-                                    android:id="@+id/cart_finish_trade_price_detail_first_in_cart_discard_unit"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="2dp"
-                                    android:layout_marginLeft="2dp"
-                                    android:text="TL"
-                                    android:textColor="@color/colorPricePurple"
-                                    android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cart_finish_trade_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPageBackgroundPrimary"
-                android:visibility="visible"
+        <View
+                android:id="@+id/cart_finish_trade_separator"
+                android:layout_width="0dp"
+                android:layout_height="0.1dp"
+                android:background="@color/colorSeparatorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintVertical_bias="0.0" />
 
-            <View
-                    android:id="@+id/cart_finish_trade_separator"
-                    android:layout_width="0dp"
-                    android:layout_height="0.1dp"
-                    android:background="@color/colorSeparatorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+        <Button
+                android:id="@+id/cart_finish_trade_button"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/default_button_background"
+                android:text="@string/finish_trade_label"
+                android:textColor="@color/colorButtonLabelsPrimary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                    android:id="@+id/cart_finish_trade_button"
-                    android:layout_width="200dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/default_button_background"
-                    android:text="@string/finish_trade_label"
-                    android:textColor="@color/colorButtonLabelsPrimary"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+                android:id="@+id/cart_finish_trade_price_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:clickable="true"
+                android:gravity="start|left|center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cart_finish_trade_button"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                    android:id="@+id/cabin_finish_trade_price_more_triangle"
+                    android:layout_width="12dp"
+                    android:layout_height="8dp"
+                    android:layout_weight="0"
+                    android:rotation="180"
+                    android:tint="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/cabin_more_triangle" />
 
             <LinearLayout
-                    android:id="@+id/cart_finish_trade_price_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:clickable="true"
-                    android:gravity="start|left|center_vertical"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/cart_finish_trade_button"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:orientation="vertical">
 
-                <ImageView
-                        android:id="@+id/cabin_finish_trade_price_more_triangle"
-                        android:layout_width="12dp"
-                        android:layout_height="8dp"
-                        android:layout_weight="0"
-                        android:rotation="180"
-                        android:tint="@color/colorPrimaryDark"
-                        app:srcCompat="@drawable/cabin_more_triangle" />
+                <TextView
+                        android:id="@+id/cabin_finish_trade_final_price_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sum_label"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="12sp" />
 
                 <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
                     <TextView
-                            android:id="@+id/cabin_finish_trade_final_price_label"
+                            android:id="@+id/cabin_finish_trade_final_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/sum_label"
+                            android:text="0"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp" />
 
-                    <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                        <TextView
-                                android:id="@+id/cabin_finish_trade_final_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0000"
-                                android:textColor="@color/colorTextsPrimary"
-                                android:textSize="12sp" />
-
-                        <TextView
-                                android:id="@+id/cabin_finish_trade_final_price_unit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="2dp"
-                                android:text="TL"
-                                android:textColor="@color/colorTextsPrimary"
-                                android:textSize="12sp" />
-                    </LinearLayout>
-
+                    <TextView
+                            android:id="@+id/cabin_finish_trade_final_price_unit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:text="TL"
+                            android:textColor="@color/colorTextsPrimary"
+                            android:textSize="12sp" />
                 </LinearLayout>
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </LinearLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

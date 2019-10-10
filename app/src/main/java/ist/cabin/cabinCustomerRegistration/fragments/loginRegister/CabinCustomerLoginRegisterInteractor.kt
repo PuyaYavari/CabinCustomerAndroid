@@ -40,6 +40,7 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
                 override fun onSuccess(value: Any?) {
                     if (value == true && responseClass.users.size != 0) {
                         output?.setActiveUser(responseClass.users[0])
+                        output?.closeActivity()
                     }
                 }
 
@@ -89,7 +90,7 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
             )
         )
 
-        NetworkManager.requestFactory<REQUESTAPIRegister>(
+        NetworkManager.requestFactory<Any?>(
             context,
             Constants.REGISTER_URL,
             null,
@@ -100,31 +101,31 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     Logger.info(this::class.java.name, "SUCCESS", null)
-                    //TODO
+                    output?.sendLoginRequest()
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.info(this::class.java.name, "ISSUE", null)
+                    Logger.warn(this::class.java.name, "ISSUE", null)
                     //TODO
                 }
 
                 override fun onError(value: String, url: String?) {
-                    Logger.info(this::class.java.name, "ERROR", null)
+                    Logger.warn(this::class.java.name, "ERROR", null)
                     //TODO
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.info(this::class.java.name, "FAILURE", null)
+                    Logger.error(this::class.java.name, "FAILURE", throwable)
                     //TODO
                 }
 
                 override fun onServerDown() {
-                    Logger.info(this::class.java.name, "SERVER DOWN", null)
+                    Logger.warn(this::class.java.name, "SERVER DOWN", null)
                     //TODO
                 }
 
                 override fun onException(exception: Exception) {
-                    Logger.info(this::class.java.name, "WTF", null)
+                    Logger.error(this::class.java.name, "Exception", exception)
                     //TODO
                 }
 

@@ -5,11 +5,11 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = false)
 data class JSONProduct (@Json(name = "ID") val id: Int,
-                        @Json(name = "CODE") val code: String ,
+                        @Json(name = "CODE") val code: String,
                         @Json(name = "TITLE") val title: String,
                         @Json(name = "PRICE") val price: Double,
-                        @Json(name = "SELLER") val seller: List<JSONSeller>,
+                        @Json(name = "AMOUNT") val amount: Int?,
+                        @Json(name = "SELLER") val sellerName: List<JSONSellerName>,
                         @Json(name = "SHIPPING_DURATION") val shippingDuration: List<JSONShippingDuration>,
                         @Json(name = "SHIPPING_TYPE") val shippingType: List<JSONShippingType>,
-                        @Json(name = "COLOR") val colors: List<JSONColor>
-                        )
+                        @Json(name = "COLOR") val colors: List<JSONColor>)

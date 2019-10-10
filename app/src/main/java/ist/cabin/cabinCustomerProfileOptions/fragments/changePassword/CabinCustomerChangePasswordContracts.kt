@@ -1,5 +1,6 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.changePassword
 
+import android.content.Context
 import ist.cabin.cabinCustomerBase.BaseContracts
 
 object CabinCustomerChangePasswordContracts {
@@ -17,11 +18,15 @@ object CabinCustomerChangePasswordContracts {
         fun setPassword(inputtedPassword: String)
         fun setNewPassword(inputtedPassword: String)
         fun setNewPasswordConfirmation(inputtedPassword: String)
-        fun confirmPage()
+        fun confirmPage(context: Context)
     }
 
     interface Interactor : BaseContracts.Interactor {
-        fun sendPasswordData()
+        fun sendPasswordData(
+            context: Context,
+            newPassword: String,
+            password: String
+        )
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput

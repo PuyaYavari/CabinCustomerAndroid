@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
+import ist.cabin.cabinCustomerBase.GlobalData
+import ist.cabin.cabinCustomerBase.models.local.MODELCart
+import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
 
@@ -21,16 +25,37 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
     var presenter: CabinCustomerCartContracts.Presenter? = CabinCustomerCartPresenter(this)
     private lateinit var pageView: View
     private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: CabinCustomerCartAdapter
+    private lateinit var viewManager: LinearLayoutManager
+
+    private var totalPrice = 0
+
+    override val myDataset: MutableList<MODELProduct> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_cart, container, false)
-        (activity!! as MainActivity).showNavbar()
-        setupPage()
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.cart_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).lockDrawer()
+        if (GlobalData.loggedIn)
+            setupPage()
+        else
+            (activity!! as MainActivity).showNeedLogin()
         return pageView
     }
 
     override fun onResume() {
         super.onResume()
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.cart_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).lockDrawer()
+        if (GlobalData.loggedIn) {
+            setupPage()
+            (activity!! as MainActivity).hideNeedLogin()
+        } else
+            (activity!! as MainActivity).showNeedLogin()
         presenter?.onResume()
     }
 
@@ -53,22 +78,12 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
     //region View
 
     private fun setupPage() {
-        pageView.findViewById<LinearLayout>(R.id.cart_finish_trade_price_layout).setOnClickListener {
-            presenter?.togglePriceDetail()
-        }
-
-        pageView.findViewById<Button>(R.id.cart_finish_trade_button).setOnClickListener { presenter?.moveToFinishTrade() }
-
         recyclerView = pageView.findViewById(R.id.cart_products_recyclerview)
 
-        val myDataset: List<CabinCustomerCartContracts.Product> =
-            listOf(CartProduct("1", 2),
-                CartProduct("2", 1),
-                CartProduct("3", 5)
-            )
+        getCart()
 
-        val viewAdapter = CabinCustomerCartAdapter(this, myDataset)
-        val viewManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+        viewAdapter = CabinCustomerCartAdapter(this, myDataset)
+        viewManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
         recyclerView.apply {
             setHasFixedSize(false)
             layoutManager = viewManager
@@ -80,6 +95,25 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
                 )
             )
         }
+
+        pageView.findViewById<TextView>(R.id.cabin_finish_trade_final_price).text = totalPrice.toString()
+
+        pageView.findViewById<LinearLayout>(R.id.cart_finish_trade_price_layout).setOnClickListener {
+            presenter?.togglePriceDetail()
+        }
+
+        pageView.findViewById<Button>(R.id.cart_finish_trade_button).setOnClickListener { presenter?.moveToFinishTrade() }
+
+        (activity!! as MainActivity).setHeader(
+            header = resources.getString(R.string.cart_label),
+            headerExtras = myDataset.size.toString()
+        )
+    }
+
+    private fun getCart() {
+        val context = this.context
+        if (context != null)
+            presenter?.getCart(context)
     }
 
     override fun showPriceDetail() {
@@ -104,6 +138,59 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
             animate().rotation(180f)
                 .setListener(null)
         }
+    }
+
+    override fun updateProduct(product: MODELProduct) {
+        val context = this.context
+        if (context != null)
+            presenter?.updateProduct(context, product)
+    }
+
+    override fun setData(cart: MODELCart) {
+        viewAdapter.notifyDataSetChanged()
+
+        pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_middle_sum).text =
+            cart.getSubtotal().toString()
+        pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_cargo_sum).text =
+            cart.getShippingPrice().toString()
+        pageView.findViewById<TextView>(R.id.cabin_finish_trade_final_price).text =
+            cart.getTotal().toString()
+        totalPrice = cart.getTotal()
+
+        (activity!! as MainActivity).setHeader(
+            header = resources.getString(R.string.cart_label),
+            headerExtras = myDataset.size.toString()
+        )
+    }
+
+    override fun clearAll() {
+        myDataset.clear()
+        clearCargoPrices()
+        viewAdapter.notifyDataSetChanged()
+
+        pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_middle_sum).text = "0"
+        pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_cargo_sum).text = "0"
+        pageView.findViewById<TextView>(R.id.cabin_finish_trade_final_price).text = "0"
+        totalPrice = 0
+        (activity!! as MainActivity).setHeader(
+            header = resources.getString(R.string.cart_label),
+            headerExtras = null
+        )
+    }
+
+    override fun addShippingPrice(sellerName: String, price: Int) {
+        val cargoPriceView = layoutInflater.inflate(R.layout.cabin_customer_cart_cargo_price_layout, null)
+        cargoPriceView.apply {
+            findViewById<TextView>(R.id.cart_finish_trade_price_detail_first_cargo_label).text =
+                sellerName
+            findViewById<TextView>(R.id.cart_finish_trade_price_detail_first_cargo_sum).text =
+                price.toString()
+        }
+        pageView.findViewById<LinearLayout>(R.id.cart_finish_trade_price_detail_cargo_label).addView(cargoPriceView)
+    }
+
+    override fun clearCargoPrices() {
+        pageView.findViewById<LinearLayout>(R.id.cart_finish_trade_price_detail_cargo_label).removeAllViews()
     }
 
     //endregion

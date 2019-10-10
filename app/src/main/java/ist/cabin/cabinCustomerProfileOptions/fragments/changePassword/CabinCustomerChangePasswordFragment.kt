@@ -100,7 +100,9 @@ class CabinCustomerChangePasswordFragment : BaseFragment(), CabinCustomerChangeP
         }
 
         pageView.findViewById<Button>(R.id.change_password_update_button).setOnClickListener {
-            presenter?.confirmPage()
+            val context = this.context
+            if (context != null)
+                presenter?.confirmPage(context)
         }
 
         deactivateAddButton()

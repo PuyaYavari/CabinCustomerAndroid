@@ -7,6 +7,7 @@ import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.text.Editable
 import android.text.InputFilter
@@ -17,9 +18,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabinCustomerBase.Constants
+import ist.cabin.cabinCustomerBase.GlobalData
 import ist.cabin.cabincustomer.R
+import java.util.*
 
 
 class CabinCustomerPersonalDataOptionsFragment : BaseFragment(), CabinCustomerPersonalDataOptionsContracts.View {
@@ -139,7 +143,7 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(), CabinCustomerPe
                                     dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year
                                 )
                             cldr.set(year, monthOfYear, dayOfMonth)
-                            presenter?.setBirthday(cldr.time)
+                            presenter?.setBirthday(dayOfMonth, monthOfYear, year)
                         }, year, month, day
                     )
                     picker?.show()
@@ -160,7 +164,7 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(), CabinCustomerPe
                                     dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year
                                 )
                             cldr.set(year, monthOfYear, dayOfMonth)
-                            presenter?.setBirthday(cldr.time)
+                            presenter?.setBirthday(dayOfMonth, monthOfYear, year)
                         }, year, month, day
                     )
                     picker?.show()
@@ -168,6 +172,12 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(), CabinCustomerPe
         }
 
         pageView.findViewById<EditText>(R.id.personal_data_options_email_input).apply {
+            val userEmail = GlobalData.userEmail
+            if (userEmail != null)
+                presenter?.setEmail(userEmail)
+            setText(GlobalData.userEmail)
+            isClickable = false
+            isFocusable = false
             filters = arrayOf(
                 if (presenter != null) InputFilter.LengthFilter(Constants.MAX_EMAIL_LENGTH)
                 else InputFilter.LengthFilter(50))
@@ -187,11 +197,14 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(), CabinCustomerPe
 
         pageView.findViewById<Button>(R.id.personal_data_options_save_button)
             .setOnClickListener {
-                presenter?.saveInputs()
-                onBackPressed()
+                val context = this.context
+                if (context != null)
+                    presenter?.saveInputs(context)
             }
 
-        setInitialData()
+        val context = context
+        if (context != null)
+            presenter?.getInitialData(context)
     }
 
     override fun selectMan() {
@@ -264,8 +277,56 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(), CabinCustomerPe
         }
     }
 
-    private fun setInitialData() {
-        //TODO: GET DATA FROM PHONE AND SHOW IN RESPECTABLE FIELDS
+    override fun setName(name: String) {
+        pageView.findViewById<EditText>(R.id.personal_data_options_name_input).setText(name)
+    }
+
+    override fun setSurname(surname: String) {
+        pageView.findViewById<EditText>(R.id.personal_data_options_surname_input).setText(surname)
+    }
+
+    override fun setBirthday(date: Date) {
+        pageView.findViewById<EditText>(R.id.personal_data_options_birthday_input).setText(
+            "${date.date}/${date.month+1}/${date.year}"
+        )
+    }
+
+    override fun setEmail(email: String) {
+        pageView.findViewById<EditText>(R.id.personal_data_options_email_input).setText(email)
+    }
+
+    override fun setPhone(phone: String) {
+        pageView.findViewById<EditText>(R.id.personal_data_options_phone_input).setText(phone)
+    }
+
+    override fun showSuccess(message: String?) {
+        pageView.findViewById<TextView>(R.id.personal_data_options_feedback).apply {
+            text = message ?: resources.getText(R.string.default_success_message)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                setTextColor(resources.getColor(R.color.colorPriceGreen, this.context.theme))
+            } else {
+                setTextColor(resources.getColor(R.color.colorPriceGreen))
+            }
+            visibility = View.VISIBLE
+            Handler().postDelayed({
+                visibility = View.INVISIBLE
+            }, 5000)
+        }
+    }
+
+    override fun showFailure(message: String?) {
+        pageView.findViewById<TextView>(R.id.personal_data_options_feedback).apply {
+            text = message ?: resources.getText(R.string.default_error_message)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                setTextColor(resources.getColor(R.color.colorStateRed, this.context.theme))
+            } else {
+                setTextColor(resources.getColor(R.color.colorStateRed))
+            }
+            visibility = View.VISIBLE
+            Handler().postDelayed({
+                visibility = View.INVISIBLE
+            }, 5000)
+        }
     }
 
     //endregion

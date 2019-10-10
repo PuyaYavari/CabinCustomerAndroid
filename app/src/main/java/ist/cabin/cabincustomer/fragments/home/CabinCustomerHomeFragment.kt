@@ -16,7 +16,14 @@ class CabinCustomerHomeFragment : BaseFragment(), CabinCustomerHomeContracts.Vie
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_home, container, false)
+
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).hideNeedLogin()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.homepage_label),null)
+        (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).showNavbar()
+        (activity!! as MainActivity).unlockDrawer()
+
         setupPage()
         return pageView
     }

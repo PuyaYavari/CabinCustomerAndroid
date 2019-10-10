@@ -40,9 +40,9 @@ class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts
                 setOnClickListener { fragment.moveToProductDetail(myDataset[position]) }
 //                setImageDrawable()
             }
-            findViewById<TextView>(R.id.discover_productbox_seller_name).text = data.sellerName
-            findViewById<TextView>(R.id.discover_productbox_product_name).text = data.productName
-            findViewById<TextView>(R.id.discover_productbox_product_price).text = data.price.toString()
+            findViewById<TextView>(R.id.discover_productbox_seller_name).text = data.getSellerName()
+            findViewById<TextView>(R.id.discover_productbox_product_name).text = data.getProductName()
+            findViewById<TextView>(R.id.discover_productbox_product_price).text = data.getPrice().toString()
             //TODO: Add discount
         }
     }

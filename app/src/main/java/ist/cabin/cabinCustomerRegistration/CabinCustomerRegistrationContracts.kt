@@ -1,11 +1,12 @@
 package ist.cabin.cabinCustomerRegistration
 
 import ist.cabin.cabinCustomerBase.BaseContracts
+import ist.cabin.cabinCustomerBase.models.local.MODELUser
 
 object CabinCustomerRegistrationContracts {
 
     interface View : BaseContracts.View {
-        //TODO
+        fun setActiveUser(user: MODELUser?)
     }
 
     interface Presenter : BaseContracts.Presenter {

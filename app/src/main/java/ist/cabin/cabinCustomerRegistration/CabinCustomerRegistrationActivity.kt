@@ -1,7 +1,10 @@
 package ist.cabin.cabinCustomerRegistration
 
+import android.content.Context
 import android.os.Bundle
 import ist.cabin.cabinCustomerBase.BaseActivity
+import ist.cabin.cabinCustomerBase.GlobalData
+import ist.cabin.cabinCustomerBase.models.local.MODELUser
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerRegistrationActivity : BaseActivity(),
@@ -38,7 +41,14 @@ class CabinCustomerRegistrationActivity : BaseActivity(),
 
     //region View
 
-    //TODO: Implement your View methods here
+    override fun setActiveUser(user: MODELUser?) {
+        val sharedPref = this.getSharedPreferences("USER_DATA", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putInt("userId", GlobalData.userId)
+        editor.putString("userSession", GlobalData.session)
+        editor.putString("userEmail", GlobalData.userEmail)
+        editor.apply()
+    }
 
     //endregion
 }

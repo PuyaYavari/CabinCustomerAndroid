@@ -15,8 +15,55 @@
             android:id="@+id/main_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:layoutDescription="@xml/navbar_transitions"
+            app:layoutDescription="@xml/main_activity_transitions"
     >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main_header"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/defaultHeaderHeight"
+                android:background="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                    android:id="@+id/main_header_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/defaultHeaderHeight"
+                    android:layout_gravity="center_horizontal|center"
+                    android:fontFamily="Segoe UI"
+                    android:gravity="center"
+                    android:text=""
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorHeaderLabelsPrimary"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                    android:id="@+id/main_back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/colorPrimary"
+                    android:contentDescription="back button"
+                    android:tint="@color/colorHeaderLabelsPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_back_arrow"
+                    android:visibility="invisible"
+                    android:clickable="false" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <fragment
                 android:id="@+id/nav_host_fragment"
@@ -25,9 +72,75 @@
                 android:layout_height="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_header"
+                app:layout_constraintBottom_toTopOf="@+id/navbar"
                 app:defaultNavHost="true"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/not_logged_in_layout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/defaultHeaderHeight"
+                android:layout_marginBottom="@dimen/navbarHeight"
+                android:background="@color/colorPageBackgroundPrimary"
+                android:elevation="5dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/colorPageBackgroundPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                    android:id="@+id/login_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/login_required"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextsPrimary"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/not_logged_in_layout_06p_guideline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/not_logged_in_layout_06p_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.6" />
+
+            <Button
+                    android:id="@+id/login_button"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/default_button_background"
+                    android:text="@string/sign_in"
+                    android:textColor="@color/colorButtonLabelsPrimary"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/not_logged_in_layout_06p_guideline"
+                    app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/navbar"
@@ -55,4 +168,5 @@
             app:itemTextColor="@color/colorPrimaryDark"
             app:itemIconTint="@color/colorPrimaryDark"
             app:headerLayout="@layout/cabin_customer_sidenav_header"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>

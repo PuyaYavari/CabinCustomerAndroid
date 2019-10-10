@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/discover_motion_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPageBackgroundPrimary"
-        app:layoutDescription="@xml/discover_transitions">
+        android:background="@color/colorPageBackgroundPrimary">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,34 +20,34 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/discover_header_label_layout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/defaultHeaderHeight"
-                android:background="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:visibility="visible">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/discover_header_label_layout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/defaultHeaderHeight"-->
+<!--                android:background="@color/colorPrimary"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.0"-->
+<!--                tools:visibility="visible">-->
 
-            <TextView
-                    android:id="@+id/discover_header_label"
-                    android:layout_width="107dp"
-                    android:layout_height="@dimen/defaultHeaderHeight"
-                    android:layout_gravity="center_horizontal|center"
-                    android:fontFamily="Segoe UI"
-                    android:gravity="center"
-                    android:text="@string/discover_label"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorHeaderLabelsPrimary"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <TextView-->
+<!--                    android:id="@+id/discover_header_label"-->
+<!--                    android:layout_width="107dp"-->
+<!--                    android:layout_height="@dimen/defaultHeaderHeight"-->
+<!--                    android:layout_gravity="center_horizontal|center"-->
+<!--                    android:fontFamily="Segoe UI"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/discover_label"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:textColor="@color/colorHeaderLabelsPrimary"-->
+<!--                    android:textSize="20sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -58,7 +56,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/discover_header_label_layout"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0">
 
             <View
@@ -169,6 +167,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/discoverTotalHeaderHeight"/>
-</androidx.constraintlayout.motion.widget.MotionLayout>
+            app:layout_constraintTop_toBottomOf="@+id/discover_header" />
+</androidx.constraintlayout.widget.ConstraintLayout>

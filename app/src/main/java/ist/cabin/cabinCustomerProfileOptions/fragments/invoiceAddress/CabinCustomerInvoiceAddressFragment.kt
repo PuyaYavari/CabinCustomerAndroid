@@ -12,10 +12,13 @@ import android.widget.*
 import androidx.navigation.fragment.navArgs
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabinCustomerBase.Constants
+import ist.cabin.cabinCustomerBase.models.local.MODELDistrict
+import ist.cabin.cabinCustomerBase.models.local.MODELProvince
 import ist.cabin.cabincustomer.R
 
-class CabinCustomerInvoiceAddressFragment : BaseFragment(), CabinCustomerInvoiceAddressContracts.View {
 
+
+class CabinCustomerInvoiceAddressFragment : BaseFragment(), CabinCustomerInvoiceAddressContracts.View {
     var presenter: CabinCustomerInvoiceAddressContracts.Presenter? = CabinCustomerInvoiceAddressPresenter(this)
     private lateinit var pageView: View
 
@@ -24,10 +27,73 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(), CabinCustomerInvoice
     private lateinit var provinceSpinner: Spinner
     private lateinit var districtSpinner: Spinner
 
-    var provinces = arrayOf("istanbul", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara"
-        , "izmir", "ankara", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara"
-        , "izmir", "ankara", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara", "izmir", "ankara") //TODO: REMOVE
-    var districts = arrayOf("Beylikduzu", "Esenyurt", "Buyukcekmece") //TODO: REMOVE
+    private var operationType = OperationType.ADD
+
+    private var provinceSet = FieldSet.NO
+    private var districtSet = FieldSet.NO
+
+    override var provinces: List<MODELProvince?> = listOf()
+        set(value) {
+            field = value
+            ArrayAdapter(
+                this.context!!,
+                R.layout.cabin_customer_province_district_spinner_selected_item,
+                field
+            ).also { adapter ->
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
+                // Apply the adapter to the spinner
+                provinceSpinner.adapter = adapter
+                if (provinceSet == FieldSet.NO) {
+                    val argProvince = args.address?.province
+                    if (argProvince != null) {
+                        var index = 0
+                        var found = false
+                        while (index < field.size && !found) {
+                            val province = field[index].toString()
+                            if (province == argProvince) {
+                                provinceSpinner.setSelection(index)
+                                found = true
+                            }
+                            index++
+                        }
+                    }
+                    provinceSet = FieldSet.YES
+                }
+            }
+
+        }
+
+    override var districts: List<MODELDistrict?> = listOf()
+        set(value) {
+            field = value
+            ArrayAdapter(
+                this.context!!,
+                R.layout.cabin_customer_province_district_spinner_selected_item,
+                field
+            ).also { adapter ->
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
+                // Apply the adapter to the spinner
+                districtSpinner.adapter = adapter
+                if (districtSet == FieldSet.NO) {
+                    val argDistrict = args.address?.district
+                    if (argDistrict != null) {
+                        var index = 0
+                        var found = false
+                        while (index < field.size && !found) {
+                            val province = field[index].toString()
+                            if (province == argDistrict) {
+                                districtSpinner.setSelection(index)
+                                found = true
+                            }
+                            index++
+                        }
+                    }
+                    districtSet = FieldSet.YES
+                }
+            }
+        }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_invoice_address, container, false)
@@ -63,6 +129,12 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(), CabinCustomerInvoice
     }
 
     private fun setupPage() {
+        if (args.address != null) {
+            operationType = OperationType.EDIT
+            provinceSet = FieldSet.NO
+            districtSet = FieldSet.NO
+        }
+
         pageView.findViewById<ImageButton>(R.id.invoice_address_back_button)
             .setOnClickListener { onBackPressed() }
 
@@ -123,28 +195,37 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(), CabinCustomerInvoice
         }
 
         provinceSpinner = pageView.findViewById(R.id.invoice_address_province_spinner)
-        ArrayAdapter(
-            this.context!!,
-            R.layout.cabin_customer_province_district_spinner_selected_item,
-            provinces
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
-            // Apply the adapter to the spinner
-            provinceSpinner.adapter = adapter
+        //FIXME: DOESN'T WORK AFTER A FIELD IS FOCUSED
+        provinceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val province = parent?.getItemAtPosition(p2) as MODELProvince
+                val context = context
+                if (context != null) {
+                    presenter?.getDistrictsOfProvince(context, province)
+                    presenter?.setProvince(province)
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
 
         districtSpinner = pageView.findViewById(R.id.invoice_address_district_spinner)
-        ArrayAdapter(
-            this.context!!,
-            R.layout.cabin_customer_province_district_spinner_selected_item,
-            districts
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
-            // Apply the adapter to the spinner
-            districtSpinner.adapter = adapter
+        //FIXME: DOESN'T WORK AFTER A FIELD IS FOCUSED
+        districtSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val district = parent?.getItemAtPosition(p2) as MODELDistrict
+                val context = context
+                if (context != null) {
+                    presenter?.setDistrict(district)
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
+
+        val context = this.context
+        if (context != null)
+            presenter?.getProvinces(context)
 
         pageView.findViewById<EditText>(R.id.invoice_address_address).apply {
             if(presenter != null) filters = arrayOf(
@@ -175,9 +256,9 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(), CabinCustomerInvoice
         }
 
         pageView.findViewById<RadioButton>(R.id.invoice_address_personal_invoice_button)
-            .setOnClickListener { presenter?.isCorporate(false) }
+            .setOnClickListener { presenter?.setInvoiceType(false) }
         pageView.findViewById<RadioButton>(R.id.invoice_address_corporate_invoice_button)
-            .setOnClickListener { presenter?.isCorporate(true) }
+            .setOnClickListener { presenter?.setInvoiceType(true) }
 
         pageView.findViewById<EditText>(R.id.invoice_address_corporation_name).apply {
             if(presenter != null) filters = arrayOf(
@@ -222,12 +303,21 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(), CabinCustomerInvoice
         }
 
         pageView.findViewById<Button>(R.id.invoice_address_add_button).setOnClickListener {
-            presenter?.saveData()
-            onBackPressed()
+            val context = this.context
+            if (context != null) {
+                if (operationType == OperationType.ADD)
+                    presenter?.saveAddress(context)
+                else
+                    presenter?.updateAddress(context)
+            }
         }
 
-        presenter?.isCorporate(args.isCorporate)
-        setupInitialData()
+        if (operationType == OperationType.EDIT) {
+            val isCorporate = args.address?.isCorporate
+            if (isCorporate != null)
+                presenter?.setInvoiceType(isCorporate)
+            setupInitialData()
+        }
     }
 
     override fun showCorporateInvoiceData() {
@@ -259,20 +349,29 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(), CabinCustomerInvoice
     }
 
     private fun setupInitialData() {
-        pageView.findViewById<EditText>(R.id.invoice_address_name).setText(args.name)
-        pageView.findViewById<EditText>(R.id.invoice_address_surname).setText(args.surname)
-        pageView.findViewById<EditText>(R.id.invoice_address_phone).setText(args.phone)
-        if (args.province != null)
-            pageView.findViewById<EditText>(R.id.invoice_address_province_spinner).setText(args.province)
-        if (args.district != null)
-            pageView.findViewById<EditText>(R.id.invoice_address_district_spinner).setText(args.district)
-        pageView.findViewById<EditText>(R.id.invoice_address_address).setText(args.address)
-        pageView.findViewById<EditText>(R.id.invoice_address_address_header).setText(args.addressHeader)
-        if (args.isCorporate) {
-            pageView.findViewById<EditText>(R.id.invoice_address_corporation_name).setText(args.corporationName)
-            pageView.findViewById<EditText>(R.id.invoice_address_tax_number).setText(args.taxNo)
-            pageView.findViewById<EditText>(R.id.invoice_address_tax_administration).setText(args.taxAdministration)
+        presenter?.setId(args.address?.id)
+        pageView.findViewById<EditText>(R.id.invoice_address_name).setText(args.address?.name)
+        pageView.findViewById<EditText>(R.id.invoice_address_surname).setText(args.address?.surname)
+        pageView.findViewById<EditText>(R.id.invoice_address_phone).setText(args.address?.phone?.substring(4))
+        pageView.findViewById<EditText>(R.id.invoice_address_address).setText(args.address?.address)
+        pageView.findViewById<EditText>(R.id.invoice_address_address_header).setText(args.address?.header)
+        val isCorpotate = args.address?.isCorporate
+        if (isCorpotate != null && isCorpotate) {
+            pageView.findViewById<RadioGroup>(R.id.invoice_address_redio_group).check(R.id.invoice_address_corporate_invoice_button)
+            pageView.findViewById<EditText>(R.id.invoice_address_corporation_name).setText(args.address?.corporationName)
+            pageView.findViewById<EditText>(R.id.invoice_address_tax_number).setText(args.address?.taxNumber)
+            pageView.findViewById<EditText>(R.id.invoice_address_tax_administration).setText(args.address?.taxAdministration)
+        } else {
+            pageView.findViewById<RadioGroup>(R.id.invoice_address_redio_group).check(R.id.invoice_address_personal_invoice_button)
         }
+    }
+
+    private enum class FieldSet {
+        NO, YES
+    }
+
+    private enum class OperationType {
+        ADD, EDIT
     }
 
     //endregion

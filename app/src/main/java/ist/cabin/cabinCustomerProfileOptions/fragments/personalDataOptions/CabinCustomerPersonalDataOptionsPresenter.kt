@@ -1,9 +1,12 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.personalDataOptions
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import ist.cabin.cabinCustomerBase.Constants
+import ist.cabin.cabinCustomerBase.Logger
+import ist.cabin.cabinCustomerBase.baseAbstracts.Sex
+import ist.cabin.cabinCustomerBase.models.local.MODELPersonalInfo
 import java.util.*
 
 class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalDataOptionsContracts.View?) :
@@ -13,13 +16,10 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalD
         CabinCustomerPersonalDataOptionsInteractor(this)
     var router: CabinCustomerPersonalDataOptionsContracts.Router? = null
 
-    private lateinit var name: String
-    private lateinit var surname: String
-    private lateinit var birthday: Date
-    private lateinit var email: String
+    var personalInfo = MODELPersonalInfo()
+
     private lateinit var countryCode: String
     private var phone = ""
-    private var sex: Int = -1
 
     private var nameFilled = false
     private var surnameFilled = false
@@ -56,11 +56,11 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalD
 
     override fun setName(inputtedName: String) {
         if (inputtedName.length <= Constants.MAX_NAME_LENGTH) {
-            this.name = inputtedName
+            this.personalInfo.name = inputtedName
             nameFilled = inputtedName.isNotEmpty()
         } else {
             nameFilled = false
-            Log.e("input error", "name too long!")
+            Logger.info(this::class.java.name, "name too long!\nvalue: $inputtedName", null)
         }
 
         validatePage()
@@ -68,18 +68,18 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalD
 
     override fun setSurname(inputtedSurname: String) {
         if (inputtedSurname.length <= Constants.MAX_SURNAME_LENGTH) {
-            this.surname = inputtedSurname
+            this.personalInfo.surname = inputtedSurname
             surnameFilled = inputtedSurname.isNotEmpty()
         } else {
             surnameFilled = false
-            Log.e("input error", "surname too long!")
+            Logger.info(this::class.java.name, "surname too long!\nvalue: $inputtedSurname", null)
         }
 
         validatePage()
     }
 
-    override fun setBirthday(date: Date) {
-        this.birthday = date
+    override fun setBirthday(day: Int, month: Int, year: Int) {
+        this.personalInfo.birthday = Date(year, month, day)
         birthdayFilled = true
 
         validatePage()
@@ -87,11 +87,11 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalD
 
     override fun setEmail(inputtedEmail: String) {
         if (inputtedEmail.length <= Constants.MAX_EMAIL_LENGTH) {
-            this.email = inputtedEmail
+            this.personalInfo.email = inputtedEmail
             emailFilled = android.util.Patterns.EMAIL_ADDRESS.matcher(inputtedEmail).matches()
         } else {
             emailFilled = false
-            Log.e("input error", "email too long!")
+            Logger.info(this::class.java.name, "email too long!\nvalue: $inputtedEmail", null)
         }
 
         validatePage()
@@ -108,16 +108,17 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalD
                 phone = ""
                 phoneFilled = false
             }
+            this.personalInfo.phone = phone
         } else {
             phoneFilled = false
-            Log.e("input error", "phone too long!")
+            Logger.info(this::class.java.name, "phone too long!\nvalue: $inputtedPhone", null)
         }
 
         validatePage()
     }
 
     override fun selectMan() {
-        sex = 1
+        this.personalInfo.sex.setSex(Sex.MAN)
         view!!.selectMan()
         sexFilled = true
 
@@ -125,7 +126,7 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalD
     }
 
     override fun selectWoman() {
-        sex = 0
+        this.personalInfo.sex.setSex(Sex.WOMAN)
         view!!.selectWoman()
         sexFilled = true
 
@@ -133,29 +134,74 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalD
     }
 
     private fun validatePage(){
-//        Log.d("nameFilled", nameFilled.toString())
-//        Log.d("surnameFilled", surnameFilled.toString())
-//        Log.d("birthdayFilled", birthdayFilled.toString())
-//        Log.d("emailFilled", emailFilled.toString())
-//        Log.d("phoneFilled", phoneFilled.toString())
-//        Log.d("sexFilled", sexFilled.toString())
-//
-//        if(sexFilled) Toast.makeText(view!!.getActivityContext(), "name $nameFilled \nsurname $surnameFilled" +
-//                "\nbirthday $birthdayFilled\nemail $emailFilled\nphone $phoneFilled\nsex $sexFilled", Toast.LENGTH_SHORT).show()
-
         if(nameFilled && surnameFilled && birthdayFilled && emailFilled && phoneFilled && sexFilled)
             view!!.enableSaveButton()
         else
             view!!.disableSaveButton()
     }
 
-    override fun saveInputs() {
-        //TODO: SEND DATA TO SERVER
+    override fun saveInputs(context: Context) {
+        interactor?.sendPersonalInfo(context, personalInfo)
+        view?.disableSaveButton()
+    }
+
+    override fun getInitialData(context: Context) {
+        interactor?.getInitialData(context)
     }
 
     //endregion
 
     //region InteractorOutput
+
+    override fun setInitialData(personalInfo: MODELPersonalInfo) {
+        val nameData = personalInfo.name
+        val surnameData = personalInfo.surname
+        val birthdayData = personalInfo.birthday
+        val emailDate = personalInfo.email
+        val phoneData = personalInfo.phone
+
+        if (nameData != null) {
+            setName(nameData)
+            view?.setName(nameData)
+        }
+
+        if (surnameData != null) {
+            setSurname(surnameData)
+            view?.setSurname(surnameData)
+        }
+
+        if (birthdayData != null) {
+            setBirthday(birthdayData.date, birthdayData.month, birthdayData.year)
+            view?.setBirthday(birthdayData)
+        }
+
+        if (emailDate != null) {
+            setEmail(emailDate)
+            view?.setEmail(emailDate)
+        }
+
+        if (phoneData != null) {
+            setPhone(phoneData.substring(4))
+            view?.setPhone(phoneData.substring(4))
+        }
+
+        if (personalInfo.sex.getId() == Sex.MAN)
+            selectMan()
+        else if (personalInfo.sex.getId() == Sex.WOMAN)
+            selectWoman()
+
+        view?.disableSaveButton()
+    }
+
+    override fun feedback(isSuccessful: Boolean, message: String?) {
+        if (isSuccessful) {
+            view?.showSuccess(message)
+        } else {
+            view?.enableSaveButton()
+            view?.showFailure(message)
+        }
+
+    }
 
     //endregion
 }

@@ -1,8 +1,10 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions.adapter
 
+import ist.cabin.cabinCustomerBase.models.local.MODELAddress
 import ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts
 
-class TaxInvoiceAddressBox: CabinCustomerAddressOptionsContracts.Addressbox {
+class TaxInvoiceAddressBox(private val address: MODELAddress): CabinCustomerAddressOptionsContracts.Addressbox {
+
 
     /* setter getter for parameters *///TODO
 
@@ -10,7 +12,11 @@ class TaxInvoiceAddressBox: CabinCustomerAddressOptionsContracts.Addressbox {
         return AddressesListTypeID.TAX_INVOICE_ADDRESS_TYPE
     }
 
-    override fun getAddressTypeID(): Int {
-        return AddressTypeID.INVOICE
+    override fun getAddress(): MODELAddress {
+        return address
+    }
+
+    override fun isInvoice(): Boolean {
+        return true
     }
 }

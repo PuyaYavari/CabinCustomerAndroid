@@ -1,11 +1,13 @@
 package ist.cabin.cabinCustomerRegistration.fragments.loginRegister
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -13,6 +15,8 @@ import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabinCustomerBase.baseAbstracts.Sex
+import ist.cabin.cabinCustomerBase.models.local.MODELUser
+import ist.cabin.cabinCustomerRegistration.CabinCustomerRegistrationActivity
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerLoginRegisterFragment : BaseFragment(),
@@ -26,6 +30,7 @@ class CabinCustomerLoginRegisterFragment : BaseFragment(),
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_login_register, container, false)
+        //FIXME: CHANGE GOOGLE AND FACEBOOK ICONS TO PNG
         setupPage()
         return pageView
     }
@@ -171,6 +176,18 @@ class CabinCustomerLoginRegisterFragment : BaseFragment(),
         pageView.findViewById<Button>(R.id.register_woman_button).background = resources
             .getDrawable(R.drawable.cabin_register_woman_button_checked, this.context?.theme)
     }
+
+    override fun setActiveUser(user: MODELUser) {
+        (activity!! as CabinCustomerRegistrationActivity).setActiveUser(user)
+    }
+
+    override fun closeActivity() {
+        val inputManager: InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, InputMethodManager.SHOW_FORCED)
+        activity?.onBackPressed()
+    }
+
+
 
     //endregion
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import ist.cabin.cabinCustomerBase.BaseFragment
+import ist.cabin.cabinCustomerBase.GlobalData
 import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
 
@@ -18,22 +19,30 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_orders, container, false)
+
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.order_label),null)
+        (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).showNavbar()
+        (activity!! as MainActivity).lockDrawer()
 
-        mPager = pageView.findViewById(R.id.orders_pager)
-        val pagerAdapter =
-            CabinCustomerOrdersScreenSlidePagerAdapter(
-                childFragmentManager, 0
-            )
-        mPager.adapter = pagerAdapter
-
-        setupPage()
+        if (GlobalData.loggedIn)
+            setupPage()
 
         return pageView
     }
 
     override fun onResume() {
         super.onResume()
+
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.order_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).showNavbar()
+        (activity!! as MainActivity).lockDrawer()
+        if (GlobalData.loggedIn)
+            setupPage()
+
         presenter?.onResume()
     }
 
@@ -56,7 +65,12 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
     //region View
 
     private fun setupPage () {
-
+        mPager = pageView.findViewById(R.id.orders_pager)
+        val pagerAdapter =
+            CabinCustomerOrdersScreenSlidePagerAdapter(
+                childFragmentManager, 0
+            )
+        mPager.adapter = pagerAdapter
     }
     //endregion
 }

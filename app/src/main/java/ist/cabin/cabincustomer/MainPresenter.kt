@@ -1,6 +1,7 @@
 package ist.cabin.cabincustomer
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 
 class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter, MainContracts.InteractorOutput {
@@ -42,9 +43,22 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter, Ma
         router?.moveToExtraditions()
     }
 
+    override fun requestLogout(context: Context) {
+        interactor?.logout(context)
+    }
+
+    override fun moveToRegisteration() {
+        router?.moveToRegisteration()
+    }
+
     //endregion
 
     //region InteractorOutput
+
+    override fun logout() {
+        view?.logout()
+//        view?.showNeedLogin()
+    }
 
     //endregion
 }

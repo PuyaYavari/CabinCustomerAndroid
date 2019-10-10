@@ -1,7 +1,12 @@
 package ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import ist.cabin.cabinCustomerBase.models.local.MODELAddress
+import ist.cabin.cabinCustomerBase.models.local.MODELAddresses
+import ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions.adapter.AddressBox
+import ist.cabin.cabinCustomerProfileOptions.fragments.addressOptions.adapter.TaxInvoiceAddressBox
 
 class CabinCustomerAddressOptionsPresenter(var view: CabinCustomerAddressOptionsContracts.View?) :
     CabinCustomerAddressOptionsContracts.Presenter, CabinCustomerAddressOptionsContracts.InteractorOutput {
@@ -10,6 +15,9 @@ class CabinCustomerAddressOptionsPresenter(var view: CabinCustomerAddressOptions
     var router: CabinCustomerAddressOptionsContracts.Router? = null
 
     private var currentTab: Tab = Tab.DELIVERY
+
+    private val deliveryAddresses: MutableList<CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf()
+    private val invoiceAddresses: MutableList<CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf()
 
     //region Lifecycle
 
@@ -40,58 +48,64 @@ class CabinCustomerAddressOptionsPresenter(var view: CabinCustomerAddressOptions
         else { setupInvoiceAddressList() }
     }
 
+    override fun getAddresses(context: Context) {
+        interactor?.getAddresses(context)
+    }
+
     override fun setupDeliveryAddressList() {
-        if (interactor?.getAddressData() == null) { view!!.setupEmptyDeliveryAddressList() } //FIXME: NULL SHOULD BE REPLACED WITH PREOPER DATA FROM BACKEND
-        else { view!!.setupDeliveryAddressList() }
+        if (deliveryAddresses.isEmpty()) { view!!.setupEmptyDeliveryAddressList() }
+        else { view!!.setupDeliveryAddressList(deliveryAddresses) }
         currentTab = Tab.DELIVERY
     }
 
     override fun setupInvoiceAddressList() {
-        if (interactor?.getAddressData() == null) { view!!.setupEmptyInvoiceAddressList() } //FIXME: NULL SHOULD BE REPLACED WITH PREOPER DATA FROM BACKEND
-        else { view!!.setupInvoiceAddressList() }
+        if (invoiceAddresses.isEmpty()) { view!!.setupEmptyInvoiceAddressList() }
+        else { view!!.setupInvoiceAddressList(invoiceAddresses) }
         currentTab = Tab.INVOICE
     }
 
-    override fun moveToAddDeliveryAddressPage(
-        name: String?,
-        surname: String?,
-        phone: String?,
-        province: String?,
-        district: String?,
-        address: String?,
-        addressHeader: String?
-    ) {
-        router?.moveToAddDeliveryAddressPage(name, surname, phone, province, district, address, addressHeader)
+    override fun moveToAddDeliveryAddressPage(address: MODELAddress?) {
+        router?.moveToAddDeliveryAddressPage(address)
     }
 
-    override fun moveToAddInvoiceAddressPage(
-        name: String?,
-        surname: String?,
-        phone: String?,
-        province: String?,
-        district: String?,
-        address: String?,
-        addressHeader: String?,
-        isCorporate: Boolean?,
-        corporationName: String?,
-        taxNo: String?,
-        taxAdministration: String?
-    ) {
-        if (isCorporate == null){
-            router?.moveToAddInvoiceAddressPage(
-                name, surname, phone, province, district, address,
-                addressHeader, false, null, null, null)
-        } else {
-            router?.moveToAddInvoiceAddressPage(
-                name, surname, phone, province, district, address,
-                addressHeader, isCorporate, corporationName, taxNo, taxAdministration
-            )
-        }
+    override fun moveToAddInvoiceAddressPage(address: MODELAddress?) {
+        router?.moveToAddInvoiceAddressPage(address)
+    }
+
+    override fun removeAddress(context: Context, address: MODELAddress) {
+        interactor?.removeAddress(context, address)
     }
 
     //endregion
 
     //region InteractorOutput
+
+    override fun setAddresses(addresses: MODELAddresses) {
+        deliveryAddresses.clear()
+        invoiceAddresses.clear()
+        if (addresses.getAddresses().isNotEmpty()) {
+            addresses.getAddresses().forEach {
+                val isInvoice = it?.isInvoice
+                if (isInvoice != null) {
+                    if (isInvoice) {
+                        if (it.isCorporate)
+                            invoiceAddresses.add(TaxInvoiceAddressBox(it))
+                        else
+                            invoiceAddresses.add(AddressBox(it))
+                    } else {
+                        deliveryAddresses.add(AddressBox(it))
+                    }
+                }
+            }
+        }
+        setupPage()
+    }
+
+    override fun addressRemovedFeedback(isRemoved: Boolean, message: String?) {
+        if (!isRemoved)
+            view?.undoAddressRemove()
+        //TODO: SHOW MESSAGES
+    }
 
     //endregion
 

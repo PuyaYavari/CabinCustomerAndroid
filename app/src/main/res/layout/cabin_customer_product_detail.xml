@@ -8,14 +8,14 @@
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@color/colorPageBackgroundPrimary"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/productDetailBottomBarHeight"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:paddingBottom="@dimen/productDetailBottomBarHeight">
+            app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -49,15 +49,114 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="0dp"
+                    <androidx.constraintlayout.motion.widget.MotionLayout
+                            android:id="@+id/product_detail_indicator_motion_layout"
+                            android:layout_width="wrap_content"
                             android:layout_height="0dp"
+                            app:layoutDescription="@xml/product_detail_transitions"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:showPaths="false">
+
+                        <ImageView
+                                android:id="@+id/product_detail_frog"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="4dp"
+                                app:layout_constraintBottom_toTopOf="@+id/product_image_indicators"
+                                app:layout_constraintEnd_toEndOf="@+id/product_image_indicators"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="@+id/product_image_indicators"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="1.0"
+                                app:srcCompat="@drawable/icon_frog" />
+
+                        <LinearLayout
+                                android:id="@+id/product_image_indicators"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingTop="1dp"
+                                android:paddingBottom="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="1.0">
+
+                            <View
+                                    android:id="@+id/image1_indicator"
+                                    android:layout_width="15dp"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_marginRight="4dp"
+                                    android:layout_weight="1"
+                                    android:background="@color/colorPrimaryDark"
+                                    tools:layout_editor_absoluteX="5dp"
+                                    tools:layout_editor_absoluteY="519dp" />
+
+                            <View
+                                    android:id="@+id/image2_indicator"
+                                    android:layout_width="15dp"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_marginRight="4dp"
+                                    android:layout_weight="1"
+                                    android:background="@color/colorPrimaryDark"
+                                    tools:layout_editor_absoluteX="28dp"
+                                    tools:layout_editor_absoluteY="519dp" />
+
+                            <View
+                                    android:id="@+id/image3_indicator"
+                                    android:layout_width="15dp"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_marginRight="4dp"
+                                    android:layout_weight="1"
+                                    android:background="@color/colorPrimaryDark"
+                                    tools:layout_editor_absoluteX="28dp"
+                                    tools:layout_editor_absoluteY="519dp" />
+
+                            <View
+                                    android:id="@+id/image4_indicator"
+                                    android:layout_width="15dp"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_marginRight="4dp"
+                                    android:layout_weight="1"
+                                    android:background="@color/colorPrimaryDark"
+                                    tools:layout_editor_absoluteX="5dp"
+                                    tools:layout_editor_absoluteY="519dp" />
+
+                            <View
+                                    android:id="@+id/image5_indicator"
+                                    android:layout_width="15dp"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_marginRight="4dp"
+                                    android:layout_weight="1"
+                                    android:background="@color/colorPrimaryDark"
+                                    android:visibility="visible"
+                                    tools:layout_editor_absoluteX="5dp"
+                                    tools:layout_editor_absoluteY="519dp" />
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.motion.widget.MotionLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -211,7 +310,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/product_detail_color_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -234,7 +334,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/product_detail_size_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -260,6 +361,29 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/product_detail_info_popup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBoxesBackgroundPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/product_detail_bottom_bar_layout"
+            app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+                android:id="@+id/product_detail_info_popup_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_added_to_cart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/product_detail_bottom_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/productDetailBottomBarHeight"
             android:background="@color/colorPageBackgroundPrimary"
@@ -277,13 +401,13 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/default_button_background"
+                android:text="@string/add_to_cart_label"
                 android:textAlignment="center"
                 android:textColor="@color/colorButtonLabelsPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_detail_bottom_bar_layout_50pv_guideline"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/add_to_cart_label" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/product_detail_bottom_bar_layout_50pv_guideline"
@@ -307,14 +431,16 @@
                 app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                    android:id="@+id/product_detail_in_cart_discounts_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                 <LinearLayout
+                        android:id="@+id/product_detail_before_discount_price_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/default_price_strike"
@@ -361,11 +487,12 @@
                     android:orientation="horizontal">
 
                 <LinearLayout
+                        android:id="@+id/product_detail_before_cart_price_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="start|left|center_vertical"
                         android:orientation="horizontal"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                     <TextView
                             android:id="@+id/product_detail_before_cart_price"
@@ -373,7 +500,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="start|left"
                             android:maxLines="1"
-                            android:text="000"
+                            android:text="0"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp" />
 
@@ -390,6 +517,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                        android:id="@+id/product_detail_price_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -400,7 +528,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right|end"
-                            android:text="000"
+                            android:text="0"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="14sp" />
 

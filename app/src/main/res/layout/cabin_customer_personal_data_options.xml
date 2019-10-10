@@ -303,19 +303,23 @@
                         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="1.0"
                         android:layout_marginRight="16dp" android:layout_marginEnd="16dp" android:alpha="0.5"/>
+
                 <EditText
+                        android:id="@+id/personal_data_options_email_input"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:inputType="textEmailAddress"
+                        android:background="@null"
                         android:ems="10"
-                        android:id="@+id/personal_data_options_email_input" app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/personal_data_options_email_input_separator"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:hint="@string/personal_data_options_email_hint" android:textSize="16sp"
-                        android:textColor="@color/colorTextsPrimary" android:background="@null"
+                        android:hint="@string/personal_data_options_email_hint"
+                        android:inputType="textEmailAddress"
                         android:paddingLeft="16dp"
-                        android:textColorHint="@color/colorHintsPrimary"/>
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textColorHint="@color/colorHintsPrimary"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/personal_data_options_email_input_separator"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
         <LinearLayout
@@ -469,6 +473,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/personal_data_options_linear_layout"
+            app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+            android:id="@+id/personal_data_options_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/default_success_message"
+            android:textColor="@color/colorPriceGreen"
+            android:textSize="10sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/personal_data_options_save_button"
             app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -72,7 +72,6 @@ class CabinCustomerLoginRegisterPresenter(var view: CabinCustomerLoginRegisterCo
         val context = view?.getActivityContext()
         if (context != null)
             interactor?.login(context ,email, password)
-        //TODO: ELSE
     }
 
     override fun forgetPassword() {
@@ -103,20 +102,21 @@ class CabinCustomerLoginRegisterPresenter(var view: CabinCustomerLoginRegisterCo
         val context = view?.getActivityContext()
         if (context != null)
             interactor?.register(context ,email, password, sex, emailPermit)
-        //TODO: ELSE
-    }
-
-    override fun toRegister() {
-
-    }
-
-    override fun toLogin() {
-
     }
 
     //endregion
 
     override fun setActiveUser(user: MODELUser) {
         GlobalData.activeUser = user
+        GlobalData.userEmail = email
+        view?.setActiveUser(user)
+    }
+
+    override fun closeActivity() {
+        view?.closeActivity()
+    }
+
+    override fun sendLoginRequest() {
+        login()
     }
 }

@@ -1,11 +1,14 @@
 package ist.cabin.cabincustomer.fragments.productDetail
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,25 +16,26 @@ import androidx.viewpager.widget.ViewPager
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.local.MODELColor
+import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
+import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
-
 
 
 class CabinCustomerProductDetailFragment : BaseFragment(),
     CabinCustomerProductDetailContracts.View {
     private val args: CabinCustomerProductDetailFragmentArgs by navArgs()
 
-    private var colorSizesDataset : MutableMap<Int ,MutableList<MODELSize>> = mutableMapOf()
     private val colorsViewManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
     private val sizesViewManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
     private lateinit var colorsAdapter : CabinCustomerProductColorsAdapter
     private lateinit var sizesAdapter : CabinCustomerProductSizesAdapter
-    private val colorsDataset : MutableList<MODELColor> = mutableListOf()
-    private var sizesDataset: MutableList<MODELSize> = mutableListOf()
+
+
     private lateinit var mPager: ViewPager
-    private lateinit var selectedColor: MODELColor
-    private var selectedSize: MODELSize? = null
+    private lateinit var indicatorAnimationContainer: MotionLayout
+
+    private var previousPage = 0
 
     private val imagesList: MutableList<Int> = mutableListOf() //FIXME: DOWNLOAD IMAGES AND PUT HERE
 
@@ -47,6 +51,11 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
     ): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_product_detail, container, false)
         mPager = pageView.findViewById(R.id.product_detail_product_image_pager) ?: throw (Exception("Couldn't find image pager."))
+
+        (activity!! as MainActivity).showNavbar()
+        (activity!! as MainActivity).hideNavbar()
+
+        (activity!! as MainActivity).lockDrawer()
 
         setupPage()
         return pageView
@@ -76,6 +85,9 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
     //region View
 
     private fun setupPage() {
+        val context = context
+        if (context != null)
+            presenter?.requestProduct(context, args.product.getId())
         val imagePagerParams = mPager.layoutParams
         var displayWidth = -1
         val displayMetrics = context?.resources?.displayMetrics
@@ -87,67 +99,258 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
         mPager.layoutParams = imagePagerParams
 
         populateImagesList()
+        Logger.info(this::class.java.name, "imageListSize: ${imagesList.size}", null)
+        setupImagesIndicator()
+
         mPager.adapter = CabinCustomerProductDetailImagePagerAdapter(imagesList, LayoutInflater.from(this.context))
 
-        val product = args.product
+        presenter?.setProduct(args.product)
 
-        pageView.findViewById<TextView>(R.id.product_detail_seller_name).text = product.sellerName
-        pageView.findViewById<TextView>(R.id.product_detail_product_name).text = product.productName
-        pageView.findViewById<TextView>(R.id.product_detail_product_id).text = product.productID
-        pageView.findViewById<TextView>(R.id.product_detail_cargo_duration_text).text = product.cargoDuration
-        pageView.findViewById<TextView>(R.id.product_detail_cargo_price).text = product.cargoType
-
-        //pageView.findViewById<LinearLayout>(R.id.peoduct_datail_product_explanation_layout).visibility = View.VISIBLE //FIXME: MUST CHECK FOR EXPLANATION AND WRITE IF ANY EXISTS
-
-//        pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).text = "sepete eklesin"
         pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).setOnClickListener {
-            if (selectedSize != null) {
-                try {
-                    addToCart(1, product.id, selectedColor, selectedSize!!)
-                } catch (exception: Exception) {
-                    Logger.error(this::class.java.name, "SelectedSize is null!!", exception)
-                }
-            } else {
-                //TODO: SHOW MESSAGE OR SOMETHING
-            }
-        }
-
-        val colors = product.colors
-        var firstColorID = -1
-        colors.forEach {modelColor ->
-            val colorSizes: MutableList<MODELSize> = mutableListOf()
-            modelColor.sizes.forEach{ modelSize ->
-                colorSizes.add(modelSize)
-            }
-
-            if (firstColorID == -1) {
-                firstColorID = modelColor.id
-                setSelectedColor(modelColor)
-            }
-
-            colorsDataset.add(modelColor)
-            colorSizesDataset[modelColor.id] = colorSizes
-        }
-        colorsAdapter = CabinCustomerProductColorsAdapter(this, colorsDataset)
-        pageView.findViewById<RecyclerView>(R.id.product_detail_color_recycler_view).apply {
-            setHasFixedSize(false)
-            layoutManager = colorsViewManager
-            adapter = colorsAdapter
-        }
-
-        showMeasuresOfColor(firstColorID)
-        sizesAdapter = CabinCustomerProductSizesAdapter(this, sizesDataset)
-        pageView.findViewById<RecyclerView>(R.id.product_detail_size_recycler_view).apply {
-            setHasFixedSize(false)
-            layoutManager = sizesViewManager
-            adapter = sizesAdapter
+            presenter?.addToCartButtonListener()
         }
     }
 
-    override fun showMeasuresOfColor(id: Int) {
+    private fun setupImagesIndicator(){
+        indicatorAnimationContainer = pageView.findViewById(R.id.product_detail_indicator_motion_layout)
+        when {
+            imagesList.size == 5 -> {
+                pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image2_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image3_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image4_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image5_indicator).visibility = View.VISIBLE
+            }
+            imagesList.size == 4 -> {
+                pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image2_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image3_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image4_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
+            }
+            imagesList.size == 3 -> {
+                pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image2_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image3_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image4_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
+            }
+            imagesList.size == 2 -> {
+                pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image2_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image3_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image4_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
+            }
+            imagesList.size == 1 -> {
+                pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
+                pageView.findViewById<View>(R.id.image2_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image3_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image4_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
+            }
+            else -> {
+                pageView.findViewById<View>(R.id.image1_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image2_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image3_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image4_indicator).visibility = View.GONE
+                pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
+                Logger.info(location = this::class.java.name,message = "No Image!!",exception = null)
+                //TODO: SHOW PLACEHOLDER
+            }
+        }
+        mPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageSelected(position: Int) {
+                if(previousPage < position) {
+                    when {
+                        imagesList.size == 5 -> when (position) {
+                            1 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_0p_indicator, R.id.product_detail_024p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            2 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_024p_indicator, R.id.product_detail_05p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            3 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_05p_indicator, R.id.product_detail_075p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            4 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_075p_indicator, R.id.product_detail_1p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                        }
+                        imagesList.size == 4 -> when (position) {
+                            1 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_0p_indicator, R.id.product_detail_033p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            2 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_033p_indicator, R.id.product_detail_066p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            3 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_066p_indicator, R.id.product_detail_1p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                        }
+                        imagesList.size == 3 -> when (position) {
+                            1 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_0p_indicator, R.id.product_detail_05p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            2 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_05p_indicator, R.id.product_detail_1p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                        }
+                        imagesList.size == 2 -> when (position) {
+                            1 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(R.id.product_detail_0p_indicator, R.id.product_detail_1p_indicator)
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                        }
+                    }
+                } else if (previousPage > position) {
+                    when {
+                        imagesList.size == 5 -> when (position) {
+                            0 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_024p_indicator,
+                                        R.id.product_detail_0p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            1 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_05p_indicator,
+                                        R.id.product_detail_024p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            2 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_075p_indicator,
+                                        R.id.product_detail_05p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            3 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_1p_indicator,
+                                        R.id.product_detail_075p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                        }
+                        imagesList.size == 4 -> when (position) {
+                            0 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_033p_indicator,
+                                        R.id.product_detail_0p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            1 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_066p_indicator,
+                                        R.id.product_detail_033p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            2 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_1p_indicator,
+                                        R.id.product_detail_066p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                        }
+                        imagesList.size == 3 -> when (position) {
+                            0 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_05p_indicator,
+                                        R.id.product_detail_0p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                            1 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_1p_indicator,
+                                        R.id.product_detail_05p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                        }
+                        imagesList.size == 2 -> when (position) {
+                            0 -> {
+                                indicatorAnimationContainer
+                                    .setTransition(
+                                        R.id.product_detail_1p_indicator,
+                                        R.id.product_detail_0p_indicator
+                                    )
+                                indicatorAnimationContainer.transitionToEnd()
+                            }
+                        }
+                    }
+                }
+                previousPage = position
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+        })
+    }
+
+    override fun setupProductDetail(product: MODELProduct) {
+        pageView.findViewById<TextView>(R.id.product_detail_seller_name).text = product.getSellerName()
+        pageView.findViewById<TextView>(R.id.product_detail_product_name).text = product.getProductName()
+        pageView.findViewById<TextView>(R.id.product_detail_product_id).text = product.getProductId()
+        pageView.findViewById<TextView>(R.id.product_detail_cargo_duration_text).text = product.getCargoDuration()
+        pageView.findViewById<TextView>(R.id.product_detail_cargo_price).text = product.getCargoType()
+
+        //pageView.findViewById<LinearLayout>(R.id.peoduct_datail_product_explanation_layout).visibility = View.VISIBLE //FIXME: MUST CHECK FOR EXPLANATION AND WRITE IF ANY EXISTS
+
+        pageView.findViewById<TextView>(R.id.product_detail_price).text = product.getPrice().toString()
+
+        //TODO: IF DISCOUNT ENABLE product_detail_before_cart_price_layout
+        //TODO: IF IN CART DISCOUNT ENABLE product_detail_in_cart_discount product_detail_before_cart_price_layout
+    }
+
+    override fun showSizesOfColor(id: Int) {
         try {
-            sizesDataset = colorSizesDataset[id]!!
-            sizesAdapter.setDataset(sizesDataset)
+            val sizes = presenter?.getSizesOfColor(id)
+            if (sizes != null)
+                sizesAdapter.setDataset(sizes)
         } catch (exception: Exception) {
             exception.suppressed
 
@@ -156,24 +359,64 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
     }
 
     override fun populateImagesList() { //FIXME: DOWNLOAD IMAGES AND PUT HERE
-        for (i in 0..5)
+        for (i in 0..4)
             imagesList.add(R.drawable.sample_product)
     }
 
-    override fun addToCart(amount: Int, productId: Int, color: MODELColor, size: MODELSize) {
+    override fun addToCart(
+        productId: Int,
+        amount: Int,
+        colorId: Int,
+        sizeId: Int
+    ){
         val context = this.context
         if (context != null)
-            presenter?.addToCart(context,amount,productId,color,size)
+            presenter?.addToCart(context,
+                    productId,
+                    amount,
+                    colorId,
+                    sizeId
+                )
     }
 
     override fun setSelectedColor(color: MODELColor) {
-        selectedColor = color
+        presenter?.setSelectedColor(color)
         Logger.info(null, "$color selected", null)
     }
 
     override fun setSelectedSize(size: MODELSize?) {
-        selectedSize = size
+        presenter?.setSelectedSize(size)
         Logger.info(null, "$size selected", null)
+    }
+
+    override fun setupColors(colorsDataset : MutableList<MODELColor>) {
+        colorsAdapter = CabinCustomerProductColorsAdapter(this, colorsDataset)
+        pageView.findViewById<RecyclerView>(R.id.product_detail_color_recycler_view).apply {
+            setHasFixedSize(false)
+            layoutManager = colorsViewManager
+            adapter = colorsAdapter
+        }
+    }
+
+    override fun setupSizes(sizesDataset: MutableList<MODELSize>, firstColorID: Int) {
+        sizesAdapter = CabinCustomerProductSizesAdapter(this, sizesDataset)
+        pageView.findViewById<RecyclerView>(R.id.product_detail_size_recycler_view).apply {
+            setHasFixedSize(false)
+            layoutManager = sizesViewManager
+            adapter = sizesAdapter
+        }
+        showSizesOfColor(firstColorID)
+    }
+
+    override fun showMessage(message: String?) {
+        pageView.findViewById<ConstraintLayout>(R.id.product_detail_info_popup).apply {
+            translationY = -height.toFloat()
+            if (message != null)
+                pageView.findViewById<TextView>(R.id.product_detail_info_popup_text).text = message
+            Handler().postDelayed({
+                translationY = 0f
+            }, 5000) //FIXME: ANIMATION
+        }
     }
 
     //endregion

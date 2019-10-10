@@ -56,12 +56,12 @@ interface BaseContracts {
         fun onException(exception: Exception)
     }
 
-    interface ExceptionHandler {
-        fun debug(location: String?, message: String, exception: Exception)
-        fun error(location: String?, message: String, exception: Exception)
+    interface Logger {
+        fun debug(location: String?, message: String, exception: Exception?)
+        fun error(location: String?, message: String, exception: Throwable)
         fun info(location: String?, message: String, exception: Exception?)
-        fun verbose(location: String?, message: String, exception: Exception)
-        fun warn(location: String?, message: String, exception: Exception)
+        fun verbose(location: String?, message: String, exception: Exception?)
+        fun warn(location: String?, message: String, exception: Exception?)
         fun failure(location: String?, message: String?, exception: Exception?)
     }
 
