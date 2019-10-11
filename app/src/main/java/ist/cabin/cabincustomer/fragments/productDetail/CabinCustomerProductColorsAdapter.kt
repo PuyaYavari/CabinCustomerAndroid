@@ -2,9 +2,11 @@ package ist.cabin.cabincustomer.fragments.productDetail
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Outline
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -36,8 +38,15 @@ class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailCont
 
     override fun onBindViewHolder(holder: ProductColorViewHolder, position: Int) {
         holder.itemView.apply {
-            findViewById<ImageView>(R.id.colorbox_color_sample).imageTintList =
-                ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode)) //TODO: SET TICK TINT SO IT WILL BE VISIBLE
+            findViewById<ImageView>(R.id.colorbox_color_sample).apply {
+                imageTintList = ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode)) //TODO: SET TICK TINT SO IT WILL BE VISIBLE
+                outlineProvider = object : ViewOutlineProvider() {
+                    override fun getOutline(view: View?, outline: Outline?) {
+                        if (view != null &&  outline != null)
+                            outline.setOval(10,15,view.width-10,view.height-15)
+                    }
+                }
+            }
             findViewById<TextView>(R.id.colorbox_color_name).text = myDataset[position].name
             if (position == selectedColorPosition)
                 findViewById<ImageView>(R.id.colorbox_color_sample_tick).visibility = View.VISIBLE
