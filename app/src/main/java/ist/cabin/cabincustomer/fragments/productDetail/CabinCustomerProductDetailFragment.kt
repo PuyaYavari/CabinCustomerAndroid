@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
@@ -56,12 +57,12 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
 
         (activity!! as MainActivity).lockDrawer()
 
-        setupPage()
         return pageView
     }
 
     override fun onResume() {
         super.onResume()
+        setupPage()
         presenter?.onResume()
     }
 
@@ -103,6 +104,7 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
 
         mPager.adapter = CabinCustomerProductDetailImagePagerAdapter(imagesList, LayoutInflater.from(this.context))
 
+        presenter?.setInitialColor(args.initialColor)
         presenter?.setProduct(args.product)
 
         pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).setOnClickListener {
@@ -380,6 +382,7 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
 
     override fun setSelectedColor(color: MODELColor) {
         presenter?.setSelectedColor(color)
+        setFavoriteButtonTo(color)
         Logger.info(null, "$color selected", null)
     }
 
@@ -407,15 +410,56 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
         showSizesOfColor(firstColorID)
     }
 
-    override fun showMessage(message: String?) {
+    override fun showMessage(message: String, isSuccessful: Boolean) {
         pageView.findViewById<ConstraintLayout>(R.id.product_detail_info_popup).apply {
             visibility = View.VISIBLE
-            if (message != null)
-                pageView.findViewById<TextView>(R.id.product_detail_info_popup_text).text = message
+            pageView.findViewById<TextView>(R.id.product_detail_info_popup_text).text = message
             Handler().postDelayed({
                 visibility = View.INVISIBLE
             }, 3000) //FIXME: ANIMATION
         }
+    }
+
+    override fun showDefaultMessage() {
+        pageView.findViewById<ConstraintLayout>(R.id.product_detail_info_popup).apply {
+            visibility = View.VISIBLE
+            pageView.findViewById<TextView>(R.id.product_detail_info_popup_text).text =
+                resources.getText(R.string.product_added_to_cart)
+            Handler().postDelayed({
+                visibility = View.INVISIBLE
+            }, 3000) //FIXME: ANIMATION
+        }
+    }
+
+    override fun setFavoriteButtonTo(color: MODELColor) {
+        presenter?.setupFavoriteButton(color.favourite)
+        val context = this.context
+        if (context != null)
+            pageView.findViewById<ToggleButton>(R.id.product_detail_favourite_button)
+                .setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked)
+                        presenter?.addToFavorite(context, args.product, color)
+                    else
+                        presenter?.removeFromFavorite(context, args.product, color)
+                }
+    }
+
+    override fun checkFavorite() {
+        pageView.findViewById<ToggleButton>(R.id.product_detail_favourite_button).apply {
+            setOnCheckedChangeListener(null)
+            isChecked = true
+        }
+    }
+
+    override fun uncheckFavorite() {
+        pageView.findViewById<ToggleButton>(R.id.product_detail_favourite_button).apply {
+            setOnCheckedChangeListener(null)
+            isChecked = false
+        }
+    }
+
+    override fun setTickOnColor(color: MODELColor) {
+        colorsAdapter.setTickOnColor(color)
     }
 
     //endregion

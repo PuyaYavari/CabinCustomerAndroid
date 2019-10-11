@@ -55,4 +55,17 @@ class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailCont
     }
 
     override fun getItemCount(): Int = myDataset.size
+
+    fun setTickOnColor(color: MODELColor) {
+        var found = false
+        var index = 0
+        while (!found && index < myDataset.size){
+            if (myDataset[index].id == color.id) {
+                found = true
+                selectedColorPosition = index
+                notifyDataSetChanged()
+            }
+            index++
+        }
+    }
 }

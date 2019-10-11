@@ -1,6 +1,5 @@
 package ist.cabin.cabinCustomerBase.models.adapters
 
-import android.util.Log
 import com.squareup.moshi.*
 import ist.cabin.cabinCustomerBase.models.backend.APIProduct
 import ist.cabin.cabinCustomerBase.models.backend.JSONProduct
@@ -29,12 +28,9 @@ class APIProductAdapter (moshi: Moshi) : JsonAdapter<APIProduct>() {
             }
         }
         reader.endObject()
-        val result = APIProduct(
+        return APIProduct(
             products = products ?: throw JsonDataException("Required property 'products' missing at ${reader.path}")
         )
-        Log.d("Products", products.toString())
-        Log.d("Result", result.toString())
-        return result
     }
 
     @ToJson

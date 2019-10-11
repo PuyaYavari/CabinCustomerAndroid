@@ -1,9 +1,12 @@
 package ist.cabin.cabinCustomerBase.models.local
 
+import android.os.Parcelable
 import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONColor
+import kotlinx.android.parcel.Parcelize
 
-class MODELColor: LocalDataModel {
+@Parcelize
+class MODELColor: LocalDataModel, Parcelable {
     var id: Int = -1
     var name: String = ""
     lateinit var hexCode: String

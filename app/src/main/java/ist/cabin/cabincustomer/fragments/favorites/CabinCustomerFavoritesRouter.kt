@@ -15,7 +15,7 @@ class CabinCustomerFavoritesRouter(var activity: Activity?) :
     //region Router
 
     override fun moveToProductDetail(product: MODELProduct) {
-        val action = CabinCustomerFavoritesFragmentDirections.actionFavoritesToProductDetail(product)//TODO: SEND PRODUCT
+        val action = CabinCustomerFavoritesFragmentDirections.actionFavoritesToProductDetail(product, product.getColors()[0])
         activity!!.findNavController(R.id.nav_host_fragment).navigate(action)
     }
 

@@ -50,6 +50,23 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
+                    <ToggleButton
+                            android:id="@+id/product_detail_favourite_button"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/default_like_button"
+                            android:elevation="5dp"
+                            android:textOff=""
+                            android:textOn=""
+                            app:layout_constraintBottom_toBottomOf="@+id/product_detail_product_image_pager"
+                            app:layout_constraintEnd_toEndOf="@+id/product_detail_product_image_pager"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="@+id/product_detail_product_image_pager"
+                            app:layout_constraintTop_toTopOf="@id/product_detail_product_image_pager"
+                            app:layout_constraintVertical_bias="0.0" />
+
                     <androidx.constraintlayout.motion.widget.MotionLayout
                             android:id="@+id/product_detail_indicator_motion_layout"
                             android:layout_width="wrap_content"

@@ -9,6 +9,7 @@ import ist.cabin.cabinCustomerBase.models.local.MODELSize
 object CabinCustomerFavoritesContracts {
 
     interface View : BaseContracts.View {
+        fun showData(products: List<MODELProduct>)
         fun moveToProductDetail(product: MODELProduct)
         fun addToCart(
             context: Context,
@@ -20,6 +21,7 @@ object CabinCustomerFavoritesContracts {
     }
 
     interface Presenter : BaseContracts.Presenter {
+        fun getFavorites(context: Context, page: Int)
         fun moveToProductDetail(product: MODELProduct)
         fun addToCart(
             context: Context,
@@ -31,6 +33,7 @@ object CabinCustomerFavoritesContracts {
     }
 
     interface Interactor : BaseContracts.Interactor {
+        fun getFavorites(context: Context, page: Int)
         fun addToCart(
             context: Context,
             amount: Int,
@@ -41,7 +44,7 @@ object CabinCustomerFavoritesContracts {
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
-        //TODO
+        fun setData(products: List<MODELProduct?>)
     }
 
     interface Router : BaseContracts.Router {

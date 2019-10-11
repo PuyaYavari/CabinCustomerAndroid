@@ -42,6 +42,10 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
 
     //region Presenter
 
+    override fun getFavorites(context: Context, page: Int) {
+        interactor?.getFavorites(context, page)
+    }
+
     override fun moveToProductDetail(product: MODELProduct) {
         router?.moveToProductDetail(product)
     }
@@ -60,7 +64,15 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
 
     //region InteractorOutput
 
-    //TODO: Implement your InteractorOutput methods here
+    override fun setData(products: List<MODELProduct?>) {
+        val myDataset: MutableList<MODELProduct> = mutableListOf()
+        products.forEach {
+            if (it != null)
+                myDataset.add(it)
+        }
+        if (myDataset.isNotEmpty())
+            view?.showData(myDataset)
+    }
 
     //endregion
 }

@@ -20,27 +20,14 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
     var presenter: CabinCustomerFavoritesContracts.Presenter? = CabinCustomerFavoritesPresenter(this)
     private lateinit var pageView: View
     private lateinit var recyclerView: RecyclerView
-    private var myDataset: List<MODELProduct> = listOf()
+    private var myDataset: MutableList<MODELProduct> = mutableListOf()
     private lateinit var viewAdapter: CabinCustomerFavoritesAdapter
     private lateinit var viewManager: GridLayoutManager
 
-    private val pageSize = 20
-    private var page = 1
+    private var page = 1 //TODO: PAGING
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_favorites, container, false)
-
-        (activity!! as MainActivity).setHeader(resources.getString(R.string.favorites_label),null)
-        (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).lockDrawer()
-        (activity!! as MainActivity).hideBackButton()
-
-        if (GlobalData.loggedIn) {
-            (activity!! as MainActivity).layoutBackToDefault()
-            setupPage()
-        } else
-            (activity!! as MainActivity).showNeedLogin()
-
         return pageView
     }
 
@@ -48,6 +35,7 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
         super.onResume()
 
         (activity!! as MainActivity).setHeader(resources.getString(R.string.favorites_label),null)
+        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
@@ -83,18 +71,18 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
         recyclerView = pageView.findViewById(R.id.favorites_recycler_view)
         viewAdapter = CabinCustomerFavoritesAdapter(this, myDataset)
         viewManager = GridLayoutManager(this.context, 3)
-        myDataset = getData()
         recyclerView.apply {
             setHasFixedSize(false)
             layoutManager = viewManager
             adapter = viewAdapter
         }
+        val context = this.context
+        if (context != null)
+            presenter?.getFavorites(context, page)
     }
 
-    private fun getData(): MutableList<MODELProduct> {
-        var data = mutableListOf<MODELProduct>() //TODO:GET DATA FROM LOCAL OR SERVER
-        return data
-    }
+
+    override fun showData(products: List<MODELProduct>) = viewAdapter.setData(products)
 
     override fun moveToProductDetail(product: MODELProduct) {
         presenter?.moveToProductDetail(product)

@@ -11,7 +11,7 @@ import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContracts.View,
-                                     private val myDataset: List<MODELProduct>)
+                                     private var myDataset: MutableList<MODELProduct>)
     : RecyclerView.Adapter<CabinCustomerFavoritesAdapter.FavoritesProductViewHolder>() {
 
     // Provide a reference to the views for each data item
@@ -43,4 +43,9 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
     }
 
     override fun getItemCount(): Int = myDataset.size
+
+    fun setData(products: List<MODELProduct>) {
+        this.myDataset = products as MutableList<MODELProduct>
+        notifyDataSetChanged()
+    }
 }

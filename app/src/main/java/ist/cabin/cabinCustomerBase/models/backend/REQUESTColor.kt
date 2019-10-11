@@ -5,5 +5,5 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class REQUESTColor (@Json(name = "ID") val id: Int,
-                         @Json(name = "SIZE") val sizes: List<REQUESTSize>
+                         @Json(name = "SIZE") val sizes: List<REQUESTSize>?
 )

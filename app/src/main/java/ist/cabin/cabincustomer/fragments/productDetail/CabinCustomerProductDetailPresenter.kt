@@ -19,7 +19,7 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
     private var selectedColor: MODELColor? = null
     private var selectedSize: MODELSize? = null
     private lateinit var product: MODELProduct
-    private var firstColorID = -1
+    private var initialColor: MODELColor? = null
 
     private var colorsDataset : MutableList<MODELColor> = mutableListOf()
     private var sizesDataset: MutableList<MODELSize> = mutableListOf()
@@ -54,6 +54,10 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
 
     override fun requestProduct(context: Context, id: Int) {
         interactor?.requestProduct(context, id)
+    }
+
+    override fun setInitialColor(color: MODELColor?) {
+        initialColor = color
     }
 
     override fun setProduct(product: MODELProduct) {
@@ -98,6 +102,12 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
         colorsDataset  = mutableListOf()
         sizesDataset = mutableListOf()
         colorSizesDataset  = mutableMapOf()
+        if (initialColor != null) {
+            val color = initialColor
+            if (color != null) {
+                view?.setSelectedColor(color)
+            }
+        }
         val colors = product.getColors()
         colors.forEach {modelColor ->
             val colorSizes: MutableList<MODELSize> = mutableListOf()
@@ -105,16 +115,22 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
                 colorSizes.add(modelSize)
             }
 
-            if (firstColorID == -1) {
-                firstColorID = modelColor.id
-                setSelectedColor(modelColor)
+            if (initialColor == null) {
+                initialColor = modelColor
+                val color = initialColor
+                if (color != null)
+                    view?.setSelectedColor(color)
             }
 
             colorsDataset.add(modelColor)
             colorSizesDataset[modelColor.id] = colorSizes
         }
         view?.setupColors(colorsDataset)
-        view?.setupSizes(sizesDataset, firstColorID)
+        val color = initialColor
+        if (color != null) {
+            view?.setupSizes(sizesDataset, color.id)
+            view?.setTickOnColor(color)
+        }
     }
 
     override fun setSelectedColor(color: MODELColor) {
@@ -137,11 +153,29 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
     //region InteractorOutput
 
     override fun showMessage(message: String?) {
-        view?.showMessage(message)
+        if (message == null)
+            view?.showDefaultMessage()
+        else
+            view?.showMessage(message, false)//FIXME: ISSUCCESSFUL?
     }
 
     override fun updateProduct(product: MODELProduct) {
         setProduct(product)
+    }
+
+    override fun setupFavoriteButton(isFavorite: Boolean) {
+        if (isFavorite)
+            view?.checkFavorite()
+        else
+            view?.uncheckFavorite()
+    }
+
+    override fun addToFavorite(context: Context, product: MODELProduct, color: MODELColor) {
+        interactor?.addFavorite(context, product, color)
+    }
+
+    override fun removeFromFavorite(context: Context, product: MODELProduct, color: MODELColor) {
+        interactor?.removeFavorite(context, product, color)
     }
 
     //endregion

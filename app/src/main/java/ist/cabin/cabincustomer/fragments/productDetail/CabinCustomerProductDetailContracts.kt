@@ -22,10 +22,16 @@ object CabinCustomerProductDetailContracts {
         fun setSelectedSize(size: MODELSize?)
         fun setupColors(colorsDataset : MutableList<MODELColor>)
         fun setupSizes(sizesDataset: MutableList<MODELSize>, firstColorID: Int)
-        fun showMessage(message: String?)
+        fun showMessage(message: String, isSuccessful: Boolean)
+        fun showDefaultMessage()
+        fun setFavoriteButtonTo(color: MODELColor)
+        fun checkFavorite()
+        fun uncheckFavorite()
+        fun setTickOnColor(color: MODELColor)
     }
 
     interface Presenter : BaseContracts.Presenter {
+        fun setInitialColor(color: MODELColor?)
         fun setProduct(product: MODELProduct)
         fun addToCart(context: Context,
                       productId: Int,
@@ -40,6 +46,9 @@ object CabinCustomerProductDetailContracts {
         fun setSizesDataset(sizesDataset: MutableList<MODELSize>)
         fun getSizesOfColor(id: Int): MutableList<MODELSize>?
         fun requestProduct(context: Context, id: Int)
+        fun addToFavorite(context: Context, product: MODELProduct, color: MODELColor)
+        fun removeFromFavorite(context: Context, product: MODELProduct, color: MODELColor)
+        fun setupFavoriteButton(isFavorite: Boolean)
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -50,6 +59,8 @@ object CabinCustomerProductDetailContracts {
                       sizeId: Int
         )
         fun requestProduct(context: Context, id: Int)
+        fun addFavorite(context: Context, product: MODELProduct, color: MODELColor)
+        fun removeFavorite(context: Context, product: MODELProduct, color: MODELColor)
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
