@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import ist.cabin.cabinCustomerBase.models.local.MODELCart
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 
 class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : CabinCustomerCartContracts.Presenter,
@@ -70,6 +71,10 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
             first.getColors()[0].sizes[0].id == second.getColors()[0].sizes[0].id)
             return true
         return false
+    }
+
+    override fun moveToProductDetail(product: MODELProduct, color: MODELColor) {
+        router?.moveToProductDetail(product, color)
     }
     //endregion
 

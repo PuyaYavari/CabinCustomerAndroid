@@ -31,6 +31,7 @@ class CabinCustomerOrdersDetailFragment : BaseFragment(), CabinCustomerOrdersDet
         super.onResume()
 
         (activity!! as MainActivity).setHeader(resources.getString(R.string.orders_header),null)
+        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).showBackButton()

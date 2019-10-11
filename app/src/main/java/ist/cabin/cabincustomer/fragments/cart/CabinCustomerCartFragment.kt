@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
 import ist.cabin.cabinCustomerBase.GlobalData
 import ist.cabin.cabinCustomerBase.models.local.MODELCart
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
@@ -41,6 +42,7 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
         super.onResume()
 
         (activity!! as MainActivity).setHeader(resources.getString(R.string.cart_label),null)
+        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
@@ -186,6 +188,10 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
 
     override fun clearCargoPrices() {
         pageView.findViewById<LinearLayout>(R.id.cart_finish_trade_price_detail_cargo_label).removeAllViews()
+    }
+
+    override fun moveToProductDetail(product: MODELProduct, color: MODELColor) {
+        presenter?.moveToProductDetail(product, color)
     }
 
     //endregion

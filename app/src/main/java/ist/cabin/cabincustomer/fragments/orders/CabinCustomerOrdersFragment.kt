@@ -26,6 +26,7 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
         super.onResume()
 
         (activity!! as MainActivity).setHeader(resources.getString(R.string.order_label),null)
+        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()

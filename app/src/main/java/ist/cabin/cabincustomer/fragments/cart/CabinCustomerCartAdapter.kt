@@ -37,6 +37,10 @@ class CabinCustomerCartAdapter (val view: CabinCustomerCartContracts.View,
         // - replace the contents of the view with that element
         val product = myDataset[position]
         holder.itemView.apply {
+            cart_productbox_product_image.apply {
+                //TODO: SET IMAGE
+                setOnClickListener { view.moveToProductDetail(product, product.getColors()[0]) }
+            }
             cart_productbox_seller_name.text = product.getSellerName()
             cart_productbox_product_name.text = product.getProductName()
             cart_productbox_product_id.text = product.getProductId()
@@ -48,31 +52,11 @@ class CabinCustomerCartAdapter (val view: CabinCustomerCartContracts.View,
             cart_productbox_product_price.text = product.getPrice().toString()
             cart_productbox_product_count.text = product.getAmount().toString()
             cart_productbox_add_button.setOnClickListener {
-//                cart_productbox_subtract_button.apply {
-//                    isClickable = false
-//                    isEnabled = false
-//                    alpha = 0.5f
-//                }
-//                cart_productbox_add_button.apply {
-//                    isClickable = false
-//                    isEnabled = false
-//                    alpha = 0.5f
-//                }
                 val newProduct = myDataset[position]
                 newProduct.incAmount(1)
                 view.updateProduct(newProduct)
             }
             cart_productbox_subtract_button.setOnClickListener {
-//                cart_productbox_subtract_button.apply {
-//                    isClickable = false
-//                    isEnabled = false
-//                    alpha = 0.5f
-//                }
-//                cart_productbox_add_button.apply {
-//                    isClickable = false
-//                    isEnabled = false
-//                    alpha = 0.5f
-//                }
                 val newProduct = myDataset[position]
                 newProduct.decAmount(1)
                 view.updateProduct(newProduct)

@@ -3,6 +3,7 @@ package ist.cabin.cabincustomer.fragments.cart
 import android.content.Context
 import ist.cabin.cabinCustomerBase.BaseContracts
 import ist.cabin.cabinCustomerBase.models.local.MODELCart
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 
 object CabinCustomerCartContracts {
@@ -17,6 +18,7 @@ object CabinCustomerCartContracts {
         fun clearAll()
         fun addShippingPrice(sellerName: String, price: Int)
         fun clearCargoPrices()
+        fun moveToProductDetail(product: MODELProduct, color: MODELColor)
     }
 
     interface Presenter : BaseContracts.Presenter {
@@ -25,6 +27,7 @@ object CabinCustomerCartContracts {
         fun getCart(context: Context)
         fun updateProduct(context: Context, product: MODELProduct)
         fun areProductsEqual(first: MODELProduct, second: MODELProduct): Boolean
+        fun moveToProductDetail(product: MODELProduct, color: MODELColor)
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -38,5 +41,6 @@ object CabinCustomerCartContracts {
 
     interface Router : BaseContracts.Router {
         fun moveToFinishTrade()
+        fun moveToProductDetail(product: MODELProduct, color: MODELColor)
     }
 }
