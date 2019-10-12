@@ -70,9 +70,24 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
 
     override fun setData(products: List<MODELProduct?>) {
         val myDataset: MutableList<MODELProduct> = mutableListOf()
-        products.forEach {
-            if (it != null)
-                myDataset.add(it)
+        products.forEach {product ->
+            product?.getColors()?.forEach {color ->
+                val generatedProduct = MODELProduct()
+                generatedProduct.setAll(
+                    product.getId(),
+                    product.getSellerName(),
+                    product.getProductName(),
+                    product.getProductId(),
+                    product.getPrice(),
+                    product.getAmount(),
+                    product.getCargoDurationId(),
+                    product.getCargoDuration(),
+                    product.getCargoTypeId(),
+                    product.getCargoType(),
+                    mutableListOf(color)
+                )
+                myDataset.add(generatedProduct)
+            }
         }
         if (myDataset.isNotEmpty())
             view?.showData(myDataset)

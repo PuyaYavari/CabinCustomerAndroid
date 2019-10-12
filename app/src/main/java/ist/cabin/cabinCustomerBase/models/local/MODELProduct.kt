@@ -81,4 +81,30 @@ class MODELProduct : LocalDataModel, Parcelable{
     fun getColors() = this.colors
 
     fun setAmount(amount: Int?) { this.amount = amount }
+
+    fun setAll(
+        id: Int,
+        sellerName: String,
+        productName: String,
+        productId: String,
+        price: Double?,
+        amount: Int?,
+        cargoDurationId: Int?,
+        cargoDuration: String,
+        cargoTypeId: Int?,
+        cargoType: String,
+        colors: MutableList<MODELColor>
+    ) {
+        this.id = id
+        this.sellerName = sellerName
+        this.productName = productName
+        this.productId = productId
+        this.price = price
+        this.amount = amount
+        this.cargoDurationId = cargoDurationId
+        this.cargoDuration = cargoDuration
+        this.cargoTypeId = cargoTypeId
+        this.cargoType = cargoType
+        this.colors = colors
+    }
 }
