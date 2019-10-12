@@ -1,7 +1,6 @@
 package ist.cabin.cabincustomer.fragments.favorites
 
 import android.content.Context
-import android.util.Log
 import com.squareup.moshi.Moshi
 import ist.cabin.cabinCustomerBase.BaseContracts
 import ist.cabin.cabinCustomerBase.Constants
@@ -190,29 +189,26 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.info(this::class.java.name, "ISSUE, Value: $value", null)
+                    Logger.warn(this::class.java.name, "ISSUE, Value: $value", null)
                     //TODO: SHOW ISSUE
                 }
 
                 override fun onError(value: String, url: String?) {
-                    Log.e("Discover ERROR", value)
-                    if (url != null)
-                        Log.d("Login onError url", url)
+                    Logger.warn(this::class.java.name, "Error, Value: $value", null)
                     //TODO: SHOW ERROR AND URL
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.info(this::class.java.name, "FAILURE, ${throwable.message}", null)
+                    Logger.error(this::class.java.name, "FAILURE", throwable)
                     //TODO: SHOW DEFAULT FAILURE ERROR
                 }
 
                 override fun onServerDown() {
-                    Logger.info(this::class.java.name, "SERVER DOWN", null)
-                    //TODO: SHOW DEFAULT FAILURE ERROR
+                    Logger.warn(this::class.java.name, "SERVER DOWN", null)
                 }
 
                 override fun onException(exception: Exception) {
-                    Logger.info(this::class.java.name, "EXCEPTION", exception)
+                    Logger.error(this::class.java.name, "EXCEPTION", exception)
                     //TODO: HANDLE
                 }
             }

@@ -12,6 +12,8 @@ import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
+import ist.cabin.cabinCustomerBase.models.local.MODELSize
+import ist.cabin.cabincustomer.MainContracts
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContracts.View,
@@ -20,6 +22,8 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
 
     private var lastRemovedProduct: MODELProduct? = null
     private var lastRemovedProductPosition: Int? = null
+
+    private var selectedSize : MODELSize? = null
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -56,7 +60,23 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
             findViewById<ToggleButton>(R.id.favorites_productbox_favourite_button)
                 .setOnClickListener { removeProduct(position) }
             findViewById<Button>(R.id.favorites_productbox_add_to_cart_button).setOnClickListener {
-                //TODO:CALL VIEWS AddToCart THE CORRECT WAY
+                fragment.showSelectSize(
+                    product,
+                    product.getColors()[0],
+                    object : MainContracts.SelectSizeCallback {
+                        override fun selectSize(size: MODELSize) {
+                            selectedSize = size
+                        }
+
+                        override fun confirm() {
+                            val size = selectedSize
+                            if (size != null) {
+                                fragment.addToCart(1, product.getId(), product.getColors()[0], size)
+                                selectedSize = null
+                            }
+                        }
+                    }
+                )
             }
         }
     }

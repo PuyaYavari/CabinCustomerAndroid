@@ -5,6 +5,7 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
+import ist.cabin.cabincustomer.MainContracts
 
 object CabinCustomerFavoritesContracts {
 
@@ -14,13 +15,13 @@ object CabinCustomerFavoritesContracts {
         fun removeFromFavorites(product: MODELProduct)
         fun undoRemove()
         fun addToCart(
-            context: Context,
             amount: Int,
             productId: Int,
             color: MODELColor,
             size: MODELSize
         )
         fun renewData()
+        fun showSelectSize(product: MODELProduct, color: MODELColor, callback: MainContracts.SelectSizeCallback)
     }
 
     interface Presenter : BaseContracts.Presenter {

@@ -37,12 +37,21 @@ class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts
                 }
             }
             findViewById<ImageView>(R.id.discover_productbox_product_image).apply {
+                val params = layoutParams
+                params.height = params.width * 4/3
+                layoutParams = params
                 setOnClickListener { fragment.moveToProductDetail(myDataset[position], position) }
-//                setImageDrawable()
+//                setImageDrawable() TODO
             }
             findViewById<TextView>(R.id.discover_productbox_seller_name).text = data.getSellerName()
             findViewById<TextView>(R.id.discover_productbox_product_name).text = data.getProductName()
             findViewById<TextView>(R.id.discover_productbox_product_price).text = data.getPrice().toString()
+
+            findViewById<ToggleButton>(R.id.discover_productbox_favourite_button).isClickable = false //FIXME: ISCLICKABLE!?
+            data.getColors().forEach {
+                if (it.favourite)
+                    findViewById<ToggleButton>(R.id.discover_productbox_favourite_button).isChecked = true
+            }
             //TODO: Add discount
         }
     }

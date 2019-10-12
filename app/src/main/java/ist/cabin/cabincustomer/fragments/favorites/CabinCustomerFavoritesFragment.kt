@@ -1,6 +1,5 @@
 package ist.cabin.cabincustomer.fragments.favorites
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,7 @@ import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
 import ist.cabin.cabincustomer.MainActivity
+import ist.cabin.cabincustomer.MainContracts
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesContracts.View {
@@ -99,13 +99,14 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
     }
 
     override fun addToCart(
-        context: Context,
         amount: Int,
         productId: Int,
         color: MODELColor,
         size: MODELSize
     ) {
-        presenter?.addToCart(context, amount, productId, color, size)
+        val context = this.context
+        if (context != null)
+            presenter?.addToCart(context, amount, productId, color, size)
     }
 
     override fun renewData() {
@@ -113,6 +114,14 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
         val context = context
         if (context != null)
             presenter?.getFavorites(context,page)
+    }
+
+    override fun showSelectSize(
+        product: MODELProduct,
+        color: MODELColor,
+        callback: MainContracts.SelectSizeCallback
+    ) {
+        (activity!! as MainActivity).showSelectSize(product, color, callback)
     }
 
     //endregion
