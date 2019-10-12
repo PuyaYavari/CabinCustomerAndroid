@@ -20,6 +20,7 @@ object CabinCustomerFavoritesContracts {
             color: MODELColor,
             size: MODELSize
         )
+        fun renewData()
     }
 
     interface Presenter : BaseContracts.Presenter {

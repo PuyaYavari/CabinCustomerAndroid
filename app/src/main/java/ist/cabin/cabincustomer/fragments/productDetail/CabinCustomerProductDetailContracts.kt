@@ -5,6 +5,7 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
+import ist.cabin.cabincustomer.MainContracts
 
 object CabinCustomerProductDetailContracts {
 
@@ -28,6 +29,8 @@ object CabinCustomerProductDetailContracts {
         fun checkFavorite()
         fun uncheckFavorite()
         fun setTickOnColor(color: MODELColor)
+        fun showSelectSizeFor(product: MODELProduct, color: MODELColor, callback: MainContracts.SelectSizeCallback)
+        fun indicateSelectedSize(size: MODELSize)
     }
 
     interface Presenter : BaseContracts.Presenter {
@@ -39,7 +42,7 @@ object CabinCustomerProductDetailContracts {
                       colorId: Int,
                       sizeId: Int
         )
-        fun addToCartButtonListener()
+        fun addToCartButtonListener(context: Context)
         fun setupDatasets()
         fun setSelectedColor(color: MODELColor)
         fun setSelectedSize(size: MODELSize?)

@@ -7,6 +7,7 @@ import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
+import ist.cabin.cabincustomer.MainContracts
 
 class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailContracts.View?) :
     CabinCustomerProductDetailContracts.Presenter,
@@ -20,6 +21,7 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
     private var selectedSize: MODELSize? = null
     private lateinit var product: MODELProduct
     private var initialColor: MODELColor? = null
+    private var initialColorIsPicked = false
 
     private var colorsDataset : MutableList<MODELColor> = mutableListOf()
     private var sizesDataset: MutableList<MODELSize> = mutableListOf()
@@ -58,6 +60,7 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
 
     override fun setInitialColor(color: MODELColor?) {
         initialColor = color
+        initialColorIsPicked = color != null
     }
 
     override fun setProduct(product: MODELProduct) {
@@ -80,21 +83,41 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             )
     }
 
-    override fun addToCartButtonListener() {
+    override fun addToCartButtonListener(context: Context) {
         if (selectedSize != null) {
             try {
                 val selectedColor = selectedColor
                 val selectedSize = selectedSize
                 if (selectedColor != null && selectedSize != null) {
                     view?.addToCart(product.getId(), 1, selectedColor.id, selectedSize.id)
-                } else {
-                    //TODO: FORCE SELECT COLOR AND SIZE
                 }
             } catch (exception: Exception) {
                 Logger.error(this::class.java.name, "SelectedSize is null!!", exception)
             }
         } else {
-            //TODO: SHOW MESSAGE OR SOMETHING
+            val selectedColor = selectedColor
+            if (selectedColor != null)
+                view?.showSelectSizeFor(
+                    product,
+                    selectedColor,
+                    object : MainContracts.SelectSizeCallback{
+                        override fun selectSize(size: MODELSize) {
+                            view?.indicateSelectedSize(size)
+                            setSelectedSize(size)
+                        }
+
+                        override fun confirm() {
+                            val selectedSize = selectedSize
+                            if (selectedSize != null)
+                                addToCart(
+                                    context,
+                                    product.getId(),
+                                    1,
+                                    selectedColor.id,
+                                    selectedSize.id
+                                )
+                        }
+                    })
         }
     }
 
@@ -102,6 +125,8 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
         colorsDataset  = mutableListOf()
         sizesDataset = mutableListOf()
         colorSizesDataset  = mutableMapOf()
+        if (!initialColorIsPicked)
+            initialColor = null
         val colors = product.getColors()
         colors.forEach {modelColor ->
             val colorSizes: MutableList<MODELSize> = mutableListOf()

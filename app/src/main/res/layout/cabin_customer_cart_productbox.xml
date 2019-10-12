@@ -10,9 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +19,7 @@
         <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
                 android:layout_height="150dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_margin="8dp"
                 app:cardCornerRadius="5dp">
 
             <ImageView
@@ -39,7 +34,9 @@
                 android:layout_height="wrap_content"
                 android:divider="@drawable/cart_productbox_divider"
                 android:orientation="vertical"
-                android:showDividers="middle">
+                android:showDividers="middle"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp">
 
             <TextView
                     android:id="@+id/cart_productbox_seller_name"

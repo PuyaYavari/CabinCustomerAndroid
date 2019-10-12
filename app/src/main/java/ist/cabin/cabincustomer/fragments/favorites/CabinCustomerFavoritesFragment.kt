@@ -108,5 +108,12 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
         presenter?.addToCart(context, amount, productId, color, size)
     }
 
+    override fun renewData() {
+        page = 1
+        val context = context
+        if (context != null)
+            presenter?.getFavorites(context,page)
+    }
+
     //endregion
 }

@@ -5,54 +5,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:padding="8dp">
-
-    <androidx.cardview.widget.CardView
-            android:id="@+id/favorites_productbox_card"
-            android:layout_width="110dp"
-            android:layout_height="155dp"
-            app:cardCornerRadius="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-        <ImageView
-                android:id="@+id/favorites_productbox_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/sample_product" />
-    </androidx.cardview.widget.CardView>
+        android:background="@drawable/default_borders">
 
     <ToggleButton
             android:id="@+id/favorites_productbox_favourite_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/default_like_button"
             android:checked="true"
             android:elevation="5dp"
             android:textOff=""
             android:textOn=""
-            app:layout_constraintBottom_toBottomOf="@+id/favorites_productbox_card"
-            app:layout_constraintEnd_toEndOf="@+id/favorites_productbox_card"
+            app:layout_constraintBottom_toBottomOf="@+id/favorites_productbox_linear_layout"
+            app:layout_constraintEnd_toEndOf="@+id/favorites_productbox_linear_layout"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/favorites_productbox_card"
-            app:layout_constraintTop_toTopOf="@+id/favorites_productbox_card"
+            app:layout_constraintStart_toStartOf="@+id/favorites_productbox_linear_layout"
+            app:layout_constraintTop_toTopOf="@+id/favorites_productbox_linear_layout"
             app:layout_constraintVertical_bias="0.0" />
 
+
+
     <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/favorites_productbox_linear_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/favorites_productbox_card"
-            app:layout_constraintStart_toStartOf="@+id/favorites_productbox_card"
-            app:layout_constraintTop_toBottomOf="@+id/favorites_productbox_card">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            android:clipToPadding="false">
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/favorites_productbox_card"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                app:cardCornerRadius="5dp"
+                android:layout_margin="8dp">
+
+            <ImageView
+                    android:id="@+id/favorites_productbox_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/sample_product" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
                 android:id="@+id/favorites_productbox_seller_name"
@@ -63,12 +62,22 @@
                 android:text="Some Seller Name"
                 android:textColor="@color/colorTextsPrimary"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp">
 
             <LinearLayout
                     android:layout_width="wrap_content"
@@ -134,8 +143,7 @@
                     android:id="@+id/favorites_productbox_add_to_cart_button"
                     android:layout_width="match_parent"
                     android:layout_height="24dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_margin="8dp"
                     android:background="@drawable/default_button_background"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -147,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_margin="4dp"
-                    android:elevation="3dp"
+                    android:elevation="8dp"
                     android:tint="@color/colorButtonLabelsPrimary"
                     app:layout_constraintBottom_toBottomOf="@+id/favorites_productbox_add_to_cart_button"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -160,10 +168,10 @@
                     android:id="@+id/favorites_productbox_add_to_cart_button_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:elevation="3dp"
+                    android:elevation="8dp"
                     android:text="@string/add_to_cart_label"
                     android:textColor="@color/colorButtonLabelsPrimary"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/favorites_productbox_add_to_cart_button_image"

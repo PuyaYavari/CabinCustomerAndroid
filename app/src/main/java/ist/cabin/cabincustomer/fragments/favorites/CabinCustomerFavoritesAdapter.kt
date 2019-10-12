@@ -1,13 +1,16 @@
 package ist.cabin.cabincustomer.fragments.favorites
 
+import android.graphics.Outline
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
+import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabincustomer.R
 
@@ -33,6 +36,9 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
         val product = myDataset[position]
         holder.itemView.apply {
             findViewById<ImageView>(R.id.favorites_productbox_image).apply {
+                val params = layoutParams
+                params.height = params.width * 4/3
+                layoutParams = params
                 setOnClickListener { fragment.moveToProductDetail(myDataset[position]) }
             } //TODO:SET IMAGE
             findViewById<TextView>(R.id.favorites_productbox_seller_name).text = product.getSellerName()
@@ -40,9 +46,15 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
             findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price_unit) //TODO
             findViewById<TextView>(R.id.favorites_productbox_product_price).text = product.getPrice().toString()
             findViewById<TextView>(R.id.favorites_productbox_product_price_unit) //TODO
-            findViewById<ToggleButton>(R.id.favorites_productbox_favourite_button).setOnClickListener {
-                removeProduct(position)
+            findViewById<ToggleButton>(R.id.favorites_productbox_favourite_button)
+                .outlineProvider = object : ViewOutlineProvider() {
+                override fun getOutline(view: View?, outline: Outline?) {
+                    if (view != null &&  outline != null)
+                        outline.setOval(-4, 0, view.width + 4, view.height + 8)
+                }
             }
+            findViewById<ToggleButton>(R.id.favorites_productbox_favourite_button)
+                .setOnClickListener { removeProduct(position) }
             findViewById<Button>(R.id.favorites_productbox_add_to_cart_button).setOnClickListener {
                 //TODO:CALL VIEWS AddToCart THE CORRECT WAY
             }
@@ -57,11 +69,16 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
     }
 
     private fun removeProduct(position: Int) {
-        lastRemovedProduct = myDataset[position]
-        lastRemovedProductPosition = position
-        fragment.removeFromFavorites(myDataset[position])
-        myDataset.remove(myDataset[position])
-        notifyItemRemoved(position)
+        try {
+            lastRemovedProduct = myDataset[position]
+            lastRemovedProductPosition = position
+            fragment.removeFromFavorites(myDataset[position])
+            myDataset.remove(myDataset[position])
+            notifyItemRemoved(position)
+        } catch (exception: Exception) {
+            Logger.error(this::class.java.name, "Error while removing.", exception)
+            fragment.renewData()
+        }
     }
 
     fun undoLastRemove() {

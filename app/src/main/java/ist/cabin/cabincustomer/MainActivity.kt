@@ -3,10 +3,7 @@ package ist.cabin.cabincustomer
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,10 +11,15 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import ist.cabin.cabinCustomerBase.BaseActivity
 import ist.cabin.cabinCustomerBase.GlobalData
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
+import ist.cabin.cabinCustomerBase.models.local.MODELProduct
+import ist.cabin.cabinCustomerBase.models.local.MODELSize
 import ist.cabin.cabinCustomerBase.models.local.MODELUser
 import kotlinx.android.synthetic.main.cabin_customer_main.*
 
@@ -32,6 +34,10 @@ class MainActivity : BaseActivity(),
     private var mainTransitionContainer: MotionLayout? = null
 
     private var needLoginVisible = false
+
+    private var sizeSelected = false
+
+    private var selectSizeOpen = false
 
     //region Lifecycle
 
@@ -74,7 +80,7 @@ class MainActivity : BaseActivity(),
             true
         }
 
-        findViewById<Button>(R.id.login_button).setOnClickListener { presenter?.moveToRegisteration() }//TODO: REMOVE AND MAKE A PROPER BUTTON FOR THIS
+        findViewById<Button>(R.id.login_button).setOnClickListener { presenter?.moveToRegistration() }//TODO: REMOVE AND MAKE A PROPER BUTTON FOR THIS
 
         findViewById<ImageButton>(R.id.main_back_button).setOnClickListener { onBackPressed() }
 
@@ -83,10 +89,10 @@ class MainActivity : BaseActivity(),
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
+        when {
+            drawer_layout.isDrawerOpen(GravityCompat.START) -> drawer_layout.closeDrawer(GravityCompat.START)
+            selectSizeOpen -> hideSelectSize()
+            else -> super.onBackPressed()
         }
     }
 
@@ -259,5 +265,73 @@ class MainActivity : BaseActivity(),
 
     override fun unlockDrawer() {
         findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+    }
+
+    override fun setSelectedSize(size: MODELSize, callback: MainContracts.SelectSizeCallback) {
+        callback.selectSize(size)
+        sizeSelected = true
+    }
+
+    override fun showSelectSize(
+        product: MODELProduct,
+        color: MODELColor,
+        callback: MainContracts.SelectSizeCallback
+    ) {
+        //findViewById<ImageView>(R.id.select_size_product_image) TODO: SET IMAGE
+        findViewById<TextView>(R.id.select_size_seller_name).text = product.getSellerName()
+        findViewById<TextView>(R.id.select_size_product_name).text = product.getProductName()
+        findViewById<TextView>(R.id.select_size_product_id).text = product.getProductId()
+        findViewById<TextView>(R.id.select_size_price).text = product.getPrice().toString()
+        //TODO: DISCOUNTS
+
+        val sizesAdapter = SizesAdapter(this, color.sizes, callback)
+        findViewById<RecyclerView>(R.id.select_size_recycler_view).apply {
+            setHasFixedSize(false)
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = sizesAdapter
+        }
+
+        findViewById<Button>(R.id.select_size_add_to_cart_button).setOnClickListener {
+            if (sizeSelected) {
+                callback.confirm()
+                hideSelectSize()
+            }
+        }
+
+        findViewById<ImageView>(R.id.background_shadow).setOnClickListener { hideSelectSize() }
+
+        if (findViewById<BottomNavigationView>(R.id.navbar).translationY != 0f) {
+            mainTransitionContainer?.setTransition(
+                R.id.main_layout_navbar_hidden,
+                R.id.main_layout_navbar_hidden_select_size
+            )
+        } else {
+            mainTransitionContainer?.setTransition(
+                R.id.main_layout_default,
+                R.id.main_layout_default_select_size
+            )
+        }
+        mainTransitionContainer?.transitionToEnd()
+
+        selectSizeOpen = true
+    }
+
+    override fun hideSelectSize() {
+
+        if (findViewById<BottomNavigationView>(R.id.navbar).translationY != 0f) {
+            mainTransitionContainer?.setTransition(
+                R.id.main_layout_navbar_hidden_select_size,
+                R.id.main_layout_navbar_hidden
+            )
+        } else {
+            mainTransitionContainer?.setTransition(
+                R.id.main_layout_default_select_size,
+                R.id.main_layout_default
+            )
+        }
+        mainTransitionContainer?.transitionToEnd()
+
+        sizeSelected = false
+        selectSizeOpen = false
     }
 }

@@ -51,6 +51,8 @@
     <dimen name="productDetailBottomBarHeight">64dp</dimen>
     <dimen name="productDetailAddToCartButtonHeight">40dp</dimen>
 
+    <dimen name="selectSizeAddToCartButtonHeight">40dp</dimen>
+
     <dimen name="loginRegisterCardViewMargins">8dp</dimen>
 
     <dimen name="frogJumpHeight">-16dp</dimen>

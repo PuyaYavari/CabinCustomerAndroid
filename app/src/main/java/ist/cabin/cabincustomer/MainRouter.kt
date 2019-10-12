@@ -36,7 +36,7 @@ class MainRouter(var activity : Activity?) : MainContracts.Router {
         startActivity(activity!!.applicationContext, intent, Bundle.EMPTY)
     }
 
-    override fun moveToRegisteration() {
+    override fun moveToRegistration() {
         val customerLoginActivity: BaseContracts.View = CabinCustomerRegistrationActivity()
         val intent = Intent(activity, customerLoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

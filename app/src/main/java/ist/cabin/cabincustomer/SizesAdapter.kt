@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer.fragments.productDetail
+package ist.cabin.cabincustomer
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
-import ist.cabin.cabincustomer.R
 
-class CabinCustomerProductSizesAdapter(val view: CabinCustomerProductDetailContracts.View,
-                                       private var myDataset: List<MODELSize>):
-    RecyclerView.Adapter<CabinCustomerProductSizesAdapter.ProductSizeViewHolder>(),
-    CabinCustomerProductDetailContracts.SizeAdapter{
+class SizesAdapter(val view: MainContracts.View,
+                   private var myDataset: List<MODELSize>,
+                   private val callback: MainContracts.SelectSizeCallback):
+    RecyclerView.Adapter<SizesAdapter.ProductSizeViewHolder>(){
     var selectedSize = -1
 
     // Provide a reference to the views for each data item
@@ -38,9 +37,9 @@ class CabinCustomerProductSizesAdapter(val view: CabinCustomerProductDetailContr
             if (position == selectedSize)
                 findViewById<ImageView>(R.id.product_detail_product_sizebox_background).visibility = View.VISIBLE
             else
-                findViewById<ImageView>(R.id.product_detail_product_sizebox_background).visibility = View.INVISIBLE
+                findViewById<ImageView>(R.id.product_detail_product_sizebox_background).visibility = View.GONE
             findViewById<ImageView>(R.id.product_detail_product_sizebox).setOnClickListener {
-                view.setSelectedSize(myDataset[position])
+                view.setSelectedSize(myDataset[position], callback)
                 notifyItemChanged(selectedSize)
                 selectedSize = position
                 findViewById<ImageView>(R.id.product_detail_product_sizebox_background).visibility =
@@ -50,20 +49,4 @@ class CabinCustomerProductSizesAdapter(val view: CabinCustomerProductDetailContr
     }
 
     override fun getItemCount(): Int = myDataset.size
-
-    override fun setDataset(sizes: List<MODELSize>) {
-        myDataset = sizes
-        selectedSize = -1
-        notifyDataSetChanged()
-    }
-
-    fun indicateSelectedSize(size: MODELSize) {
-        var position = 0
-        while (position < myDataset.size && myDataset[position].id != size.id)
-            position++
-        val oldPosition = selectedSize
-        selectedSize = position
-        notifyItemChanged(oldPosition)
-        notifyItemChanged(selectedSize)
-    }
 }

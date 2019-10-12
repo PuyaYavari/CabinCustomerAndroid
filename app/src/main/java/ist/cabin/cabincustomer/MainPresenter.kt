@@ -47,8 +47,8 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter, Ma
         interactor?.logout(context)
     }
 
-    override fun moveToRegisteration() {
-        router?.moveToRegisteration()
+    override fun moveToRegistration() {
+        router?.moveToRegistration()
     }
 
     //endregion

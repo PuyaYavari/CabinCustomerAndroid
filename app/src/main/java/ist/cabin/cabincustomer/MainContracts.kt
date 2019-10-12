@@ -1,6 +1,9 @@
 package ist.cabin.cabincustomer
 
 import android.content.Context
+import ist.cabin.cabinCustomerBase.models.local.MODELColor
+import ist.cabin.cabinCustomerBase.models.local.MODELProduct
+import ist.cabin.cabinCustomerBase.models.local.MODELSize
 
 object MainContracts {
     interface View: ist.cabin.cabinCustomerBase.BaseContracts.View {
@@ -15,6 +18,9 @@ object MainContracts {
         fun setHeader(header: String, headerExtras: String?)
         fun lockDrawer()
         fun unlockDrawer()
+        fun hideSelectSize()
+        fun showSelectSize(product: MODELProduct, color: MODELColor, callback: SelectSizeCallback)
+        fun setSelectedSize(size: MODELSize, callback: SelectSizeCallback)
     }
 
     interface Presenter: ist.cabin.cabinCustomerBase.BaseContracts.Presenter {
@@ -22,7 +28,7 @@ object MainContracts {
         fun moveToMeasure()
         fun moveToExtraditions()
         fun requestLogout(context: Context)
-        fun moveToRegisteration()
+        fun moveToRegistration()
     }
 
     interface Interactor: ist.cabin.cabinCustomerBase.BaseContracts.Interactor {
@@ -37,6 +43,11 @@ object MainContracts {
         fun moveToProfileOptions()
         fun moveToMeasure()
         fun moveToExtraditions()
-        fun moveToRegisteration()
+        fun moveToRegistration()
+    }
+
+    interface SelectSizeCallback {
+        fun selectSize(size: MODELSize)
+        fun confirm()
     }
 }

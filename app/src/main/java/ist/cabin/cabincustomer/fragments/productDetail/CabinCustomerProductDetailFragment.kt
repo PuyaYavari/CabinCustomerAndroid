@@ -1,10 +1,12 @@
 package ist.cabin.cabincustomer.fragments.productDetail
 
+import android.graphics.Outline
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.Button
 import android.widget.TextView
 import android.widget.ToggleButton
@@ -20,6 +22,7 @@ import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
 import ist.cabin.cabincustomer.MainActivity
+import ist.cabin.cabincustomer.MainContracts
 import ist.cabin.cabincustomer.R
 
 
@@ -108,7 +111,15 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
         presenter?.setProduct(args.product)
 
         pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).setOnClickListener {
-            presenter?.addToCartButtonListener()
+            if (context != null)
+                presenter?.addToCartButtonListener(context)
+        }
+
+        pageView.findViewById<ToggleButton>(R.id.product_detail_favourite_button).outlineProvider = object : ViewOutlineProvider() {
+            override fun getOutline(view: View?, outline: Outline?) {
+                if (view != null &&  outline != null)
+                    outline.setOval(-4,0,view.width+4,view.height+8)
+            }
         }
     }
 
@@ -460,6 +471,18 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
 
     override fun setTickOnColor(color: MODELColor) {
         colorsAdapter.setTickOnColor(color)
+    }
+
+    override fun showSelectSizeFor(
+        product: MODELProduct,
+        color: MODELColor,
+        callback: MainContracts.SelectSizeCallback
+    ) {
+        (activity!! as MainActivity).showSelectSize(product, color, callback)
+    }
+
+    override fun indicateSelectedSize(size: MODELSize) {
+        sizesAdapter.indicateSelectedSize(size)
     }
 
     //endregion

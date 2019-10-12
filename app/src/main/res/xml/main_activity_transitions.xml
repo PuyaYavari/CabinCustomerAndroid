@@ -34,6 +34,27 @@
         motion:constraintSetEnd="@id/main_layout_default"
         motion:duration="500"/>
 
+    <Transition
+        motion:constraintSetStart="@id/main_layout_navbar_hidden"
+        motion:constraintSetEnd="@id/main_layout_navbar_hidden_select_size"
+        motion:duration="500"/>
+    <Transition
+        motion:constraintSetStart="@id/main_layout_navbar_hidden_select_size"
+        motion:constraintSetEnd="@id/main_layout_navbar_hidden"
+        motion:duration="500"/>
+
+    <Transition
+        motion:constraintSetStart="@id/main_layout_default"
+        motion:constraintSetEnd="@id/main_layout_default_select_size"
+        motion:duration="500"/>
+    <Transition
+        motion:constraintSetStart="@id/main_layout_default_select_size"
+        motion:constraintSetEnd="@id/main_layout_default"
+        motion:duration="500"/>
+
+
+
+
     <ConstraintSet android:id="@+id/main_layout_default">
         <Constraint
                 android:id="@+id/main_header"
@@ -79,6 +100,25 @@
             android:layout_width="match_parent"
             motion:layout_constraintVertical_bias="1"
                 />
+        <Constraint
+            android:id="@+id/select_size_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="parent"
+            android:translationY="0dp"/>
+        <Constraint
+            android:id="@+id/background_shadow"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="8dp"
+            android:visibility="invisible"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"/>
     </ConstraintSet>
     <ConstraintSet android:id="@+id/main_layout_navbar_hidden">
         <Constraint
@@ -115,6 +155,25 @@
                 android:translationY="@dimen/navbarHeight"
                 motion:layout_constraintVertical_bias="1"
                 />
+        <Constraint
+                android:id="@+id/select_size_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="parent"
+                android:translationY="0dp"/>
+        <Constraint
+                android:id="@+id/background_shadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:elevation="8dp"
+                android:visibility="invisible"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
     </ConstraintSet>
     <ConstraintSet android:id="@+id/main_layout_not_logged_in">
         <Constraint
@@ -161,6 +220,147 @@
                 android:layout_width="match_parent"
                 motion:layout_constraintVertical_bias="1"
                 />
+        <Constraint
+                android:id="@+id/select_size_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="parent"
+                android:translationY="0dp"/>
+        <Constraint
+                android:id="@+id/background_shadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:elevation="8dp"
+                android:visibility="invisible"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+    </ConstraintSet>
+
+
+    <ConstraintSet android:id="@+id/main_layout_default_select_size">
+        <Constraint
+                android:id="@+id/main_header"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintVertical_bias="0"
+                android:elevation="@dimen/defaultHeaderElevation"
+                android:translationY="0dp"
+                />
+        <Constraint android:id="@+id/not_logged_in_layout"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_marginBottom="@dimen/navbarHeight"
+                android:layout_marginTop="@dimen/defaultHeaderHeight"
+                android:visibility="invisible"
+                android:alpha="0"
+                />
+        <Constraint
+                android:id="@+id/nav_host_fragment_layout"
+                motion:layout_constraintBottom_toTopOf="@+id/navbar"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@+id/main_header"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:visibility="visible"
+                />
+        <Constraint
+                android:id="@+id/navbar"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_height="@dimen/navbarHeight"
+                android:layout_width="match_parent"
+                motion:layout_constraintVertical_bias="1"
+                />
+        <Constraint
+                android:id="@+id/select_size_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="parent"
+                android:translationY="-300dp"/>
+        <Constraint
+                android:id="@+id/background_shadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:elevation="8dp"
+                android:visibility="visible"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/main_layout_navbar_hidden_select_size">
+        <Constraint
+                android:id="@+id/main_header"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintVertical_bias="0"
+                android:elevation="@dimen/defaultHeaderElevation"
+                android:translationY="@dimen/defaultHeaderHeightNegative"
+                />
+
+        <Constraint
+                android:id="@+id/nav_host_fragment_layout"
+                motion:layout_constraintBottom_toTopOf="@+id/navbar"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@+id/main_header"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:visibility="visible"
+                />
+        <Constraint
+                android:id="@+id/navbar"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_height="@dimen/navbarHeight"
+                android:layout_width="match_parent"
+                android:translationY="@dimen/navbarHeight"
+                motion:layout_constraintVertical_bias="1"
+                />
+        <Constraint
+                android:id="@+id/select_size_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="parent"
+                android:translationY="-300dp"/>
+        <Constraint
+                android:id="@+id/background_shadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:elevation="8dp"
+                android:visibility="visible"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
     </ConstraintSet>
 
 </MotionScene>
