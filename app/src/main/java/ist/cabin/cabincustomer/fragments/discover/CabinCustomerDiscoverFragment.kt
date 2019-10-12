@@ -44,6 +44,9 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
 
     override fun onResume() {
         super.onResume()
+        val context = context
+        if (context != null)
+            presenter?.updateLastEnteredProduct(context)
         presenter?.onResume()
     }
 
@@ -109,14 +112,18 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
         (activity!! as MainActivity).hideNavbar()
     }
 
-    override fun moveToProductDetail(product: MODELProduct) {
-        presenter?.moveToProductDetail(product)
+    override fun moveToProductDetail(product: MODELProduct, position: Int) {
+        presenter?.moveToProductDetail(product, position)
     }
 
     override fun addData(products: List<MODELProduct>?) {
         if (products != null)
             myDataset.addAll(products as Iterable<MODELProduct>)
         viewAdapter.notifyDataSetChanged()
+    }
+
+    override fun updateProduct(product: MODELProduct, position: Int) {
+        viewAdapter.updateProduct(product, position)
     }
 
     //endregion

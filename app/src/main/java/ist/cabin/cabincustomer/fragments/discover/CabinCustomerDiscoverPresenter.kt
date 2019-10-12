@@ -1,6 +1,7 @@
 package ist.cabin.cabincustomer.fragments.discover
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 
@@ -12,6 +13,9 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
         CabinCustomerDiscoverInteractor(this)
     var router: CabinCustomerDiscoverContracts.Router? = null
     private var currentPage = 0
+
+    private var lastEnteredProduct: MODELProduct? = null
+    private var lastEnteredProductPosition: Int = -1
 
     //region Lifecycle
 
@@ -40,7 +44,9 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
 
     //region Presenter
 
-    override fun moveToProductDetail(product: MODELProduct) {
+    override fun moveToProductDetail(product: MODELProduct, position: Int) {
+        lastEnteredProduct = product
+        lastEnteredProductPosition = position
         router?.moveToProductDetail(product)
     }
 
@@ -48,6 +54,12 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
         val context = view?.getActivityContext()
         if (context != null && currentPage < page)
             interactor?.getItemData(context, page, pageSize)
+    }
+
+    override fun updateLastEnteredProduct(context: Context) {
+        val product = lastEnteredProduct
+        if (product != null)
+            interactor?.getProduct(context, product.getId())
     }
 
     //endregion
@@ -61,6 +73,13 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
 
     override fun resetPage() {
         currentPage = 0
+    }
+
+    override fun updateProduct(product: MODELProduct) {
+        if (lastEnteredProductPosition > -1)
+            view?.updateProduct(product, lastEnteredProductPosition)
+        lastEnteredProductPosition = -1
+        lastEnteredProduct = null
     }
 
     //endregion

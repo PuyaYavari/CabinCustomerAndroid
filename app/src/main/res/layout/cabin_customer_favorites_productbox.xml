@@ -25,6 +25,25 @@
                 app:srcCompat="@drawable/sample_product" />
     </androidx.cardview.widget.CardView>
 
+    <ToggleButton
+            android:id="@+id/favorites_productbox_favourite_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/default_like_button"
+            android:checked="true"
+            android:elevation="5dp"
+            android:textOff=""
+            android:textOn=""
+            app:layout_constraintBottom_toBottomOf="@+id/favorites_productbox_card"
+            app:layout_constraintEnd_toEndOf="@+id/favorites_productbox_card"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/favorites_productbox_card"
+            app:layout_constraintTop_toTopOf="@+id/favorites_productbox_card"
+            app:layout_constraintVertical_bias="0.0" />
+
     <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"

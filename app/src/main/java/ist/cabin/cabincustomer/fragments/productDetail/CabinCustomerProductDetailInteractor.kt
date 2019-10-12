@@ -114,7 +114,8 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true) {
-                        output?.updateProduct(responseClass.products[0])
+                        if (responseClass.products.isNotEmpty())
+                            output?.updateProduct(responseClass.products[0])
                         Logger.info(this::class.java.name, "SUCCESS, Value: $value", null)
                     }
                 }

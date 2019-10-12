@@ -102,12 +102,6 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
         colorsDataset  = mutableListOf()
         sizesDataset = mutableListOf()
         colorSizesDataset  = mutableMapOf()
-        if (initialColor != null) {
-            val color = initialColor
-            if (color != null) {
-                view?.setSelectedColor(color)
-            }
-        }
         val colors = product.getColors()
         colors.forEach {modelColor ->
             val colorSizes: MutableList<MODELSize> = mutableListOf()
@@ -115,12 +109,9 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
                 colorSizes.add(modelSize)
             }
 
-            if (initialColor == null) {
+            if (initialColor == null)
                 initialColor = modelColor
-                val color = initialColor
-                if (color != null)
-                    view?.setSelectedColor(color)
-            }
+
 
             colorsDataset.add(modelColor)
             colorSizesDataset[modelColor.id] = colorSizes
@@ -128,6 +119,7 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
         view?.setupColors(colorsDataset)
         val color = initialColor
         if (color != null) {
+            view?.setSelectedColor(color)
             view?.setupSizes(sizesDataset, color.id)
             view?.setTickOnColor(color)
         }

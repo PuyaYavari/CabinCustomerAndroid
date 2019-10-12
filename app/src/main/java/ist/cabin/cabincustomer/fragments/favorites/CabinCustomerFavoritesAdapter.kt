@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabincustomer.R
@@ -13,6 +14,9 @@ import ist.cabin.cabincustomer.R
 class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContracts.View,
                                      private var myDataset: MutableList<MODELProduct>)
     : RecyclerView.Adapter<CabinCustomerFavoritesAdapter.FavoritesProductViewHolder>() {
+
+    private var lastRemovedProduct: MODELProduct? = null
+    private var lastRemovedProductPosition: Int? = null
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -26,16 +30,19 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
     }
 
     override fun onBindViewHolder(holder: FavoritesProductViewHolder, position: Int) {
-        val data = myDataset[position]
+        val product = myDataset[position]
         holder.itemView.apply {
             findViewById<ImageView>(R.id.favorites_productbox_image).apply {
                 setOnClickListener { fragment.moveToProductDetail(myDataset[position]) }
             } //TODO:SET IMAGE
-            findViewById<TextView>(R.id.favorites_productbox_seller_name).text = data.getSellerName()
+            findViewById<TextView>(R.id.favorites_productbox_seller_name).text = product.getSellerName()
             findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price) //TODO
             findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price_unit) //TODO
-            findViewById<TextView>(R.id.favorites_productbox_product_price).text = data.getPrice().toString()
+            findViewById<TextView>(R.id.favorites_productbox_product_price).text = product.getPrice().toString()
             findViewById<TextView>(R.id.favorites_productbox_product_price_unit) //TODO
+            findViewById<ToggleButton>(R.id.favorites_productbox_favourite_button).setOnClickListener {
+                removeProduct(position)
+            }
             findViewById<Button>(R.id.favorites_productbox_add_to_cart_button).setOnClickListener {
                 //TODO:CALL VIEWS AddToCart THE CORRECT WAY
             }
@@ -47,5 +54,22 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
     fun setData(products: List<MODELProduct>) {
         this.myDataset = products as MutableList<MODELProduct>
         notifyDataSetChanged()
+    }
+
+    private fun removeProduct(position: Int) {
+        lastRemovedProduct = myDataset[position]
+        lastRemovedProductPosition = position
+        fragment.removeFromFavorites(myDataset[position])
+        myDataset.remove(myDataset[position])
+        notifyItemRemoved(position)
+    }
+
+    fun undoLastRemove() {
+        val position = lastRemovedProductPosition
+        val item = lastRemovedProduct
+        if (position != null && item != null) {
+            myDataset.add(position, item)
+            notifyItemInserted(position)
+        }
     }
 }

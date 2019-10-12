@@ -84,8 +84,18 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
 
     override fun showData(products: List<MODELProduct>) = viewAdapter.setData(products)
 
+    override fun removeFromFavorites(product: MODELProduct) {
+        val context = this.context
+        if (context != null)
+            presenter?.removeFromFavorites(context, product)
+    }
+
     override fun moveToProductDetail(product: MODELProduct) {
         presenter?.moveToProductDetail(product)
+    }
+
+    override fun undoRemove() {
+        viewAdapter.undoLastRemove()
     }
 
     override fun addToCart(

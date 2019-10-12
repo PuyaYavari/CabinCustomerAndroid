@@ -50,6 +50,10 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
         router?.moveToProductDetail(product)
     }
 
+    override fun removeFromFavorites(context: Context, product: MODELProduct) {
+        interactor?.removeFromFavorites(context, product)
+    }
+
     override fun addToCart(
         context: Context,
         amount: Int,
@@ -72,6 +76,10 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
         }
         if (myDataset.isNotEmpty())
             view?.showData(myDataset)
+    }
+
+    override fun undoRemove() {
+        view?.undoRemove()
     }
 
     //endregion

@@ -13,7 +13,7 @@ import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabincustomer.R
 
 class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts.View,
-                                    private val myDataset: List<MODELProduct>)
+                                    private val myDataset: MutableList<MODELProduct>)
     : RecyclerView.Adapter<CabinCustomerDiscoverAdapter.DiscoverProductViewHolder>(){
 
     // Provide a reference to the views for each data item
@@ -37,7 +37,7 @@ class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts
                 }
             }
             findViewById<ImageView>(R.id.discover_productbox_product_image).apply {
-                setOnClickListener { fragment.moveToProductDetail(myDataset[position]) }
+                setOnClickListener { fragment.moveToProductDetail(myDataset[position], position) }
 //                setImageDrawable()
             }
             findViewById<TextView>(R.id.discover_productbox_seller_name).text = data.getSellerName()
@@ -48,4 +48,10 @@ class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts
     }
 
     override fun getItemCount() = myDataset.size
+
+    fun updateProduct(product: MODELProduct, position: Int) {
+        //TODO: REMOVE IF PRODUCT FINISHED
+        myDataset[position] = product
+        notifyItemChanged(position)
+    }
 }

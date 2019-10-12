@@ -11,6 +11,7 @@ import ist.cabin.cabinCustomerBase.models.adapters.APIProductAdapter
 import ist.cabin.cabinCustomerBase.models.adapters.JSONProductAdapter
 import ist.cabin.cabinCustomerBase.models.backend.*
 import ist.cabin.cabinCustomerBase.models.local.MODELColor
+import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELProducts
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
 
@@ -90,6 +91,66 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
                     )
                 }
 
+            }
+        )
+    }
+
+    override fun removeFromFavorites(context: Context, product: MODELProduct) {
+        val data = REQUESTAPIProduct (
+            listOf(
+                REQUESTProduct(
+                    product.getId(),
+                    null,
+                    listOf(
+                        REQUESTColor(
+                            product.getColors()[0].id,
+                            null
+                        )
+                    )
+                )
+            )
+        )
+        NetworkManager.requestFactory<Any?>(
+            context,
+            Constants.DISCOVER_REMOVE_FROM_FAVORITE_URL,
+            null,
+            null,
+            data,
+            null,
+            null,
+            object : BaseContracts.ResponseCallbacks{
+                override fun onSuccess(value: Any?) {
+                    Logger.info(this::class.java.name, "SUCCESS, Value: $value", null)
+                }
+
+                override fun onIssue(value: JSONIssue) {
+                    Logger.warn(this::class.java.name, "ISSUE, Value: $value", null)
+                    //TODO: SHOW ISSUE
+                    output?.undoRemove()
+                }
+
+                override fun onError(value: String, url: String?) {
+                    Logger.warn(this::class.java.name, "Error, Value: $value", null)
+                    //TODO: SHOW ERROR AND URL
+                    output?.undoRemove()
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    Logger.error(this::class.java.name, "FAILURE", throwable)
+                    //TODO: SHOW DEFAULT FAILURE ERROR
+                    output?.undoRemove()
+                }
+
+                override fun onServerDown() {
+                    Logger.warn(this::class.java.name, "SERVER DOWN", null)
+                    output?.undoRemove()
+                }
+
+                override fun onException(exception: Exception) {
+                    Logger.error(this::class.java.name, "EXCEPTION", exception)
+                    //TODO: HANDLE
+                    output?.undoRemove()
+                }
             }
         )
     }
