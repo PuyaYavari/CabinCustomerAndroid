@@ -60,12 +60,13 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
 
         (activity!! as MainActivity).lockDrawer()
 
+        setupPage()
+
         return pageView
     }
 
     override fun onResume() {
         super.onResume()
-        setupPage()
         presenter?.onResume()
     }
 
@@ -371,6 +372,7 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
     }
 
     override fun populateImagesList() { //FIXME: DOWNLOAD IMAGES AND PUT HERE
+        imagesList.clear()
         for (i in 0..4)
             imagesList.add(R.drawable.sample_product)
     }

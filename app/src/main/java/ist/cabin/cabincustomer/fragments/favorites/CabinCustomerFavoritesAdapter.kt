@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
@@ -50,14 +50,14 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
             findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price_unit) //TODO
             findViewById<TextView>(R.id.favorites_productbox_product_price).text = product.getPrice().toString()
             findViewById<TextView>(R.id.favorites_productbox_product_price_unit) //TODO
-            findViewById<ToggleButton>(R.id.favorites_productbox_favourite_button)
+            findViewById<ImageButton>(R.id.favorites_productbox_favourite_button)
                 .outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View?, outline: Outline?) {
                     if (view != null &&  outline != null)
                         outline.setOval(-4, 0, view.width + 4, view.height + 8)
                 }
             }
-            findViewById<ToggleButton>(R.id.favorites_productbox_favourite_button)
+            findViewById<ImageButton>(R.id.favorites_productbox_favourite_button)
                 .setOnClickListener { removeProduct(position) }
             findViewById<Button>(R.id.favorites_productbox_add_to_cart_button).setOnClickListener {
                 fragment.showSelectSize(

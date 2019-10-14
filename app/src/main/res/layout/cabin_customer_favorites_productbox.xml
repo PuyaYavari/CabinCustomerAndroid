@@ -7,13 +7,13 @@
         android:clipToPadding="false"
         android:background="@drawable/default_borders">
 
-    <ToggleButton
+    <ImageButton
             android:id="@+id/favorites_productbox_favourite_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
-            android:background="@drawable/default_like_button"
+            android:background="@drawable/icon_favorite_toggle_button_on"
             android:checked="true"
             android:elevation="5dp"
             android:textOff=""

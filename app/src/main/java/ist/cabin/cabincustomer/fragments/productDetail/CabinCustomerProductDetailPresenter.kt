@@ -148,6 +148,9 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             view?.setupSizes(sizesDataset, color.id)
             view?.setTickOnColor(color)
         }
+        val size = selectedSize
+        if (size != null)
+            view?.indicateSelectedSize(size)
     }
 
     override fun setSelectedColor(color: MODELColor) {
@@ -160,7 +163,6 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
 
     override fun setSizesDataset(sizesDataset: MutableList<MODELSize>) {
         this.sizesDataset = sizesDataset
-
     }
 
     override fun getSizesOfColor(id: Int): MutableList<MODELSize>? = colorSizesDataset[id]
