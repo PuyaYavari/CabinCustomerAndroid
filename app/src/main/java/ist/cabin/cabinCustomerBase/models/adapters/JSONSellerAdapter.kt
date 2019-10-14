@@ -4,8 +4,9 @@ import com.squareup.moshi.*
 import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONProduct
 import ist.cabin.cabinCustomerBase.models.backend.JSONSeller
+import ist.cabin.cabincustomer.fragments.cart.CabinCustomerCartContracts
 
-class JSONSellerAdapter(moshi: Moshi) : JsonAdapter<JSONSeller>() {
+class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<JSONSeller>() {
     private val options: JsonReader.Options =
         JsonReader.Options.of("ID", "NAME", "PRODUCT", "SELLERSHIPPINGPRICE", "SELLERSUBTOTAL", "SELLERTOTAL")
 
@@ -16,7 +17,7 @@ class JSONSellerAdapter(moshi: Moshi) : JsonAdapter<JSONSeller>() {
         moshi.adapter<String>(String::class.java, kotlin.collections.emptySet(), "name")
 
     private val listOfNullableJSONProductAdapter: JsonAdapter<List<JSONProduct?>> =
-        Moshi.Builder().add(JSONProductAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(JSONCartProductAdapter(Moshi.Builder().build(), callback)).build()
             .adapter<List<JSONProduct?>>(Types.newParameterizedType(List::class.java,
                 JSONProduct::class.java), kotlin.collections.emptySet(), "products")
 

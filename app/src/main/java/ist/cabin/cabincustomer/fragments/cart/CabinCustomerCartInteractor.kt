@@ -31,7 +31,14 @@ class CabinCustomerCartInteractor(var output: CabinCustomerCartContracts.Interac
             null,
             carts,
             //null,
-            APICartAdapter(Moshi.Builder().build()),
+            APICartAdapter(
+                Moshi.Builder().build(),
+                object : CabinCustomerCartContracts.CartCallback {
+                    override fun updateCart(cart: MODELCart) {
+                        output?.setCart(cart)
+                    }
+                }
+            ),
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     Logger.info(this::class.java.name, "Success ${value.toString()}", null)
@@ -95,7 +102,7 @@ class CabinCustomerCartInteractor(var output: CabinCustomerCartContracts.Interac
             data,
             carts,
             //null,
-            APICartAdapter(Moshi.Builder().build()),
+            APICartAdapter(Moshi.Builder().build(), null),
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     Logger.info(this::class.java.name, "Success ${value.toString()}", null)

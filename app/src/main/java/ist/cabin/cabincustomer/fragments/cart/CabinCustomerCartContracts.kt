@@ -43,4 +43,8 @@ object CabinCustomerCartContracts {
         fun moveToFinishTrade()
         fun moveToProductDetail(product: MODELProduct, color: MODELColor)
     }
+
+    interface CartCallback {
+        fun updateCart(cart: MODELCart)
+    }
 }

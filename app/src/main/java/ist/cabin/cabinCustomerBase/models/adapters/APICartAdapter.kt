@@ -4,12 +4,13 @@ import com.squareup.moshi.*
 import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.APICart
 import ist.cabin.cabinCustomerBase.models.backend.JSONCart
+import ist.cabin.cabincustomer.fragments.cart.CabinCustomerCartContracts
 
-class APICartAdapter(moshi: Moshi) : JsonAdapter<APICart>() {
+class APICartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<APICart>() {
     private val options: JsonReader.Options = JsonReader.Options.of("BASKET")
 
     private val listOfNullableJSONCartAdapter: JsonAdapter<List<JSONCart?>> =
-        Moshi.Builder().add(JSONCartAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(JSONCartAdapter(Moshi.Builder().build(), callback)).build()
             .adapter<List<JSONCart?>>(Types.newParameterizedType(List::class.java,
                 JSONCart::class.java), kotlin.collections.emptySet(), "cart")
 

@@ -57,7 +57,7 @@ object NetworkManager {
 
 
     @Throws(Exception::class)
-    inline fun <reified T>requestFactory(context: Context,
+    inline fun <reified T>requestFactory(context: Context?,
                                          url: String,
                                          page: Int?,
                                          pageSize: Int?,
