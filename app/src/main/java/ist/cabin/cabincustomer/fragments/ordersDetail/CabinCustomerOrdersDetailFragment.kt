@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,14 +32,19 @@ class CabinCustomerOrdersDetailFragment : BaseFragment(), CabinCustomerOrdersDet
         super.onResume()
 
         (activity!! as MainActivity).setHeader(resources.getString(R.string.orders_header),null)
-        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).showBackButton()
 
-        if (GlobalData.loggedIn)
+        if (GlobalData.loggedIn) {
             setupPage()
-        else
+            if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.not_logged_in_layout)
+                    .visibility == View.INVISIBLE) {
+                (activity!! as MainActivity).layoutBackToDefault()
+                (activity!! as MainActivity).showNavbar()
+            } else
+                (activity!! as MainActivity).hideNeedLogin()
+        } else
             (activity!! as MainActivity).showNeedLogin()
 
         presenter?.onResume()

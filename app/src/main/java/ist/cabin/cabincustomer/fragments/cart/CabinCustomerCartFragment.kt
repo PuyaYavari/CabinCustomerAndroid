@@ -42,14 +42,18 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
         super.onResume()
 
         (activity!! as MainActivity).setHeader(resources.getString(R.string.cart_label),null)
-        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
 
         if (GlobalData.loggedIn) {
             setupPage()
-            (activity!! as MainActivity).hideNeedLogin()
+            if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.not_logged_in_layout)
+                    .visibility == View.INVISIBLE) {
+                (activity!! as MainActivity).layoutBackToDefault()
+                (activity!! as MainActivity).showNavbar()
+            } else
+                (activity!! as MainActivity).hideNeedLogin()
         } else
             (activity!! as MainActivity).showNeedLogin()
 

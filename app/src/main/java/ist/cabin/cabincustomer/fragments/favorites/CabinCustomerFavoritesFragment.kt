@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
@@ -35,14 +36,18 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
         super.onResume()
 
         (activity!! as MainActivity).setHeader(resources.getString(R.string.favorites_label),null)
-        (activity!! as MainActivity).showNavbar()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
 
         if (GlobalData.loggedIn) {
             setupPage()
-            (activity!! as MainActivity).hideNeedLogin()
+            if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.not_logged_in_layout)
+                    .visibility == View.INVISIBLE) {
+                (activity!! as MainActivity).layoutBackToDefault()
+                (activity!! as MainActivity).showNavbar()
+            } else
+                (activity!! as MainActivity).hideNeedLogin()
         } else
             (activity!! as MainActivity).showNeedLogin()
 
