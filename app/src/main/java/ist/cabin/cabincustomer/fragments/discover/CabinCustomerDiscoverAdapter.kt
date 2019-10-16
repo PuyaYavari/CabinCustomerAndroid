@@ -50,7 +50,7 @@ class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts
             findViewById<ToggleButton>(R.id.discover_productbox_favourite_button).isClickable = false //FIXME: ISCLICKABLE!?
             data.getColors().forEach {
                 if (it.favourite)
-                    findViewById<ToggleButton>(R.id.discover_productbox_favourite_button).isChecked = true
+                    findViewById<ToggleButton>(R.id.discover_productbox_favourite_button).isChecked = true //FIXME: NON FAV CAN BE INDICATED AS FAV
             }
             //TODO: Add discount
         }

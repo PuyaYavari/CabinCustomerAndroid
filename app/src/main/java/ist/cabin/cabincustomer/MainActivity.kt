@@ -214,13 +214,57 @@ class MainActivity : BaseActivity(),
         }
     }
 
-    override fun hideNavbar() {
+    override fun hideNavbarFromDefault() {
+        val hiddenNavbarTranslation = resources.getDimension(R.dimen.navbarHeight)
+        if (mainTransitionContainer != null) {
+            mainTransitionContainer?.setTransition(
+                R.id.main_layout_default,
+                R.id.main_layout_navbar_hidden
+            )
+            mainTransitionContainer?.transitionToEnd()
+        }
+    }
+
+    override fun hideNavbarFromHidden() {
+        val hiddenNavbarTranslation = resources.getDimension(R.dimen.navbarHeight)
+        if (mainTransitionContainer != null &&
+            findViewById<BottomNavigationView>(R.id.navbar).translationY == hiddenNavbarTranslation
+        ) {
+            mainTransitionContainer?.setTransition(
+                R.id.main_layout_navbar_header_hidden,
+                R.id.main_layout_navbar_hidden
+            )
+            mainTransitionContainer?.transitionToEnd()
+        }
+    }
+
+    override fun showHeaderNavbar() {
+        val hiddenNavbarTranslation = resources.getDimension(R.dimen.navbarHeight)
+        if (mainTransitionContainer != null &&
+            findViewById<BottomNavigationView>(R.id.navbar).translationY == hiddenNavbarTranslation
+        ) {
+            if (findViewById<ConstraintLayout>(R.id.main_header).translationY != 0f) {
+                mainTransitionContainer?.setTransition(
+                    R.id.main_layout_navbar_header_hidden,
+                    R.id.main_layout_default
+                )
+            } else {
+                mainTransitionContainer?.setTransition(
+                    R.id.main_layout_navbar_hidden,
+                    R.id.main_layout_default
+                )
+            }
+            mainTransitionContainer?.transitionToEnd()
+        }
+    }
+
+    override fun hideHeaderNavbar() {
         if (mainTransitionContainer != null &&
             findViewById<BottomNavigationView>(R.id.navbar).translationY == 0f
         ) {
             mainTransitionContainer?.setTransition(
                 R.id.main_layout_default,
-                R.id.main_layout_navbar_hidden
+                R.id.main_layout_navbar_header_hidden
             )
             mainTransitionContainer?.transitionToEnd()
         }
@@ -302,8 +346,8 @@ class MainActivity : BaseActivity(),
 
         if (findViewById<BottomNavigationView>(R.id.navbar).translationY != 0f) {
             mainTransitionContainer?.setTransition(
-                R.id.main_layout_navbar_hidden,
-                R.id.main_layout_navbar_hidden_select_size
+                R.id.main_layout_navbar_header_hidden,
+                R.id.main_layout_navbar_header_hidden_select_size
             )
         } else {
             mainTransitionContainer?.setTransition(
@@ -320,8 +364,8 @@ class MainActivity : BaseActivity(),
 
         if (findViewById<BottomNavigationView>(R.id.navbar).translationY != 0f) {
             mainTransitionContainer?.setTransition(
-                R.id.main_layout_navbar_hidden_select_size,
-                R.id.main_layout_navbar_hidden
+                R.id.main_layout_navbar_header_hidden_select_size,
+                R.id.main_layout_navbar_header_hidden
             )
         } else {
             mainTransitionContainer?.setTransition(

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
@@ -69,6 +70,8 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     //region View
 
     private fun setupPage() {
+        pageView.findViewById<ConstraintLayout>(R.id.discover_header_bottom_bar_filter_layout)
+            .setOnClickListener { presenter?.moveToFilter() }
 //        if (){
 //            clearPage()
             reloadProducts()
@@ -76,7 +79,7 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     }
 
     override fun showHeaderAndNavbar() {
-        (activity!! as MainActivity).showNavbar()
+        (activity!! as MainActivity).showHeaderNavbar()
     }
 
     private fun reloadProducts(){
@@ -109,7 +112,7 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     }
 
     override fun hideHeaderAndNavbar() {
-        (activity!! as MainActivity).hideNavbar()
+        (activity!! as MainActivity).hideHeaderNavbar()
     }
 
     override fun moveToProductDetail(product: MODELProduct, position: Int) {

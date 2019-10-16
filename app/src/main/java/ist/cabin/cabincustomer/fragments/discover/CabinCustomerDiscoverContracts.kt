@@ -19,6 +19,7 @@ object CabinCustomerDiscoverContracts {
         fun getItemData(page:Int, pageSize:Int)
         fun resetPage()
         fun updateLastEnteredProduct(context: Context)
+        fun moveToFilter()
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -33,6 +34,7 @@ object CabinCustomerDiscoverContracts {
 
     interface Router : BaseContracts.Router {
         fun moveToProductDetail(product: MODELProduct)
+        fun moveToFilter()
     }
 
 }

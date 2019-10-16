@@ -1,14 +1,18 @@
 package ist.cabin.cabincustomer
 
 import android.content.Context
+import android.os.Parcelable
 import ist.cabin.cabinCustomerBase.models.local.MODELColor
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
 
 object MainContracts {
     interface View: ist.cabin.cabinCustomerBase.BaseContracts.View {
-        fun hideNavbar()
+        fun hideNavbarFromDefault()
+        fun hideNavbarFromHidden()
         fun showNavbar()
+        fun hideHeaderNavbar()
+        fun showHeaderNavbar()
         fun showNeedLogin()
         fun hideNeedLogin()
         fun showBackButton()
@@ -49,5 +53,10 @@ object MainContracts {
     interface SelectSizeCallback {
         fun selectSize(size: MODELSize)
         fun confirm()
+    }
+
+    interface FilterDetailGenerator : Parcelable {
+        fun getLayoutManager()
+        fun getDataset()
     }
 }

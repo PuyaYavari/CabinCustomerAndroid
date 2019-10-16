@@ -19,5 +19,10 @@ class CabinCustomerDiscoverRouter(var activity: Activity?) :
         activity!!.findNavController(R.id.nav_host_fragment).navigate(action)
     }
 
+    override fun moveToFilter() {
+        val action = CabinCustomerDiscoverFragmentDirections.actionDiscoverToFilter()
+        activity!!.findNavController(R.id.nav_host_fragment).navigate(action)
+    }
+
     //endregion
 }

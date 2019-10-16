@@ -32,6 +32,7 @@ object Constants {
     const val DISCOVER_ADD_TO_CART_URL: String = "explore/AddProduct"
     const val DISCOVER_ADD_TO_FAVORITE_URL: String = "explore/addUserFavoriteProduct"
     const val DISCOVER_REMOVE_FROM_FAVORITE_URL: String = "explore/removeUserFavoriteProduct"
+    const val LIST_FILTER_URL: String = "explore/listFilter"
 
     const val CART_UPDATE_URL: String = "basket/UpdateProduct"
     const val CART_LIST_ALL_URL: String = "basket/listProduct"

@@ -17,6 +17,9 @@
                 android:name="reloadPage"
                 app:argType="boolean"
                 android:defaultValue="true" />
+        <action
+                android:id="@+id/actionDiscoverToFilter"
+                app:destination="@id/cabinCustomerFilterFragment" />
     </fragment>
     <fragment
             android:id="@+id/cabinCustomerProductDetailFragment"
@@ -30,5 +33,25 @@
                 app:argType="ist.cabin.cabinCustomerBase.models.local.MODELColor"
                 app:nullable="true"
                 android:defaultValue="@null" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerFilterFragment"
+            android:name="ist.cabin.cabincustomer.fragments.filter.CabinCustomerFilterFragment"
+            android:label="CabinCustomerFilterFragment" >
+        <action
+                android:id="@+id/actionFilterToFilterDetail"
+                app:destination="@id/cabinCustomerFilterDetailFragment"
+                app:enterAnim="@anim/slide_in_from_right"
+                app:exitAnim="@anim/slide_out_to_left"
+                app:popEnterAnim="@anim/slide_in_from_left"
+                app:popExitAnim="@anim/slide_out_to_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerFilterDetailFragment"
+            android:name="ist.cabin.cabincustomer.fragments.filterDetail.CabinCustomerFilterDetailFragment"
+            android:label="CabinCustomerFilterDetailFragment" >
+        <argument
+                android:name="filterDetailGenerator"
+                app:argType="ist.cabin.cabincustomer.MainContracts$FilterDetailGenerator" />
     </fragment>
 </navigation>

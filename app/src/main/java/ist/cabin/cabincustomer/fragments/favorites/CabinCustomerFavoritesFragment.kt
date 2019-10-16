@@ -45,7 +45,7 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
             if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.not_logged_in_layout)
                     .visibility == View.INVISIBLE) {
                 (activity!! as MainActivity).layoutBackToDefault()
-                (activity!! as MainActivity).showNavbar()
+                (activity!! as MainActivity).showHeaderNavbar()
             } else
                 (activity!! as MainActivity).hideNeedLogin()
         } else

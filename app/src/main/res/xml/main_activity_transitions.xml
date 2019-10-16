@@ -4,7 +4,7 @@
 
     <Transition
         motion:constraintSetStart="@id/main_layout_default"
-        motion:constraintSetEnd="@id/main_layout_navbar_hidden"
+        motion:constraintSetEnd="@id/main_layout_navbar_header_hidden"
         motion:duration="300">
         <KeyFrameSet>
             <KeyAttribute
@@ -15,9 +15,23 @@
         </KeyFrameSet>
     </Transition>
     <Transition
+        motion:constraintSetStart="@id/main_layout_navbar_header_hidden"
+        motion:constraintSetEnd="@id/main_layout_default"
+        motion:duration="300"/>
+
+    <Transition
+        motion:constraintSetStart="@id/main_layout_default"
+        motion:constraintSetEnd="@id/main_layout_navbar_hidden"
+        motion:duration="300"/>
+    <Transition
+            motion:constraintSetStart="@id/main_layout_navbar_header_hidden"
+            motion:constraintSetEnd="@id/main_layout_navbar_hidden"
+            motion:duration="300"/>
+    <Transition
         motion:constraintSetStart="@id/main_layout_navbar_hidden"
         motion:constraintSetEnd="@id/main_layout_default"
         motion:duration="300"/>
+
     <Transition
         motion:constraintSetStart="@id/main_layout_default"
         motion:constraintSetEnd="@id/main_layout_not_logged_in"
@@ -35,12 +49,12 @@
         motion:duration="500"/>
 
     <Transition
-        motion:constraintSetStart="@id/main_layout_navbar_hidden"
-        motion:constraintSetEnd="@id/main_layout_navbar_hidden_select_size"
+        motion:constraintSetStart="@id/main_layout_navbar_header_hidden"
+        motion:constraintSetEnd="@id/main_layout_navbar_header_hidden_select_size"
         motion:duration="500"/>
     <Transition
-        motion:constraintSetStart="@id/main_layout_navbar_hidden_select_size"
-        motion:constraintSetEnd="@id/main_layout_navbar_hidden"
+        motion:constraintSetStart="@id/main_layout_navbar_header_hidden_select_size"
+        motion:constraintSetEnd="@id/main_layout_navbar_header_hidden"
         motion:duration="500"/>
 
     <Transition
@@ -120,7 +134,7 @@
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"/>
     </ConstraintSet>
-    <ConstraintSet android:id="@+id/main_layout_navbar_hidden">
+    <ConstraintSet android:id="@+id/main_layout_navbar_header_hidden">
         <Constraint
                 android:id="@+id/main_header"
                 android:layout_height="wrap_content"
@@ -240,7 +254,61 @@
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"/>
     </ConstraintSet>
+    <ConstraintSet android:id="@+id/main_layout_navbar_hidden">
+        <Constraint
+                android:id="@+id/main_header"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintVertical_bias="0"
+                android:elevation="0dp"
+                android:translationY="0dp"
+                />
 
+        <Constraint
+                android:id="@+id/nav_host_fragment_layout"
+                motion:layout_constraintBottom_toTopOf="@+id/navbar"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@+id/main_header"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:visibility="visible"
+                />
+        <Constraint
+                android:id="@+id/navbar"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_height="@dimen/navbarHeight"
+                android:layout_width="match_parent"
+                android:translationY="@dimen/navbarHeight"
+                motion:layout_constraintVertical_bias="1"
+                />
+        <Constraint
+                android:id="@+id/select_size_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="parent"
+                android:translationY="0dp"/>
+        <Constraint
+                android:id="@+id/background_shadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:elevation="8dp"
+                android:visibility="invisible"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+    </ConstraintSet>
 
     <ConstraintSet android:id="@+id/main_layout_default_select_size">
         <Constraint
@@ -307,7 +375,7 @@
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"/>
     </ConstraintSet>
-    <ConstraintSet android:id="@+id/main_layout_navbar_hidden_select_size">
+    <ConstraintSet android:id="@+id/main_layout_navbar_header_hidden_select_size">
         <Constraint
                 android:id="@+id/main_header"
                 android:layout_height="wrap_content"
@@ -362,5 +430,4 @@
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"/>
     </ConstraintSet>
-
 </MotionScene>

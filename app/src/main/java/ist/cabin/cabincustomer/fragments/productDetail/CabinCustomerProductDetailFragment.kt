@@ -56,7 +56,7 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
         pageView = inflater.inflate(R.layout.cabin_customer_product_detail, container, false)
         mPager = pageView.findViewById(R.id.product_detail_product_image_pager) ?: throw (Exception("Couldn't find image pager."))
 
-        (activity!! as MainActivity).hideNavbar()
+        (activity!! as MainActivity).hideHeaderNavbar()
 
         (activity!! as MainActivity).lockDrawer()
 

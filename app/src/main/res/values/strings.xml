@@ -148,6 +148,10 @@
     <string name="corporate">Kurumsal</string>
     <string name="or">veya</string>
     <string name="register">Üye ol</string>
+    <string name="category">Kategori</string>
+    <string name="sex">Cinsiyet</string>
+    <string name="brand">Marka</string>
+    <string name="price">Fiyat</string>
     <!---->
 
     <!--separators-->
@@ -156,6 +160,8 @@
     <string name="address_bar_separator">></string>
     <string name="separator_dots">:</string>
     <string name="separator_dash">-</string>
+    <string name="open_parentheses">(</string>
+    <string name="close_parentheses">)</string>
     <!--/separators-->
 
     <string name="default_success_message">İşlem başarı ile gerçekleştirildi.</string>

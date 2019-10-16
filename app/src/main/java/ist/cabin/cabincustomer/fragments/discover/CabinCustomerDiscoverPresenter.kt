@@ -62,6 +62,10 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
             interactor?.getProduct(context, product.getId())
     }
 
+    override fun moveToFilter() {
+        router?.moveToFilter()
+    }
+
     //endregion
 
     //region InteractorOutput

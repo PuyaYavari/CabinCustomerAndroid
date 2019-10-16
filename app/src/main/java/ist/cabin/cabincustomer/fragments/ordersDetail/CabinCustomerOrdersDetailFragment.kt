@@ -17,7 +17,7 @@ import ist.cabin.cabincustomer.fragments.ordersDetail.adapter.*
 
 
 class CabinCustomerOrdersDetailFragment : BaseFragment(), CabinCustomerOrdersDetailContracts.View {
-    val args: CabinCustomerOrdersDetailFragmentArgs by navArgs()
+    private val args: CabinCustomerOrdersDetailFragmentArgs by navArgs()
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var pageView: View
@@ -41,7 +41,7 @@ class CabinCustomerOrdersDetailFragment : BaseFragment(), CabinCustomerOrdersDet
             if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.not_logged_in_layout)
                     .visibility == View.INVISIBLE) {
                 (activity!! as MainActivity).layoutBackToDefault()
-                (activity!! as MainActivity).showNavbar()
+                (activity!! as MainActivity).showHeaderNavbar()
             } else
                 (activity!! as MainActivity).hideNeedLogin()
         } else

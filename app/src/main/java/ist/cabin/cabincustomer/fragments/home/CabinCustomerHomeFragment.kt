@@ -22,7 +22,7 @@ class CabinCustomerHomeFragment : BaseFragment(), CabinCustomerHomeContracts.Vie
         (activity!! as MainActivity).hideNeedLogin()
         (activity!! as MainActivity).setHeader(resources.getString(R.string.homepage_label),null)
         (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).showNavbar()
+        (activity!! as MainActivity).showHeaderNavbar()
         (activity!! as MainActivity).unlockDrawer()
         (activity!! as MainActivity).hideBackButton()
 
