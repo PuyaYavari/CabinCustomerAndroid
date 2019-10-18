@@ -4,7 +4,10 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 
 object CabinCustomerOrdersContracts {
 
-    interface View : BaseContracts.View
+    interface View : BaseContracts.View {
+        fun showProgressBar()
+        fun hideProgressBar()
+    }
 
     interface FragmentsView : BaseContracts.View {
         fun orderboxOnClickListener()

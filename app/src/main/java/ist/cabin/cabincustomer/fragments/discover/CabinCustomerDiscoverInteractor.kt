@@ -25,7 +25,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
 
     //region Interactor
 
-    override fun getItemData(context: Context, page: Int, pageSize: Int) {
+    override fun getProducts(context: Context, page: Int, pageSize: Int) {
         val responseClass = MODELProducts()
         val moshi: Moshi = Moshi.Builder()
             .add(JSONProductAdapter(Moshi.Builder().build()))

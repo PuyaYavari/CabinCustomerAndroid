@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ist.cabin.cabinCustomerBase.BaseFragment
+import ist.cabin.cabinCustomerBase.models.local.MODELFilter
+import ist.cabin.cabincustomer.FilterTypeIDs
 import ist.cabin.cabincustomer.MainActivity
 import ist.cabin.cabincustomer.R
 
@@ -50,7 +53,10 @@ class CabinCustomerFilterFragment : BaseFragment(), CabinCustomerFilterContracts
     //region View
 
     private fun setupPage() {
-
+        val context = this.context
+        pageView.findViewById<ConstraintLayout>(R.id.filter_color_layout).setOnClickListener {
+            presenter?.moveToFilterDetail(FilterTypeIDs.COLOR)
+        }
     }
 
     private fun setupActivityLayout() {
@@ -59,9 +65,21 @@ class CabinCustomerFilterFragment : BaseFragment(), CabinCustomerFilterContracts
             (activity!! as MainActivity).hideNavbarFromHidden()
         else
             (activity!! as MainActivity).hideNavbarFromDefault()
+        (activity!! as MainActivity).lockDrawer()
+        hideProgressBar()
     }
 
-    //TODO: Implement your View methods here
+    override fun setFilter(filter: MODELFilter) {
+        (activity!! as MainActivity).setFilter(filter)
+    }
+
+    override fun showProgressBar() {
+        (activity!! as MainActivity).showProgressBar()
+    }
+
+    override fun hideProgressBar() {
+        (activity!! as MainActivity).hideProgressBar()
+    }
 
     //endregion
 }

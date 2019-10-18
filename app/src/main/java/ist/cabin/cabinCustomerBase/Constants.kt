@@ -20,6 +20,7 @@ object Constants {
 
     /*------------------------------URLS------------------------------*/
 
+    //const val BASE_URL: String = "http://api.cabin.com.tr/webapi/"
     const val BASE_URL: String = "http://192.168.1.25/webapi/"
     //const val BASE_URL = "http://213.14.150.247:8080/webapi/"
 

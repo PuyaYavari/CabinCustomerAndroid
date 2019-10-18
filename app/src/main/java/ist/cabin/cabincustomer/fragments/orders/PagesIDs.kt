@@ -5,8 +5,8 @@ abstract class PagesIDs {
     abstract val type: Int
 
     companion object {
-        val PENDING_PAGE = 0
-        val SHIPPING_PAGE = 1
-        val SENT_PAGE = 2
+        const val PENDING_PAGE = 0
+        const val SHIPPING_PAGE = 1
+        const val SENT_PAGE = 2
     }
 }

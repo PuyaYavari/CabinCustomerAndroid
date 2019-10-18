@@ -12,18 +12,21 @@ object CabinCustomerDiscoverContracts {
         fun moveToProductDetail(product: MODELProduct, position: Int)
         fun addData(products: List<MODELProduct>?)
         fun updateProduct(product: MODELProduct, position: Int)
+        fun showProgressBar()
+        fun hideProgressBar()
+        fun getCurrentItemCount(): Int
     }
 
     interface Presenter : BaseContracts.Presenter {
         fun moveToProductDetail(product: MODELProduct, position: Int)
-        fun getItemData(page:Int, pageSize:Int)
+        fun getProducts(page:Int, pageSize:Int)
         fun resetPage()
         fun updateLastEnteredProduct(context: Context)
         fun moveToFilter()
     }
 
     interface Interactor : BaseContracts.Interactor {
-        fun getItemData(context: Context, page:Int, pageSize:Int)
+        fun getProducts(context: Context, page:Int, pageSize:Int)
         fun getProduct(context: Context, id: Int)
     }
 

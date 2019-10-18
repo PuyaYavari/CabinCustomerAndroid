@@ -51,7 +51,7 @@
             android:name="ist.cabin.cabincustomer.fragments.filterDetail.CabinCustomerFilterDetailFragment"
             android:label="CabinCustomerFilterDetailFragment" >
         <argument
-                android:name="filterDetailGenerator"
-                app:argType="ist.cabin.cabincustomer.MainContracts$FilterDetailGenerator" />
+                android:name="filterType"
+                app:argType="integer" />
     </fragment>
 </navigation>

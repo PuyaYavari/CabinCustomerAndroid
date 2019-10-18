@@ -35,6 +35,7 @@ class CabinCustomerOrdersDetailFragment : BaseFragment(), CabinCustomerOrdersDet
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).showBackButton()
+        hideProgressBar()
 
         if (GlobalData.loggedIn) {
             setupPage()
@@ -155,6 +156,14 @@ class CabinCustomerOrdersDetailFragment : BaseFragment(), CabinCustomerOrdersDet
         }
 
         pageView.findViewById<TextView>(R.id.orders_addressbar_order_type_label).text = resources.getText(R.string.sent_orders_label)
+    }
+
+    override fun showProgressBar() {
+        (activity!! as MainActivity).showProgressBar()
+    }
+
+    override fun hideProgressBar() {
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     //endregion

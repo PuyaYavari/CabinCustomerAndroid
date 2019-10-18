@@ -35,6 +35,7 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
         showHeaderAndNavbar()
+        hideProgressBar()
 
         viewAdapter = CabinCustomerDiscoverAdapter(this, myDataset)
         viewManager = GridLayoutManager(this.context, 2)
@@ -83,7 +84,7 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     }
 
     private fun reloadProducts(){
-        presenter?.getItemData(page,pageSize)
+        presenter?.getProducts(page,pageSize)
 
         recyclerView = pageView.findViewById(R.id.discover_recyclerview)
 
@@ -127,6 +128,18 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
 
     override fun updateProduct(product: MODELProduct, position: Int) {
         viewAdapter.updateProduct(product, position)
+    }
+
+    override fun showProgressBar() {
+        (activity!! as MainActivity).showProgressBar()
+    }
+
+    override fun hideProgressBar() {
+        (activity!! as MainActivity).hideProgressBar()
+    }
+
+    override fun getCurrentItemCount(): Int {
+        return pageView.findViewById<RecyclerView>(R.id.discover_recyclerview).adapter?.itemCount ?: 0
     }
 
     //endregion

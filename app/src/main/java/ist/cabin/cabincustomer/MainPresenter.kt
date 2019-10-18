@@ -3,11 +3,14 @@ package ist.cabin.cabincustomer
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import ist.cabin.cabinCustomerBase.models.local.MODELFilter
 
 class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter, MainContracts.InteractorOutput {
 
     var interactor: MainContracts.Interactor? = MainInteractor(this)
     var router: MainContracts.Router? = null
+
+    override var filter: MODELFilter? = null
 
     //region Lifecycle
 

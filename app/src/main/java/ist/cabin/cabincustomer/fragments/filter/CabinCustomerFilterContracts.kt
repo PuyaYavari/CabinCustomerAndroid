@@ -2,16 +2,19 @@ package ist.cabin.cabincustomer.fragments.filter
 
 import android.content.Context
 import ist.cabin.cabinCustomerBase.BaseContracts
+import ist.cabin.cabinCustomerBase.models.local.MODELFilter
 
 object CabinCustomerFilterContracts {
 
     interface View : BaseContracts.View {
-        //TODO
+        fun showProgressBar()
+        fun hideProgressBar()
+        fun setFilter(filter: MODELFilter)
     }
 
     interface Presenter : BaseContracts.Presenter {
         fun getFilter(context: Context?)
-        fun moveToFilterDetail()
+        fun moveToFilterDetail(filterType: Int)
     }
 
     interface Interactor : BaseContracts.Interactor {
@@ -19,11 +22,11 @@ object CabinCustomerFilterContracts {
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
-        fun setFilter()//TODO
+        fun setFilter(filter: MODELFilter)
     }
 
     interface Router : BaseContracts.Router {
-//        fun moveToFilterDetail(filterDetailGenerator: MainContracts.FilterDetailGenerator)
+        fun moveToFilterDetail(filterType: Int)
     }
 
 }

@@ -17,10 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import ist.cabin.cabinCustomerBase.BaseActivity
 import ist.cabin.cabinCustomerBase.GlobalData
-import ist.cabin.cabinCustomerBase.models.local.MODELColor
-import ist.cabin.cabinCustomerBase.models.local.MODELProduct
-import ist.cabin.cabinCustomerBase.models.local.MODELSize
-import ist.cabin.cabinCustomerBase.models.local.MODELUser
+import ist.cabin.cabinCustomerBase.models.local.*
 import kotlinx.android.synthetic.main.cabin_customer_main.*
 
 
@@ -377,5 +374,21 @@ class MainActivity : BaseActivity(),
 
         sizeSelected = false
         selectSizeOpen = false
+    }
+
+    override fun setFilter(filter: MODELFilter?) {
+        presenter?.filter = filter
+    }
+
+    override fun getFilter(): MODELFilter? {
+        return presenter?.filter
+    }
+
+    override fun showProgressBar() {
+        findViewById<ConstraintLayout>(R.id.main_progressbar_layout).visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        findViewById<ConstraintLayout>(R.id.main_progressbar_layout).visibility = View.INVISIBLE
     }
 }

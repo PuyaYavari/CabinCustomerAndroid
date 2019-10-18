@@ -30,6 +30,7 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
+        hideProgressBar()
 
         if (GlobalData.loggedIn) {
             setupPage()
@@ -71,5 +72,14 @@ class CabinCustomerOrdersFragment : BaseFragment(), CabinCustomerOrdersContracts
             )
         mPager.adapter = pagerAdapter
     }
+
+    override fun showProgressBar() {
+        (activity!! as MainActivity).showProgressBar()
+    }
+
+    override fun hideProgressBar() {
+        (activity!! as MainActivity).hideProgressBar()
+    }
+
     //endregion
 }

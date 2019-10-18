@@ -4,7 +4,10 @@ import ist.cabin.cabinCustomerBase.BaseContracts
 
 object CabinCustomerHomeContracts {
 
-    interface View : BaseContracts.View
+    interface View : BaseContracts.View {
+        fun showProgressBar()
+        fun hideProgressBar()
+    }
 
     interface Presenter : BaseContracts.Presenter {
         fun moveToRegistration()

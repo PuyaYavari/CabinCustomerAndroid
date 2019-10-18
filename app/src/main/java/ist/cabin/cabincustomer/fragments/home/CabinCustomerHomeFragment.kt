@@ -25,6 +25,7 @@ class CabinCustomerHomeFragment : BaseFragment(), CabinCustomerHomeContracts.Vie
         (activity!! as MainActivity).showHeaderNavbar()
         (activity!! as MainActivity).unlockDrawer()
         (activity!! as MainActivity).hideBackButton()
+        hideProgressBar()
 
         setupPage()
         return pageView
@@ -54,6 +55,14 @@ class CabinCustomerHomeFragment : BaseFragment(), CabinCustomerHomeContracts.Vie
     //region View
 
     private fun setupPage() {
+    }
+
+    override fun showProgressBar() {
+        (activity!! as MainActivity).showProgressBar()
+    }
+
+    override fun hideProgressBar() {
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     //endregion

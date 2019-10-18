@@ -8,6 +8,8 @@ object CabinCustomerOrdersDetailContracts {
         fun setupPendingPage()
         fun setupShippingPage()
         fun setupSentPage()
+        fun showProgressBar()
+        fun hideProgressBar()
     }
 
     interface Presenter : BaseContracts.Presenter {

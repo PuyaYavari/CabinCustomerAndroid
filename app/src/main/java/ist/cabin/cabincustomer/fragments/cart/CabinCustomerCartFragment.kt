@@ -45,6 +45,7 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
+        hideProgressBar()
 
         if (GlobalData.loggedIn) {
             setupPage()
@@ -196,6 +197,14 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
 
     override fun moveToProductDetail(product: MODELProduct, color: MODELColor) {
         presenter?.moveToProductDetail(product, color)
+    }
+
+    override fun showProgressBar() {
+        (activity!! as MainActivity).showProgressBar()
+    }
+
+    override fun hideProgressBar() {
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     //endregion

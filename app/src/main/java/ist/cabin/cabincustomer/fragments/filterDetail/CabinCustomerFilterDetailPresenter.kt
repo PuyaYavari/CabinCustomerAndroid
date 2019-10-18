@@ -2,6 +2,8 @@ package ist.cabin.cabincustomer.fragments.filterDetail
 
 import android.app.Activity
 import android.os.Bundle
+import ist.cabin.cabinCustomerBase.models.local.MODELFilter
+import ist.cabin.cabincustomer.FilterTypeIDs
 
 class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailContracts.View?) :
     CabinCustomerFilterDetailContracts.Presenter,
@@ -38,7 +40,44 @@ class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailCont
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun setupPage(
+        filterType: Int,
+        filter: MODELFilter?
+    ) {
+        if (filter != null)
+            when (filterType) {
+                FilterTypeIDs.CATEGORY -> {
+                    val dataset = filter.categories
+                    if (!dataset.isNullOrEmpty())
+                        view?.setupCategoriesPage(dataset)
+                }
+                FilterTypeIDs.SEX -> {
+                    val dataset = filter.sexes
+                    if (!dataset.isNullOrEmpty())
+                        view?.setupSexesPage(dataset)
+                }
+                FilterTypeIDs.SELLER -> {
+                    val dataset = filter.sellers
+                    if (!dataset.isNullOrEmpty())
+                        view?.setupSellersPage(dataset)
+                }
+                FilterTypeIDs.SIZE -> {
+                    val dataset = filter.sizes
+                    if (!dataset.isNullOrEmpty())
+                        view?.setupSizesPage(dataset)
+                }
+                FilterTypeIDs.COLOR -> {
+                    val myColorsDataset = filter.colors
+                    if (!myColorsDataset.isNullOrEmpty())
+                        view?.setupColorsPage(myColorsDataset)
+                }
+                FilterTypeIDs.PRICE -> {
+                    val dataset = filter.prices
+                    if (!dataset.isNullOrEmpty())
+                        view?.setupPricesPage(dataset)
+                }
+            }
+    }
 
     //endregion
 

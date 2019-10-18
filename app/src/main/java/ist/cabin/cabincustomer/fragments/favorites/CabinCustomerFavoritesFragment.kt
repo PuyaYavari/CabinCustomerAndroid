@@ -39,6 +39,7 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
+        hideProgressBar()
 
         if (GlobalData.loggedIn) {
             setupPage()
@@ -127,6 +128,14 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
         callback: MainContracts.SelectSizeCallback
     ) {
         (activity!! as MainActivity).showSelectSize(product, color, callback)
+    }
+
+    override fun showProgressBar() {
+        (activity!! as MainActivity).showProgressBar()
+    }
+
+    override fun hideProgressBar() {
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     //endregion

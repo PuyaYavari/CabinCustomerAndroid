@@ -19,6 +19,8 @@ object CabinCustomerCartContracts {
         fun addShippingPrice(sellerName: String, price: Int)
         fun clearCargoPrices()
         fun moveToProductDetail(product: MODELProduct, color: MODELColor)
+        fun showProgressBar()
+        fun hideProgressBar()
     }
 
     interface Presenter : BaseContracts.Presenter {

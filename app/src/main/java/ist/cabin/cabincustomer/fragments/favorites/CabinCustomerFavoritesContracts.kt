@@ -22,6 +22,8 @@ object CabinCustomerFavoritesContracts {
         )
         fun renewData()
         fun showSelectSize(product: MODELProduct, color: MODELColor, callback: MainContracts.SelectSizeCallback)
+        fun showProgressBar()
+        fun hideProgressBar()
     }
 
     interface Presenter : BaseContracts.Presenter {

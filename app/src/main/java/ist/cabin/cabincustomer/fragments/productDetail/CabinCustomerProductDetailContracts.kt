@@ -31,6 +31,8 @@ object CabinCustomerProductDetailContracts {
         fun setTickOnColor(color: MODELColor)
         fun showSelectSizeFor(product: MODELProduct, color: MODELColor, callback: MainContracts.SelectSizeCallback)
         fun indicateSelectedSize(size: MODELSize)
+        fun showProgressBar()
+        fun hideProgressBar()
     }
 
     interface Presenter : BaseContracts.Presenter {

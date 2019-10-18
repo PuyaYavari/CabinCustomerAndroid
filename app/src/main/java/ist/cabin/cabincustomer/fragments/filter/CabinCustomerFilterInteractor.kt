@@ -30,8 +30,12 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
             null,
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    if (value == true)
+                    if (value == true) {
+                        val filter = responseObject.getFilters()[0]
+                        if (filter != null)
+                            output?.setFilter(filter)
                         Logger.info(this::class.java.name, "Filter received.", null)
+                    }
                 }
 
                 override fun onIssue(value: JSONIssue) {

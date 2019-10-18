@@ -60,6 +60,8 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
 
         (activity!! as MainActivity).lockDrawer()
 
+        hideProgressBar()
+
         setupPage()
 
         return pageView
@@ -485,6 +487,14 @@ class CabinCustomerProductDetailFragment : BaseFragment(),
 
     override fun indicateSelectedSize(size: MODELSize) {
         sizesAdapter.indicateSelectedSize(size)
+    }
+
+    override fun showProgressBar() {
+        (activity!! as MainActivity).showProgressBar()
+    }
+
+    override fun hideProgressBar() {
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     //endregion

@@ -1,8 +1,8 @@
 package ist.cabin.cabincustomer
 
 import android.content.Context
-import android.os.Parcelable
 import ist.cabin.cabinCustomerBase.models.local.MODELColor
+import ist.cabin.cabinCustomerBase.models.local.MODELFilter
 import ist.cabin.cabinCustomerBase.models.local.MODELProduct
 import ist.cabin.cabinCustomerBase.models.local.MODELSize
 
@@ -25,9 +25,15 @@ object MainContracts {
         fun hideSelectSize()
         fun showSelectSize(product: MODELProduct, color: MODELColor, callback: SelectSizeCallback)
         fun setSelectedSize(size: MODELSize, callback: SelectSizeCallback)
+        fun setFilter(filter: MODELFilter?)
+        fun getFilter(): MODELFilter?
+        fun showProgressBar()
+        fun hideProgressBar()
     }
 
     interface Presenter: ist.cabin.cabinCustomerBase.BaseContracts.Presenter {
+        var filter: MODELFilter?
+
         fun moveToProfileOptions()
         fun moveToMeasure()
         fun moveToExtraditions()
@@ -53,10 +59,5 @@ object MainContracts {
     interface SelectSizeCallback {
         fun selectSize(size: MODELSize)
         fun confirm()
-    }
-
-    interface FilterDetailGenerator : Parcelable {
-        fun getLayoutManager()
-        fun getDataset()
     }
 }

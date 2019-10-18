@@ -39,7 +39,7 @@ class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailCont
     override fun onBindViewHolder(holder: ProductColorViewHolder, position: Int) {
         holder.itemView.apply {
             findViewById<ImageView>(R.id.colorbox_color_sample).apply {
-                imageTintList = ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode)) //TODO: SET TICK TINT SO IT WILL BE VISIBLE
+                imageTintList = ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode))
                 outlineProvider = object : ViewOutlineProvider() {
                     override fun getOutline(view: View?, outline: Outline?) {
                         if (view != null &&  outline != null)

@@ -1,6 +1,8 @@
 package ist.cabin.cabincustomer.fragments.filter
 
 import android.app.Activity
+import androidx.navigation.findNavController
+import ist.cabin.cabincustomer.R
 
 class CabinCustomerFilterRouter(var activity: Activity?) : CabinCustomerFilterContracts.Router {
 
@@ -10,7 +12,11 @@ class CabinCustomerFilterRouter(var activity: Activity?) : CabinCustomerFilterCo
 
     //region Router
 
-    //TODO: Implement your Router methods here
+    override fun moveToFilterDetail(filterType: Int) {
+        val action = CabinCustomerFilterFragmentDirections
+            .actionFilterToFilterDetail(filterType)
+        activity!!.findNavController(R.id.nav_host_fragment).navigate(action)
+    }
 
     //endregion
 }

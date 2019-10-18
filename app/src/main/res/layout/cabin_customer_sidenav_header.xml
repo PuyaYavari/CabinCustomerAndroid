@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/sidenav_header_layout"
         android:layout_width="250dp"
         android:layout_height="80dp"
@@ -43,4 +43,4 @@
             app:layout_constraintStart_toEndOf="@+id/sidenav_email_address"
             app:layout_constraintTop_toTopOf="@+id/sidenav_email_address"
             app:srcCompat="@drawable/icon_notification" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
