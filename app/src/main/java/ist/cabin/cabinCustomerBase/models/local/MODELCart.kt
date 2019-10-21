@@ -19,7 +19,9 @@ class MODELCart : LocalDataModel {
             }
             this.shippingPrice = jsonData.shippingPrice
             this.subtotal = jsonData.subtotal
-            this.total = jsonData.total
+            val totalData = jsonData.total
+            if (totalData != null)
+                this.total = totalData
             true
         } catch (exception: Exception) {
             Logger.error(this::class.java.name, "Problem while mapping to model.", exception)

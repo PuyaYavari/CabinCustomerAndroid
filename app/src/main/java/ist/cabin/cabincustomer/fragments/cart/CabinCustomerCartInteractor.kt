@@ -21,7 +21,130 @@ class CabinCustomerCartInteractor(var output: CabinCustomerCartContracts.Interac
 
     //region Interactor
 
+    private fun removeItemFromCart(sellerId: Int?, productId: Int?, colorId: Int?) {
+        try {
+            val carts: MODELCarts = MODELCarts()
+            var data: REQUESTAPISeller? = null
+            if (sellerId != null && productId != null && colorId != null) {
+                data = REQUESTAPISeller(
+                    listOf(
+                        REQUESTSeller(
+                            sellerId,
+                            listOf(
+                                REQUESTProduct(
+                                    productId,
+                                    null,
+                                    listOf(
+                                        REQUESTColor(
+                                            colorId,
+                                            null
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            } else if (sellerId != null && productId != null) {
+                data = REQUESTAPISeller(
+                    listOf(
+                        REQUESTSeller(
+                            sellerId,
+                            listOf(
+                                REQUESTProduct(
+                                    productId,
+                                    null,
+                                    null
+                                )
+                            )
+                        )
+                    )
+                )
+            } else if (sellerId != null) {
+                data = REQUESTAPISeller(
+                    listOf(
+                        REQUESTSeller(
+                            sellerId,
+                            null
+                        )
+                    )
+                )
+            }
+            NetworkManager.requestFactory(
+                null,
+                Constants.CART_REMOVE_ALL_URL,
+                null,
+                null,
+                data,
+                carts,
+                APICartAdapter(Moshi.Builder().build(), null),
+                object : BaseContracts.ResponseCallbacks {
+                    override fun onSuccess(value: Any?) {
+                        Logger.info(
+                            this::class.java.name,
+                            "Product removed from cart.",
+                            null
+                        )
+                    }
+
+                    override fun onIssue(value: JSONIssue) {
+                        Logger.warn(
+                            this::class.java.name,
+                            "Product not removed from cart.\n" +
+                                    "ISSUE: ${value.message}",
+                            null
+                        )
+                    }
+
+                    override fun onError(value: String, url: String?) {
+                        Logger.warn(
+                            this::class.java.name,
+                            "Product not removed from cart.\n" +
+                                    "ERROR: $value",
+                            null
+                        )
+                    }
+
+                    override fun onFailure(throwable: Throwable) {
+                        Logger.error(
+                            this::class.java.name,
+                            "FAILURE: Product not removed from cart.",
+                            throwable
+                        )
+                    }
+
+                    override fun onServerDown() {
+                        Logger.failure(
+                            this::class.java.name,
+                            "SERVER DOWN!!",
+                            null
+                        )
+                    }
+
+                    override fun onException(exception: Exception) {
+                        Logger.error(
+                            this::class.java.name,
+                            "EXCEPTION: Product not removed from cart.",
+                            exception
+                        )
+                    }
+
+                }
+            )
+            output?.setCart(carts.getCarts()[0])
+        } catch (exception: Exception) {
+            Logger.failure(
+                this::class.java.name,
+                "Error while sending request to remove problematic product from cart.",
+                exception
+            )
+        }
+    }
+
     override fun getCart(context: Context) {
+        var sellerId: Int? = null
+        var productId: Int? = null
+        var colorId: Int? = null
         val carts: MODELCarts = MODELCarts()
         NetworkManager.requestFactory<APICart>(
             context,
@@ -34,8 +157,24 @@ class CabinCustomerCartInteractor(var output: CabinCustomerCartContracts.Interac
             APICartAdapter(
                 Moshi.Builder().build(),
                 object : CabinCustomerCartContracts.CartCallback {
-                    override fun updateCart(cart: MODELCart) {
-                        output?.setCart(cart)
+                    override fun setSellerId(id: Int?) {
+                        sellerId = id
+                    }
+
+                    override fun setProductId(id: Int?) {
+                        productId = id
+                    }
+
+                    override fun setColorId(id: Int?) {
+                        colorId = id
+                    }
+
+                    override fun feedback(message: String) {
+                        output?.feedback(message)
+                    }
+
+                    override fun removeItems() {
+                        removeItemFromCart(sellerId, productId, colorId)
                     }
                 }
             ),
@@ -131,7 +270,8 @@ class CabinCustomerCartInteractor(var output: CabinCustomerCartContracts.Interac
                 override fun onException(exception: Exception) {
                     Logger.error(this::class.java.name, "Exception", exception)
                 }
-            })
+            }
+        )
     }
 
     //endregion

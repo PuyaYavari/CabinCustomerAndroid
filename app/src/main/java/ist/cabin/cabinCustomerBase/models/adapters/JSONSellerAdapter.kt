@@ -7,6 +7,28 @@ import ist.cabin.cabinCustomerBase.models.backend.JSONSeller
 import ist.cabin.cabincustomer.fragments.cart.CabinCustomerCartContracts
 
 class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<JSONSeller>() {
+    private val sellerCallback = object : CabinCustomerCartContracts.CartCallback {
+        override fun setSellerId(id: Int?) {
+            callback?.setSellerId(id)
+        }
+
+        override fun setProductId(id: Int?) {
+            callback?.setProductId(id)
+        }
+
+        override fun setColorId(id: Int?) {
+            callback?.setColorId(id)
+        }
+
+        override fun feedback(message: String) {
+            callback?.feedback(message)
+        }
+
+        override fun removeItems() {
+            callback?.removeItems()
+        }
+    }
+
     private val options: JsonReader.Options =
         JsonReader.Options.of("ID", "NAME", "PRODUCT", "SELLERSHIPPINGPRICE", "SELLERSUBTOTAL", "SELLERTOTAL")
 
@@ -17,7 +39,7 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
         moshi.adapter<String>(String::class.java, kotlin.collections.emptySet(), "name")
 
     private val listOfNullableJSONProductAdapter: JsonAdapter<List<JSONProduct?>> =
-        Moshi.Builder().add(JSONCartProductAdapter(Moshi.Builder().build(), callback)).build()
+        Moshi.Builder().add(JSONCartProductAdapter(Moshi.Builder().build(), sellerCallback)).build()
             .adapter<List<JSONProduct?>>(Types.newParameterizedType(List::class.java,
                 JSONProduct::class.java), kotlin.collections.emptySet(), "products")
 
@@ -38,16 +60,15 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
         while (reader.hasNext()) {
             try {
                 when (reader.selectName(options)) {
-                    0 -> id = intAdapter.fromJson(reader)
-                        //?: throw JsonDataException("Non-null value 'id' was null at ${reader.path}")
+                    0 -> {
+                        id = intAdapter.fromJson(reader)
+                        sellerCallback?.setProductId(id)
+                    }
                     1 -> name = stringAdapter.fromJson(reader)
-                        //?: throw JsonDataException("Non-null value 'name' was null at ${reader.path}")
                     2 -> products = listOfNullableJSONProductAdapter.fromJson(reader)
-                        //?: throw JsonDataException("Non-null value 'products' was null at ${reader.path}")
                     3 -> shippingPrice = nullableIntAdapter.fromJson(reader)
                     4 -> subtotal = nullableIntAdapter.fromJson(reader)
                     5 -> total = intAdapter.fromJson(reader)
-                        //?: throw JsonDataException("Non-null value 'total' was null at ${reader.path}")
                     -1 -> {
                         // Unknown name, skip it.
                         reader.skipName()
@@ -82,6 +103,14 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
                 this::class.java.name, "A field is null and is being skipped.",
                 exception
             )
+            if (id != null) {
+                sellerCallback?.feedback("Products of seller with id $id removed due to a serious problem!")
+                sellerCallback?.removeItems()
+            } else {
+                sellerCallback?.feedback("Basket removed due to a serious problem!")
+                sellerCallback?.removeItems()
+            }
+
             null
         }
     }

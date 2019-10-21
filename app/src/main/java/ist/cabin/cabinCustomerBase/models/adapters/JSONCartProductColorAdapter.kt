@@ -5,8 +5,32 @@ import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONColor
 import ist.cabin.cabinCustomerBase.models.backend.JSONImage
 import ist.cabin.cabinCustomerBase.models.backend.JSONSize
+import ist.cabin.cabincustomer.fragments.cart.CabinCustomerCartContracts
 
-class JSONCartProductColorAdapter (moshi: Moshi) : JsonAdapter<JSONColor>() {
+class JSONCartProductColorAdapter (moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?)
+    : JsonAdapter<JSONColor>() {
+    private val colorCallback = object : CabinCustomerCartContracts.CartCallback {
+        override fun setSellerId(id: Int?) {
+            callback?.setSellerId(id)
+        }
+
+        override fun setProductId(id: Int?) {
+            callback?.setProductId(id)
+        }
+
+        override fun setColorId(id: Int?) {
+            callback?.setColorId(id)
+        }
+
+        override fun feedback(message: String) {
+            callback?.feedback(message)
+        }
+
+        override fun removeItems() {
+            callback?.removeItems()
+        }
+    }
+
     private val options: JsonReader.Options =
         JsonReader.Options.of("ID", "NAME", "HEX_CODE", "RGB_CODE", "ISFAVORITE", "IMAGE", "SIZE")
 
@@ -49,7 +73,10 @@ class JSONCartProductColorAdapter (moshi: Moshi) : JsonAdapter<JSONColor>() {
         while (reader.hasNext()) {
             try {
                 when (reader.selectName(options)) {
-                    0 -> id = intAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'id' was null at ${reader.path}")
+                    0 -> {
+                        id = intAdapter.fromJson(reader)
+                        colorCallback?.setColorId(id)
+                    }
                     1 -> name = nullableStringAdapter.fromJson(reader)
                     2 -> hexCode = stringAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'hexCode' was null at ${reader.path}")
                     3 -> rgbCode = nullableStringAdapter.fromJson(reader)
@@ -98,6 +125,10 @@ class JSONCartProductColorAdapter (moshi: Moshi) : JsonAdapter<JSONColor>() {
             }
             if (imagePresent && sizePresent)
                 return result
+            else {
+                colorCallback?.feedback("Some products removed due to a problem.")
+                colorCallback?.removeItems()
+            }
             return null
         } catch(exception: Exception){
             Logger.warn(
@@ -105,6 +136,8 @@ class JSONCartProductColorAdapter (moshi: Moshi) : JsonAdapter<JSONColor>() {
                 "A field is null, this object will be null and won't be visible in app.",
                 exception
             )
+            colorCallback?.feedback("Some products removed due to a problem.")
+            colorCallback?.removeItems()
             return null
         }
     }

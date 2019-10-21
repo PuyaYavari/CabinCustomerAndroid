@@ -7,11 +7,34 @@ import ist.cabin.cabinCustomerBase.models.backend.JSONSeller
 import ist.cabin.cabincustomer.fragments.cart.CabinCustomerCartContracts
 
 class JSONCartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<JSONCart>() {
+    private val cartCallback = object : CabinCustomerCartContracts.CartCallback {
+        override fun setSellerId(id: Int?) {
+            callback?.setSellerId(id)
+        }
+
+        override fun setProductId(id: Int?) {
+            callback?.setProductId(id)
+        }
+
+        override fun setColorId(id: Int?) {
+            callback?.setColorId(id)
+        }
+
+        override fun feedback(message: String) {
+            callback?.feedback(message)
+        }
+
+        override fun removeItems() {
+            callback?.removeItems()
+        }
+
+    }
+
     private val options: JsonReader.Options =
         JsonReader.Options.of("SELLER", "SHIPPINGPRICE", "SUBTOTAL", "TOTAL")
 
     private val listOfNullableJSONSellerAdapter: JsonAdapter<List<JSONSeller?>> =
-        Moshi.Builder().add(JSONSellerAdapter(Moshi.Builder().build(), callback)).build()
+        Moshi.Builder().add(JSONSellerAdapter(Moshi.Builder().build(), cartCallback)).build()
             .adapter<List<JSONSeller?>>(Types.newParameterizedType(List::class.java,
                 JSONSeller::class.java), emptySet(), "seller")
 
@@ -29,6 +52,9 @@ class JSONCartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCal
         var shippingPrice: Int? = null
         var subtotal: Int? = null
         var total: Int? = null
+        cartCallback?.setSellerId(null)
+        cartCallback?.setProductId(null)
+        cartCallback?.setColorId(null)
         reader.beginObject()
         while (reader.hasNext()) {
             try {
@@ -49,7 +75,7 @@ class JSONCartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCal
                     this::class.java.name, "A field is null and is being skipped.",
                     exception
                 )
-                return  null
+                reader.skipValue()
             }
         }
         reader.endObject()
@@ -58,14 +84,22 @@ class JSONCartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCal
                 seller = seller!!,
                 shippingPrice = shippingPrice,
                 subtotal = subtotal,
-                total = total!!
+                total = total
             )
-            result
+            if (!seller.isNullOrEmpty() && total == null){
+                cartCallback?.feedback("Basket removed due to a serious problem!")
+                cartCallback?.removeItems()
+                null
+            } else {
+                result
+            }
         } catch (exception: Exception) {
             Logger.error(
                 this::class.java.name, "A field is null and is being skipped.",
                 exception
             )
+            cartCallback?.feedback("Basket removed due to a serious problem!")
+            cartCallback?.removeItems()
             null
         }
     }

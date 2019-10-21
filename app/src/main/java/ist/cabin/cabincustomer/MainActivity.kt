@@ -1,10 +1,10 @@
 package ist.cabin.cabincustomer
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import ist.cabin.cabinCustomerBase.BaseActivity
 import ist.cabin.cabinCustomerBase.GlobalData
 import ist.cabin.cabinCustomerBase.models.local.*
@@ -27,7 +26,6 @@ class MainActivity : BaseActivity(),
 
     var presenter: MainContracts.Presenter? = MainPresenter(this)
 
-    private lateinit var t: ActionBarDrawerToggle
     private var mainTransitionContainer: MotionLayout? = null
 
     private var needLoginVisible = false
@@ -46,6 +44,16 @@ class MainActivity : BaseActivity(),
 
         overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.slide_out_to_top)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            findViewById<DrawerLayout>(R.id.drawer_layout).setScrimColor(
+                resources.getColor(android.R.color.transparent, theme)
+            )
+        } else {
+            findViewById<DrawerLayout>(R.id.drawer_layout).setScrimColor(
+                resources.getColor(android.R.color.transparent)
+            )
+        }
+
         mainTransitionContainer = findViewById(R.id.main_layout)
         layoutBackToDefault()
 
@@ -53,29 +61,17 @@ class MainActivity : BaseActivity(),
             setupBottomNavigationBar()
         } // Else, need to wait for onRestoreInstanceState
 
-        val dl: DrawerLayout = findViewById<View>(R.id.drawer_layout) as DrawerLayout
-        t = ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close)
-
-        dl.addDrawerListener(t)
-        t.syncState()
-
-        val nv: NavigationView = findViewById<View>(R.id.homepage_sidenav) as NavigationView
-        nv.setNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.sidenav_profile_options -> presenter?.moveToProfileOptions()
-                R.id.sidenav_body_measure -> presenter?.moveToMeasure()
-                R.id.sidenav_extradition -> presenter?.moveToExtraditions()
-                R.id.sidenav_help -> Toast.makeText(
-                    this@MainActivity,
-                    "Help",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.sidenav_exit -> presenter?.requestLogout(this.applicationContext)
-                else -> true
-            }
-            drawer_layout.closeDrawer(GravityCompat.START)
-            true
+        findViewById<LinearLayout>(R.id.sidebar_profile_options_layout).setOnClickListener { presenter?.moveToProfileOptions() }
+        findViewById<LinearLayout>(R.id.sidebar_measure_options_layout).setOnClickListener { presenter?.moveToMeasure() }
+        findViewById<LinearLayout>(R.id.sidebar_extraditions_layout).setOnClickListener { presenter?.moveToExtraditions() }
+        findViewById<LinearLayout>(R.id.sidebar_help_layout).setOnClickListener {
+            Toast.makeText(
+                this@MainActivity,
+                "Help",
+                Toast.LENGTH_SHORT
+            ).show()
         }
+        findViewById<LinearLayout>(R.id.sidebar_exit_layout).setOnClickListener { presenter?.requestLogout(this.applicationContext) }
 
         findViewById<Button>(R.id.login_button).setOnClickListener { presenter?.moveToRegistration() }//TODO: REMOVE AND MAKE A PROPER BUTTON FOR THIS
 

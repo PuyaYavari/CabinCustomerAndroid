@@ -19,6 +19,7 @@
     <color name="colorBordersPrimary">#707070</color>
     <color name="colorLightBordersPrimary">#C8C8C8</color>
     <color name="colorButtonLabelsPrimary">#FFFFFF</color>
+    <color name="colorSidebarLabelsPrimary">#FFFFFF</color>
     <color name="colorSeparatorPrimary">#707070</color>
     <color name="colorNavigationBarBackgroundPrimary">#FFFFFF</color>
     <color name="colorHeaderLabelsPrimary">#FFFFFF</color>

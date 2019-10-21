@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -205,6 +202,10 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
 
     override fun hideProgressBar() {
         (activity!! as MainActivity).hideProgressBar()
+    }
+
+    override fun feedback(message: String) {
+        Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
     }
 
     //endregion

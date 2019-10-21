@@ -1,15 +1,34 @@
 package ist.cabin.cabinCustomerBase.models.adapters
 
 import com.squareup.moshi.*
-import ist.cabin.cabinCustomerBase.BaseContracts
-import ist.cabin.cabinCustomerBase.Constants
 import ist.cabin.cabinCustomerBase.Logger
-import ist.cabin.cabinCustomerBase.NetworkManager
 import ist.cabin.cabinCustomerBase.models.backend.*
-import ist.cabin.cabinCustomerBase.models.local.MODELCarts
 import ist.cabin.cabincustomer.fragments.cart.CabinCustomerCartContracts
 
-class JSONCartProductAdapter (moshi: Moshi, val callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<JSONProduct>() {
+class JSONCartProductAdapter (moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?)
+    : JsonAdapter<JSONProduct>() {
+    private val productCallback = object : CabinCustomerCartContracts.CartCallback {
+        override fun setSellerId(id: Int?) {
+            callback?.setSellerId(id)
+        }
+
+        override fun setProductId(id: Int?) {
+            callback?.setProductId(id)
+        }
+
+        override fun setColorId(id: Int?) {
+            callback?.setColorId(id)
+        }
+
+        override fun feedback(message: String) {
+            callback?.feedback(message)
+        }
+
+        override fun removeItems() {
+            callback?.removeItems()
+        }
+    }
+
     private val options: JsonReader.Options =
         JsonReader.Options.of("ID", "CODE", "TITLE", "PRICE", "AMOUNT", "SELLER", "SHIPPING_DURATION", "SHIPPING_TYPE", "COLOR")
 
@@ -41,10 +60,12 @@ class JSONCartProductAdapter (moshi: Moshi, val callback: CabinCustomerCartContr
                 emptySet(), "shippingType")
 
     private val listOfJSONColorAdapter: JsonAdapter<List<JSONColor>> =
-        Moshi.Builder().add(JSONCartProductColorAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(JSONCartProductColorAdapter(Moshi.Builder().build(), productCallback)).build()
             .adapter<List<JSONColor>>(
                 Types.newParameterizedType(List::class.java, JSONColor::class.java),
                 emptySet(), "colors")
+
+    private var sellerId: Int? = null
 
     override fun toString(): String = "GeneratedJsonAdapter(JSONProduct)"
 
@@ -63,7 +84,10 @@ class JSONCartProductAdapter (moshi: Moshi, val callback: CabinCustomerCartContr
         while (reader.hasNext()) {
             try {
                 when (reader.selectName(options)) {
-                    0 -> id = intAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'id' was null at ${reader.path}")
+                    0 -> {
+                        id = intAdapter.fromJson(reader)
+                        productCallback?.setProductId(id)
+                    }
                     1 -> code = stringAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'code' was null at ${reader.path}")
                     2 -> title = stringAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'title' was null at ${reader.path}")
                     3 -> price = doubleAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'price' was null at ${reader.path}")
@@ -103,8 +127,8 @@ class JSONCartProductAdapter (moshi: Moshi, val callback: CabinCustomerCartContr
                 if (it != null) {
                     return result
                 } else {
-                    //FIXME: WHAT TO DO IF NO COLOR
-                    removeItemFromCart(id, colors)
+                    productCallback?.feedback("Cannot show item with id $id due to a problem.")
+                    productCallback?.removeItems()
                 }
             }
             null
@@ -117,7 +141,13 @@ class JSONCartProductAdapter (moshi: Moshi, val callback: CabinCustomerCartContr
                         "be updated as soon as possible.",
                 exception
             )
-            removeItemFromCart(id, colors)
+            if (id != null) {
+                productCallback?.feedback("Cannot show item with id $id due to a problem.")
+                productCallback?.removeItems()
+            } else {
+                productCallback?.feedback("Seller removed due to a serious problem.")
+                productCallback?.removeItems()
+            }
             null
         }
     }
@@ -147,100 +177,5 @@ class JSONCartProductAdapter (moshi: Moshi, val callback: CabinCustomerCartContr
         writer.name("COLOR")
         listOfJSONColorAdapter.toJson(writer, value.colors)
         writer.endObject()
-    }
-
-    private fun removeItemFromCart(id: Int?, colors: List<JSONColor>?) {
-        try {
-            val carts: MODELCarts = MODELCarts()
-            var data: REQUESTAPIProduct? = null
-            if (id != null && colors != null) {
-                data = REQUESTAPIProduct(
-                    listOf(
-                        REQUESTProduct(
-                            id,
-                            0,
-                            listOf(
-                                REQUESTColor(
-                                    colors[0].id,
-                                    listOf(
-                                        REQUESTSize(
-                                            colors[0].sizes[0].id
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            }
-            NetworkManager.requestFactory(
-                null,
-                Constants.CART_UPDATE_URL,
-                null,
-                null,
-                data,
-                carts,
-                APICartAdapter(Moshi.Builder().build(), null),
-                object : BaseContracts.ResponseCallbacks {
-                    override fun onSuccess(value: Any?) {
-                        Logger.info(
-                            this::class.java.name,
-                            "Product removed from cart.",
-                            null
-                        )
-                    }
-
-                    override fun onIssue(value: JSONIssue) {
-                        Logger.warn(
-                            this::class.java.name,
-                            "Product not removed from cart.\n" +
-                                    "ISSUE: ${value.message}",
-                            null
-                        )
-                    }
-
-                    override fun onError(value: String, url: String?) {
-                        Logger.warn(
-                            this::class.java.name,
-                            "Product not removed from cart.\n" +
-                                    "ERROR: $value",
-                            null
-                        )
-                    }
-
-                    override fun onFailure(throwable: Throwable) {
-                        Logger.error(
-                            this::class.java.name,
-                            "FAILURE: Product not removed from cart.",
-                            throwable
-                        )
-                    }
-
-                    override fun onServerDown() {
-                        Logger.failure(
-                            this::class.java.name,
-                            "SERVER DOWN!!",
-                            null
-                        )
-                    }
-
-                    override fun onException(exception: Exception) {
-                        Logger.error(
-                            this::class.java.name,
-                            "EXCEPTION: Product not removed from cart.",
-                            exception
-                        )
-                    }
-
-                }
-            )
-            callback?.updateCart(carts.getCarts()[0])
-        } catch (exception: Exception) {
-            Logger.failure(
-                this::class.java.name,
-                "Error while sending request to remove problematic product from cart.",
-                exception
-                )
-        }
     }
 }

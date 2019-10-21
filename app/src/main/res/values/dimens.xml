@@ -6,6 +6,9 @@
     <dimen name="defaultHeaderDividerAlpha">0.2</dimen>
     <dimen name="navbarHeight">48dp</dimen>
     <dimen name="defaultStrokeWidth">0.75</dimen>
+    <dimen name="sidebarSeparatorMarginEnd">100dp</dimen>
+    <dimen name="sidebarTextSize">14sp</dimen>
+    <dimen name="sidebarVerticalMargins">4dp</dimen>
 
     <dimen name="changePasswordLabelsBackgroundElevation">3dp</dimen>
     <dimen name="changePasswordSaveButtonHeight">40dp</dimen>

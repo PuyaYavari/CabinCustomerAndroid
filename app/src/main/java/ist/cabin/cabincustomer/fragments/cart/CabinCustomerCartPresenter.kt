@@ -146,5 +146,9 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
         }
     }
 
+    override fun feedback(message: String) {
+        view?.feedback(message)
+    }
+
     //endregion
 }

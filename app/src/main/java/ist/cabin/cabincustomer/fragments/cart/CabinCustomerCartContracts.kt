@@ -21,6 +21,7 @@ object CabinCustomerCartContracts {
         fun moveToProductDetail(product: MODELProduct, color: MODELColor)
         fun showProgressBar()
         fun hideProgressBar()
+        fun feedback(message: String)
     }
 
     interface Presenter : BaseContracts.Presenter {
@@ -39,6 +40,7 @@ object CabinCustomerCartContracts {
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
         fun setCart(cart: MODELCart?)
+        fun feedback(message: String)
     }
 
     interface Router : BaseContracts.Router {
@@ -47,6 +49,10 @@ object CabinCustomerCartContracts {
     }
 
     interface CartCallback {
-        fun updateCart(cart: MODELCart)
+        fun setSellerId(id: Int?)
+        fun setProductId(id: Int?)
+        fun setColorId(id: Int?)
+        fun feedback(message: String)
+        fun removeItems()
     }
 }
