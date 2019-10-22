@@ -56,6 +56,8 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
         var shippingPrice: Int? = null
         var subtotal: Int? = null
         var total: Int? = null
+        sellerCallback?.setProductId(null)
+        sellerCallback?.setColorId(null)
         reader.beginObject()
         while (reader.hasNext()) {
             try {

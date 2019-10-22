@@ -80,6 +80,7 @@ class JSONCartProductAdapter (moshi: Moshi, callback: CabinCustomerCartContracts
         var shippingDuration: List<JSONShippingDuration>? = null
         var shippingType: List<JSONShippingType>? = null
         var colors: List<JSONColor>? = null
+        productCallback?.setColorId(null)
         reader.beginObject()
         while (reader.hasNext()) {
             try {
