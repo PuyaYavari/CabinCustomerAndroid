@@ -61,23 +61,23 @@ class CabinCustomerFilterDetailFragment : BaseFragment(), CabinCustomerFilterDet
         presenter?.setupPage(args.filterType, (activity!! as MainActivity).getFilter())
     }
 
-    override fun setupCategoriesPage(dataset: MutableList<MODELCategory>) {
+    override fun setupCategoriesPage(dataset: MutableList<MODELFilterCategory>) {
 
     }
 
-    override fun setupSexesPage(dataset: MutableList<MODELSex>) {
+    override fun setupSexesPage(dataset: MutableList<MODELFilterSex>) {
 
     }
 
-    override fun setupSellersPage(dataset: MutableList<MODELSellerName>) {
+    override fun setupSellersPage(dataset: MutableList<MODELFilterSeller>) {
 
     }
 
-    override fun setupSizesPage(dataset: MutableList<MODELSizeNameGroup>) {
+    override fun setupSizesPage(dataset: MutableList<MODELFilterSizeGroup>) {
 
     }
 
-    override fun setupColorsPage(dataset: MutableList<MODELRawColor>) {
+    override fun setupColorsPage(dataset: MutableList<MODELFilterColor>) {
         val viewManager = GridLayoutManager(this.context, 4)
         val viewAdapter = CabinCustomerFilterColorsAdapter(this, dataset)
         recyclerView.apply {
@@ -87,7 +87,7 @@ class CabinCustomerFilterDetailFragment : BaseFragment(), CabinCustomerFilterDet
         }
     }
 
-    override fun setupPricesPage(dataset: MutableList<MODELPriceInterval>) {
+    override fun setupPricesPage(dataset: MutableList<MODELFilterPrice>) {
 
     }
 

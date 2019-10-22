@@ -43,8 +43,11 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
             .adapter<List<JSONProduct?>>(Types.newParameterizedType(List::class.java,
                 JSONProduct::class.java), kotlin.collections.emptySet(), "products")
 
-    private val nullableIntAdapter: JsonAdapter<Int?> =
-        moshi.adapter<Int?>(Int::class.javaObjectType, kotlin.collections.emptySet(), "shippingPrice")
+    private val nullableDoubleAdapter: JsonAdapter<Double?> =
+        moshi.adapter<Double?>(Double::class.javaObjectType, kotlin.collections.emptySet(), "shippingPrice")
+
+    private val doubleAdapter: JsonAdapter<Double> =
+        moshi.adapter<Double>(Double::class.java, kotlin.collections.emptySet(), "total")
 
     override fun toString(): String = "GeneratedJsonAdapter(JSONSeller)"
 
@@ -53,9 +56,9 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
         var id: Int? = null
         var name: String? = null
         var products: List<JSONProduct?>? = null
-        var shippingPrice: Int? = null
-        var subtotal: Int? = null
-        var total: Int? = null
+        var shippingPrice: Double? = null
+        var subtotal: Double? = null
+        var total: Double? = null
         sellerCallback?.setProductId(null)
         sellerCallback?.setColorId(null)
         reader.beginObject()
@@ -68,9 +71,9 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
                     }
                     1 -> name = stringAdapter.fromJson(reader)
                     2 -> products = listOfNullableJSONProductAdapter.fromJson(reader)
-                    3 -> shippingPrice = nullableIntAdapter.fromJson(reader)
-                    4 -> subtotal = nullableIntAdapter.fromJson(reader)
-                    5 -> total = intAdapter.fromJson(reader)
+                    3 -> shippingPrice = nullableDoubleAdapter.fromJson(reader)
+                    4 -> subtotal = nullableDoubleAdapter.fromJson(reader)
+                    5 -> total = doubleAdapter.fromJson(reader)
                     -1 -> {
                         // Unknown name, skip it.
                         reader.skipName()
@@ -88,16 +91,12 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
         reader.endObject()
         return try {
             val result = JSONSeller(
-                id = id
-                    ?: throw JsonDataException("Required property 'id' missing at ${reader.path}"),
-                name = name
-                    ?: throw JsonDataException("Required property 'name' missing at ${reader.path}"),
-                products = products
-                    ?: throw JsonDataException("Required property 'products' missing at ${reader.path}"),
+                id = id!!,
+                name = name!!,
+                products = products!!,
                 shippingPrice = shippingPrice,
                 subtotal = subtotal,
-                total = total
-                    ?: throw JsonDataException("Required property 'total' missing at ${reader.path}")
+                total = total!!
             )
             result
         } catch (exception: java.lang.Exception) {
@@ -130,11 +129,11 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
         writer.name("PRODUCT")
         listOfNullableJSONProductAdapter.toJson(writer, value.products)
         writer.name("SELLERSHIPPINGPRICE")
-        nullableIntAdapter.toJson(writer, value.shippingPrice)
+        nullableDoubleAdapter.toJson(writer, value.shippingPrice)
         writer.name("SELLERSUBTOTAL")
-        nullableIntAdapter.toJson(writer, value.subtotal)
+        nullableDoubleAdapter.toJson(writer, value.subtotal)
         writer.name("SELLERTOTAL")
-        intAdapter.toJson(writer, value.total)
+        doubleAdapter.toJson(writer, value.total)
         writer.endObject()
     }
 }

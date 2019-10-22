@@ -10,12 +10,12 @@ import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ist.cabin.cabinCustomerBase.models.local.MODELRawColor
+import ist.cabin.cabinCustomerBase.models.local.MODELFilterColor
 import ist.cabin.cabincustomer.R
 import ist.cabin.cabincustomer.fragments.filterDetail.CabinCustomerFilterDetailFragment
 
 class CabinCustomerFilterColorsAdapter (val fragment: CabinCustomerFilterDetailFragment,
-                                        private val myDataset: MutableList<MODELRawColor>)
+                                        private val myDataset: MutableList<MODELFilterColor>)
     : RecyclerView.Adapter<CabinCustomerFilterColorsAdapter.FilterColorViewHolder>() {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -37,11 +37,13 @@ class CabinCustomerFilterColorsAdapter (val fragment: CabinCustomerFilterDetailF
                 outlineProvider = object : ViewOutlineProvider() {
                     override fun getOutline(view: View?, outline: Outline?) {
                         if (view != null &&  outline != null)
-                            outline.setOval(10,15,view.width-10,view.height-15)
+                            outline.setOval(10,50,view.width-10,view.height-40)
                     }
                 }
             }
             findViewById<TextView>(R.id.filter_colorbox_color_name).text = myDataset[position].getName()
+            findViewById<ImageView>(R.id.filter_colorbox_count_background_ring).imageTintList =
+                ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode))
         }
     }
 

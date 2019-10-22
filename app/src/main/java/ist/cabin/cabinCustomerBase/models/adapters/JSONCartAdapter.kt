@@ -38,20 +38,20 @@ class JSONCartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCal
             .adapter<List<JSONSeller?>>(Types.newParameterizedType(List::class.java,
                 JSONSeller::class.java), emptySet(), "seller")
 
-    private val nullableIntAdapter: JsonAdapter<Int?> =
-        moshi.adapter<Int?>(Int::class.javaObjectType, emptySet(), "shippingPrice")
+    private val nullableDoubleAdapter: JsonAdapter<Double?> =
+        moshi.adapter<Double?>(Double::class.javaObjectType, kotlin.collections.emptySet(), "shippingPrice")
 
-    private val intAdapter: JsonAdapter<Int> =
-        moshi.adapter<Int>(Int::class.java, emptySet(), "total")
+    private val doubleAdapter: JsonAdapter<Double> =
+        moshi.adapter<Double>(Double::class.java, kotlin.collections.emptySet(), "total")
 
     override fun toString(): String = "GeneratedJsonAdapter(JSONCart)"
 
     @FromJson
     override fun fromJson(reader: JsonReader): JSONCart? {
         var seller: List<JSONSeller?>? = null
-        var shippingPrice: Int? = null
-        var subtotal: Int? = null
-        var total: Int? = null
+        var shippingPrice: Double? = null
+        var subtotal: Double? = null
+        var total: Double? = null
         cartCallback?.setSellerId(null)
         cartCallback?.setProductId(null)
         cartCallback?.setColorId(null)
@@ -61,9 +61,9 @@ class JSONCartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCal
                 when (reader.selectName(options)) {
                     0 -> seller =
                         listOfNullableJSONSellerAdapter.fromJson(reader)
-                    1 -> shippingPrice = nullableIntAdapter.fromJson(reader)
-                    2 -> subtotal = nullableIntAdapter.fromJson(reader)
-                    3 -> total = intAdapter.fromJson(reader)
+                    1 -> shippingPrice = nullableDoubleAdapter.fromJson(reader)
+                    2 -> subtotal = nullableDoubleAdapter.fromJson(reader)
+                    3 -> total = doubleAdapter.fromJson(reader)
                     -1 -> {
                         // Unknown name, skip it.
                         reader.skipName()
@@ -84,7 +84,7 @@ class JSONCartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCal
                 seller = seller!!,
                 shippingPrice = shippingPrice,
                 subtotal = subtotal,
-                total = total
+                total = total!!
             )
             if (!seller.isNullOrEmpty() && total == null){
                 cartCallback?.feedback("Basket removed due to a serious problem!")
@@ -113,11 +113,11 @@ class JSONCartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCal
         writer.name("SELLER")
         listOfNullableJSONSellerAdapter.toJson(writer, value.seller)
         writer.name("SHIPPINGPRICE")
-        nullableIntAdapter.toJson(writer, value.shippingPrice)
+        nullableDoubleAdapter.toJson(writer, value.shippingPrice)
         writer.name("SUBTOTAL")
-        nullableIntAdapter.toJson(writer, value.subtotal)
+        nullableDoubleAdapter.toJson(writer, value.subtotal)
         writer.name("TOTAL")
-        intAdapter.toJson(writer, value.total)
+        doubleAdapter.toJson(writer, value.total)
         writer.endObject()
     }
 }

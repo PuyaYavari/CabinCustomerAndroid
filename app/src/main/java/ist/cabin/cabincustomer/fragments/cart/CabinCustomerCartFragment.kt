@@ -26,7 +26,7 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
     private lateinit var viewAdapter: CabinCustomerCartAdapter
     private lateinit var viewManager: LinearLayoutManager
 
-    private var totalPrice = 0
+    private var totalPrice: Double = 0.0
 
     override val myDataset: MutableList<MODELProduct> = mutableListOf()
 
@@ -170,14 +170,14 @@ class CabinCustomerCartFragment : BaseFragment(), CabinCustomerCartContracts.Vie
         pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_middle_sum).text = "0"
         pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_cargo_sum).text = "0"
         pageView.findViewById<TextView>(R.id.cabin_finish_trade_final_price).text = "0"
-        totalPrice = 0
+        totalPrice = 0.0
         (activity!! as MainActivity).setHeader(
             header = resources.getString(R.string.cart_label),
             headerExtras = null
         )
     }
 
-    override fun addShippingPrice(sellerName: String, price: Int) {
+    override fun addShippingPrice(sellerName: String, price: Double) {
         val cargoPriceView = layoutInflater.inflate(R.layout.cabin_customer_cart_cargo_price_layout, null)
         cargoPriceView.apply {
             findViewById<TextView>(R.id.cart_finish_trade_price_detail_first_cargo_label).text =

@@ -47,7 +47,7 @@ class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailCont
         if (filter != null)
             when (filterType) {
                 FilterTypeIDs.CATEGORY -> {
-                    val dataset = filter.categories
+                    val dataset = filter.filterCategories
                     if (!dataset.isNullOrEmpty())
                         view?.setupCategoriesPage(dataset)
                 }
@@ -62,7 +62,7 @@ class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailCont
                         view?.setupSellersPage(dataset)
                 }
                 FilterTypeIDs.SIZE -> {
-                    val dataset = filter.sizes
+                    val dataset = filter.filterSizes
                     if (!dataset.isNullOrEmpty())
                         view?.setupSizesPage(dataset)
                 }
@@ -72,7 +72,7 @@ class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailCont
                         view?.setupColorsPage(myColorsDataset)
                 }
                 FilterTypeIDs.PRICE -> {
-                    val dataset = filter.prices
+                    val dataset = filter.filterPrices
                     if (!dataset.isNullOrEmpty())
                         view?.setupPricesPage(dataset)
                 }

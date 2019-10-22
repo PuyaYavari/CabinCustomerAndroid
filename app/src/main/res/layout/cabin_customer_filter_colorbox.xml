@@ -12,7 +12,7 @@
 
         <ImageView
                 android:id="@+id/filter_colorbox_color_sample"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:elevation="3dp"
                 android:padding="4dp"
@@ -37,6 +37,49 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/icon_cabin_tick" />
+
+        <ImageView
+                android:id="@+id/filter_colorbox_count_background"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:alpha="0.5"
+                android:elevation="5dp"
+                android:tint="@color/colorBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/filter_colorbox_color_sample"
+                app:layout_constraintEnd_toEndOf="@+id/filter_colorbox_color_sample"
+                app:layout_constraintHorizontal_bias="0.85"
+                app:layout_constraintStart_toStartOf="@+id/filter_colorbox_color_sample"
+                app:layout_constraintTop_toTopOf="@+id/filter_colorbox_color_sample"
+                app:layout_constraintVertical_bias="0.15"
+                app:srcCompat="@drawable/circle_cabin_color" />
+
+        <ImageView
+                android:id="@+id/filter_colorbox_count_background_ring"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:alpha="0.5"
+                android:elevation="5dp"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/filter_colorbox_count_background"
+                app:layout_constraintEnd_toEndOf="@+id/filter_colorbox_count_background"
+                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintStart_toStartOf="@+id/filter_colorbox_count_background"
+                app:layout_constraintTop_toTopOf="@+id/filter_colorbox_count_background"
+                app:layout_constraintVertical_bias="0.2"
+                app:srcCompat="@drawable/filter_detail_color_ring" />
+
+        <TextView
+                android:id="@+id/filter_colorbox_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:text="+99"
+                android:textColor="@android:color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/filter_colorbox_count_background"
+                app:layout_constraintEnd_toEndOf="@+id/filter_colorbox_count_background"
+                app:layout_constraintStart_toStartOf="@+id/filter_colorbox_count_background"
+                app:layout_constraintTop_toTopOf="@+id/filter_colorbox_count_background" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

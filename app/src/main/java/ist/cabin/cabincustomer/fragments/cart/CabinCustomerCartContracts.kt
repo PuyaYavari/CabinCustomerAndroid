@@ -16,7 +16,7 @@ object CabinCustomerCartContracts {
         fun setData(cart: MODELCart)
         fun updateProduct(product: MODELProduct)
         fun clearAll()
-        fun addShippingPrice(sellerName: String, price: Int)
+        fun addShippingPrice(sellerName: String, price: Double)
         fun clearCargoPrices()
         fun moveToProductDetail(product: MODELProduct, color: MODELColor)
         fun showProgressBar()

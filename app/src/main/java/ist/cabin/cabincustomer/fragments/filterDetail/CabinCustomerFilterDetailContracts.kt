@@ -6,12 +6,12 @@ import ist.cabin.cabinCustomerBase.models.local.*
 object CabinCustomerFilterDetailContracts {
 
     interface View : BaseContracts.View {
-        fun setupCategoriesPage(dataset: MutableList<MODELCategory>)
-        fun setupSexesPage(dataset: MutableList<MODELSex>)
-        fun setupSellersPage(dataset: MutableList<MODELSellerName>)
-        fun setupSizesPage(dataset: MutableList<MODELSizeNameGroup>)
-        fun setupColorsPage(dataset: MutableList<MODELRawColor>)
-        fun setupPricesPage(dataset: MutableList<MODELPriceInterval>)
+        fun setupCategoriesPage(dataset: MutableList<MODELFilterCategory>)
+        fun setupSexesPage(dataset: MutableList<MODELFilterSex>)
+        fun setupSellersPage(dataset: MutableList<MODELFilterSeller>)
+        fun setupSizesPage(dataset: MutableList<MODELFilterSizeGroup>)
+        fun setupColorsPage(dataset: MutableList<MODELFilterColor>)
+        fun setupPricesPage(dataset: MutableList<MODELFilterPrice>)
     }
 
     interface Presenter : BaseContracts.Presenter {

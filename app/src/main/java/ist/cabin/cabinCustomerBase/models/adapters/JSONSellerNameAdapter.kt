@@ -24,9 +24,7 @@ class JSONSellerNameAdapter (moshi: Moshi) : JsonAdapter<JSONSellerName>() {
             try {
                 when (reader.selectName(options)) {
                     0 -> id = intAdapter.fromJson(reader)
-                        //?: throw JsonDataException("Non-null value 'id' was null at ${reader.path}")
                     1 -> name = stringAdapter.fromJson(reader)
-                        //?: throw JsonDataException("Non-null value 'name' was null at ${reader.path}")
                     -1 -> {
                         // Unknown name, skip it.
                         reader.skipName()

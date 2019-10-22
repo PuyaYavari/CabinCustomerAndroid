@@ -56,7 +56,7 @@ class JSONCartProductColorAdapter (moshi: Moshi, callback: CabinCustomerCartCont
         Moshi.Builder().add(JSONSizeAdapter(Moshi.Builder().build())).build()
             .adapter<List<JSONSize>>(
                 Types.newParameterizedType(List::class.java, JSONSize::class.java),
-                emptySet(), "sizes")
+                emptySet(), "filterSizes")
 
     override fun toString(): String = "GeneratedJsonAdapter(JSONColor)"
 
@@ -83,7 +83,7 @@ class JSONCartProductColorAdapter (moshi: Moshi, callback: CabinCustomerCartCont
                     4 -> isFavorite = nullableBooleanAdapter.fromJson(reader)
                     5 -> images = listOfJSONImageAdapter.fromJson(reader)
                     6 -> sizes =
-                        listOfJSONSizeAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'sizes' was null at ${reader.path}")
+                        listOfJSONSizeAdapter.fromJson(reader) //?: throw JsonDataException("Non-null value 'filterSizes' was null at ${reader.path}")
                     -1 -> {
                         // Unknown name, skip it.
                         reader.skipName()

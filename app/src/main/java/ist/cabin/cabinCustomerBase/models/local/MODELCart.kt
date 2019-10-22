@@ -5,9 +5,9 @@ import ist.cabin.cabinCustomerBase.models.backend.JSONCart
 
 class MODELCart : LocalDataModel {
     private var seller: MutableList<MODELSeller> = mutableListOf()
-    private var shippingPrice: Int? = null
-    private var subtotal: Int? = null
-    private var total: Int = 0
+    private var shippingPrice: Double? = null
+    private var subtotal: Double? = null
+    private var total: Double = 0.0
 
     override fun <T> mapFrom(modelData: T): Boolean {
         return try {

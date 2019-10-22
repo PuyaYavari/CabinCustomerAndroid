@@ -4,31 +4,31 @@ import ist.cabin.cabinCustomerBase.Logger
 import ist.cabin.cabinCustomerBase.models.backend.JSONFilter
 
 class MODELFilter: LocalDataModel {
-    var categories: MutableList<MODELCategory>? = null
-    var sexes: MutableList<MODELSex>? = null
-    var sellers: MutableList<MODELSellerName>? = null
-    var colors: MutableList<MODELRawColor>? = null
-    var sizes: MutableList<MODELSizeNameGroup>? = null
-    var prices: MutableList<MODELPriceInterval>? = null
+    var filterCategories: MutableList<MODELFilterCategory>? = null
+    var sexes: MutableList<MODELFilterSex>? = null
+    var sellers: MutableList<MODELFilterSeller>? = null
+    var colors: MutableList<MODELFilterColor>? = null
+    var filterSizes: MutableList<MODELFilterSizeGroup>? = null
+    var filterPrices: MutableList<MODELFilterPrice>? = null
 
     override fun <T> mapFrom(modelData: T): Boolean {
         return try {
             val jsonData = modelData as JSONFilter
-            val categoriesData = jsonData.categories
+            val categoriesData = jsonData.filterCategories
             if (!categoriesData.isNullOrEmpty()) {
-                val newCategories: MutableList<MODELCategory> = mutableListOf()
+                val newFilterCategories: MutableList<MODELFilterCategory> = mutableListOf()
                 categoriesData.forEach {
-                    val category = MODELCategory() //FIXME: NOT MEMORY EFFICIENT
+                    val category = MODELFilterCategory() //FIXME: NOT MEMORY EFFICIENT
                     if (category.mapFrom(it))
-                        newCategories.add(category)
+                        newFilterCategories.add(category)
                 }
-                this.categories = newCategories
+                this.filterCategories = newFilterCategories
             }
             val sexesData = jsonData.sexes
             if (!sexesData.isNullOrEmpty()) {
-                val newSexes: MutableList<MODELSex> = mutableListOf()
+                val newSexes: MutableList<MODELFilterSex> = mutableListOf()
                 sexesData.forEach {
-                    val sex = MODELSex()
+                    val sex = MODELFilterSex()
                     if (sex.mapFrom(it))
                         newSexes.add(sex)
                 }
@@ -36,9 +36,9 @@ class MODELFilter: LocalDataModel {
             }
             val sellersData = jsonData.seller
             if (!sellersData.isNullOrEmpty()) {
-                val newSellers: MutableList<MODELSellerName> = mutableListOf()
+                val newSellers: MutableList<MODELFilterSeller> = mutableListOf()
                 sellersData.forEach {
-                    val seller = MODELSellerName()
+                    val seller = MODELFilterSeller()
                     if (seller.mapFrom(it))
                         newSellers.add(seller)
                 }
@@ -46,33 +46,33 @@ class MODELFilter: LocalDataModel {
             }
             val colorsData = jsonData.colors
             if (!colorsData.isNullOrEmpty()) {
-                val newColors: MutableList<MODELRawColor> = mutableListOf()
+                val newColors: MutableList<MODELFilterColor> = mutableListOf()
                 colorsData.forEach {
-                    val color = MODELRawColor()
+                    val color = MODELFilterColor()
                     if (color.mapFrom(it))
                         newColors.add(color)
                 }
                 this.colors = newColors
             }
-            val sizesData = jsonData.sizes
+            val sizesData = jsonData.filterSizes
             if (!sizesData.isNullOrEmpty()) {
-                val newSizes: MutableList<MODELSizeNameGroup> = mutableListOf()
+                val newFilterSizes: MutableList<MODELFilterSizeGroup> = mutableListOf()
                 sizesData.forEach {
-                    val sizeNameGroup = MODELSizeNameGroup()
+                    val sizeNameGroup = MODELFilterSizeGroup()
                     if (sizeNameGroup.mapFrom(it))
-                        newSizes.add(sizeNameGroup)
+                        newFilterSizes.add(sizeNameGroup)
                 }
-                this.sizes = newSizes
+                this.filterSizes = newFilterSizes
             }
-            val pricesData = jsonData.prices
+            val pricesData = jsonData.filterPrices
             if (!pricesData.isNullOrEmpty()) {
-                val newPrices: MutableList<MODELPriceInterval> = mutableListOf()
+                val newFilterPrices: MutableList<MODELFilterPrice> = mutableListOf()
                 pricesData.forEach {
-                    val priceInterval = MODELPriceInterval()
+                    val priceInterval = MODELFilterPrice()
                     if (priceInterval.mapFrom(it))
-                        newPrices.add(priceInterval)
+                        newFilterPrices.add(priceInterval)
                 }
-                this.prices = newPrices
+                this.filterPrices = newFilterPrices
             }
             true
         } catch (exception: Exception) {

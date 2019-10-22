@@ -60,11 +60,13 @@ class CabinCustomerFilterFragment : BaseFragment(), CabinCustomerFilterContracts
     }
 
     private fun setupActivityLayout() {
-        if ((activity!! as MainActivity).findViewById<BottomNavigationView>(R.id.navbar)
-                .translationY != 0f)
+        if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.main_header).translationY != 0f &&
+            (activity!! as MainActivity).findViewById<BottomNavigationView>(R.id.navbar).translationY != 0f) {
             (activity!! as MainActivity).hideNavbarFromHidden()
-        else
+        } else if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.main_header).translationY == 0f &&
+            (activity!! as MainActivity).findViewById<BottomNavigationView>(R.id.navbar).translationY == 0f) {
             (activity!! as MainActivity).hideNavbarFromDefault()
+        }
         (activity!! as MainActivity).lockDrawer()
         hideProgressBar()
     }

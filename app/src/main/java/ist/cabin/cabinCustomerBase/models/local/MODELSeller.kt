@@ -7,9 +7,9 @@ class MODELSeller : LocalDataModel {
     private var id: Int = -1
     private lateinit var name: String
     private val products: MutableList<MODELProduct?> = mutableListOf()
-    private var shippingPrice: Int? = null
-    private var subtotal: Int? = null
-    private var total: Int = -1
+    private var shippingPrice: Double? = null
+    private var subtotal: Double? = null
+    private var total: Double = -1.0
 
     override fun <T> mapFrom(modelData: T): Boolean {
         return try {

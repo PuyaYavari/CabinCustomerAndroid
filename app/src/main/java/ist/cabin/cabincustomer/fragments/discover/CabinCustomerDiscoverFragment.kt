@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.FrameLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ist.cabin.cabinCustomerBase.BaseFragment
@@ -71,7 +71,7 @@ class CabinCustomerDiscoverFragment : BaseFragment(), CabinCustomerDiscoverContr
     //region View
 
     private fun setupPage() {
-        pageView.findViewById<ConstraintLayout>(R.id.discover_header_bottom_bar_filter_layout)
+        pageView.findViewById<FrameLayout>(R.id.discover_header_bottom_bar_filter_layout)
             .setOnClickListener { presenter?.moveToFilter() }
 //        if (){
 //            clearPage()

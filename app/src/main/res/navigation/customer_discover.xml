@@ -8,11 +8,7 @@
               android:label="CabinCustomerDiscoverFragment">
         <action
                 android:id="@+id/actionDiscoverToProductDetail"
-                app:destination="@id/cabinCustomerProductDetailFragment"
-                app:enterAnim="@anim/slide_in_from_bottom"
-                app:exitAnim="@anim/slide_out_to_top"
-                app:popEnterAnim="@anim/slide_in_from_top"
-                app:popExitAnim="@anim/slide_out_to_bottom" />
+                app:destination="@id/cabinCustomerProductDetailFragment" />
         <argument
                 android:name="reloadPage"
                 app:argType="boolean"

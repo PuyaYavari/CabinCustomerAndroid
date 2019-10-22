@@ -133,7 +133,7 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
                     }
                 }
                 val shippingPrice = seller.getShippingPrice()
-                if (shippingPrice != 0 && shippingPrice != null && view?.myDataset!!.isNotEmpty()) {
+                if (shippingPrice != 0.0 && shippingPrice != null && view?.myDataset!!.isNotEmpty()) {
                     view?.addShippingPrice(seller.getName(), shippingPrice)
                 }
             }

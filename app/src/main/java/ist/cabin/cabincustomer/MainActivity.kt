@@ -3,6 +3,7 @@ package ist.cabin.cabincustomer
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -320,6 +321,8 @@ class MainActivity : BaseActivity(),
         findViewById<TextView>(R.id.select_size_product_id).text = product.getProductId()
         findViewById<TextView>(R.id.select_size_price).text = product.getPrice().toString()
         //TODO: DISCOUNTS
+
+        Log.i(null, "Color has ${color.sizes.size} sizes.")
 
         val sizesAdapter = SizesAdapter(this, color.sizes, callback)
         findViewById<RecyclerView>(R.id.select_size_recycler_view).apply {

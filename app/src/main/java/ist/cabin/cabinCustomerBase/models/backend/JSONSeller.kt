@@ -7,6 +7,6 @@ import com.squareup.moshi.JsonClass
 data class JSONSeller(@Json(name = "ID") val id: Int,
                       @Json(name = "NAME") val name: String,
                       @Json(name = "PRODUCT") val products: List<JSONProduct?>,
-                      @Json(name = "SELLERSHIPPINGPRICE") val shippingPrice: Int?,
-                      @Json(name = "SELLERSUBTOTAL") val subtotal: Int?,
-                      @Json(name = "SELLERTOTAL") val total: Int)
+                      @Json(name = "SELLERSHIPPINGPRICE") val shippingPrice: Double?,
+                      @Json(name = "SELLERSUBTOTAL") val subtotal: Double?,
+                      @Json(name = "SELLERTOTAL") val total: Double)

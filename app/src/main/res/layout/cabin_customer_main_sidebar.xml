@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ist.cabin.cabincustomer.utils.DrawerContent android:id="@+id/main_side_menu"
+        android:layout_width="180dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/transparent"
+        app:layoutDescription="@xml/main_side_menu_transitions"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+            android:id="@+id/sidebar_cabin_logo"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="16dp"
+            android:tint="@color/colorSidebarLabelsPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/header_separator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/cabin_logo" />
+
+    <View
+            android:id="@+id/header_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/colorSidebarLabelsPrimary"
+            app:layout_constraintBottom_toTopOf="@id/sidebar_profile_options_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sidebar_cabin_logo"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    <LinearLayout
+            android:id="@+id/sidebar_profile_options_layout"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/sidebarVerticalMargins"
+            android:layout_marginBottom="@dimen/sidebarVerticalMargins"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/sidebar_measure_options_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_separator"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_magic"
+                android:visibility="gone" />
+
+        <TextView
+                android:id="@+id/sidebar_profile_options_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_options_label"
+                android:textColor="@color/colorSidebarLabelsPrimary"
+                android:textSize="@dimen/sidebarTextSize"
+                android:typeface="serif" />
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:id="@+id/sidebar_measure_options_layout"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/sidebarVerticalMargins"
+            android:layout_marginBottom="@dimen/sidebarVerticalMargins"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/sidebar_extraditions_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sidebar_profile_options_layout"
+            app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/mannequin"
+                android:visibility="gone" />
+
+        <TextView
+                android:id="@+id/sidebar_measure_options_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/body_measures_label"
+                android:textColor="@color/colorSidebarLabelsPrimary"
+                android:textSize="@dimen/sidebarTextSize"
+                android:typeface="serif" />
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:id="@+id/sidebar_extraditions_layout"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/sidebarVerticalMargins"
+            android:layout_marginBottom="@dimen/sidebarVerticalMargins"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/sidebar_help_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sidebar_measure_options_layout"
+            app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_dislike"
+                android:visibility="gone" />
+
+        <TextView
+                android:id="@+id/sidebar_extraditions_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/extraditions_header_label"
+                android:textColor="@color/colorSidebarLabelsPrimary"
+                android:textSize="@dimen/sidebarTextSize"
+                android:typeface="serif" />
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:id="@+id/sidebar_help_layout"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/sidebarVerticalMargins"
+            android:layout_marginBottom="@dimen/sidebarVerticalMargins"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/sidebar_exit_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sidebar_extraditions_layout"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_helping"
+                android:visibility="gone" />
+
+        <TextView
+                android:id="@+id/sidebar_help_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_label"
+                android:textColor="@color/colorSidebarLabelsPrimary"
+                android:textSize="@dimen/sidebarTextSize"
+                android:typeface="serif" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/sidebar_exit_layout"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/sidebarVerticalMargins"
+            android:layout_marginBottom="@dimen/sidebarVerticalMargins"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sidebar_help_layout"
+            app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/exit"
+                android:visibility="gone" />
+
+        <TextView
+                android:id="@+id/sidebar_exit_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exit_label"
+                android:textColor="@color/colorSidebarLabelsPrimary"
+                android:textSize="@dimen/sidebarTextSize"
+                android:typeface="serif" />
+    </LinearLayout>
+</ist.cabin.cabincustomer.utils.DrawerContent>
