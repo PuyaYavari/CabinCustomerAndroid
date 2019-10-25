@@ -5,7 +5,7 @@
 
     <fragment
             android:id="@+id/cabinCustomerMeasureSelectMethodFragment"
-            android:name="ist.cabin.cabinCustomerMeasure.fragments.selectMethod.CabinCustomerMeasureSelectMethodFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerMeasure.fragments.selectMethod.CabinCustomerMeasureSelectMethodFragment"
             android:label="CabinCustomerMeasureSelectMethodFragment" >
         <action
                 android:id="@+id/actionMeasureSelectMethodToMeasureAutoTutorial"
@@ -17,6 +17,6 @@
     </fragment>
     <fragment
             android:id="@+id/cabinCustomerMeasureAutoTutorialFragment"
-            android:name="ist.cabin.cabinCustomerMeasure.fragments.autoTutorial.CabinCustomerMeasureAutoTutorialFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerMeasure.fragments.autoTutorial.CabinCustomerMeasureAutoTutorialFragment"
             android:label="CabinCustomerMeasureAutoTutorialFragment" />
 </navigation>

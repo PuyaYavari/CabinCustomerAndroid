@@ -5,7 +5,7 @@
 
     <fragment
             android:id="@+id/cabinCustomerExtraditionsListFragment"
-            android:name="ist.cabin.cabinCustomerExtraditions.fragments.extraditionsList.CabinCustomerExtraditionsListFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.extraditionsList.CabinCustomerExtraditionsListFragment"
             android:label="CabinCustomerExtraditionsListFragment" >
         <action
                 android:id="@+id/actionExtraditionsListToAddExtraditionCurrentItemsList"
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
             android:id="@+id/cabinCustomerAddExtraditionFragment"
-            android:name="ist.cabin.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionFragment"
             android:label="CabinCustomerAddExtraditionFragment" >
         <action
                 android:id="@+id/actionAddExtraditionToExtraditionsCongratulations"
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
             android:id="@+id/cabinCustomerAddExtraditionCurrentItemsListFragment"
-            android:name="ist.cabin.cabinCustomerExtraditions.fragments.addExtraditionCurrentItemsList.CabinCustomerAddExtraditionCurrentItemsListFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtraditionCurrentItemsList.CabinCustomerAddExtraditionCurrentItemsListFragment"
             android:label="CabinCustomerAddExtraditionCurrentItemsListFragment" >
         <action
                 android:id="@+id/actionAddExtraditionCurrentItemsListToAddExtradition"
@@ -63,18 +63,18 @@
     </fragment>
     <fragment
             android:id="@+id/cabinCustomerExtraditionsCongratulationsFragment"
-            android:name="ist.cabin.cabinCustomerExtraditions.fragments.congratulations.CabinCustomerExtraditionsCongratulationsFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.congratulations.CabinCustomerExtraditionsCongratulationsFragment"
             android:label="CabinCustomerExtraditionsCongratulationsFragment" />
     <fragment
             android:id="@+id/cabinCustomerExtraditionDetailFragment"
-            android:name="ist.cabin.cabinCustomerExtraditions.fragments.extraditionDetail.CabinCustomerExtraditionDetailFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.extraditionDetail.CabinCustomerExtraditionDetailFragment"
             android:label="CabinCustomerExtraditionDetailFragment" />
     <fragment
             android:id="@+id/cabinCustomerExtraditionDetailDeniedFragment"
-            android:name="ist.cabin.cabinCustomerExtraditions.fragments.extraditionDetailDenied.CabinCustomerExtraditionDetailDeniedFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.extraditionDetailDenied.CabinCustomerExtraditionDetailDeniedFragment"
             android:label="CabinCustomerExtraditionDetailDeniedFragment" />
     <fragment
             android:id="@+id/cabinCustomerExtraditionDetailAcceptedFragment"
-            android:name="ist.cabin.cabinCustomerExtraditions.fragments.extraditionDetailAccepted.CabinCustomerExtraditionDetailAcceptedFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.extraditionDetailAccepted.CabinCustomerExtraditionDetailAcceptedFragment"
             android:label="CabinCustomerExtraditionDetailAcceptedFragment" />
 </navigation>

@@ -5,6 +5,6 @@
 
     <fragment
             android:id="@+id/cabinCustomerFinishTradeMainFragment"
-            android:name="ist.cabin.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainFragment"
             android:label="CabinCustomerFinishTradeMainFragment" />
 </navigation>

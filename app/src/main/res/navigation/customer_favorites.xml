@@ -4,7 +4,7 @@
             android:id="@+id/customer_favorites" app:startDestination="@id/cabinCustomerFavoritesFragment">
 
     <fragment android:id="@+id/cabinCustomerFavoritesFragment"
-              android:name="ist.cabin.cabincustomer.fragments.favorites.CabinCustomerFavoritesFragment"
+              android:name="com.cabinInformationTechnologies.cabin.fragments.favorites.CabinCustomerFavoritesFragment"
               android:label="CabinCustomerFavoritesFragment">
         <action
                 android:id="@+id/actionFavoritesToProductDetail"
@@ -16,13 +16,13 @@
     </fragment>
     <fragment
             android:id="@+id/cabinCustomerProductDetailFragment2"
-            android:name="ist.cabin.cabincustomer.fragments.productDetail.CabinCustomerProductDetailFragment"
+            android:name="com.cabinInformationTechnologies.cabin.fragments.productDetail.CabinCustomerProductDetailFragment"
             android:label="CabinCustomerProductDetailFragment" >
         <argument android:name="product"
-                app:argType="ist.cabin.cabinCustomerBase.models.local.MODELProduct" />
+                app:argType="com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct" />
         <argument
                 android:name="initialColor"
-                app:argType="ist.cabin.cabinCustomerBase.models.local.MODELColor"
+                app:argType="com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor"
                 app:nullable="true"
                 android:defaultValue="@null" />
     </fragment>

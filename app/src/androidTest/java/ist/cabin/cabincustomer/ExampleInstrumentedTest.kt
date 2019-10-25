@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer
+package com.cabinInformationTechnologies.cabin
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("ist.cabin.cabincustomer", appContext.packageName)
+        assertEquals("com.cabinInformationTechnologies.cabin", appContext.packageName)
     }
 }

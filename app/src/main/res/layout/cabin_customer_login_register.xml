@@ -389,6 +389,7 @@
                             app:layout_constraintVertical_bias="0.0">
 
                         <ImageView
+                                android:id="@+id/register_google_button"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_marginStart="8dp"
@@ -396,9 +397,10 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="0"
-                                app:srcCompat="@drawable/icon_google" />
+                                app:srcCompat="@drawable/icon_google_mdpi" />
 
                         <ImageView
+                                android:id="@+id/register_facebook_button"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_marginStart="8dp"
@@ -406,7 +408,7 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="0"
-                                app:srcCompat="@drawable/icon_facebook" />
+                                app:srcCompat="@drawable/icon_facebook_mdpi" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -640,6 +642,7 @@
                             app:layout_constraintVertical_bias="0.0">
 
                         <ImageView
+                                android:id="@+id/login_google_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -647,9 +650,10 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="0"
-                                app:srcCompat="@drawable/icon_google" />
+                                app:srcCompat="@drawable/icon_google_mdpi" />
 
                         <ImageView
+                                android:id="@+id/login_facebook_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -657,7 +661,7 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="0"
-                                app:srcCompat="@drawable/icon_facebook" />
+                                app:srcCompat="@drawable/icon_facebook_mdpi" />
                     </LinearLayout>
 
                     <LinearLayout

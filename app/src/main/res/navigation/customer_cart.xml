@@ -4,7 +4,7 @@
             android:id="@+id/customer_cart" app:startDestination="@id/cabinCustomerCartFragment">
 
     <fragment android:id="@+id/cabinCustomerCartFragment"
-              android:name="ist.cabin.cabincustomer.fragments.cart.CabinCustomerCartFragment"
+              android:name="com.cabinInformationTechnologies.cabin.fragments.cart.CabinCustomerCartFragment"
               android:label="CabinCustomerCartFragment">
         <action
                 android:id="@+id/actionCartToProductDetail"
@@ -16,14 +16,14 @@
     </fragment>
     <fragment
             android:id="@+id/cabinCustomerProductDetailFragment3"
-            android:name="ist.cabin.cabincustomer.fragments.productDetail.CabinCustomerProductDetailFragment"
+            android:name="com.cabinInformationTechnologies.cabin.fragments.productDetail.CabinCustomerProductDetailFragment"
             android:label="CabinCustomerProductDetailFragment" >
         <argument
                 android:name="product"
-                app:argType="ist.cabin.cabinCustomerBase.models.local.MODELProduct" />
+                app:argType="com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct" />
         <argument
                 android:name="initialColor"
-                app:argType="ist.cabin.cabinCustomerBase.models.local.MODELColor"
+                app:argType="com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor"
                 app:nullable="true"
                 android:defaultValue="@null" />
     </fragment>

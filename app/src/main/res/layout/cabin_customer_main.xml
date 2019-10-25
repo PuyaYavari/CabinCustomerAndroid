@@ -7,11 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".MainActivity"
+        tools:context="com.cabinInformationTechnologies.cabin.MainActivity"
         tools:openDrawer="start"
         android:background="@color/colorPrimary">
 
-    <ist.cabin.cabincustomer.utils.DrawerContent
+    <com.cabinInformationTechnologies.cabin.utils.DrawerContent
         android:id="@+id/main_drawer_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -446,7 +446,7 @@
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
-    </ist.cabin.cabincustomer.utils.DrawerContent>
+    </com.cabinInformationTechnologies.cabin.utils.DrawerContent>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_progressbar_layout"

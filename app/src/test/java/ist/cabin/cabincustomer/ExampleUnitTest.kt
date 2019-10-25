@@ -1,4 +1,4 @@
-package ist.cabin.cabincustomer
+package com.cabinInformationTechnologies.cabin
 
 import org.junit.Test
 

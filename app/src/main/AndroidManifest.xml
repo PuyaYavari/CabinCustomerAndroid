@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-          package="ist.cabin.cabincustomer">
+          package="com.cabinInformationTechnologies.cabin">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -28,7 +28,7 @@
             </meta-data>
         </provider>
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.cabinInformationTechnologies.cabin.MainActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait">
             <intent-filter>
@@ -37,28 +37,28 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="ist.cabin.cabinCustomerAgreement.CabinCustomerAgreementActivity"
+        <activity android:name="com.cabinInformationTechnologies.cabinCustomerAgreement.CabinCustomerAgreementActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerCameraPreview.CabinCustomerCameraPreviewActivity"
+        <activity android:name="com.cabinInformationTechnologies.cabinCustomerCameraPreview.CabinCustomerCameraPreviewActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerCamera.CabinCustomerCameraActivity"
+        <activity android:name="com.cabinInformationTechnologies.cabinCustomerCamera.CabinCustomerCameraActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerProfileOptions.CabinCustomerProfileOptionsActivity"
+        <activity android:name="com.cabinInformationTechnologies.cabinCustomerProfileOptions.CabinCustomerProfileOptionsActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerExtraditions.CabinCustomerExtraditionsActivity"
+        <activity android:name="com.cabinInformationTechnologies.cabinCustomerExtraditions.CabinCustomerExtraditionsActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity"
+        <activity android:name="com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerMeasure.CabinCustomerMeasureActivity"
+        <activity android:name="com.cabinInformationTechnologies.cabinCustomerMeasure.CabinCustomerMeasureActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"/>
-        <activity android:name="ist.cabin.cabinCustomerRegistration.CabinCustomerRegistrationActivity"
+        <activity android:name="com.cabinInformationTechnologies.cabinCustomerRegistration.CabinCustomerRegistrationActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"/>
     </application>

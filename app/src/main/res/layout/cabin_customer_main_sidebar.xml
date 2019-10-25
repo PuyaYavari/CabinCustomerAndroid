@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ist.cabin.cabincustomer.utils.DrawerContent android:id="@+id/main_side_menu"
+<com.cabinInformationTechnologies.cabin.utils.DrawerContent android:id="@+id/main_side_menu"
         android:layout_width="180dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
@@ -204,4 +204,4 @@
                 android:textSize="@dimen/sidebarTextSize"
                 android:typeface="serif" />
     </LinearLayout>
-</ist.cabin.cabincustomer.utils.DrawerContent>
+</com.cabinInformationTechnologies.cabin.utils.DrawerContent>

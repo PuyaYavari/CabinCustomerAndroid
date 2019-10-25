@@ -4,7 +4,7 @@
             android:id="@+id/customer_orders" app:startDestination="@id/cabinCustomerOrdersFragment">
 
     <fragment android:id="@+id/cabinCustomerOrdersFragment"
-              android:name="ist.cabin.cabincustomer.fragments.orders.CabinCustomerOrdersFragment"
+              android:name="com.cabinInformationTechnologies.cabin.fragments.orders.CabinCustomerOrdersFragment"
               android:label="CabinCustomerOrdersFragment">
         <action
                 android:id="@+id/action_Orders_to_OrdersDetail"
@@ -15,7 +15,7 @@
                 app:popExitAnim="@anim/slide_out_to_right" />
     </fragment>
     <fragment android:id="@+id/cabinCustomerOrdersDetailFragment"
-              android:name="ist.cabin.cabincustomer.fragments.ordersDetail.CabinCustomerOrdersDetailFragment"
+              android:name="com.cabinInformationTechnologies.cabin.fragments.ordersDetail.CabinCustomerOrdersDetailFragment"
               android:label="CabinCustomerOrdersDetailFragment">
         <argument android:name="pageType" app:argType="integer" android:defaultValue="0"/>
     </fragment>
