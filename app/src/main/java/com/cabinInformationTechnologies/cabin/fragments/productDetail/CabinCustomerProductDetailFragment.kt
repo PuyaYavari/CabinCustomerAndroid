@@ -98,7 +98,12 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         mPager.layoutParams = imagePagerParams
 
         populateImagesList()
-        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "imageListSize: ${imagesList.size}", null)
+        if (context != null)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                context,
+                this::class.java.name,
+                "imageListSize: ${imagesList.size}",
+                null)
         setupImagesIndicator()
 
         mPager.adapter = CabinCustomerProductDetailImagePagerAdapter(imagesList, LayoutInflater.from(this.context))
@@ -163,7 +168,13 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                 pageView.findViewById<View>(R.id.image3_indicator).visibility = View.GONE
                 pageView.findViewById<View>(R.id.image4_indicator).visibility = View.GONE
                 pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
-                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(location = this::class.java.name,message = "No Image!!",exception = null)
+                val context = this.context
+                if (context != null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "No Image!!",
+                        null)
                 //TODO: SHOW PLACEHOLDER
             }
         }
@@ -391,12 +402,24 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
     override fun setSelectedColor(color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
         presenter?.setSelectedColor(color)
         setFavoriteButtonTo(color)
-        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(null, "$color selected", null)
+        val context = this.context
+        if (context != null)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                context,
+                null,
+                "$color selected",
+                null)
     }
 
     override fun setSelectedSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize?) {
         presenter?.setSelectedSize(size)
-        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(null, "$size selected", null)
+        val context = this.context
+        if (context != null)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                context,
+                null,
+                "$size selected",
+                null)
     }
 
     override fun setupColors(colorsDataset : MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor>) {

@@ -1,8 +1,9 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
+import android.content.Context
 import com.squareup.moshi.*
 
-class JSONAddressAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONAddress>() {
+class JSONAddressAdapter(val context: Context, moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONAddress>() {
     private val options: JsonReader.Options =
         JsonReader.Options.of("ID", "BILLING", "NAME", "SURNAME", "PHONE", "CITY", "DISTRICT", "ADDRESS", "TITLE", "INDIVIDUAL", "COMPANY_NAME", "TAX_NUMBER", "TAX_AUTHORITY")
 
@@ -16,12 +17,12 @@ class JSONAddressAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnol
         moshi.adapter<String>(String::class.java, kotlin.collections.emptySet(), "name")
 
     private val listOfJSONCityAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCity>> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONCityAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONCityAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCity>>(Types.newParameterizedType(List::class.java,
                 com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCity::class.java), kotlin.collections.emptySet(), "province")
 
     private val listOfJSONDistrictAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONDistrict>> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONDistrictAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONDistrictAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONDistrict>>(Types.newParameterizedType(List::class.java,
                 com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONDistrict::class.java), kotlin.collections.emptySet(), "district")
 
@@ -70,7 +71,9 @@ class JSONAddressAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnol
                 }
             } catch (exception: Exception) {
                 com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
-                    this::class.java.name, "A field is null and is being skipped.",
+                    context,
+                    this::class.java.name,
+                    "A field is null and is being skipped.",
                     exception
                 )
                 reader.skipValue()
@@ -96,6 +99,7 @@ class JSONAddressAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnol
             return result
         } catch (exception: Exception) {
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                context,
                 this::class.java.name,
                 "A field is null, this object will be null and won't be visible in app.",
                 exception

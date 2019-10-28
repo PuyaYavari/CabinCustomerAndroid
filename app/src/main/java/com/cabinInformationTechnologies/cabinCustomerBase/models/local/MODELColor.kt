@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.content.Context
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -13,12 +14,16 @@ class MODELColor: com.cabinInformationTechnologies.cabinCustomerBase.models.loca
     var sizes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize> = mutableListOf()
 
     @Throws(Exception::class)
-    override fun <T> mapFrom(modelData: T): Boolean {
+    override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonModel = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONColor
             id = jsonModel.id
             if (jsonModel.name == null)
-                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "Color name is null.", null)
+                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    context,
+                    this::class.java.name,
+                    "Color name is null.",
+                    null)
             else
                 name = jsonModel.name
 
@@ -29,21 +34,34 @@ class MODELColor: com.cabinInformationTechnologies.cabinCustomerBase.models.loca
                 favourite = jsonModel.isFavorite
             if (jsonModel.images != null)
                 jsonModel.images.forEach {
-                    val image = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELImage()
-                    if (image.mapFrom(it)) {
+                    val image = MODELImage()
+                    if (image.mapFrom(
+                            context,
+                            it)
+                    ) {
                         images.add(image)
                     } else {
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "Image not mapped.", null)
+                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                            context,
+                            this::class.java.name,
+                            "Image not mapped.",
+                            null)
                     }
                 }
             jsonModel.sizes.forEach {
                 val size = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize()
-                if (size.mapFrom(it))
+                if (size.mapFrom(
+                        context,
+                        it))
                     sizes.add(size)
             } //FIXME: RETURN FALSE FOR IMPORTANT FIELDS MISSING
             true
         } catch (exception: Exception){
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(this::class.java.name,"A problem occurred while mapping Color.",exception)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                context,
+                this::class.java.name,
+                "A problem occurred while mapping Color.",
+                exception)
             false
         }
     }

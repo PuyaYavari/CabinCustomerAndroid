@@ -55,24 +55,24 @@ object NetworkManager {
 
 
     @Throws(Exception::class)
-    inline fun <reified T>requestFactory(context: Context?,
+    inline fun <reified T>requestFactory(context: Context,
                                          url: String,
                                          page: Int?,
                                          pageSize: Int?,
                                          data: Any?,
                                          responseClass: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel?,
                                          responseAdapter: JsonAdapter<T>?,
-                                         ResponseCallbacks: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks
+                                         ResponseCallbacks: BaseContracts.ResponseCallbacks
     ){
-        val apiServices = com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.retrofit()
-            .create(com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ApiServices::class.java)
+        val apiServices = retrofit()
+            .create(BaseContracts.ApiServices::class.java)
         val adapter: JsonAdapter<T>? = responseAdapter
             ?: Moshi.Builder().add(KotlinJsonAdapterFactory()).build().adapter<T>(T::class.java)
 
         val call = apiServices.sendRequest(
             com.cabinInformationTechnologies.cabinCustomerBase.models.Request(
-                com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.getActiveUserData(),
-                com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.getPaging(page, pageSize),
+                getActiveUserData(),
+                getPaging(page, pageSize),
                 data
             ), url)
         call.enqueue(object : Callback<String?> {
@@ -81,11 +81,14 @@ object NetworkManager {
                     response.isSuccessful -> {
                         try {
                             val responseBody: Any? = response.body()
-                            val issue = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.IssueResponseMapper.issueResponseMapper(responseBody.toString())
+                            val issue = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.IssueResponseMapper.issueResponseMapper(
+                                context,
+                                responseBody.toString()
+                            )
                             if (issue == null) {
                                 val dataModel = adapter?.fromJson(responseBody.toString()) ?: throw Exception("Some Exception")
                                 if (responseClass != null)
-                                    ResponseCallbacks.onSuccess(responseClass.mapFrom(dataModel))
+                                    ResponseCallbacks.onSuccess(responseClass.mapFrom(context, dataModel))
                                 else
                                     ResponseCallbacks.onSuccess(dataModel)
                             } else {
@@ -98,7 +101,10 @@ object NetworkManager {
                     (response.code() in 300..500) -> {
                         try {
                             val responseBody: Any? = response.body()
-                            val issue = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.IssueResponseMapper.issueResponseMapper(responseBody.toString())
+                            val issue = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.IssueResponseMapper.issueResponseMapper(
+                                context,
+                                responseBody.toString()
+                            )
                             if (issue == null)
                                 ResponseCallbacks.onError(response.errorBody().toString(), null)
                             else

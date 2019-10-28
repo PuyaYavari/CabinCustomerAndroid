@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.content.Context
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -13,7 +14,7 @@ class MODELPersonalInfo: com.cabinInformationTechnologies.cabinCustomerBase.mode
         com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSex()
 
 
-    override fun <T> mapFrom(modelData: T): Boolean {
+    override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonData = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONPersonalInfo
             name = jsonData.name
@@ -28,10 +29,14 @@ class MODELPersonalInfo: com.cabinInformationTechnologies.cabinCustomerBase.mode
             }
             email = jsonData.email
             phone = jsonData.phone
-            sex.mapFrom(jsonData.sex[0])
+            sex.mapFrom(context, jsonData.sex[0])
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(this::class.java.name, "A problem occurred while mapping PersonalInfo.", exception)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                context,
+                this::class.java.name,
+                "A problem occurred while mapping PersonalInfo.",
+                exception)
             false
         }
     }

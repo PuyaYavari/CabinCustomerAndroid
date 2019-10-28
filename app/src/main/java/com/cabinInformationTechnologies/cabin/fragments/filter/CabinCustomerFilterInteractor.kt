@@ -11,7 +11,7 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
 
     //region Interactor
 
-    override fun getFilter(context: Context?) {
+    override fun getFilter(context: Context) {
         val responseObject = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilters()
         com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIFilter?>(
             context,
@@ -27,30 +27,52 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                         val filter = responseObject.getFilters()[0]
                         if (filter != null)
                             output?.setFilter(filter)
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "Filter received.", null)
+                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                            context,
+                            this::class.java.name,
+                            "Filter received.",
+                            null)
                     }
                 }
 
                 override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(this::class.java.name, "Filter not received.\n" +
-                            "ISSUE: ${value.message}", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                        context,
+                        this::class.java.name,
+                        "Filter not received.\n" + "ISSUE: ${value.message}",
+                        null)
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(this::class.java.name, "Filter not received.\n" +
-                            "ERROR: $value", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                        context,
+                        this::class.java.name,
+                        "Filter not received.\n" + "ERROR: $value",
+                        null)
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "Failure.", throwable)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        context,
+                        this::class.java.name,
+                        "Failure.",
+                        throwable)
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(this::class.java.name, "Server Down.", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                        context,
+                        this::class.java.name,
+                        "Server Down.",
+                        null)
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "Exception.", exception)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        context,
+                        this::class.java.name,
+                        "Exception.",
+                        exception)
                 }
 
             }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "814963218452",
+    "firebase_url": "https://cabin-7f196.firebaseio.com",
+    "project_id": "cabin-7f196",
+    "storage_bucket": "cabin-7f196.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814963218452:android:6c7390e3b571a72e4c2f01",
+        "android_client_info": {
+          "package_name": "com.cabinInformationTechnologies.cabin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "814963218452-75ijk0dma4o6fosokqnbra8upplmhhjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuyLQeMUh1WC09XAZ4eKs5G56R-p_MmNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "814963218452-75ijk0dma4o6fosokqnbra8upplmhhjk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "814963218452-ckhn3s7jdk65euoffo1e0gjt7eimr6nv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.CabinInformationTechnologies.Cabin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

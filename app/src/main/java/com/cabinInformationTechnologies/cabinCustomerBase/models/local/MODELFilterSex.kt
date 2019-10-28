@@ -1,12 +1,14 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.content.Context
+
 class MODELFilterSex: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
     private var id : Int = -1
     private var name: String? = null
     private var amount: Int? = null
     private var isSelected: Boolean? = null
 
-    override fun <T> mapFrom(modelData: T): Boolean {
+    override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonData = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONFilterSex
             id = jsonData.id
@@ -15,7 +17,11 @@ class MODELFilterSex: com.cabinInformationTechnologies.cabinCustomerBase.models.
             isSelected = jsonData.isSelected
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(this::class.java.name, "A problem occurred while mapping sex.", exception)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                context,
+                this::class.java.name,
+                "A problem occurred while mapping sex.",
+                exception)
             false
         }
     }

@@ -1,9 +1,10 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
-import com.squareup.moshi.*
+import android.content.Context
 import com.cabinInformationTechnologies.cabin.fragments.cart.CabinCustomerCartContracts
+import com.squareup.moshi.*
 
-class JSONCartProductAdapter (moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?)
+class JSONCartProductAdapter (val context: Context, moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?)
     : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONProduct>() {
     private val productCallback = object : CabinCustomerCartContracts.CartCallback {
         override fun setSellerId(id: Int?) {
@@ -40,7 +41,7 @@ class JSONCartProductAdapter (moshi: Moshi, callback: CabinCustomerCartContracts
         moshi.adapter<Double>(Double::class.java, emptySet(), "price")
 
     private val listOfJSONSellerNameAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSellerName>> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONSellerNameAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONSellerNameAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSellerName>>(
                 Types.newParameterizedType(List::class.java, com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSellerName::class.java),
                 emptySet(), "sellerName")
@@ -48,6 +49,7 @@ class JSONCartProductAdapter (moshi: Moshi, callback: CabinCustomerCartContracts
     private val nullableListOfJSONShippingDurationAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONShippingDuration>?> =
         Moshi.Builder().add(
             com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONShippingDurationAdapter(
+                context,
                 Moshi.Builder().build()
             )
         ).build()
@@ -58,6 +60,7 @@ class JSONCartProductAdapter (moshi: Moshi, callback: CabinCustomerCartContracts
     private val listOfJSONShippingTypeAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONShippingType>> =
         Moshi.Builder().add(
             com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONShippingTypeAdapter(
+                context,
                 Moshi.Builder().build()
             )
         ).build()
@@ -68,6 +71,7 @@ class JSONCartProductAdapter (moshi: Moshi, callback: CabinCustomerCartContracts
     private val listOfJSONColorAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONColor>> =
         Moshi.Builder().add(
             com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONCartProductColorAdapter(
+                context,
                 Moshi.Builder().build(),
                 productCallback
             )
@@ -116,7 +120,9 @@ class JSONCartProductAdapter (moshi: Moshi, callback: CabinCustomerCartContracts
                 }
             } catch (exception: Exception){
                 com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
-                    this::class.java.name, "A field is null and is being skipped.",
+                    context,
+                    this::class.java.name,
+                    "A field is null and is being skipped.",
                     exception
                 )
                 reader.skipValue()
@@ -146,6 +152,7 @@ class JSONCartProductAdapter (moshi: Moshi, callback: CabinCustomerCartContracts
             null
         } catch (exception: Exception) {
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                context,
                 this::class.java.name,
                 "A field is null, this object will not be visible in cart and also a request" +
                         "will be sent to backend to remove this object from the cart if it's possible " +

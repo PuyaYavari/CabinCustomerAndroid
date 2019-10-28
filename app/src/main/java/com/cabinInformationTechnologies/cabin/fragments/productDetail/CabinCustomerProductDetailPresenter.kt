@@ -87,7 +87,11 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
                     view?.addToCart(product.getId(), 1, selectedColor.id, selectedSize.id)
                 }
             } catch (exception: Exception) {
-                com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "SelectedSize is null!!", exception)
+                com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    context,
+                    this::class.java.name,
+                    "SelectedSize is null!!",
+                    exception)
             }
         } else {
             val selectedColor = selectedColor

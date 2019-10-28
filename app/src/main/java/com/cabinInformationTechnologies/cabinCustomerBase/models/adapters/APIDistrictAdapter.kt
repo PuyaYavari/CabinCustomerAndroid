@@ -1,12 +1,13 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
+import android.content.Context
 import com.squareup.moshi.*
 
-class APIDistrictAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIDistrict>() {
+class APIDistrictAdapter(val context: Context, moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIDistrict>() {
     private val options: JsonReader.Options = JsonReader.Options.of("DISTRICT")
 
     private val listOfNullableJSONDistrictAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONDistrict?>> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONDistrictAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONDistrictAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONDistrict?>>(Types.newParameterizedType(List::class.java,
                 com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONDistrict::class.java), emptySet(), "districts")
 

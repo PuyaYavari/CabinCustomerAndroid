@@ -1,12 +1,14 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
+import android.content.Context
 import com.squareup.moshi.*
 
-class APIAddressAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIAddress>() {
+class APIAddressAdapter(val context: Context ,moshi: Moshi)
+    : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIAddress>() {
     private val options: JsonReader.Options = JsonReader.Options.of("ADDRESS")
 
     private val listOfNullableJSONAddressAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONAddress?>> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONAddressAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONAddressAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONAddress?>>(Types.newParameterizedType(List::class.java,
                 com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONAddress::class.java), emptySet(), "addresses")
 
@@ -27,8 +29,11 @@ class APIAddressAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnolo
                     }
                 }
             } catch (exception: Exception) {
+
                 com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
-                    this::class.java.name, "A field is null and is being skipped.",
+                    context,
+                    this::class.java.name,
+                    "A field is null and is being skipped.",
                     exception
                 )
                 reader.skipValue()
@@ -42,6 +47,7 @@ class APIAddressAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnolo
             result
         } catch (exception: Exception) {
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                context,
                 this::class.java.name,
                 "A field is null, this object will be null and won't be visible in app.",
                 exception

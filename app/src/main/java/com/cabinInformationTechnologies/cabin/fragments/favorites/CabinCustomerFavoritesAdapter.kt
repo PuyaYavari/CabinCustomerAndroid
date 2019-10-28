@@ -92,7 +92,13 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
             myDataset.remove(myDataset[position])
             notifyItemRemoved(position)
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "Error while removing.", exception)
+            val context = fragment.getActivityContext()
+            if (context != null)
+                com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    context,
+                    this::class.java.name,
+                    "Error while removing.",
+                    exception)
             fragment.renewData()
         }
     }

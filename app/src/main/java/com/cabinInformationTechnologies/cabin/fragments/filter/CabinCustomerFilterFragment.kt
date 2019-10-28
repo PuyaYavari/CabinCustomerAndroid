@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.cabinInformationTechnologies.cabin.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerFilterContracts.View {
 
@@ -19,7 +19,9 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         savedInstanceState: Bundle?
     ): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_filter, container, false)
-        presenter?.getFilter(this.context)
+        val context = this.context
+        if (context != null)
+            presenter?.getFilter(context)
         setupActivityLayout()
         setupPage()
         return pageView

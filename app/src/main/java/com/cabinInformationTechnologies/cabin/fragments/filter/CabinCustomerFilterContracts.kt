@@ -11,12 +11,12 @@ object CabinCustomerFilterContracts {
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        fun getFilter(context: Context?)
+        fun getFilter(context: Context)
         fun moveToFilterDetail(filterType: Int)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        fun getFilter(context: Context?)
+        fun getFilter(context: Context)
     }
 
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {

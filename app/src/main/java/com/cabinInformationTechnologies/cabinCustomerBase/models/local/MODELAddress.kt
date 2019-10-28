@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.content.Context
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -21,7 +22,7 @@ class MODELAddress: com.cabinInformationTechnologies.cabinCustomerBase.models.lo
     var taxNumber: String? = null
     var taxAdministration: String? = null
 
-    override fun <T> mapFrom(modelData: T): Boolean {
+    override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonData = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONAddress
             this.id = jsonData.id
@@ -41,7 +42,9 @@ class MODELAddress: com.cabinInformationTechnologies.cabinCustomerBase.models.lo
             this.taxAdministration = jsonData.taxAuthority
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name,
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                context,
+                this::class.java.name,
                 "A problem occurred while mapping Address!",
                 exception
             )

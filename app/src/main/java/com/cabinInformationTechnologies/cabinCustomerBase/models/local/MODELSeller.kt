@@ -1,5 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.content.Context
+
 class MODELSeller : com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
     private var id: Int = -1
     private lateinit var name: String
@@ -8,14 +10,14 @@ class MODELSeller : com.cabinInformationTechnologies.cabinCustomerBase.models.lo
     private var subtotal: Double? = null
     private var total: Double = -1.0
 
-    override fun <T> mapFrom(modelData: T): Boolean {
+    override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonData = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSeller
             this.id = jsonData.id
             this.name = jsonData.name
             jsonData.products.forEach {
                 val product = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct()
-                if(product.mapFrom(it))
+                if(product.mapFrom(context, it))
                     this.products.add(product)
             }
             this.shippingPrice = jsonData.shippingPrice
@@ -23,7 +25,11 @@ class MODELSeller : com.cabinInformationTechnologies.cabinCustomerBase.models.lo
             this.total = jsonData.total
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "Problem while mapping to model.", exception)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                context,
+                this::class.java.name,
+                "Problem while mapping to model.",
+                exception)
             false
         }
     }

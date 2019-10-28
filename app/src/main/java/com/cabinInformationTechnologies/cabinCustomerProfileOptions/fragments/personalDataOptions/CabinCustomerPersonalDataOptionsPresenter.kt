@@ -62,7 +62,13 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
             nameFilled = inputtedName.isNotEmpty()
         } else {
             nameFilled = false
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "name too long!\nvalue: $inputtedName", null)
+            val context = view?.getActivityContext()
+            if (context != null)
+                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    context,
+                    this::class.java.name,
+                    "name too long!\nvalue: $inputtedName",
+                    null)
         }
 
         validatePage()
@@ -74,7 +80,13 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
             surnameFilled = inputtedSurname.isNotEmpty()
         } else {
             surnameFilled = false
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "surname too long!\nvalue: $inputtedSurname", null)
+            val context = view?.getActivityContext()
+            if (context != null)
+                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    context,
+                    this::class.java.name,
+                    "surname too long!\nvalue: $inputtedSurname",
+                    null)
         }
 
         validatePage()
@@ -93,7 +105,13 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
             emailFilled = android.util.Patterns.EMAIL_ADDRESS.matcher(inputtedEmail).matches()
         } else {
             emailFilled = false
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "email too long!\nvalue: $inputtedEmail", null)
+            val context = view?.getActivityContext()
+            if (context != null)
+                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    context,
+                    this::class.java.name,
+                    "email too long!\nvalue: $inputtedEmail",
+                    null)
         }
 
         validatePage()
@@ -113,7 +131,13 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
             this.personalInfo.phone = phone
         } else {
             phoneFilled = false
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "phone too long!\nvalue: $inputtedPhone", null)
+            val context = view?.getActivityContext()
+            if (context != null)
+                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    context,
+                    this::class.java.name,
+                    "phone too long!\nvalue: $inputtedPhone",
+                    null)
         }
 
         validatePage()

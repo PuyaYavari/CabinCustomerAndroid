@@ -1,12 +1,14 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.content.Context
+
 class MODELDistrict : com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
     var id: Int = -1
     var name: String = ""
     var code: String = ""
     var cityCode: String? = null
 
-    override fun <T> mapFrom(modelData: T): Boolean {
+    override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonData = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONDistrict
             id = jsonData.id
@@ -17,7 +19,11 @@ class MODELDistrict : com.cabinInformationTechnologies.cabinCustomerBase.models.
             cityCode = jsonData.cityCode
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "Problem while mapping to model.", exception)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                context,
+                this::class.java.name,
+                "Problem while mapping to model.",
+                exception)
             false
         }
     }

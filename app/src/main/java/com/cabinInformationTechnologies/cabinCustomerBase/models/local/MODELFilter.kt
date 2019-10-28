@@ -1,5 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.content.Context
+
 class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
     var filterCategories: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory>? = null
     var sexes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSex>? = null
@@ -8,7 +10,7 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
     var filterSizes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup>? = null
     var filterPrices: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterPrice>? = null
 
-    override fun <T> mapFrom(modelData: T): Boolean {
+    override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonData = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONFilter
             val categoriesData = jsonData.filterCategories
@@ -17,7 +19,7 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
                 categoriesData.forEach {
                     val category =
                         com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory() //FIXME: NOT MEMORY EFFICIENT
-                    if (category.mapFrom(it))
+                    if (category.mapFrom(context, it))
                         newFilterCategories.add(category)
                 }
                 this.filterCategories = newFilterCategories
@@ -27,7 +29,7 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
                 val newSexes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSex> = mutableListOf()
                 sexesData.forEach {
                     val sex = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSex()
-                    if (sex.mapFrom(it))
+                    if (sex.mapFrom(context, it))
                         newSexes.add(sex)
                 }
                 this.sexes = newSexes
@@ -37,7 +39,7 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
                 val newSellers: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSeller> = mutableListOf()
                 sellersData.forEach {
                     val seller = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSeller()
-                    if (seller.mapFrom(it))
+                    if (seller.mapFrom(context, it))
                         newSellers.add(seller)
                 }
                 this.sellers = newSellers
@@ -47,7 +49,7 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
                 val newColors: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterColor> = mutableListOf()
                 colorsData.forEach {
                     val color = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterColor()
-                    if (color.mapFrom(it))
+                    if (color.mapFrom(context, it))
                         newColors.add(color)
                 }
                 this.colors = newColors
@@ -58,7 +60,7 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
                 sizesData.forEach {
                     val sizeNameGroup =
                         com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup()
-                    if (sizeNameGroup.mapFrom(it))
+                    if (sizeNameGroup.mapFrom(context, it))
                         newFilterSizes.add(sizeNameGroup)
                 }
                 this.filterSizes = newFilterSizes
@@ -68,14 +70,18 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
                 val newFilterPrices: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterPrice> = mutableListOf()
                 pricesData.forEach {
                     val priceInterval = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterPrice()
-                    if (priceInterval.mapFrom(it))
+                    if (priceInterval.mapFrom(context, it))
                         newFilterPrices.add(priceInterval)
                 }
                 this.filterPrices = newFilterPrices
             }
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "Failed to map Filter!", exception)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                context,
+                this::class.java.name,
+                "Failed to map Filter!",
+                exception)
             false
         }
     }

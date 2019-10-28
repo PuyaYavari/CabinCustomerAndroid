@@ -33,7 +33,7 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
 
     //region Presenter
 
-    override fun getFilter(context: Context?) {
+    override fun getFilter(context: Context) {
         interactor?.getFilter(context)
     }
 

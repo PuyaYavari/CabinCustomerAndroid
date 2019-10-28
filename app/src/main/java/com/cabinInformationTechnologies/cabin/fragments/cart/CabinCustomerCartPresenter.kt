@@ -9,7 +9,7 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
     CabinCustomerCartContracts.InteractorOutput {
 
     var interactor: CabinCustomerCartContracts.Interactor? =
-        CabinCustomerCartInteractor(this)
+        CabinCustomerCartInteractor(view?.getActivityContext(),this)
     var router: CabinCustomerCartContracts.Router? = null
 
     private var priceDetailIsVisible: Boolean = false

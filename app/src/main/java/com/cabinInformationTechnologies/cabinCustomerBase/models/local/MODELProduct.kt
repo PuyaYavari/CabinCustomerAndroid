@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.content.Context
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -19,12 +20,12 @@ class MODELProduct : com.cabinInformationTechnologies.cabinCustomerBase.models.l
     private var colors: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor> = mutableListOf()
 
     @Throws(java.lang.Exception::class)
-    override fun <T> mapFrom(modelData: T): Boolean {
+    override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonModel = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONProduct
             val seller = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSellerName()
             id = jsonModel.id
-            if (seller.mapFrom(jsonModel.sellerName[0]))
+            if (seller.mapFrom(context, jsonModel.sellerName[0]))
                 sellerName = seller.name
             productName = jsonModel.title
             productId = jsonModel.code
@@ -41,12 +42,16 @@ class MODELProduct : com.cabinInformationTechnologies.cabinCustomerBase.models.l
 
             jsonModel.colors.forEach {
                 val color = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor()
-                if (color.mapFrom(it))
+                if (color.mapFrom(context, it))
                     colors.add(color)
             }
             true
         } catch (exception: Exception){
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(this::class.java.name, "A problem occurred while mapping Product.", exception)
+            com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                context,
+                this::class.java.name,
+                "A problem occurred while mapping Product.",
+                exception)
             false
         }
 

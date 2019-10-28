@@ -1,9 +1,10 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
-import com.squareup.moshi.*
+import android.content.Context
 import com.cabinInformationTechnologies.cabin.fragments.cart.CabinCustomerCartContracts
+import com.squareup.moshi.*
 
-class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSeller>() {
+class JSONSellerAdapter(val context: Context, moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSeller>() {
     private val sellerCallback = object : CabinCustomerCartContracts.CartCallback {
         override fun setSellerId(id: Int?) {
             callback?.setSellerId(id)
@@ -38,6 +39,7 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
     private val listOfNullableJSONProductAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONProduct?>> =
         Moshi.Builder().add(
             com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONCartProductAdapter(
+                context,
                 Moshi.Builder().build(),
                 sellerCallback
             )
@@ -84,7 +86,9 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
                 }
             } catch (exception: Exception) {
                 com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
-                    this::class.java.name, "A field is null and is being skipped.",
+                    context,
+                    this::class.java.name,
+                    "A field is null and is being skipped.",
                     exception
                 )
                 return null
@@ -103,7 +107,9 @@ class JSONSellerAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartC
             result
         } catch (exception: java.lang.Exception) {
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
-                this::class.java.name, "A field is null and is being skipped.",
+                context,
+                this::class.java.name,
+                "A field is null and is being skipped.",
                 exception
             )
             if (id != null) {

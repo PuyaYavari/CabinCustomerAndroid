@@ -1,12 +1,13 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
+import android.content.Context
 import com.squareup.moshi.*
 
-class APICityAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APICity>() {
+class APICityAdapter(val context: Context, moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APICity>() {
     private val options: JsonReader.Options = JsonReader.Options.of("CITY")
 
     private val listOfNullableJSONCityAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCity?>> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONCityAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONCityAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCity?>>(Types.newParameterizedType(List::class.java,
                 com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCity::class.java), emptySet(), "cities")
 
@@ -29,7 +30,9 @@ class APICityAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologie
                 }
             } catch (exception: Exception) {
                 com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
-                    this::class.java.name, "A field is null and is being skipped.",
+                    context,
+                    this::class.java.name,
+                    "A field is null and is being skipped.",
                     exception
                 )
                 reader.skipValue()

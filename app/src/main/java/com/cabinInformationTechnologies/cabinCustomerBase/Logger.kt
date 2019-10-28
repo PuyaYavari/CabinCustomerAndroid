@@ -1,9 +1,11 @@
 package com.cabinInformationTechnologies.cabinCustomerBase
 
+import android.content.Context
 import android.util.Log
 
-object Logger: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Logger {
+object Logger: BaseContracts.Logger {
     override fun debug(
+        context: Context,
         location: String?,
         message: String,
         exception: Exception?
@@ -15,11 +17,12 @@ object Logger: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.
                 Log.d("Debug", message, exception)
             //TODO: SEND HANDLE THE REST
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(this::class.java.name, null, exception)
+            failure(context, this::class.java.name, null, exception)
         }
     }
 
     override fun error(
+        context: Context,
         location: String?,
         message: String,
         exception: Throwable
@@ -31,11 +34,12 @@ object Logger: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.
                 Log.e("Error", message, exception)
             //TODO: SEND HANDLE THE REST
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(this::class.java.name, null, exception)
+            failure(context, this::class.java.name, null, exception)
         }
     }
 
     override fun info(
+        context: Context,
         location: String?,
         message: String,
         exception: Exception?
@@ -47,11 +51,12 @@ object Logger: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.
                 Log.i("Info", message, exception)
             //TODO: SEND HANDLE THE REST
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(this::class.java.name, null, exception)
+            failure(context, this::class.java.name, null, exception)
         }
     }
 
     override fun verbose(
+        context: Context,
         location: String?,
         message: String,
         exception: Exception?
@@ -63,11 +68,15 @@ object Logger: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.
                 Log.v("Verbose", message, exception)
             //TODO: SEND HANDLE THE REST
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(this::class.java.name, null, exception)
+            failure(context, this::class.java.name, null, exception)
         }
     }
 
-    override fun warn(location: String?, message: String, exception: Exception?) {
+    override fun warn(
+        context: Context,
+        location: String?,
+        message: String,
+        exception: Exception?) {
         try {
             if (location != null)
                 Log.w("Warn", "LOCATION: $location \nMESSAGE: $message", exception)
@@ -75,11 +84,12 @@ object Logger: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.
                 Log.w("Warn", message, exception)
             //TODO: SEND HANDLE THE REST
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(this::class.java.name, null, exception)
+            failure(context, this::class.java.name, null, exception)
         }
     }
 
     override fun failure(
+        context: Context,
         location: String?,
         message: String?,
         exception: Exception?

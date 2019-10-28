@@ -38,7 +38,7 @@ interface BaseContracts {
     }
 
     interface ApiServices{
-        @Headers("APIKEY: "+ com.cabinInformationTechnologies.cabinCustomerBase.Constants.API_KEY,
+        @Headers("APIKEY: "+ Constants.API_KEY,
                     "TOKEN: TOKEN", //FIXME: SEND TOKEN
                     "Content-Type: application/json")
         @POST
@@ -55,12 +55,12 @@ interface BaseContracts {
     }
 
     interface Logger {
-        fun debug(location: String?, message: String, exception: Exception?)
-        fun error(location: String?, message: String, exception: Throwable)
-        fun info(location: String?, message: String, exception: Exception?)
-        fun verbose(location: String?, message: String, exception: Exception?)
-        fun warn(location: String?, message: String, exception: Exception?)
-        fun failure(location: String?, message: String?, exception: Exception?)
+        fun debug(context: Context, location: String?, message: String, exception: Exception?)
+        fun error(context: Context, location: String?, message: String, exception: Throwable)
+        fun info(context: Context, location: String?, message: String, exception: Exception?)
+        fun verbose(context: Context, location: String?, message: String, exception: Exception?)
+        fun warn(context: Context, location: String?, message: String, exception: Exception?)
+        fun failure(context: Context, location: String?, message: String?, exception: Exception?)
     }
 
 }

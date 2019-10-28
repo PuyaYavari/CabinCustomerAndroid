@@ -16,7 +16,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
     override fun getProducts(context: Context, page: Int, pageSize: Int) {
         val responseClass = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProducts()
         val moshi: Moshi = Moshi.Builder()
-            .add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter(Moshi.Builder().build()))
+            .add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter(context,Moshi.Builder().build()))
             .build()
         var products: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>? = null
         com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIProduct>(
@@ -29,7 +29,11 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter(moshi),
             object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "SUCCESS, Value: $value", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        "SUCCESS, Value: $value",
+                        null)
                     if (value == true)
                         products = responseClass.products
                     if (products != null)
@@ -38,7 +42,11 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                 }
 
                 override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "ISSUE, Value: $value", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        "ISSUE, Value: $value",
+                        null)
                     //TODO: SHOW ISSUE
                 }
 
@@ -50,17 +58,29 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "FAILURE, ${throwable.message}", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        "FAILURE, ${throwable.message}",
+                        null)
                     //TODO: SHOW DEFAULT FAILURE ERROR
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "SERVER DOWN", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        "SERVER DOWN",
+                        null)
                     //TODO: SHOW DEFAULT FAILURE ERROR
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "EXCEPTION", exception)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        "EXCEPTION",
+                        exception)
                     //TODO: HANDLE
                 }
         })
@@ -79,7 +99,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             )
         val responseClass = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProducts()
         val moshi: Moshi = Moshi.Builder()
-            .add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter(Moshi.Builder().build()))
+            .add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter(context,Moshi.Builder().build()))
             .build()
         com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIProduct>(
             context,
@@ -94,29 +114,53 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                     if (value == true) {
                         if (responseClass.products.isNotEmpty())
                             output?.updateProduct(responseClass.products[0])
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "SUCCESS, Value: $value", null)
+                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS, Value: $value",
+                            null)
                     }
                 }
 
                 override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(this::class.java.name, "ISSUE, Value: $value", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "ISSUE, Value: $value",
+                        null)
                     //TODO: SHOW ISSUE
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(this::class.java.name, "Error, Value: $value", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "Error, Value: $value",
+                        null)
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "FAILURE", throwable)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        context,
+                        this::class.java.name,
+                        "FAILURE",
+                        throwable)
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(this::class.java.name, "SERVER DOWN", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "SERVER DOWN",
+                        null)
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "EXCEPTION", exception)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        context,
+                        this::class.java.name,
+                        "EXCEPTION",
+                        exception)
                 }
             }
         )

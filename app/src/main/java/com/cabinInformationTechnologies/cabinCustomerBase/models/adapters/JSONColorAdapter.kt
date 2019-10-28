@@ -1,8 +1,9 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
+import android.content.Context
 import com.squareup.moshi.*
 
-class JSONColorAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONColor>() {
+class JSONColorAdapter (val context: Context, moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONColor>() {
     private val options: JsonReader.Options =
         JsonReader.Options.of("ID", "NAME", "HEX_CODE", "RGB_CODE", "ISFAVORITE", "IMAGE", "SIZE")
 
@@ -19,12 +20,12 @@ class JSONColorAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechnolo
         moshi.adapter<Boolean?>(Boolean::class.javaObjectType, emptySet(), "isFavorite")
 
     private val listOfJSONImageAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONImage>?> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONImageAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONImageAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONImage>?>(Types.newParameterizedType(List::class.java, com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONImage::class.java),
                 emptySet(), "images")
 
     private val listOfJSONSizeAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSize>> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONSizeAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONSizeAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSize>>(Types.newParameterizedType(List::class.java, com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSize::class.java),
                 emptySet(), "filterSizes")
 
@@ -59,7 +60,9 @@ class JSONColorAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechnolo
                 }
             } catch (exception: Exception) {
                 com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
-                    this::class.java.name, "A field is null and is being skipped.",
+                    context,
+                    this::class.java.name,
+                    "A field is null and is being skipped.",
                     exception
                 )
                 reader.skipValue()
@@ -91,6 +94,7 @@ class JSONColorAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechnolo
             return null
         } catch(exception: Exception){
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                context,
                 this::class.java.name,
                 "A field is null, this object will be null and won't be visible in app.",
                 exception

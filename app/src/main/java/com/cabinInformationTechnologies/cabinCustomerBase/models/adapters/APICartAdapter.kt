@@ -1,14 +1,16 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
-import com.squareup.moshi.*
+import android.content.Context
 import com.cabinInformationTechnologies.cabin.fragments.cart.CabinCustomerCartContracts
+import com.squareup.moshi.*
 
-class APICartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APICart>() {
+class APICartAdapter(val context: Context, moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APICart>() {
     private val options: JsonReader.Options = JsonReader.Options.of("BASKET")
 
     private val listOfNullableJSONCartAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCart?>> =
         Moshi.Builder().add(
             com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONCartAdapter(
+                context,
                 Moshi.Builder().build(),
                 callback
             )
@@ -35,6 +37,7 @@ class APICartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCall
                 }
             } catch (exception: Exception) {
                 com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    context,
                     this::class.java.name, "A field is null and is being skipped.",
                     exception
                 )
@@ -49,6 +52,7 @@ class APICartAdapter(moshi: Moshi, callback: CabinCustomerCartContracts.CartCall
             result
         } catch (exception: Exception) {
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                context,
                 this::class.java.name,
                 "A field is null, this object will be null and won't be visible in app.",
                 exception

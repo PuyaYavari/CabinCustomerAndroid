@@ -26,27 +26,51 @@ class CabinCustomerPersonalDataOptionsInteractor(var output: com.cabinInformatio
                     if (value == true) {
                         output?.setInitialData(responseClass.getPersonalInfos()[0])
                     }
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, value.toString(), null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        value.toString(),
+                        null)
                 }
 
                 override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, value.toString(), null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        value.toString(),
+                        null)
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, value.toString(), null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        value.toString(),
+                        null)
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "Fail", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Fail",
+                        null)
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "Fail", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Fail",
+                        null)
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "exception", exception)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        context,
+                        this::class.java.name,
+                        "exception",
+                        exception)
                 }
 
             }
@@ -95,32 +119,56 @@ class CabinCustomerPersonalDataOptionsInteractor(var output: com.cabinInformatio
             null,
             object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(this::class.java.name, "Success\nValue: $value", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Success\nValue: $value",
+                        null)
                     output?.feedback(true,null)
                 }
 
                 override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.verbose(this::class.java.name, "Issue\nValue: $value", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.verbose(
+                        context,
+                        this::class.java.name,
+                        "Issue\nValue: $value",
+                        null)
                     output?.feedback(false, value.message)
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(this::class.java.name, "Error\nValue: $value", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "Error\nValue: $value",
+                        null)
                     output?.feedback(false, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "Failure", throwable)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        context,
+                        this::class.java.name,
+                        "Failure",
+                        throwable)
                     output?.feedback(false, null)
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(this::class.java.name, "Server Down!", null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "Server Down!",
+                        null)
                     output?.feedback(false, null)
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(this::class.java.name, "Exception", exception)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        context,
+                        this::class.java.name,
+                        "Exception",
+                        exception)
                     output?.feedback(false, null)
                 }
             }

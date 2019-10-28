@@ -1,5 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.content.Context
+
 interface LocalDataModel {
-    fun <T>mapFrom(modelData: T): Boolean
+    fun <T>mapFrom(context: Context, modelData: T): Boolean
 }

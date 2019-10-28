@@ -1,8 +1,9 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
+import android.content.Context
 import com.squareup.moshi.*
 
-class JSONCityAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCity>() {
+class JSONCityAdapter(val context: Context, moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCity>() {
     private val options: JsonReader.Options = JsonReader.Options.of("ID", "NAME", "CODE")
 
     private val intAdapter: JsonAdapter<Int> =
@@ -36,7 +37,9 @@ class JSONCityAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologi
                 }
             } catch (exception: Exception) {
                 com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
-                    this::class.java.name, "A field is null and is being skipped.",
+                    context,
+                    this::class.java.name,
+                    "A field is null and is being skipped.",
                     exception
                 )
                 reader.skipValue()
@@ -52,7 +55,9 @@ class JSONCityAdapter(moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologi
             result
         } catch (exception: Exception) {
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
-                this::class.java.name, "A field is null and is being skipped.",
+                context,
+                this::class.java.name,
+                "A field is null and is being skipped.",
                 exception
             )
             null

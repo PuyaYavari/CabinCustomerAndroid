@@ -1,8 +1,9 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
+import android.content.Context
 import com.squareup.moshi.*
 
-class JSONProductAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONProduct>() {
+class JSONProductAdapter (val context: Context, moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONProduct>() {
     private val options: JsonReader.Options =
         JsonReader.Options.of("ID", "CODE", "TITLE", "PRICE", "AMOUNT", "SELLER", "SHIPPING_DURATION", "SHIPPING_TYPE", "COLOR")
 
@@ -16,13 +17,14 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechno
         moshi.adapter<Double>(Double::class.java, emptySet(), "price")
 
     private val listOfJSONSellerNameAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSellerName>> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONSellerNameAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONSellerNameAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSellerName>>(Types.newParameterizedType(List::class.java, com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSellerName::class.java),
                 emptySet(), "sellerName")
 
     private val nullableListOfJSONShippingDurationAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONShippingDuration>?> =
         Moshi.Builder().add(
             com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONShippingDurationAdapter(
+                context,
                 Moshi.Builder().build()
             )
         ).build()
@@ -32,6 +34,7 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechno
     private val listOfJSONShippingTypeAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONShippingType>> =
         Moshi.Builder().add(
             com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONShippingTypeAdapter(
+                context,
                 Moshi.Builder().build()
             )
         ).build()
@@ -39,7 +42,7 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechno
                 emptySet(), "shippingType")
 
     private val listOfJSONColorAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONColor>> =
-        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONColorAdapter(Moshi.Builder().build())).build()
+        Moshi.Builder().add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONColorAdapter(context,Moshi.Builder().build())).build()
             .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONColor>>(Types.newParameterizedType(List::class.java, com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONColor::class.java),
                 emptySet(), "colors")
 
@@ -77,7 +80,9 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechno
                 }
             } catch (exception: Exception){
                 com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
-                    this::class.java.name, "A field is null and is being skipped.",
+                    context,
+                    this::class.java.name,
+                    "A field is null and is being skipped.",
                     exception
                 )
                 reader.skipValue()
@@ -103,6 +108,7 @@ class JSONProductAdapter (moshi: Moshi) : JsonAdapter<com.cabinInformationTechno
             null
         } catch (exception: Exception) {
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                context,
                 this::class.java.name,
                 "A field is null, this object will be null and won't be visible in app.",
                 exception
