@@ -40,6 +40,7 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
     //region Presenter
 
     override fun getFavorites(context: Context, page: Int) {
+        view?.showProgressBar()
         interactor?.getFavorites(context, page)
     }
 
@@ -67,6 +68,7 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
 
     override fun setData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct?>) {
         val myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct> = mutableListOf()
+        view?.hideProgressBar()
         products.forEach {product ->
             product?.getColors()?.forEach {color ->
                 val generatedProduct = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct()

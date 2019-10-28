@@ -55,6 +55,7 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
     }
 
     override fun getCart(context: Context) {
+        view?.showProgressBar()
         interactor?.getCart(context)
     }
 
@@ -78,6 +79,7 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
     //region InteractorOutput
 
     override fun setCart(cart: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart?) {
+        view?.hideProgressBar()
         if (cart != null) {
             var sellerIter = cart.getSellers().iterator()
             while (sellerIter.hasNext()) {

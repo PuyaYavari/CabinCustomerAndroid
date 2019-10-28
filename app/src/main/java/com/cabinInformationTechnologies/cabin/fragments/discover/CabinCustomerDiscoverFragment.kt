@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
 
 
@@ -25,12 +26,12 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_discover, container, false)
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).layoutBackToDefault()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideNeedLogin()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(resources.getString(R.string.discover_label),null)
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).lockDrawer()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
+        (activity!! as MainActivity).layoutBackToDefault()
+        (activity!! as MainActivity).hideNeedLogin()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.discover_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideBackButton()
         showHeaderAndNavbar()
         hideProgressBar()
 
@@ -128,11 +129,11 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     }
 
     override fun showProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showProgressBar()
+        (activity!! as MainActivity).showProgressBar()
     }
 
     override fun hideProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     override fun getCurrentItemCount(): Int {

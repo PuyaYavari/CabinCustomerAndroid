@@ -73,6 +73,9 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
     private fun setupPage() {
         recyclerView = pageView.findViewById(R.id.cart_products_recyclerview)
 
+        myDataset.clear()
+        totalPrice = 0.0
+
         getCart()
 
         viewAdapter = CabinCustomerCartAdapter(this, myDataset)
@@ -196,6 +199,10 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
 
     override fun hideProgressBar() {
         (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideProgressBar()
+    }
+
+    override fun getCurrentItemCount(): Int {
+        return pageView.findViewById<RecyclerView>(R.id.cart_products_recyclerview).adapter?.itemCount ?: 0
     }
 
     override fun feedback(message: String) {

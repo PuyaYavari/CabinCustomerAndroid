@@ -131,5 +131,9 @@ class CabinCustomerFavoritesFragment : com.cabinInformationTechnologies.cabinCus
         (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideProgressBar()
     }
 
+    override fun getCurrentItemCount(): Int {
+        return pageView.findViewById<RecyclerView>(R.id.favorites_recycler_view).adapter?.itemCount ?: 0
+    }
+
     //endregion
 }

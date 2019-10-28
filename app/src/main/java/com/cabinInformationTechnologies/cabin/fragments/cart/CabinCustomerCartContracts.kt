@@ -17,6 +17,7 @@ object CabinCustomerCartContracts {
         fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor)
         fun showProgressBar()
         fun hideProgressBar()
+        fun getCurrentItemCount(): Int
         fun feedback(message: String)
     }
 

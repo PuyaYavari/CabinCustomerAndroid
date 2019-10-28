@@ -19,6 +19,7 @@ object CabinCustomerFavoritesContracts {
         fun showSelectSize(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor, callback: com.cabinInformationTechnologies.cabin.MainContracts.SelectSizeCallback)
         fun showProgressBar()
         fun hideProgressBar()
+        fun getCurrentItemCount(): Int
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
