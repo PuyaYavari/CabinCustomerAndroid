@@ -3,6 +3,7 @@ package com.cabinInformationTechnologies.cabin
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 
 class MainPresenter(var view: com.cabinInformationTechnologies.cabin.MainContracts.View?) : com.cabinInformationTechnologies.cabin.MainContracts.Presenter,
     com.cabinInformationTechnologies.cabin.MainContracts.InteractorOutput {
@@ -62,6 +63,22 @@ class MainPresenter(var view: com.cabinInformationTechnologies.cabin.MainContrac
     override fun logout() {
         view?.logout()
 //        view?.showNeedLogin()
+    }
+
+    override fun unableToLogout(message: String?) {
+        view?.unlockDrawer()
+        if (message != null)
+            Toast.makeText(
+                view?.getActivityContext(),
+                message,
+                Toast.LENGTH_SHORT
+            ).show()
+        else
+            Toast.makeText(
+                view?.getActivityContext(),
+                view?.getActivityContext()?.resources?.getText(R.string.a_problem_occurred),
+                Toast.LENGTH_SHORT
+            ).show()
     }
 
     //endregion

@@ -1,9 +1,11 @@
 package com.cabinInformationTechnologies.cabin
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
 
-class MainInteractor(var output: com.cabinInformationTechnologies.cabin.MainContracts.InteractorOutput?) :
-    com.cabinInformationTechnologies.cabin.MainContracts.Interactor {
+class MainInteractor(var output: MainContracts.InteractorOutput?) :
+    MainContracts.Interactor {
 
     override fun unregister() {
         output = null
@@ -25,24 +27,29 @@ class MainInteractor(var output: com.cabinInformationTechnologies.cabin.MainCont
                     output?.logout()
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(context, this::class.java.name, value.message, null)
+                override fun onIssue(value: JSONIssue) {
+                    Logger.warn(context, this::class.java.name, value.message, null)
+                    output?.unableToLogout(value.message)
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(context, this::class.java.name, value, null)
+                    Logger.warn(context, this::class.java.name, value, null)
+                    output?.unableToLogout(value)
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(context, this::class.java.name, "", throwable)
+                    Logger.error(context, this::class.java.name, "", throwable)
+                    output?.unableToLogout(null)
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(context, this::class.java.name, "Server Down", null)
+                    Logger.warn(context, this::class.java.name, "Server Down", null)
+                    output?.unableToLogout(null)
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(context, this::class.java.name, "", exception)
+                    Logger.error(context, this::class.java.name, "", exception)
+                    output?.unableToLogout(null)
                 }
 
             }

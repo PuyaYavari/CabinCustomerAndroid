@@ -43,6 +43,7 @@ object MainContracts {
 
     interface InteractorOutput: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
         fun logout()
+        fun unableToLogout(message: String?)
     }
 
     interface Router: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
