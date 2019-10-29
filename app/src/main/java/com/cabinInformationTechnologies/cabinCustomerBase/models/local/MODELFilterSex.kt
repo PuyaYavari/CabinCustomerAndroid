@@ -28,6 +28,8 @@ class MODELFilterSex: com.cabinInformationTechnologies.cabinCustomerBase.models.
 
     fun getId() = id
     fun getName() = name
+    fun getAmount() = amount
+    fun getIsSelected(): Boolean = isSelected ?: false
 
     fun setSex(id: Int) {
         when (id) {

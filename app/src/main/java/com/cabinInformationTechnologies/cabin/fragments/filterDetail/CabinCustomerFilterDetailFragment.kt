@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
+import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
-import com.cabinInformationTechnologies.cabin.fragments.filterDetail.adapters.CabinCustomerFilterColorsAdapter
+import com.cabinInformationTechnologies.cabin.fragments.filterDetail.adapters.*
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
 
 class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerFilterDetailContracts.View {
     private val args: CabinCustomerFilterDetailFragmentArgs by navArgs()
@@ -26,7 +29,7 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
         savedInstanceState: Bundle?
     ): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_filter_detail, container, false)
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).lockDrawer()
+        (activity!! as MainActivity).lockDrawer()
         setupPage()
         return pageView
     }
@@ -56,26 +59,53 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
 
     private fun setupPage() {
         recyclerView = pageView.findViewById(R.id.filter_detail_recycler_view)
-        presenter?.setupPage(args.filterType, (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).getFilter())
+        presenter?.setupPage(args.filterType, (activity!! as MainActivity).getFilter())
     }
 
-    override fun setupCategoriesPage(dataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory>) {
-
-    }
-
-    override fun setupSexesPage(dataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSex>) {
+    override fun setupCategoriesPage(dataset: MutableList<MODELFilterCategory>) {
 
     }
 
-    override fun setupSellersPage(dataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSeller>) {
-
+    override fun setupSexesPage(dataset: MutableList<MODELFilterSex>) {
+        val viewManager = LinearLayoutManager(this.context)
+        val viewAdapter = CabinCustomerFilterSexAdapter(this, dataset)
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+        pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
+            //TODO
+        }
     }
 
-    override fun setupSizesPage(dataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup>) {
-
+    override fun setupSellersPage(dataset: MutableList<MODELFilterSeller>) {
+        val viewManager = LinearLayoutManager(this.context)
+        val viewAdapter = CabinCustomerFilterSellerAdapter(this, dataset)
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+        pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
+            //TODO
+        }
     }
 
-    override fun setupColorsPage(dataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterColor>) {
+    override fun setupSizesPage(dataset: MutableList<MODELFilterSize>) {
+        val viewManager = GridLayoutManager(this.context, 4)
+        val viewAdapter = CabinCustomerFilterSizeAdapter(this, dataset)
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+        pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
+            //TODO
+        }
+    }
+
+    override fun setupColorsPage(dataset: MutableList<MODELFilterColor>) {
         val viewManager = GridLayoutManager(this.context, 4)
         val viewAdapter = CabinCustomerFilterColorsAdapter(this, dataset)
         recyclerView.apply {
@@ -83,10 +113,22 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
             layoutManager = viewManager
             adapter = viewAdapter
         }
+        pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
+            //TODO
+        }
     }
 
-    override fun setupPricesPage(dataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterPrice>) {
-
+    override fun setupPricesPage(dataset: MutableList<MODELFilterPrice>) {
+        val viewManager = LinearLayoutManager(this.context)
+        val viewAdapter = CabinCustomerFilterPriceAdapter(this, dataset)
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+        pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
+            //TODO
+        }
     }
 
     //endregion

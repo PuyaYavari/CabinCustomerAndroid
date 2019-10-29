@@ -8,11 +8,7 @@
               android:label="CabinCustomerFavoritesFragment">
         <action
                 android:id="@+id/actionFavoritesToProductDetail"
-                app:destination="@id/cabinCustomerProductDetailFragment2"
-                app:enterAnim="@anim/slide_in_from_bottom"
-                app:exitAnim="@anim/slide_out_to_top"
-                app:popEnterAnim="@anim/slide_in_from_top"
-                app:popExitAnim="@anim/slide_out_to_bottom" />
+                app:destination="@id/cabinCustomerProductDetailFragment2" />
     </fragment>
     <fragment
             android:id="@+id/cabinCustomerProductDetailFragment2"

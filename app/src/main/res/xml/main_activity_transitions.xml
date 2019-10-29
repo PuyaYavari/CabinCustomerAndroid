@@ -150,10 +150,12 @@
 
         <Constraint
                 android:id="@+id/nav_host_fragment_layout"
-                motion:layout_constraintBottom_toTopOf="@+id/navbar"
+                motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintTop_toBottomOf="@+id/main_header"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:visibility="visible"
@@ -270,10 +272,12 @@
 
         <Constraint
                 android:id="@+id/nav_host_fragment_layout"
-                motion:layout_constraintBottom_toTopOf="@+id/navbar"
+                motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toBottomOf="@+id/main_header"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="0dp"
                 android:layout_height="0dp"
                 android:layout_width="0dp"
                 android:visibility="visible"

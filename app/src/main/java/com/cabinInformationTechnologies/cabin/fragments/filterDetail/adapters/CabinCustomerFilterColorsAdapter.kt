@@ -12,9 +12,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustomerFilterDetailFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterColor
 
 class CabinCustomerFilterColorsAdapter (val fragment: CabinCustomerFilterDetailFragment,
-                                        private val myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterColor>)
+                                        private val myDataset: MutableList<MODELFilterColor>)
     : RecyclerView.Adapter<CabinCustomerFilterColorsAdapter.FilterColorViewHolder>() {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and

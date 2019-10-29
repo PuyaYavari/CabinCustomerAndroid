@@ -1,24 +1,27 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONFilter
 
-class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
-    var filterCategories: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory>? = null
-    var sexes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSex>? = null
-    var sellers: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSeller>? = null
-    var colors: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterColor>? = null
-    var filterSizes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup>? = null
-    var filterPrices: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterPrice>? = null
+class MODELFilter: LocalDataModel {
+    var filterCategories: MutableList<MODELFilterCategory>? = null
+    var sexes: MutableList<MODELFilterSex>? = null
+    var sellers: MutableList<MODELFilterSeller>? = null
+    var colors: MutableList<MODELFilterColor>? = null
+    var filterSizes: MutableList<MODELFilterSizeGroup>? = null
+    var filterPrices: MutableList<MODELFilterPrice>? = null
+    var amount: Int = 0
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
-            val jsonData = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONFilter
+            val jsonData = modelData as JSONFilter
             val categoriesData = jsonData.filterCategories
             if (!categoriesData.isNullOrEmpty()) {
-                val newFilterCategories: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory> = mutableListOf()
+                val newFilterCategories: MutableList<MODELFilterCategory> = mutableListOf()
                 categoriesData.forEach {
                     val category =
-                        com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory() //FIXME: NOT MEMORY EFFICIENT
+                        MODELFilterCategory() //FIXME: NOT MEMORY EFFICIENT
                     if (category.mapFrom(context, it))
                         newFilterCategories.add(category)
                 }
@@ -26,9 +29,9 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
             }
             val sexesData = jsonData.sexes
             if (!sexesData.isNullOrEmpty()) {
-                val newSexes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSex> = mutableListOf()
+                val newSexes: MutableList<MODELFilterSex> = mutableListOf()
                 sexesData.forEach {
-                    val sex = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSex()
+                    val sex = MODELFilterSex()
                     if (sex.mapFrom(context, it))
                         newSexes.add(sex)
                 }
@@ -36,9 +39,9 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
             }
             val sellersData = jsonData.seller
             if (!sellersData.isNullOrEmpty()) {
-                val newSellers: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSeller> = mutableListOf()
+                val newSellers: MutableList<MODELFilterSeller> = mutableListOf()
                 sellersData.forEach {
-                    val seller = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSeller()
+                    val seller = MODELFilterSeller()
                     if (seller.mapFrom(context, it))
                         newSellers.add(seller)
                 }
@@ -46,9 +49,9 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
             }
             val colorsData = jsonData.colors
             if (!colorsData.isNullOrEmpty()) {
-                val newColors: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterColor> = mutableListOf()
+                val newColors: MutableList<MODELFilterColor> = mutableListOf()
                 colorsData.forEach {
-                    val color = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterColor()
+                    val color = MODELFilterColor()
                     if (color.mapFrom(context, it))
                         newColors.add(color)
                 }
@@ -56,10 +59,10 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
             }
             val sizesData = jsonData.filterSizes
             if (!sizesData.isNullOrEmpty()) {
-                val newFilterSizes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup> = mutableListOf()
+                val newFilterSizes: MutableList<MODELFilterSizeGroup> = mutableListOf()
                 sizesData.forEach {
                     val sizeNameGroup =
-                        com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup()
+                        MODELFilterSizeGroup()
                     if (sizeNameGroup.mapFrom(context, it))
                         newFilterSizes.add(sizeNameGroup)
                 }
@@ -67,17 +70,20 @@ class MODELFilter: com.cabinInformationTechnologies.cabinCustomerBase.models.loc
             }
             val pricesData = jsonData.filterPrices
             if (!pricesData.isNullOrEmpty()) {
-                val newFilterPrices: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterPrice> = mutableListOf()
+                val newFilterPrices: MutableList<MODELFilterPrice> = mutableListOf()
                 pricesData.forEach {
-                    val priceInterval = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterPrice()
+                    val priceInterval = MODELFilterPrice()
                     if (priceInterval.mapFrom(context, it))
                         newFilterPrices.add(priceInterval)
                 }
                 this.filterPrices = newFilterPrices
             }
+            val amountData = jsonData.amount
+            if (amountData != null)
+                this.amount = amountData
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+            Logger.error(
                 context,
                 this::class.java.name,
                 "Failed to map Filter!",

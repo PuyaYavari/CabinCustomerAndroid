@@ -3,6 +3,7 @@ package com.cabinInformationTechnologies.cabin.fragments.filter
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 
 class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?) :
     CabinCustomerFilterContracts.Presenter, CabinCustomerFilterContracts.InteractorOutput {
@@ -45,7 +46,7 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
 
     //region InteractorOutput
 
-    override fun setFilter(filter: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter) {
+    override fun setFilter(filter: MODELFilter) {
         view?.setFilter(filter)
     }
 

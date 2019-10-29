@@ -2,6 +2,7 @@ package com.cabinInformationTechnologies.cabin.fragments.discover
 
 import android.content.Context
 import android.util.Log
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter
 import com.squareup.moshi.Moshi
 
 class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts.InteractorOutput?) :
@@ -26,7 +27,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             pageSize,
             null,
             responseClass,
-            com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter(moshi),
+            APIProductAdapter(moshi),
             object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(

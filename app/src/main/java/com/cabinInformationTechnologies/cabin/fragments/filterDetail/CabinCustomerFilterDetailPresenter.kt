@@ -2,6 +2,7 @@ package com.cabinInformationTechnologies.cabin.fragments.filterDetail
 
 import android.app.Activity
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSize
 
 class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailContracts.View?) :
     CabinCustomerFilterDetailContracts.Presenter,
@@ -60,7 +61,13 @@ class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailCont
                         view?.setupSellersPage(dataset)
                 }
                 com.cabinInformationTechnologies.cabin.FilterTypeIDs.SIZE -> {
-                    val dataset = filter.filterSizes
+                    val dataset = mutableListOf<MODELFilterSize>()
+                    filter.filterSizes?.forEach { sizeGroup ->
+                        sizeGroup.getSizes().forEach {
+                            if (it != null)
+                                dataset.add(it)
+                        }
+                    }
                     if (!dataset.isNullOrEmpty())
                         view?.setupSizesPage(dataset)
                 }

@@ -1,6 +1,10 @@
 package com.cabinInformationTechnologies.cabin.fragments.filter
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
+import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIFilter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilters
 
 class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.InteractorOutput?) :
     CabinCustomerFilterContracts.Interactor {
@@ -12,10 +16,10 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
     //region Interactor
 
     override fun getFilter(context: Context) {
-        val responseObject = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilters()
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIFilter?>(
+        val responseObject = MODELFilters()
+        NetworkManager.requestFactory<APIFilter?>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.LIST_FILTER_URL,
+            Constants.LIST_FILTER_URL,
             null,
             null,
             null,

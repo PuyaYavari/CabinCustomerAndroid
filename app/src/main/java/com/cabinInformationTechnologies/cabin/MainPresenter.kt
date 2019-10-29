@@ -5,12 +5,12 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 
-class MainPresenter(var view: com.cabinInformationTechnologies.cabin.MainContracts.View?) : com.cabinInformationTechnologies.cabin.MainContracts.Presenter,
-    com.cabinInformationTechnologies.cabin.MainContracts.InteractorOutput {
+class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
+    MainContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabin.MainContracts.Interactor? =
-        com.cabinInformationTechnologies.cabin.MainInteractor(this)
-    var router: com.cabinInformationTechnologies.cabin.MainContracts.Router? = null
+    var interactor: MainContracts.Interactor? =
+        MainInteractor(this)
+    var router: MainContracts.Router? = null
 
     override var filter: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter? = null
 
@@ -21,7 +21,7 @@ class MainPresenter(var view: com.cabinInformationTechnologies.cabin.MainContrac
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router = com.cabinInformationTechnologies.cabin.MainRouter(activity)
+        router = MainRouter(activity)
     }
 
     override fun onDestroy() {

@@ -36,34 +36,43 @@
                     android:textColor="@color/colorTextsPrimary"
                     android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/open_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+            <LinearLayout
+                    android:id="@+id/filter_category_count_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
-            <TextView
-                    android:id="@+id/filter_category_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/open_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/close_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:id="@+id/filter_category_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/close_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <ImageView
@@ -103,34 +112,44 @@
                     android:textColor="@color/colorTextsPrimary"
                     android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/open_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+            <LinearLayout
+                    android:id="@+id/filter_sex_count_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
-            <TextView
-                    android:id="@+id/filter_sex_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/open_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/close_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:id="@+id/filter_sex_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/close_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <ImageView
@@ -170,34 +189,44 @@
                     android:textColor="@color/colorTextsPrimary"
                     android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/open_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+            <LinearLayout
+                    android:id="@+id/filter_brand_count_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
-            <TextView
-                    android:id="@+id/filter_brand_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/open_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/close_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:id="@+id/filter_brand_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/close_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <ImageView
@@ -237,34 +266,44 @@
                     android:textColor="@color/colorTextsPrimary"
                     android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/open_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+            <LinearLayout
+                    android:id="@+id/filter_size_count_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
-            <TextView
-                    android:id="@+id/filter_size_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/open_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/close_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:id="@+id/filter_size_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/close_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <ImageView
@@ -304,34 +343,44 @@
                     android:textColor="@color/colorTextsPrimary"
                     android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/open_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+            <LinearLayout
+                    android:id="@+id/filter_color_count_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
-            <TextView
-                    android:id="@+id/filter_color_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/open_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/close_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:id="@+id/filter_color_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/close_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <ImageView
@@ -371,34 +420,44 @@
                     android:textColor="@color/colorTextsPrimary"
                     android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/open_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+            <LinearLayout
+                    android:id="@+id/filter_price_count_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
-            <TextView
-                    android:id="@+id/filter_price_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/open_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/close_parentheses"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                <TextView
+                        android:id="@+id/filter_price_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/close_parentheses"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <ImageView
