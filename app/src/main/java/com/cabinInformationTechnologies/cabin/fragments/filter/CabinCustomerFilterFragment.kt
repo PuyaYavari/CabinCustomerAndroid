@@ -11,7 +11,6 @@ import com.cabinInformationTechnologies.cabin.FilterTypeIDs
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerFilterContracts.View {
@@ -27,7 +26,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         pageView = inflater.inflate(R.layout.cabin_customer_filter, container, false)
         val context = this.context
         if (context != null)
-            presenter?.getFilter(context)
+            presenter?.getFilter(context, (activity as MainActivity).getFilter())
         setupActivityLayout()
         setupPage()
         return pageView
@@ -93,111 +92,54 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         val filter = (activity!! as MainActivity).getFilter()
         if (filter != null)
             pageView.apply {
-                var selectedCount: Int = getSelectedCount(filter, FilterTypeIDs.CATEGORY)
-                if (selectedCount > 0) {
+                var selectedCount: Int? = presenter?.getSelectedCount(filter, FilterTypeIDs.CATEGORY)
+                if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_category_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.VISIBLE
                 } else {
                     findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = getSelectedCount(filter, FilterTypeIDs.SEX)
-                if (selectedCount > 0) {
+                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.SEX)
+                if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_sex_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.VISIBLE
                 } else {
                     findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = getSelectedCount(filter, FilterTypeIDs.SELLER)
-                if (selectedCount > 0) {
+                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.SELLER)
+                if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_brand_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.VISIBLE
                 } else {
                     findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = getSelectedCount(filter, FilterTypeIDs.SIZE)
-                if (selectedCount > 0) {
+                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.SIZE)
+                if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_size_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.VISIBLE
                 } else {
                     findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = getSelectedCount(filter, FilterTypeIDs.COLOR)
-                if (selectedCount > 0) {
+                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.COLOR)
+                if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_color_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.VISIBLE
                 } else {
                     findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = getSelectedCount(filter, FilterTypeIDs.PRICE)
-                if (selectedCount > 0) {
+                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.PRICE)
+                if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_price_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_price_count_layout).visibility = View.VISIBLE
                 } else {
                     findViewById<LinearLayout>(R.id.filter_price_count_layout).visibility = View.INVISIBLE
                 }
             }
-    }
-
-    private fun getSelectedCount(filter: MODELFilter, filterType: Int): Int {
-        var count = 0
-        when (filterType) {
-            FilterTypeIDs.CATEGORY -> {
-                //TODO: SELECTED CATEGORIES COUNT
-            }
-            FilterTypeIDs.SEX -> {
-                filter.sexes?.forEach {
-                    if (it.getIsSelected())
-                        count++
-                }
-            }
-            FilterTypeIDs.SELLER -> {
-                filter.sellers?.forEach {
-                    if (it.isSelected)
-                        count++
-                }
-            }
-            FilterTypeIDs.SIZE -> {
-                filter.filterSizes?.forEach {
-                    if (it.getIsSelected())
-                        count++
-                }
-            }
-            FilterTypeIDs.COLOR -> {
-                filter.colors?.forEach {
-                    if (it.getIsSelected())
-                        count++
-                }
-            }
-            FilterTypeIDs.PRICE -> {
-                filter.filterPrices?.forEach {
-                    if (it.getIsSelected())
-                        count++
-                }
-            }
-        }
-        return count
-    }
-
-    private fun countSelectedCategories(category: MutableList<MODELFilterCategory?>): Int {
-        var newCount = 0
-        category.forEach { baseCategory ->
-            val hasSubCat = baseCategory?.getSubCategories()?.isNotEmpty()
-            if (hasSubCat != null && hasSubCat) {
-                val subCategories = baseCategory.getSubCategories()
-                if (!subCategories.isNullOrEmpty())
-                    newCount += countSelectedCategories(subCategories)
-            } else {
-                val isSelected = baseCategory?.getIsSelected()
-                if (isSelected != null && isSelected)
-                    newCount++
-            }
-        }
-        return newCount
     }
 
     override fun setFilter(filter: MODELFilter) {

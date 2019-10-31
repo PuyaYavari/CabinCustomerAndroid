@@ -6,7 +6,7 @@ class MODELFilterSex: com.cabinInformationTechnologies.cabinCustomerBase.models.
     private var id : Int = -1
     private var name: String? = null
     private var amount: Int? = null
-    private var isSelected: Boolean? = null
+    var isSelected: Boolean = false
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
@@ -29,7 +29,6 @@ class MODELFilterSex: com.cabinInformationTechnologies.cabinCustomerBase.models.
     fun getId() = id
     fun getName() = name
     fun getAmount() = amount
-    fun getIsSelected(): Boolean = isSelected ?: false
 
     fun setSex(id: Int) {
         when (id) {

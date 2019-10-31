@@ -2,7 +2,8 @@ package com.cabinInformationTechnologies.cabin.fragments.filterDetail
 
 import android.app.Activity
 import android.os.Bundle
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSize
+import com.cabinInformationTechnologies.cabin.FilterTypeIDs
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 
 class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailContracts.View?) :
     CabinCustomerFilterDetailContracts.Presenter,
@@ -41,42 +42,36 @@ class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailCont
 
     override fun setupPage(
         filterType: Int,
-        filter: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter?
+        filter: MODELFilter?
     ) {
         if (filter != null)
             when (filterType) {
-                com.cabinInformationTechnologies.cabin.FilterTypeIDs.CATEGORY -> {
+                FilterTypeIDs.CATEGORY -> {
                     val dataset = filter.filterCategories
                     if (!dataset.isNullOrEmpty())
                         view?.setupCategoriesPage(dataset)
                 }
-                com.cabinInformationTechnologies.cabin.FilterTypeIDs.SEX -> {
+                FilterTypeIDs.SEX -> {
                     val dataset = filter.sexes
                     if (!dataset.isNullOrEmpty())
                         view?.setupSexesPage(dataset)
                 }
-                com.cabinInformationTechnologies.cabin.FilterTypeIDs.SELLER -> {
+                FilterTypeIDs.SELLER -> {
                     val dataset = filter.sellers
                     if (!dataset.isNullOrEmpty())
                         view?.setupSellersPage(dataset)
                 }
-                com.cabinInformationTechnologies.cabin.FilterTypeIDs.SIZE -> {
-                    val dataset = mutableListOf<MODELFilterSize>()
-                    filter.filterSizes?.forEach { sizeGroup ->
-                        sizeGroup.getSizes().forEach {
-                            if (it != null)
-                                dataset.add(it)
-                        }
-                    }
+                FilterTypeIDs.SIZE -> {
+                    val dataset = filter.filterSizes
                     if (!dataset.isNullOrEmpty())
                         view?.setupSizesPage(dataset)
                 }
-                com.cabinInformationTechnologies.cabin.FilterTypeIDs.COLOR -> {
+                FilterTypeIDs.COLOR -> {
                     val myColorsDataset = filter.colors
                     if (!myColorsDataset.isNullOrEmpty())
                         view?.setupColorsPage(myColorsDataset)
                 }
-                com.cabinInformationTechnologies.cabin.FilterTypeIDs.PRICE -> {
+                FilterTypeIDs.PRICE -> {
                     val dataset = filter.filterPrices
                     if (!dataset.isNullOrEmpty())
                         view?.setupPricesPage(dataset)

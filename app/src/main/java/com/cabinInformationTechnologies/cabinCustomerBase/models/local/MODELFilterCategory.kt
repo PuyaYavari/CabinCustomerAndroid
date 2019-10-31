@@ -3,13 +3,15 @@ package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 import android.content.Context
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONFilterCategory
+import com.cabinInformationTechnologies.cabinCustomerBase.threeStateSelection
 
 class MODELFilterCategory: LocalDataModel {
     private var id: Int = -1
     private var name: String = ""
     private var amount: Int? = null
-    private var isSelected: Boolean? = null
-    private val subFilterCategories: MutableList<MODELFilterCategory?> = mutableListOf()
+    var isSelected: Boolean? = null
+    var state: threeStateSelection? = null
+    private var subFilterCategories: MutableList<MODELFilterCategory>? = null
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
@@ -17,13 +19,34 @@ class MODELFilterCategory: LocalDataModel {
             this.id = jsonData.id
             this.name = jsonData.name
             this.amount = jsonData.amount
-            this.isSelected = jsonData.isSelected
             if (!jsonData.filterCategories.isNullOrEmpty()) {
+                subFilterCategories = mutableListOf()
+                state = threeStateSelection.HALFSELECTED
+                var selectedSubSizeCount = 0
                 jsonData.filterCategories.forEach {
                     val category = MODELFilterCategory()
-                    if (category.mapFrom(context, it))
-                        subFilterCategories.add(category)
+                    if (category.mapFrom(context, it)) {
+                        subFilterCategories!!.add(category)
+                        val subCatIsSelected = category.isSelected
+                        val subCatState = category.state
+                        if (subCatIsSelected != null && subCatIsSelected) {
+                            state = threeStateSelection.HALFSELECTED
+                            selectedSubSizeCount++
+                        }
+                        if (subCatState != null) {
+                            if (subCatState == threeStateSelection.HALFSELECTED) {
+                                state = threeStateSelection.HALFSELECTED
+                            } else if (subCatState == threeStateSelection.SELECTED) {
+                                state = threeStateSelection.HALFSELECTED
+                                selectedSubSizeCount++
+                            }
+                        }
+                    }
                 }
+                if (selectedSubSizeCount == subFilterCategories!!.size)
+                    state = threeStateSelection.SELECTED
+            } else {
+                this.isSelected = jsonData.isSelected
             }
             true
         } catch (exception: Exception) {
@@ -39,6 +62,5 @@ class MODELFilterCategory: LocalDataModel {
     fun getId(): Int = id
     fun getName(): String = name
     fun getAmount(): Int? = amount
-    fun getIsSelected(): Boolean? = isSelected
-    fun getSubCategories(): MutableList<MODELFilterCategory?> = subFilterCategories
+    fun getSubCategories(): MutableList<MODELFilterCategory>? = subFilterCategories
 }

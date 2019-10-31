@@ -36,11 +36,15 @@ class CabinCustomerFilterSexAdapter (val fragment: CabinCustomerFilterDetailFrag
             else
                 findViewById<ImageView>(R.id.filter_sexbox_icon).setImageResource(R.drawable.woman_icon_white)
             findViewById<CheckBox>(R.id.filter_sexbox_checkbox).apply{
-                isChecked = myDataset[position].getIsSelected()
-                //TODO: ON CHECKED CHANGE
+                isChecked = myDataset[position].isSelected
+                setOnCheckedChangeListener { _, isChecked ->
+                    myDataset[position].isSelected = isChecked
+                }
             }
         }
     }
 
     override fun getItemCount(): Int = myDataset.size
+
+    fun getDataset(): MutableList<MODELFilterSex> = myDataset
 }

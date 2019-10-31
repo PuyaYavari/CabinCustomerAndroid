@@ -37,4 +37,6 @@ class CabinCustomerFilterSellerAdapter (val fragment: CabinCustomerFilterDetailF
     }
 
     override fun getItemCount(): Int = myDataset.size
+
+    fun getDataset(): MutableList<MODELFilterSeller> = myDataset
 }

@@ -44,9 +44,11 @@ class CabinCustomerFilterColorsAdapter (val fragment: CabinCustomerFilterDetailF
             findViewById<TextView>(R.id.filter_colorbox_color_name).text = myDataset[position].getName()
             findViewById<ImageView>(R.id.filter_colorbox_count_background_ring).imageTintList =
                 ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode))
-            findViewById<TextView>(R.id.filter_colorbox_count).text = myDataset[position].getAmount().toString()
+            findViewById<TextView>(R.id.filter_colorbox_count).text = myDataset[position].amount.toString()
         }
     }
 
     override fun getItemCount(): Int = myDataset.size
+
+    fun getDataset(): MutableList<MODELFilterColor> = myDataset
 }

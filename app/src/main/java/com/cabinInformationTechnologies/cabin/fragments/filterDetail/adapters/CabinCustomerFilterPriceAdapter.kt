@@ -30,11 +30,13 @@ class CabinCustomerFilterPriceAdapter (val fragment: CabinCustomerFilterDetailFr
         holder.itemView.apply {
             findViewById<TextView>(R.id.filter_pricebox_label).text = myDataset[position].getName()
             findViewById<CheckBox>(R.id.filter_pricebox_checkbox).apply{
-                isChecked = myDataset[position].getIsSelected()
+                isChecked = myDataset[position].isSelected
                 //TODO: ON CHECKED CHANGE
             }
         }
     }
 
     override fun getItemCount(): Int = myDataset.size
+
+    fun getDataset(): MutableList<MODELFilterPrice> = myDataset
 }

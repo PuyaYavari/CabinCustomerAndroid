@@ -2,12 +2,12 @@ package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
 import android.content.Context
 
-class MODELFilterSizeGroup: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
+class MODELFilterSizeGroup: LocalDataModel {
     private var id: Int = -1
     private var name: String = ""
-    private var sizes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSize?> = mutableListOf()
-    private var amount: Int = 0
-    private var isSelected: Boolean = false
+    private var sizes: MutableList<MODELFilterSize>? = null
+    var amount: Int = 0
+    var isSelected: Boolean = false
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
@@ -15,10 +15,11 @@ class MODELFilterSizeGroup: com.cabinInformationTechnologies.cabinCustomerBase.m
             this.id = jsonData.id
             this.name = jsonData.name
             if (!jsonData.sizes.isNullOrEmpty())
+                sizes = mutableListOf()
                 jsonData.sizes.forEach {
-                    val size = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSize()
+                    val size = MODELFilterSize()
                     if (size.mapFrom(context, it))
-                        this.sizes.add(size)
+                        this.sizes?.add(size)
                 }
             val amountData = jsonData.amount
             if (amountData != null)
@@ -39,7 +40,8 @@ class MODELFilterSizeGroup: com.cabinInformationTechnologies.cabinCustomerBase.m
 
     fun getId(): Int = id
     fun getName(): String = name
-    fun getSizes(): List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSize?> = sizes
-    fun getAmount(): Int = amount
-    fun getIsSelected(): Boolean = isSelected
+    fun getSizes(): MutableList<MODELFilterSize>? = sizes
+    fun setSizes(sizes: MutableList<MODELFilterSize>?) {
+        this.sizes = sizes
+    }
 }

@@ -23,6 +23,8 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
 
     private lateinit var recyclerView: RecyclerView
 
+    private var filter: MODELFilter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,7 +61,8 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
 
     private fun setupPage() {
         recyclerView = pageView.findViewById(R.id.filter_detail_recycler_view)
-        presenter?.setupPage(args.filterType, (activity!! as MainActivity).getFilter())
+        filter = (activity!! as MainActivity).getFilter()
+        presenter?.setupPage(args.filterType, filter)
     }
 
     override fun setupCategoriesPage(dataset: MutableList<MODELFilterCategory>) {
@@ -75,7 +78,8 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
             adapter = viewAdapter
         }
         pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
-            //TODO
+            filter?.sexes = viewAdapter.getDataset()
+            activity?.onBackPressed()
         }
     }
 
@@ -88,13 +92,14 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
             adapter = viewAdapter
         }
         pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
-            //TODO
+            filter?.sellers = viewAdapter.getDataset()
+            activity?.onBackPressed()
         }
     }
 
-    override fun setupSizesPage(dataset: MutableList<MODELFilterSize>) {
-        val viewManager = GridLayoutManager(this.context, 4)
-        val viewAdapter = CabinCustomerFilterSizeAdapter(this, dataset)
+    override fun setupSizesPage(dataset: MutableList<MODELFilterSizeGroup>) {
+        val viewManager = LinearLayoutManager(this.context)
+        val viewAdapter = CabinCustomerFilterSizegroupAdapter(this, dataset)
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -114,7 +119,8 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
             adapter = viewAdapter
         }
         pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
-            //TODO
+            filter?.colors = viewAdapter.getDataset()
+            activity?.onBackPressed()
         }
     }
 
@@ -127,7 +133,8 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
             adapter = viewAdapter
         }
         pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
-            //TODO
+            filter?.filterPrices = viewAdapter.getDataset()
+            activity?.onBackPressed()
         }
     }
 

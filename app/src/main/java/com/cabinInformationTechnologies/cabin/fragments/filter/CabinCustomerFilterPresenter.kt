@@ -3,7 +3,9 @@ package com.cabinInformationTechnologies.cabin.fragments.filter
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabin.FilterTypeIDs
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
 
 class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?) :
     CabinCustomerFilterContracts.Presenter, CabinCustomerFilterContracts.InteractorOutput {
@@ -34,12 +36,69 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
 
     //region Presenter
 
-    override fun getFilter(context: Context) {
-        interactor?.getFilter(context)
+    private fun countSelectedCategories(category: MutableList<MODELFilterCategory>?): Int {
+        var newCount = 0
+        category?.forEach { baseCategory ->
+            val hasSubCat = baseCategory.getSubCategories()?.isNotEmpty()
+            if (hasSubCat != null && hasSubCat) {
+                val subCategories = baseCategory.getSubCategories()
+                if (!subCategories.isNullOrEmpty())
+                    newCount += countSelectedCategories(subCategories)
+            } else {
+                val isSelected = baseCategory.isSelected
+                if (isSelected != null && isSelected)
+                    newCount++
+            }
+        }
+        return newCount
+    }
+
+    override fun getFilter(context: Context, filter: MODELFilter?) {
+        interactor?.getFilter(context, filter)
     }
 
     override fun moveToFilterDetail(filterType: Int) {
         router?.moveToFilterDetail(filterType)
+    }
+
+    override fun getSelectedCount(filter: MODELFilter, filterType: Int): Int {
+        var count = 0
+        when (filterType) {
+            FilterTypeIDs.CATEGORY -> {
+                count = countSelectedCategories(filter.filterCategories)
+            }
+            FilterTypeIDs.SEX -> {
+                filter.sexes?.forEach {
+                    if (it.isSelected)
+                        count++
+                }
+            }
+            FilterTypeIDs.SELLER -> {
+                filter.sellers?.forEach {
+                    if (it.isSelected)
+                        count++
+                }
+            }
+            FilterTypeIDs.SIZE -> {
+                filter.filterSizes?.forEach {
+                    if (it.isSelected)
+                        count++
+                }
+            }
+            FilterTypeIDs.COLOR -> {
+                filter.colors?.forEach {
+                    if (it.isSelected)
+                        count++
+                }
+            }
+            FilterTypeIDs.PRICE -> {
+                filter.filterPrices?.forEach {
+                    if (it.isSelected)
+                        count++
+                }
+            }
+        }
+        return count
     }
 
     //endregion

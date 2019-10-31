@@ -8,7 +8,7 @@ object CabinCustomerFilterDetailContracts {
         fun setupCategoriesPage(dataset: MutableList<MODELFilterCategory>)
         fun setupSexesPage(dataset: MutableList<MODELFilterSex>)
         fun setupSellersPage(dataset: MutableList<MODELFilterSeller>)
-        fun setupSizesPage(dataset: MutableList<MODELFilterSize>)
+        fun setupSizesPage(dataset: MutableList<MODELFilterSizeGroup>)
         fun setupColorsPage(dataset: MutableList<MODELFilterColor>)
         fun setupPricesPage(dataset: MutableList<MODELFilterPrice>)
     }
@@ -20,16 +20,14 @@ object CabinCustomerFilterDetailContracts {
         )
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        //TODO
-    }
+    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        //TODO
-    }
+    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
-        //TODO
+    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router
+
+    interface SizesCallback {
+        fun setSizes(sizes: List<MODELFilterSize>)
     }
 
 }

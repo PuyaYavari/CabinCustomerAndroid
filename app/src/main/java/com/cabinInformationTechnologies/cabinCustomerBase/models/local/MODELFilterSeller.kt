@@ -4,7 +4,7 @@ import android.content.Context
 
 class MODELFilterSeller: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
     lateinit var name: String
-    var id: Int? = null
+    private var id: Int = -1
     var amount: Int = 0
     var isSelected: Boolean = false
 
@@ -25,4 +25,6 @@ class MODELFilterSeller: com.cabinInformationTechnologies.cabinCustomerBase.mode
             false
         }
     }
+
+    fun getId(): Int = this.id
 }

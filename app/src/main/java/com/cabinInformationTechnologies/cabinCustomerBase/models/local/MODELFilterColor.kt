@@ -9,8 +9,8 @@ class MODELFilterColor: LocalDataModel {
     private var name: String = ""
     var hexCode: String = ""
     var rgb: String? = null
-    private var amount: Int = 0
-    private var isSelected: Boolean = false
+    var amount: Int = 0
+    var isSelected: Boolean = false
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
@@ -40,6 +40,4 @@ class MODELFilterColor: LocalDataModel {
 
     fun getId(): Int = id
     fun getName(): String = name
-    fun getAmount(): Int = amount
-    fun getIsSelected(): Boolean = isSelected
 }
