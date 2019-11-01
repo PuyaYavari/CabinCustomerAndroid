@@ -95,14 +95,10 @@ class MainActivity : BaseActivity(), MainContracts.View {
             e.printStackTrace()
         }
 
-
-
-        findViewById<Button>(R.id.login_button).setOnClickListener { presenter?.moveToRegistration() }//TODO: REMOVE AND MAKE A PROPER BUTTON FOR THIS
-
         findViewById<ImageButton>(R.id.main_back_button).setOnClickListener { onBackPressed() }
 
         if (GlobalData.loggedIn)
-            hideNeedLogin()
+            unblockPage()
     }
 
     override fun onBackPressed() {
@@ -125,7 +121,7 @@ class MainActivity : BaseActivity(), MainContracts.View {
     override fun onResume() {
         super.onResume()
         if (GlobalData.loggedIn)
-            hideNeedLogin()
+            unblockPage()
         presenter?.onResume()
     }
 
@@ -156,7 +152,7 @@ class MainActivity : BaseActivity(), MainContracts.View {
         GlobalData.userEmail = sharedPref.getString("userEmail", "")
 
         if (GlobalData.loggedIn)
-            hideNeedLogin()
+            unblockPage()
     }
 
     private fun setupBottomNavigationBar() {
@@ -185,22 +181,42 @@ class MainActivity : BaseActivity(), MainContracts.View {
     }
 
     override fun showNeedLogin() {
+        findViewById<TextView>(R.id.blocker_info_text).text = resources.getText(R.string.login_required)
+        findViewById<Button>(R.id.unblock_button).text = resources.getText(R.string.sign_in)
+        findViewById<Button>(R.id.unblock_button).setOnClickListener { presenter?.moveToRegistration() }
         if (mainTransitionContainer != null &&
-                findViewById<ConstraintLayout>(R.id.not_logged_in_layout).visibility != View.VISIBLE) {
+                findViewById<ConstraintLayout>(R.id.blocker_layout).visibility != View.VISIBLE) {
             mainTransitionContainer?.setTransition(
                 R.id.main_layout_default,
-                R.id.main_layout_not_logged_in
+                R.id.main_layout_blocked
             )
             mainTransitionContainer?.transitionToEnd()
             needLoginVisible = true
         }
     }
 
-    override fun hideNeedLogin() {
+    override fun showNoInternet() {
+        findViewById<TextView>(R.id.blocker_info_text).text = resources.getText(R.string.no_internet)
+        findViewById<Button>(R.id.unblock_button).text = resources.getText(R.string.retry)
+        findViewById<Button>(R.id.unblock_button).setOnClickListener {
+            //TODO
+        }
         if (mainTransitionContainer != null &&
-                findViewById<ConstraintLayout>(R.id.not_logged_in_layout).visibility == View.VISIBLE) {
+            findViewById<ConstraintLayout>(R.id.blocker_layout).visibility != View.VISIBLE) {
             mainTransitionContainer?.setTransition(
-                R.id.main_layout_not_logged_in,
+                R.id.main_layout_default,
+                R.id.main_layout_blocked
+            )
+            mainTransitionContainer?.transitionToEnd()
+            needLoginVisible = true
+        }
+    }
+
+    override fun unblockPage() {
+        if (mainTransitionContainer != null &&
+                findViewById<ConstraintLayout>(R.id.blocker_layout).visibility == View.VISIBLE) {
+            mainTransitionContainer?.setTransition(
+                R.id.main_layout_blocked,
                 R.id.main_layout_default
             )
             mainTransitionContainer?.transitionToEnd()

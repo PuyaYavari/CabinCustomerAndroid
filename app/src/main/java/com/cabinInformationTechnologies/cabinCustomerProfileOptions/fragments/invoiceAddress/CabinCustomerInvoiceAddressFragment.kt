@@ -11,13 +11,14 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.fragment.navArgs
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistrict
 
 
-
-class CabinCustomerInvoiceAddressFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressContracts.View {
-    var presenter: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressPresenter(
+class CabinCustomerInvoiceAddressFragment : BaseFragment(),
+    CabinCustomerInvoiceAddressContracts.View {
+    var presenter: CabinCustomerInvoiceAddressContracts.Presenter? =
+        CabinCustomerInvoiceAddressPresenter(
             this
         )
     private lateinit var pageView: View
@@ -27,13 +28,10 @@ class CabinCustomerInvoiceAddressFragment : com.cabinInformationTechnologies.cab
     private lateinit var provinceSpinner: Spinner
     private lateinit var districtSpinner: Spinner
 
-    private var operationType =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.OperationType.ADD
+    private var operationType = OperationType.ADD
 
-    private var provinceSet =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.FieldSet.NO
-    private var districtSet =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.FieldSet.NO
+    private var provinceSet = FieldSet.NO
+    private var districtSet = FieldSet.NO
 
     override var provinces: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince?> = listOf()
         set(value) {
@@ -47,7 +45,7 @@ class CabinCustomerInvoiceAddressFragment : com.cabinInformationTechnologies.cab
                 adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
                 // Apply the adapter to the spinner
                 provinceSpinner.adapter = adapter
-                if (provinceSet == com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.FieldSet.NO) {
+                if (provinceSet == FieldSet.NO) {
                     val argProvince = args.address?.province
                     if (argProvince != null) {
                         var index = 0
@@ -61,14 +59,13 @@ class CabinCustomerInvoiceAddressFragment : com.cabinInformationTechnologies.cab
                             index++
                         }
                     }
-                    provinceSet =
-                        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.FieldSet.YES
+                    provinceSet = FieldSet.YES
                 }
             }
 
         }
 
-    override var districts: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistrict?> = listOf()
+    override var districts: List<MODELDistrict?> = listOf()
         set(value) {
             field = value
             ArrayAdapter(
@@ -80,7 +77,7 @@ class CabinCustomerInvoiceAddressFragment : com.cabinInformationTechnologies.cab
                 adapter.setDropDownViewResource(R.layout.cabin_customer_province_district_spinner_item)
                 // Apply the adapter to the spinner
                 districtSpinner.adapter = adapter
-                if (districtSet == com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.FieldSet.NO) {
+                if (districtSet == FieldSet.NO) {
                     val argDistrict = args.address?.district
                     if (argDistrict != null) {
                         var index = 0
@@ -94,8 +91,7 @@ class CabinCustomerInvoiceAddressFragment : com.cabinInformationTechnologies.cab
                             index++
                         }
                     }
-                    districtSet =
-                        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.FieldSet.YES
+                    districtSet = FieldSet.YES
                 }
             }
         }
@@ -135,12 +131,9 @@ class CabinCustomerInvoiceAddressFragment : com.cabinInformationTechnologies.cab
 
     private fun setupPage() {
         if (args.address != null) {
-            operationType =
-                com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.OperationType.EDIT
-            provinceSet =
-                com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.FieldSet.NO
-            districtSet =
-                com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.FieldSet.NO
+            operationType = OperationType.EDIT
+            provinceSet = FieldSet.NO
+            districtSet = FieldSet.NO
         }
 
         pageView.findViewById<ImageButton>(R.id.invoice_address_back_button)
@@ -221,7 +214,7 @@ class CabinCustomerInvoiceAddressFragment : com.cabinInformationTechnologies.cab
         //FIXME: DOESN'T WORK AFTER A FIELD IS FOCUSED
         districtSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val district = parent?.getItemAtPosition(p2) as com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistrict
+                val district = parent?.getItemAtPosition(p2) as MODELDistrict
                 val context = context
                 if (context != null) {
                     presenter?.setDistrict(district)
@@ -311,16 +304,15 @@ class CabinCustomerInvoiceAddressFragment : com.cabinInformationTechnologies.cab
         }
 
         pageView.findViewById<Button>(R.id.invoice_address_add_button).setOnClickListener {
-            val context = this.context
             if (context != null) {
-                if (operationType == com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.OperationType.ADD)
+                if (operationType == OperationType.ADD)
                     presenter?.saveAddress(context)
                 else
                     presenter?.updateAddress(context)
             }
         }
 
-        if (operationType == com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment.OperationType.EDIT) {
+        if (operationType == OperationType.EDIT) {
             val isCorporate = args.address?.isCorporate
             if (isCorporate != null)
                 presenter?.setInvoiceType(isCorporate)

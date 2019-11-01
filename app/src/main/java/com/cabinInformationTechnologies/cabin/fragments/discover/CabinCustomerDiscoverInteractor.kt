@@ -2,6 +2,7 @@ package com.cabinInformationTechnologies.cabin.fragments.discover
 
 import android.content.Context
 import android.util.Log
+import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter
 import com.squareup.moshi.Moshi
 
@@ -48,14 +49,16 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         this::class.java.name,
                         "ISSUE, Value: $value",
                         null)
-                    //TODO: SHOW ISSUE
+                    output?.feedback(value.message)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onError(value: String, url: String?) {
                     Log.e("Discover ERROR", value)
                     if (url != null)
                         Log.d("Login onError url", url)
-                    //TODO: SHOW ERROR AND URL
+                    output?.feedback(value)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -64,7 +67,8 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         this::class.java.name,
                         "FAILURE, ${throwable.message}",
                         null)
-                    //TODO: SHOW DEFAULT FAILURE ERROR
+                    output?.feedback(null)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onServerDown() {
@@ -73,7 +77,8 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         this::class.java.name,
                         "SERVER DOWN",
                         null)
-                    //TODO: SHOW DEFAULT FAILURE ERROR
+                    output?.feedback(null)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onException(exception: Exception) {
@@ -82,7 +87,8 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         this::class.java.name,
                         "EXCEPTION",
                         exception)
-                    //TODO: HANDLE
+                    output?.feedback(null)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
         })
     }

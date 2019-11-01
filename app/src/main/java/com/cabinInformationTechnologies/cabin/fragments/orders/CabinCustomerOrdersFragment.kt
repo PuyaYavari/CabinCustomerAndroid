@@ -31,12 +31,12 @@ class CabinCustomerOrdersFragment : com.cabinInformationTechnologies.cabinCustom
 
         if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn) {
             setupPage()
-            if ((activity!! as com.cabinInformationTechnologies.cabin.MainActivity).findViewById<ConstraintLayout>(R.id.not_logged_in_layout)
+            if ((activity!! as com.cabinInformationTechnologies.cabin.MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
                     .visibility == View.INVISIBLE) {
                 (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).layoutBackToDefault()
                 (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showHeaderNavbar()
             } else
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideNeedLogin()
+                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).unblockPage()
         } else
             (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showNeedLogin()
 

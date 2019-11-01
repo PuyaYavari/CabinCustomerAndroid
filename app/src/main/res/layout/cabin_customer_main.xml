@@ -95,7 +95,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/not_logged_in_layout"
+                    android:id="@+id/blocker_layout"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/defaultHeaderHeight"
@@ -109,7 +109,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                 <View
-                        android:id="@+id/not_logged_in_background"
+                        android:id="@+id/blocker_layout_background"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:background="@color/colorPageBackgroundPrimary"
@@ -119,7 +119,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                        android:id="@+id/login_text"
+                        android:id="@+id/blocker_info_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
@@ -129,21 +129,21 @@
                         android:textAlignment="center"
                         android:textColor="@color/colorTextsPrimary"
                         android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@+id/not_logged_in_layout_06p_guideline"
+                        app:layout_constraintBottom_toTopOf="@+id/blocker_layout_06p_guideline"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="1.0" />
 
                 <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/not_logged_in_layout_06p_guideline"
+                        android:id="@+id/blocker_layout_06p_guideline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         app:layout_constraintGuide_percent="0.6" />
 
                 <Button
-                        android:id="@+id/login_button"
+                        android:id="@+id/unblock_button"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="16dp"
@@ -156,7 +156,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/not_logged_in_layout_06p_guideline"
+                        app:layout_constraintTop_toTopOf="@+id/blocker_layout_06p_guideline"
                         app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

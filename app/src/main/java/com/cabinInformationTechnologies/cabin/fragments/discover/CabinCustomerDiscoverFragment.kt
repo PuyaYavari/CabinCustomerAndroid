@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.MainActivity
@@ -27,7 +30,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
         pageView = inflater.inflate(R.layout.cabin_customer_discover, container, false)
 
         (activity!! as MainActivity).layoutBackToDefault()
-        (activity!! as MainActivity).hideNeedLogin()
+        (activity!! as MainActivity).unblockPage()
         (activity!! as MainActivity).setHeader(resources.getString(R.string.discover_label),null)
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
@@ -119,9 +122,11 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     }
 
     override fun addData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>?) {
+        hideNoInternet()
         if (products != null)
             myDataset.addAll(products as Iterable<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>)
         viewAdapter.notifyDataSetChanged()
+        hideProgressBar()
     }
 
     override fun updateProduct(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, position: Int) {
@@ -138,6 +143,20 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
 
     override fun getCurrentItemCount(): Int {
         return pageView.findViewById<RecyclerView>(R.id.discover_recyclerview).adapter?.itemCount ?: 0
+    }
+
+    override fun feedback(message: String) {
+        Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showNoInternet() {
+        hideProgressBar()
+        pageView.findViewById<ConstraintLayout>(R.id.discover_no_internet_layout).visibility = View.VISIBLE
+        pageView.findViewById<Button>(R.id.discover_no_internet_button).setOnClickListener { setupPage() }
+    }
+
+    override fun hideNoInternet() {
+        pageView.findViewById<ConstraintLayout>(R.id.discover_no_internet_layout).visibility = View.INVISIBLE
     }
 
     //endregion

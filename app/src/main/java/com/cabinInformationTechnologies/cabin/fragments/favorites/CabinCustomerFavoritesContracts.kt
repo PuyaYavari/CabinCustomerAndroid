@@ -1,59 +1,69 @@
 package com.cabinInformationTechnologies.cabin.fragments.favorites
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabin.MainContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
 
 object CabinCustomerFavoritesContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        fun showData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>)
-        fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct)
-        fun removeFromFavorites(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct)
+    interface View : BaseContracts.View {
+        fun showData(products: List<MODELProduct>)
+        fun moveToProductDetail(product: MODELProduct)
+        fun removeFromFavorites(product: MODELProduct)
         fun undoRemove()
         fun addToCart(
             amount: Int,
             productId: Int,
-            color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor,
-            size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
+            color: MODELColor,
+            size: MODELSize
         )
         fun renewData()
-        fun showSelectSize(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor, callback: com.cabinInformationTechnologies.cabin.MainContracts.SelectSizeCallback)
+        fun showSelectSize(product: MODELProduct, color: MODELColor, callback: MainContracts.SelectSizeCallback)
         fun showProgressBar()
         fun hideProgressBar()
         fun getCurrentItemCount(): Int
+        fun feedback(message: String)
+        fun showNoInternet()
+        fun hideNoInternet()
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface Presenter : BaseContracts.Presenter {
         fun getFavorites(context: Context, page: Int)
-        fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct)
-        fun removeFromFavorites(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct)
+        fun moveToProductDetail(product: MODELProduct)
+        fun removeFromFavorites(context: Context, product: MODELProduct)
         fun addToCart(
             context: Context,
             amount: Int,
             productId: Int,
-            color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor,
-            size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
+            color: MODELColor,
+            size: MODELSize
         )
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
+    interface Interactor : BaseContracts.Interactor {
         fun getFavorites(context: Context, page: Int)
-        fun removeFromFavorites(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct)
+        fun removeFromFavorites(context: Context, product: MODELProduct)
         fun addToCart(
             context: Context,
             amount: Int,
             productId: Int,
-            color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor,
-            size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
+            color: MODELColor,
+            size: MODELSize
         )
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        fun setData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct?>)
+    interface InteractorOutput : BaseContracts.InteractorOutput {
+        fun setData(products: List<MODELProduct?>)
         fun undoRemove()
+        fun feedback(message: String?)
+        fun noInternet(isNetworkConnected: Boolean)
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
-        fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct)
+    interface Router : BaseContracts.Router {
+        fun moveToProductDetail(product: MODELProduct)
     }
 
 }

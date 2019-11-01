@@ -1,48 +1,55 @@
 package com.cabinInformationTechnologies.cabin.fragments.cart
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 
 object CabinCustomerCartContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        val myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>
+    interface View : BaseContracts.View {
+        val myDataset: MutableList<MODELProduct>
 
         fun showPriceDetail()
         fun hidePriceDetail()
-        fun setData(cart: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart)
-        fun updateProduct(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct)
+        fun setData(cart: MODELCart)
+        fun updateProduct(product: MODELProduct)
         fun clearAll()
         fun addShippingPrice(sellerName: String, price: Double)
         fun clearCargoPrices()
-        fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor)
+        fun moveToProductDetail(product: MODELProduct, color: MODELColor)
         fun showProgressBar()
         fun hideProgressBar()
         fun getCurrentItemCount(): Int
         fun feedback(message: String)
+        fun showNoInternet()
+        fun hideNoInternet()
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface Presenter : BaseContracts.Presenter {
         fun moveToFinishTrade()
         fun togglePriceDetail()
         fun getCart(context: Context)
-        fun updateProduct(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct)
-        fun areProductsEqual(first: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, second: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct): Boolean
-        fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor)
+        fun updateProduct(context: Context, product: MODELProduct)
+        fun areProductsEqual(first: MODELProduct, second: MODELProduct): Boolean
+        fun moveToProductDetail(product: MODELProduct, color: MODELColor)
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
+    interface Interactor : BaseContracts.Interactor {
         fun getCart(context: Context)
-        fun updateProduct(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct)
+        fun updateProduct(context: Context, product: MODELProduct)
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        fun setCart(cart: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart?)
-        fun feedback(message: String)
+    interface InteractorOutput : BaseContracts.InteractorOutput {
+        fun setCart(cart: MODELCart?)
+        fun feedback(message: String?)
+        fun noInternet(isNetworkConnected: Boolean)
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
+    interface Router : BaseContracts.Router {
         fun moveToFinishTrade()
-        fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor)
+        fun moveToProductDetail(product: MODELProduct, color: MODELColor)
     }
 
     interface CartCallback {

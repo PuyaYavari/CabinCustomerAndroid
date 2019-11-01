@@ -8,7 +8,7 @@
         motion:duration="300">
         <KeyFrameSet>
             <KeyAttribute
-                motion:motionTarget="@+id/not_logged_in_layout"
+                motion:motionTarget="@+id/blocker_layout"
                 motion:framePosition="0"
                 android:alpha="0"
                 />
@@ -34,7 +34,7 @@
 
     <Transition
         motion:constraintSetStart="@id/main_layout_default"
-        motion:constraintSetEnd="@id/main_layout_not_logged_in"
+        motion:constraintSetEnd="@id/main_layout_blocked"
         motion:duration="500">
         <KeyFrameSet>
             <KeyAttribute
@@ -44,7 +44,7 @@
         </KeyFrameSet>
     </Transition>
     <Transition
-        motion:constraintSetStart="@id/main_layout_not_logged_in"
+        motion:constraintSetStart="@id/main_layout_blocked"
         motion:constraintSetEnd="@id/main_layout_default"
         motion:duration="500"/>
 
@@ -82,7 +82,7 @@
                 android:elevation="@dimen/defaultHeaderElevation"
                 android:translationY="0dp"
                 />
-        <Constraint android:id="@+id/not_logged_in_layout"
+        <Constraint android:id="@+id/blocker_layout"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
@@ -191,7 +191,7 @@
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"/>
     </ConstraintSet>
-    <ConstraintSet android:id="@+id/main_layout_not_logged_in">
+    <ConstraintSet android:id="@+id/main_layout_blocked">
         <Constraint
                 android:id="@+id/main_header"
                 android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
                 android:visibility="invisible"
                 android:alpha="0"
                 />
-        <Constraint android:id="@+id/not_logged_in_layout"
+        <Constraint android:id="@+id/blocker_layout"
                 motion:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment_layout"
                 motion:layout_constraintEnd_toEndOf="@+id/nav_host_fragment_layout"
                 motion:layout_constraintStart_toStartOf="@+id/nav_host_fragment_layout"
@@ -328,7 +328,7 @@
                 android:elevation="@dimen/defaultHeaderElevation"
                 android:translationY="0dp"
                 />
-        <Constraint android:id="@+id/not_logged_in_layout"
+        <Constraint android:id="@+id/blocker_layout"
                 motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"

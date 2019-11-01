@@ -16,7 +16,7 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
 
         com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.appRunning = true
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideNeedLogin()
+        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).unblockPage()
         (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(resources.getString(R.string.homepage_label),null)
         (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
         (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showHeaderNavbar()

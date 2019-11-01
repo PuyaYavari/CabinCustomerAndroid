@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import com.cabinInformationTechnologies.cabin.R
 
 class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : CabinCustomerCartContracts.Presenter,
     CabinCustomerCartContracts.InteractorOutput {
@@ -80,6 +81,7 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
 
     override fun setCart(cart: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart?) {
         view?.hideProgressBar()
+        view?.hideNoInternet()
         if (cart != null) {
             var sellerIter = cart.getSellers().iterator()
             while (sellerIter.hasNext()) {
@@ -145,8 +147,22 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
         }
     }
 
-    override fun feedback(message: String) {
-        view?.feedback(message)
+    override fun feedback(message: String?) {
+        if (message != null) {
+            view?.feedback(message)
+        } else {
+            val defaultMessage = view?.getActivityContext()?.resources?.getString(R.string.default_error_message)
+            if (defaultMessage != null)
+                view?.feedback(defaultMessage)
+        }
+        view?.hideProgressBar()
+    }
+
+    override fun noInternet(isNetworkConnected: Boolean) {
+        if (isNetworkConnected)
+            view?.hideNoInternet()
+        else
+            view?.showNoInternet()
     }
 
     //endregion

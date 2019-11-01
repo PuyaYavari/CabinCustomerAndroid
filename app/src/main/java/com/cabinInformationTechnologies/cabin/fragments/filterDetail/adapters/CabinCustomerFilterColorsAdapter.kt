@@ -44,7 +44,10 @@ class CabinCustomerFilterColorsAdapter (val fragment: CabinCustomerFilterDetailF
             findViewById<TextView>(R.id.filter_colorbox_color_name).text = myDataset[position].getName()
             findViewById<ImageView>(R.id.filter_colorbox_count_background_ring).imageTintList =
                 ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode))
-            findViewById<TextView>(R.id.filter_colorbox_count).text = myDataset[position].amount.toString()
+            if (myDataset[position].amount < 100)
+                findViewById<TextView>(R.id.filter_colorbox_count).text = myDataset[position].amount.toString()
+            else
+                findViewById<TextView>(R.id.filter_colorbox_count).text = "+99"
         }
     }
 

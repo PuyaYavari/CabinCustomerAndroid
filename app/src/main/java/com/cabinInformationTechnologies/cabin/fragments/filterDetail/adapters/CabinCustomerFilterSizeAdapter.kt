@@ -42,6 +42,10 @@ class CabinCustomerFilterSizeAdapter (val fragment: CabinCustomerFilterDetailFra
                 }
             }
             findViewById<TextView>(R.id.filter_sizebox_label).text = myDataset[position].getName()
+            if (myDataset[position].amount < 100)
+                findViewById<TextView>(R.id.filter_sizebox_count).text = myDataset[position].amount.toString()
+            else
+                findViewById<TextView>(R.id.filter_sizebox_count).text = "+99"
         }
     }
 

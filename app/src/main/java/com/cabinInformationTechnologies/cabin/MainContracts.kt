@@ -10,7 +10,8 @@ object MainContracts {
         fun hideHeaderNavbar()
         fun showHeaderNavbar()
         fun showNeedLogin()
-        fun hideNeedLogin()
+        fun showNoInternet()
+        fun unblockPage()
         fun showBackButton()
         fun hideBackButton()
         fun layoutBackToDefault()
@@ -56,5 +57,9 @@ object MainContracts {
     interface SelectSizeCallback {
         fun selectSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize)
         fun confirm()
+    }
+
+    interface NoInternetCallback {
+        fun retry()
     }
 }

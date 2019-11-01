@@ -3,10 +3,7 @@ package com.cabinInformationTechnologies.cabin.fragments.discover
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
-import com.cabinInformationTechnologies.cabin.fragments.discover.CabinCustomerDiscoverContracts
-import com.cabinInformationTechnologies.cabin.fragments.discover.CabinCustomerDiscoverInteractor
-import com.cabinInformationTechnologies.cabin.fragments.discover.CabinCustomerDiscoverRouter
+import com.cabinInformationTechnologies.cabin.R
 
 class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.View?) :
     CabinCustomerDiscoverContracts.Presenter,
@@ -79,7 +76,6 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
     override fun addData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>?) {
         currentPage += 1
         view?.addData(products)
-        view?.hideProgressBar()
     }
 
     override fun resetPage() {
@@ -91,6 +87,24 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
             view?.updateProduct(product, lastEnteredProductPosition)
         lastEnteredProductPosition = -1
         lastEnteredProduct = null
+    }
+
+    override fun feedback(message: String?) {
+        if (message != null) {
+            view?.feedback(message)
+        } else {
+            val defaultMessage = view?.getActivityContext()?.resources?.getString(R.string.default_error_message)
+            if (defaultMessage != null)
+                view?.feedback(defaultMessage)
+        }
+        view?.hideProgressBar()
+    }
+
+    override fun noInternet(isNetworkConnected: Boolean) {
+        if (isNetworkConnected)
+            view?.hideNoInternet()
+        else if (view?.getCurrentItemCount() == 0)
+            view?.showNoInternet()
     }
 
     //endregion

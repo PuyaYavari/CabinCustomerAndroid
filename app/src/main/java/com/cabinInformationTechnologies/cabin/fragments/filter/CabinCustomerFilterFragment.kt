@@ -28,7 +28,6 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         if (context != null)
             presenter?.getFilter(context, (activity as MainActivity).getFilter())
         setupActivityLayout()
-        setupPage()
         return pageView
     }
 
@@ -145,6 +144,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
     override fun setFilter(filter: MODELFilter) {
         (activity!! as MainActivity).setFilter(filter)
         setAmounts()
+        setupPage()
     }
 
     override fun showProgressBar() {

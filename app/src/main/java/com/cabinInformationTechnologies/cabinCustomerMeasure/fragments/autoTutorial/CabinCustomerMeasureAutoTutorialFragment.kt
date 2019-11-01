@@ -11,11 +11,12 @@ import androidx.activity.addCallback
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.cabinInformationTechnologies.cabin.R
 
+@Suppress("DEPRECATION")
 class CabinCustomerMeasureAutoTutorialFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerMeasure.fragments.autoTutorial.CabinCustomerMeasureAutoTutorialContracts.View {
+    CabinCustomerMeasureAutoTutorialContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerMeasure.fragments.autoTutorial.CabinCustomerMeasureAutoTutorialContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerMeasure.fragments.autoTutorial.CabinCustomerMeasureAutoTutorialPresenter(
+    var presenter: CabinCustomerMeasureAutoTutorialContracts.Presenter? =
+        CabinCustomerMeasureAutoTutorialPresenter(
             this
         )
     private lateinit var pageView: View

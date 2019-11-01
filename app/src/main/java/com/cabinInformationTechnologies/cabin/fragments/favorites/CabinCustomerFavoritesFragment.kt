@@ -4,17 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cabinInformationTechnologies.cabin.MainActivity
+import com.cabinInformationTechnologies.cabin.MainContracts
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
 
-class CabinCustomerFavoritesFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerFavoritesContracts.View {
+class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesContracts.View {
 
     var presenter: CabinCustomerFavoritesContracts.Presenter? = CabinCustomerFavoritesPresenter(this)
     private lateinit var pageView: View
     private lateinit var recyclerView: RecyclerView
-    private var myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct> = mutableListOf()
+    private var myDataset: MutableList<MODELProduct> = mutableListOf()
     private lateinit var viewAdapter: CabinCustomerFavoritesAdapter
     private lateinit var viewManager: GridLayoutManager
 
@@ -28,22 +37,22 @@ class CabinCustomerFavoritesFragment : com.cabinInformationTechnologies.cabinCus
     override fun onResume() {
         super.onResume()
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(resources.getString(R.string.favorites_label),null)
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).lockDrawer()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.favorites_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideBackButton()
         hideProgressBar()
 
-        if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn) {
+        if (GlobalData.loggedIn) {
             setupPage()
-            if ((activity!! as com.cabinInformationTechnologies.cabin.MainActivity).findViewById<ConstraintLayout>(R.id.not_logged_in_layout)
+            if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
                     .visibility == View.INVISIBLE) {
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).layoutBackToDefault()
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showHeaderNavbar()
+                (activity!! as MainActivity).layoutBackToDefault()
+                (activity!! as MainActivity).showHeaderNavbar()
             } else
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideNeedLogin()
+                (activity!! as MainActivity).unblockPage()
         } else
-            (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showNeedLogin()
+            (activity!! as MainActivity).showNeedLogin()
 
         presenter?.onResume()
     }
@@ -81,15 +90,19 @@ class CabinCustomerFavoritesFragment : com.cabinInformationTechnologies.cabinCus
     }
 
 
-    override fun showData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>) = viewAdapter.setData(products)
+    override fun showData(products: List<MODELProduct>) {
+        hideNoInternet()
+        hideProgressBar()
+        viewAdapter.setData(products)
+    }
 
-    override fun removeFromFavorites(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun removeFromFavorites(product: MODELProduct) {
         val context = this.context
         if (context != null)
             presenter?.removeFromFavorites(context, product)
     }
 
-    override fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun moveToProductDetail(product: MODELProduct) {
         presenter?.moveToProductDetail(product)
     }
 
@@ -100,8 +113,8 @@ class CabinCustomerFavoritesFragment : com.cabinInformationTechnologies.cabinCus
     override fun addToCart(
         amount: Int,
         productId: Int,
-        color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor,
-        size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
+        color: MODELColor,
+        size: MODELSize
     ) {
         val context = this.context
         if (context != null)
@@ -116,23 +129,37 @@ class CabinCustomerFavoritesFragment : com.cabinInformationTechnologies.cabinCus
     }
 
     override fun showSelectSize(
-        product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct,
-        color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor,
-        callback: com.cabinInformationTechnologies.cabin.MainContracts.SelectSizeCallback
+        product: MODELProduct,
+        color: MODELColor,
+        callback: MainContracts.SelectSizeCallback
     ) {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showSelectSize(product, color, callback)
+        (activity!! as MainActivity).showSelectSize(product, color, callback)
     }
 
     override fun showProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showProgressBar()
+        (activity!! as MainActivity).showProgressBar()
     }
 
     override fun hideProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     override fun getCurrentItemCount(): Int {
         return pageView.findViewById<RecyclerView>(R.id.favorites_recycler_view).adapter?.itemCount ?: 0
+    }
+
+    override fun feedback(message: String) {
+        Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showNoInternet() {
+        hideProgressBar()
+        pageView.findViewById<ConstraintLayout>(R.id.favorites_no_internet_layout).visibility = View.VISIBLE
+        pageView.findViewById<Button>(R.id.favorites_no_internet_button).setOnClickListener { setupPage() }
+    }
+
+    override fun hideNoInternet() {
+        pageView.findViewById<ConstraintLayout>(R.id.favorites_no_internet_layout).visibility = View.INVISIBLE
     }
 
     //endregion

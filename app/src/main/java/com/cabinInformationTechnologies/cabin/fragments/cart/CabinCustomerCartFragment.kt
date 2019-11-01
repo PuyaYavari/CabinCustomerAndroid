@@ -40,12 +40,12 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
 
         if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn) {
             setupPage()
-            if ((activity!! as com.cabinInformationTechnologies.cabin.MainActivity).findViewById<ConstraintLayout>(R.id.not_logged_in_layout)
+            if ((activity!! as com.cabinInformationTechnologies.cabin.MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
                     .visibility == View.INVISIBLE) {
                 (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).layoutBackToDefault()
                 (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showHeaderNavbar()
             } else
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideNeedLogin()
+                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).unblockPage()
         } else
             (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showNeedLogin()
 
@@ -207,6 +207,16 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
 
     override fun feedback(message: String) {
         Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showNoInternet() {
+        hideProgressBar()
+        pageView.findViewById<ConstraintLayout>(R.id.cart_no_internet_layout).visibility = View.VISIBLE
+        pageView.findViewById<Button>(R.id.cart_no_internet_button).setOnClickListener { setupPage() }
+    }
+
+    override fun hideNoInternet() {
+        pageView.findViewById<ConstraintLayout>(R.id.cart_no_internet_layout).visibility = View.INVISIBLE
     }
 
     //endregion

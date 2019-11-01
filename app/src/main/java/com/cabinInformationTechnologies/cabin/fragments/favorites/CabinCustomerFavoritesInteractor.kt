@@ -1,6 +1,18 @@
 package com.cabinInformationTechnologies.cabin.fragments.favorites
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTColor
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProducts
 import com.squareup.moshi.Moshi
 
 class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContracts.InteractorOutput?) :
@@ -13,28 +25,28 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
     //region Interactor
 
     override fun getFavorites(context: Context, page: Int) {
-        val responseObject = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProducts()
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory(
+        val responseObject = MODELProducts()
+        NetworkManager.requestFactory(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.LIST_FAVORITES_URL,
+            Constants.LIST_FAVORITES_URL,
             page,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.FAVORITE_PAGE_SIZE,
+            Constants.FAVORITE_PAGE_SIZE,
             null,
             responseObject,
-            com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter(
+            APIProductAdapter(
                 Moshi.Builder().add(
-                    com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter(
+                    JSONProductAdapter(
                         context,
                         Moshi.Builder().build()
                     )
                 ).build()
             ),
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true)
                         output?.setData(responseObject.products)
                     else
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                        Logger.warn(
                             context,
                             this::class.java.name,
                             "Value not mapped properly!\nValue: $value",
@@ -42,68 +54,73 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
                         )
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    //TODO: SHOW FEEDBACK
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "Issue: ${value.message}",
                         null
                     )
+                    output?.feedback(value.message)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onError(value: String, url: String?) {
-                    //TODO: SHOW FEEDBACK
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "Error: $value",
                         null
                     )
+                    output?.feedback(value)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    //TODO: SHOW FEEDBACK
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "Failure",
                         throwable
                     )
+                    output?.feedback(null)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onServerDown() {
-                    //TODO: SHOW FEEDBACK
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "Server Down",
                         null
                     )
+                    output?.feedback(null)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onException(exception: Exception) {
-                    //TODO: SHOW FEEDBACK
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "Exception",
                         exception
                     )
+                    output?.feedback(null)
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
             }
         )
     }
 
-    override fun removeFromFavorites(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
-        val data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct(
+    override fun removeFromFavorites(context: Context, product: MODELProduct) {
+        val data = REQUESTAPIProduct(
             listOf(
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProduct(
+                REQUESTProduct(
                     product.getId(),
                     null,
                     listOf(
-                        com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTColor(
+                        REQUESTColor(
                             product.getColors()[0].id,
                             null
                         )
@@ -111,25 +128,25 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
                 )
             )
         )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<Any?>(
+        NetworkManager.requestFactory<Any?>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.DISCOVER_REMOVE_FROM_FAVORITE_URL,
+            Constants.DISCOVER_REMOVE_FROM_FAVORITE_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks{
+            object : BaseContracts.ResponseCallbacks{
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.info(
                         context,
                         this::class.java.name,
                         "SUCCESS, Value: $value",
                         null)
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "ISSUE, Value: $value",
