@@ -15,19 +15,15 @@ class MODELFilterColor: LocalDataModel {
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonData = modelData as JSONFilterColor
-            if (jsonData.amount > 0) {
-                this.id = jsonData.id
-                val nameData = jsonData.name
-                if (nameData != null)
-                    this.name = nameData
-                this.hexCode = jsonData.hexCode
-                this.rgb = jsonData.rgbCode
-                this.amount = jsonData.amount
-                this.isSelected = jsonData.isSelected
-                true
-            } else {
-                false
-            }
+            this.id = jsonData.id
+            val nameData = jsonData.name
+            if (nameData != null)
+                this.name = nameData
+            this.hexCode = jsonData.hexCode
+            this.rgb = jsonData.rgbCode
+            this.amount = jsonData.amount
+            this.isSelected = jsonData.isSelected
+            true
         } catch (exception: Exception) {
             Logger.error(
                 context,

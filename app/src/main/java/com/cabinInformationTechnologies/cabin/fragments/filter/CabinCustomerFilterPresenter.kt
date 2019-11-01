@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
+import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
 
@@ -12,6 +13,7 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
 
     var interactor: CabinCustomerFilterContracts.Interactor? = CabinCustomerFilterInteractor(this)
     var router: CabinCustomerFilterContracts.Router? = null
+    override var filter: MODELFilter? = null
 
     //region Lifecycle
 
@@ -21,6 +23,8 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router = CabinCustomerFilterRouter(activity)
+
+        filter = (activity as MainActivity).getFilter()
 
     }
 
@@ -53,46 +57,46 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         return newCount
     }
 
-    override fun getFilter(context: Context, filter: MODELFilter?) {
-        interactor?.getFilter(context, filter)
+    override fun requestFilter(context: Context) {
+        interactor?.requestFilter(context, filter)
     }
 
     override fun moveToFilterDetail(filterType: Int) {
         router?.moveToFilterDetail(filterType)
     }
 
-    override fun getSelectedCount(filter: MODELFilter, filterType: Int): Int {
+    override fun getSelectedCount(filterType: Int): Int {
         var count = 0
         when (filterType) {
             FilterTypeIDs.CATEGORY -> {
-                count = countSelectedCategories(filter.filterCategories)
+                count = countSelectedCategories(filter?.filterCategories)
             }
             FilterTypeIDs.SEX -> {
-                filter.sexes?.forEach {
+                filter?.sexes?.forEach {
                     if (it.isSelected)
                         count++
                 }
             }
             FilterTypeIDs.SELLER -> {
-                filter.sellers?.forEach {
+                filter?.sellers?.forEach {
                     if (it.isSelected)
                         count++
                 }
             }
             FilterTypeIDs.SIZE -> {
-                filter.filterSizes?.forEach {
+                filter?.filterSizes?.forEach {
                     if (it.isSelected)
                         count++
                 }
             }
             FilterTypeIDs.COLOR -> {
-                filter.colors?.forEach {
+                filter?.colors?.forEach {
                     if (it.isSelected)
                         count++
                 }
             }
             FilterTypeIDs.PRICE -> {
-                filter.filterPrices?.forEach {
+                filter?.filterPrices?.forEach {
                     if (it.isSelected)
                         count++
                 }
@@ -105,8 +109,10 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
 
     //region InteractorOutput
 
-    override fun setFilter(filter: MODELFilter) {
-        view?.setFilter(filter)
+    override fun refreshFilter(filter: MODELFilter) {
+        this.filter = filter
+        view?.setAmounts()
+        view?.setupPage()
     }
 
     //endregion

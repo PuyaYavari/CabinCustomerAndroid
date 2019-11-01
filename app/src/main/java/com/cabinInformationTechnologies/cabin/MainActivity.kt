@@ -99,6 +99,8 @@ class MainActivity : BaseActivity(), MainContracts.View {
 
         if (GlobalData.loggedIn)
             unblockPage()
+
+        presenter?.clearFilter(this.applicationContext)
     }
 
     override fun onBackPressed() {

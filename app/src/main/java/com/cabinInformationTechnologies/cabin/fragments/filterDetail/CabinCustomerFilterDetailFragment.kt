@@ -106,7 +106,8 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
             adapter = viewAdapter
         }
         pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
-            //TODO
+            filter?.filterSizes = viewAdapter.getDataset()
+            activity?.onBackPressed()
         }
     }
 

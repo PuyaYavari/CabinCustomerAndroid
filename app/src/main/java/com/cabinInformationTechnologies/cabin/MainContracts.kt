@@ -1,6 +1,7 @@
 package com.cabinInformationTechnologies.cabin
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
 
 object MainContracts {
     interface View: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
@@ -29,17 +30,19 @@ object MainContracts {
     }
 
     interface Presenter: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        var filter: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter?
+        var filter: MODELFilter?
 
         fun moveToProfileOptions()
         fun moveToMeasure()
         fun moveToExtraditions()
         fun requestLogout(context: Context)
         fun moveToRegistration()
+        fun clearFilter(context: Context)
     }
 
     interface Interactor: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
         fun logout(context: Context)
+        fun clearFilter(context: Context)
     }
 
     interface InteractorOutput: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
@@ -55,11 +58,20 @@ object MainContracts {
     }
 
     interface SelectSizeCallback {
-        fun selectSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize)
+        fun selectSize(size: MODELSize)
         fun confirm()
     }
 
     interface NoInternetCallback {
         fun retry()
+    }
+
+    interface SetFilterCallback {
+        fun setCategories(categories: MutableList<MODELFilterCategory>?)
+        fun setSexes(sexes: MutableList<MODELFilterSex>?)
+        fun setSellers(sellers: MutableList<MODELFilterSeller>?)
+        fun setSizes(sizes: MutableList<MODELFilterSizeGroup>?)
+        fun setColors(colors: MutableList<MODELFilterColor>?)
+        fun setPrices(prices: MutableList<MODELFilterPrice>?)
     }
 }

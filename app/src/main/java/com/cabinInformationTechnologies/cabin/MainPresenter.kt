@@ -56,6 +56,11 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
         router?.moveToRegistration()
     }
 
+    override fun clearFilter(context: Context) {
+        filter = null
+        interactor?.clearFilter(context)
+    }
+
     //endregion
 
     //region InteractorOutput

@@ -172,4 +172,6 @@
     <string name="login_required">Bu sayfayı görüntülemek için giriş yapmanız gerekmektedir.</string>
     <string name="no_internet">İnternet bağlantınızı kontrol edip yeniden deneyin.</string>
 
+    <string name="plus_99">+99</string>
+
 </resources>

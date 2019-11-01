@@ -31,7 +31,9 @@ class CabinCustomerFilterSellerAdapter (val fragment: CabinCustomerFilterDetailF
             findViewById<TextView>(R.id.filter_sellerbox_label).text = myDataset[position].name
             findViewById<CheckBox>(R.id.filter_sellerbox_checkbox).apply{
                 isChecked = myDataset[position].isSelected
-                //TODO: ON CHECKED CHANGE
+                setOnCheckedChangeListener { _, isChecked ->
+                    myDataset[position].isSelected = isChecked
+                }
             }
         }
     }

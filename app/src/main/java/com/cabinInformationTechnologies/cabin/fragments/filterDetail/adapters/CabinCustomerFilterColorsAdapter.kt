@@ -40,6 +40,10 @@ class CabinCustomerFilterColorsAdapter (val fragment: CabinCustomerFilterDetailF
                             outline.setOval(10,50,view.width-10,view.height-40)
                     }
                 }
+                setOnClickListener {
+                    myDataset[position].isSelected = !myDataset[position].isSelected
+                    notifyItemChanged(position)
+                }
             }
             findViewById<TextView>(R.id.filter_colorbox_color_name).text = myDataset[position].getName()
             findViewById<ImageView>(R.id.filter_colorbox_count_background_ring).imageTintList =
@@ -47,7 +51,14 @@ class CabinCustomerFilterColorsAdapter (val fragment: CabinCustomerFilterDetailF
             if (myDataset[position].amount < 100)
                 findViewById<TextView>(R.id.filter_colorbox_count).text = myDataset[position].amount.toString()
             else
-                findViewById<TextView>(R.id.filter_colorbox_count).text = "+99"
+                findViewById<TextView>(R.id.filter_colorbox_count).text =
+                    fragment.resources.getText(R.string.plus_99)
+            findViewById<ImageView>(R.id.filter_colorbox_color_sample_tick).apply {
+                visibility = if (myDataset[position].isSelected)
+                    View.VISIBLE
+                else
+                    View.INVISIBLE
+            }
         }
     }
 

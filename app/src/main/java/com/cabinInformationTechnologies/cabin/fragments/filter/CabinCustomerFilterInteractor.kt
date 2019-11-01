@@ -5,7 +5,9 @@ import com.cabinInformationTechnologies.cabin.FilterTypeIDs
 import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIFilter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIFilter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTFilter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTWITHID
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup
@@ -80,17 +82,57 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
         return selected
     }
 
-    override fun getFilter(context: Context, filter: MODELFilter?) {
+    override fun requestFilter(context: Context, filter: MODELFilter?) {
         val responseObject = MODELFilters()
-        var data: REQUESTFilter? = null
+        var data: REQUESTAPIFilter? = null
         if (filter != null) {
-            data = REQUESTFilter(
-                getSelectedCategoriesList(filter.filterCategories),
-                getSelectedList(filter, FilterTypeIDs.SEX),
-                getSelectedList(filter, FilterTypeIDs.SELLER),
-                getSelectedList(filter, FilterTypeIDs.COLOR),
-                getSelectedSizes(filter.filterSizes),
-                getSelectedList(filter, FilterTypeIDs.PRICE)
+            val categoryRequest: MutableList<REQUESTWITHID?> = mutableListOf()
+            getSelectedCategoriesList(filter.filterCategories).forEach {
+                val id = it
+                if (id != null)
+                    categoryRequest.add(REQUESTWITHID(it))
+            }
+            val sexRequest: MutableList<REQUESTWITHID?> = mutableListOf()
+            getSelectedList(filter, FilterTypeIDs.SEX).forEach {
+                val id = it
+                if (id != null)
+                    sexRequest.add(REQUESTWITHID(it))
+            }
+            val sellerRequest: MutableList<REQUESTWITHID?> = mutableListOf()
+            getSelectedList(filter, FilterTypeIDs.SELLER).forEach {
+                val id = it
+                if (id != null)
+                    sellerRequest.add(REQUESTWITHID(it))
+            }
+            val colorRequest: MutableList<REQUESTWITHID?> = mutableListOf()
+            getSelectedList(filter, FilterTypeIDs.COLOR).forEach {
+                val id = it
+                if (id != null)
+                    colorRequest.add(REQUESTWITHID(it))
+            }
+            val sizeRequest: MutableList<REQUESTWITHID?> = mutableListOf()
+            getSelectedSizes(filter.filterSizes).forEach {
+                val id = it
+                if (id != null)
+                    sizeRequest.add(REQUESTWITHID(it))
+            }
+            val priceRequest: MutableList<REQUESTWITHID?> = mutableListOf()
+            getSelectedList(filter, FilterTypeIDs.PRICE).forEach {
+                val id = it
+                if (id != null)
+                    priceRequest.add(REQUESTWITHID(it))
+            }
+            data = REQUESTAPIFilter (
+                listOf(
+                    REQUESTFilter(
+                        categoryRequest,
+                        sexRequest,
+                        sellerRequest,
+                        colorRequest,
+                        sizeRequest,
+                        priceRequest
+                    )
+                )
             )
         }
         NetworkManager.requestFactory<APIFilter?>(
@@ -106,7 +148,7 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                     if (value == true) {
                         val returnedFilter = responseObject.getFilters()[0]
                         if (returnedFilter != null)
-                            output?.setFilter(returnedFilter)
+                            output?.refreshFilter(returnedFilter)
                         com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
                             context,
                             this::class.java.name,
@@ -127,7 +169,7 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                     com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
                         context,
                         this::class.java.name,
-                        "Filter not received.\n" + "ERROR: $value",
+                        "Filter not received.\nERROR: $value",
                         null)
                 }
 

@@ -39,7 +39,7 @@ class CabinCustomerFilterSizegroupAdapter(val fragment: CabinCustomerFilterDetai
                     sizes,
                     object: CabinCustomerFilterDetailContracts.SizesCallback {
                         override fun setSizes(sizes: List<MODELFilterSize>) {
-                            val newSizes: MutableList<MODELFilterSize>? = null
+                            val newSizes: MutableList<MODELFilterSize>? = mutableListOf()
                             if (sizes.isNotEmpty()) {
                                 newSizes?.addAll(sizes)
                                 myDataset[position].setSizes(newSizes)

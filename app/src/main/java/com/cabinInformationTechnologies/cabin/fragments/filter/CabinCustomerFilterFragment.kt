@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerFilterContracts.View {
@@ -26,7 +26,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         pageView = inflater.inflate(R.layout.cabin_customer_filter, container, false)
         val context = this.context
         if (context != null)
-            presenter?.getFilter(context, (activity as MainActivity).getFilter())
+            presenter?.requestFilter(context)
         setupActivityLayout()
         return pageView
     }
@@ -54,7 +54,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
 
     //region View
 
-    private fun setupPage() {
+    override fun setupPage() {
         pageView.findViewById<ConstraintLayout>(R.id.filter_categories_layout).setOnClickListener {
             presenter?.moveToFilterDetail(FilterTypeIDs.CATEGORY)
         }
@@ -73,6 +73,10 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         pageView.findViewById<ConstraintLayout>(R.id.filter_price_layout).setOnClickListener {
             presenter?.moveToFilterDetail(FilterTypeIDs.PRICE)
         }
+        pageView.findViewById<Button>(R.id.filter_footer_confirm_button).setOnClickListener {
+            changeActivityFilter()
+            activity?.onBackPressed()
+        }
     }
 
     private fun setupActivityLayout() {
@@ -87,11 +91,11 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         hideProgressBar()
     }
 
-    private fun setAmounts() {
-        val filter = (activity!! as MainActivity).getFilter()
+    override fun setAmounts() {
+        val filter = presenter?.filter
         if (filter != null)
             pageView.apply {
-                var selectedCount: Int? = presenter?.getSelectedCount(filter, FilterTypeIDs.CATEGORY)
+                var selectedCount: Int? = presenter?.getSelectedCount(FilterTypeIDs.CATEGORY)
                 if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_category_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.VISIBLE
@@ -99,7 +103,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
                     findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.SEX)
+                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.SEX)
                 if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_sex_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.VISIBLE
@@ -107,7 +111,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
                     findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.SELLER)
+                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.SELLER)
                 if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_brand_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.VISIBLE
@@ -115,7 +119,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
                     findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.SIZE)
+                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.SIZE)
                 if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_size_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.VISIBLE
@@ -123,7 +127,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
                     findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.COLOR)
+                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.COLOR)
                 if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_color_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.VISIBLE
@@ -131,7 +135,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
                     findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.INVISIBLE
                 }
 
-                selectedCount = presenter?.getSelectedCount(filter, FilterTypeIDs.PRICE)
+                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.PRICE)
                 if (selectedCount != null && selectedCount > 0) {
                     findViewById<TextView>(R.id.filter_price_count).text = selectedCount.toString()
                     findViewById<LinearLayout>(R.id.filter_price_count_layout).visibility = View.VISIBLE
@@ -141,18 +145,16 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
             }
     }
 
-    override fun setFilter(filter: MODELFilter) {
-        (activity!! as MainActivity).setFilter(filter)
-        setAmounts()
-        setupPage()
-    }
-
     override fun showProgressBar() {
         (activity!! as MainActivity).showProgressBar()
     }
 
     override fun hideProgressBar() {
         (activity!! as MainActivity).hideProgressBar()
+    }
+
+    override fun changeActivityFilter() {
+        (activity!! as MainActivity).setFilter(presenter?.filter)
     }
 
     //endregion
