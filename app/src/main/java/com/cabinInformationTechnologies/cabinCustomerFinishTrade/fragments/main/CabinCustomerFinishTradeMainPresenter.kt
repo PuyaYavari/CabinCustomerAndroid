@@ -3,16 +3,17 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main
 import android.app.Activity
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 
-class CabinCustomerFinishTradeMainPresenter(var view: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainContracts.InteractorOutput {
+class CabinCustomerFinishTradeMainPresenter(var view: CabinCustomerFinishTradeMainContracts.View?) :
+    CabinCustomerFinishTradeMainContracts.Presenter,
+    CabinCustomerFinishTradeMainContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainInteractor(
+    var interactor: CabinCustomerFinishTradeMainContracts.Interactor? =
+        CabinCustomerFinishTradeMainInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainContracts.Router? = null
+    var router: CabinCustomerFinishTradeMainContracts.Router? = null
 
     private var priceDetailIsVisible: Boolean = false
 
@@ -24,14 +25,9 @@ class CabinCustomerFinishTradeMainPresenter(var view: com.cabinInformationTechno
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router =
-            com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainRouter(
+            CabinCustomerFinishTradeMainRouter(
                 activity
             )
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
     }
 
     override fun onDestroy() {
@@ -94,6 +90,14 @@ class CabinCustomerFinishTradeMainPresenter(var view: com.cabinInformationTechno
         view!!.moveIndicatorTo(R.id.finishTradeStateIndicatorThirdPosition, R.id.finishTradeStateIndicatorFirstPosition)
         view!!.setPage(0)
         view!!.setupFirstPage()
+    }
+
+    override fun moveToDeliveryAddressDetail(address: MODELAddress?) {
+        router?.moveToDeliveryAddressDetail(address)
+    }
+
+    override fun moveToInvoiceAddressDetail(address: MODELAddress?) {
+        router?.moveToInvoiceAddressDetail(address)
     }
 
     //endregion

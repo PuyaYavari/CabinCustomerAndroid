@@ -1,5 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main
 
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+
 object CabinCustomerFinishTradeMainContracts {
 
     interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
@@ -20,6 +22,8 @@ object CabinCustomerFinishTradeMainContracts {
         fun pageForward(currentPosition: Int)
         fun pageBackward(currentPosition: Int)
         fun pageBackToFirstPage()
+        fun moveToDeliveryAddressDetail(address: MODELAddress?)
+        fun moveToInvoiceAddressDetail(address: MODELAddress?)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
@@ -31,7 +35,8 @@ object CabinCustomerFinishTradeMainContracts {
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
-        //TODO
+        fun moveToDeliveryAddressDetail(address: MODELAddress?)
+        fun moveToInvoiceAddressDetail(address: MODELAddress?)
     }
 
 }

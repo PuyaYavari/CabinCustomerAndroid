@@ -2,15 +2,18 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade
 
 import android.app.Activity
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 
-class CabinCustomerFinishTradePresenter(var view: com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeContracts.InteractorOutput {
+class CabinCustomerFinishTradePresenter(var view: CabinCustomerFinishTradeContracts.View?) :
+    CabinCustomerFinishTradeContracts.Presenter,
+    CabinCustomerFinishTradeContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeInteractor(this)
-    var router: com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeContracts.Router? = null
+    var interactor: CabinCustomerFinishTradeContracts.Interactor? =
+        CabinCustomerFinishTradeInteractor(this)
+    var router: CabinCustomerFinishTradeContracts.Router? = null
 
+    override var deliveryAddress: MODELAddress? = null
+    override var invoiceAddress: MODELAddress? = null
     //region Lifecycle
 
     override fun onCreate(bundle: Bundle?) {
@@ -18,12 +21,7 @@ class CabinCustomerFinishTradePresenter(var view: com.cabinInformationTechnologi
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router = com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeRouter(activity)
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
+        router = CabinCustomerFinishTradeRouter(activity)
     }
 
     override fun onDestroy() {
@@ -38,12 +36,23 @@ class CabinCustomerFinishTradePresenter(var view: com.cabinInformationTechnologi
 
     //region Presenter
 
+    override fun addressesSelected(): Boolean {
+        return deliveryAddress != null && invoiceAddress != null
+    }
+
+    override fun paymentSelected(): Boolean {
+        //TODO: DID USER SELECT THE PAYMENT METHOD?
+        return true
+    }
+
+    override fun contractAccepted(): Boolean {
+        //TODO: DID USER ACCEPT THE CONTRACT
+        return true
+    }
 
     //endregion
 
     //region InteractorOutput
-
-    //TODO: Implement your InteractorOutput methods here
 
     //endregion
 }

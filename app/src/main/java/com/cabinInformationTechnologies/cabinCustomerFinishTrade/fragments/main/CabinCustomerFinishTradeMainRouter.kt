@@ -1,9 +1,10 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main
 
 import android.app.Activity
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 
 class CabinCustomerFinishTradeMainRouter(var activity: Activity?) :
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainContracts.Router {
+    CabinCustomerFinishTradeMainContracts.Router {
 
     override fun unregister() {
         activity = null
@@ -11,7 +12,13 @@ class CabinCustomerFinishTradeMainRouter(var activity: Activity?) :
 
     //region Router
 
-    //TODO: Implement your Router methods here
+    override fun moveToDeliveryAddressDetail(address: MODELAddress?) {
+        //TODO: MOVE TO DELIVERY
+    }
+
+    override fun moveToInvoiceAddressDetail(address: MODELAddress?) {
+        //TODO: MOVE TO INVOICE
+    }
 
     //endregion
 }

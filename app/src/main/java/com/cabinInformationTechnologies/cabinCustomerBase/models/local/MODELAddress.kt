@@ -2,10 +2,12 @@ package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
 import android.content.Context
 import android.os.Parcelable
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONAddress
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class MODELAddress: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel, Parcelable {
+class MODELAddress: LocalDataModel, Parcelable {
     var id: Int? = null
     var isInvoice: Boolean = false
     var name: String = ""
@@ -24,7 +26,7 @@ class MODELAddress: com.cabinInformationTechnologies.cabinCustomerBase.models.lo
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
-            val jsonData = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONAddress
+            val jsonData = modelData as JSONAddress
             this.id = jsonData.id
             this.isInvoice = jsonData.isBilling
             this.name = jsonData.name
@@ -42,7 +44,7 @@ class MODELAddress: com.cabinInformationTechnologies.cabinCustomerBase.models.lo
             this.taxAdministration = jsonData.taxAuthority
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+            Logger.error(
                 context,
                 this::class.java.name,
                 "A problem occurred while mapping Address!",
@@ -50,5 +52,9 @@ class MODELAddress: com.cabinInformationTechnologies.cabinCustomerBase.models.lo
             )
             false
         }
+    }
+
+    override fun toString(): String {
+        return "$header (${district.toLowerCase().capitalize()}\\${province.toLowerCase().capitalize()})"
     }
 }

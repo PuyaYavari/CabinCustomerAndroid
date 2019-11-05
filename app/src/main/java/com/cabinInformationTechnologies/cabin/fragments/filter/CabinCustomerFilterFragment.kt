@@ -33,6 +33,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
 
     override fun onResume() {
         super.onResume()
+        presenter?.filter = (activity as MainActivity).getFilter()
         presenter?.onResume()
     }
 

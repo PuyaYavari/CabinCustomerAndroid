@@ -1,17 +1,42 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses
 
-class CabinCustomerFinishTradeAddressPresenter(var view: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address.CabinCustomerFinishTradeAddressContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address.CabinCustomerFinishTradeAddressContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address.CabinCustomerFinishTradeAddressContracts.InteractorOutput {
+class CabinCustomerFinishTradeAddressPresenter(var view: CabinCustomerFinishTradeAddressContracts.View?) :
+    CabinCustomerFinishTradeAddressContracts.Presenter,
+    CabinCustomerFinishTradeAddressContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address.CabinCustomerFinishTradeAddressContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address.CabinCustomerFinishTradeAddressInteractor(
+    var interactor: CabinCustomerFinishTradeAddressContracts.Interactor? =
+        CabinCustomerFinishTradeAddressInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address.CabinCustomerFinishTradeAddressContracts.Router? = null
+    var router: CabinCustomerFinishTradeAddressContracts.Router? = null
+
+    override var deliveryAddress: MODELAddress? = null
+        set(value) {
+            field = value
+            if (value != null) {
+                view?.showDeliveryAddressDetail(value)
+                if (useDelivery)
+                    invoiceAddress = value
+            }
+            view?.setActivityDeliveryAddress(value)
+        }
+    override var invoiceAddress: MODELAddress? = null
+        set(value) {
+            field = value
+            if (value != null)
+                view?.showInvoiceAddressDetail(value)
+            view?.setActivityInvoiceAddress(value)
+        }
+
+    private var useDelivery: Boolean = true
 
     //region Lifecycle
 
@@ -21,14 +46,9 @@ class CabinCustomerFinishTradeAddressPresenter(var view: com.cabinInformationTec
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router =
-            com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address.CabinCustomerFinishTradeAddressRouter(
+            CabinCustomerFinishTradeAddressRouter(
                 activity
             )
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
     }
 
     override fun onDestroy() {
@@ -43,13 +63,62 @@ class CabinCustomerFinishTradeAddressPresenter(var view: com.cabinInformationTec
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun getAddresses(context: Context) {
+        interactor?.getAddresses(context)
+    }
+
+    override fun setUseDelivery(useDelivery: Boolean) {
+        this.useDelivery = useDelivery
+        when {
+            useDelivery -> invoiceAddress = deliveryAddress
+            view?.getSelectedInvoiceAddress() != null -> invoiceAddress = view?.getSelectedInvoiceAddress()
+            else -> {
+                invoiceAddress = null
+                view?.setupNoInvoiceAddress()
+            }
+        }
+    }
 
     //endregion
 
     //region InteractorOutput
 
-    //TODO: Implement your InteractorOutput methods here
+    override fun setAddresses(addresses: MODELAddresses) {
+        val deliveryAddresses: MutableList<MODELAddress> = mutableListOf()
+        val invoiceAddresses: MutableList<MODELAddress> = mutableListOf()
+        addresses.getAddresses().forEach {
+            if (it != null) {
+                if (it.isInvoice)
+                    invoiceAddresses.add(it)
+                else
+                    deliveryAddresses.add(it)
+            }
+        }
+        if (deliveryAddresses.isNullOrEmpty())
+            view?.setupNoDeliveryAddress()
+        else
+            view?.setDeliveryAddresses(deliveryAddresses)
+
+        if (invoiceAddresses.isNullOrEmpty())
+            view?.setupNoInvoiceAddress()
+        else
+            view?.setInvoiceAddresses(invoiceAddresses)
+    }
+
+    override fun feedback(message: String?) {
+        if (message == null)
+            Toast.makeText(
+                view?.getActivityContext(),
+                view?.getActivityContext()?.resources?.getText(R.string.default_error_message),
+                Toast.LENGTH_SHORT
+            ).show()
+        else
+            Toast.makeText(
+                view?.getActivityContext(),
+                message,
+                Toast.LENGTH_SHORT
+            ).show()
+    }
 
     //endregion
 }

@@ -14,6 +14,7 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
     var interactor: CabinCustomerFilterContracts.Interactor? = CabinCustomerFilterInteractor(this)
     var router: CabinCustomerFilterContracts.Router? = null
     override var filter: MODELFilter? = null
+    private var previousFilter: MODELFilter? = null
 
     //region Lifecycle
 
@@ -25,7 +26,7 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         router = CabinCustomerFilterRouter(activity)
 
         filter = (activity as MainActivity).getFilter()
-
+        previousFilter = filter
     }
 
     override fun onDestroy() {

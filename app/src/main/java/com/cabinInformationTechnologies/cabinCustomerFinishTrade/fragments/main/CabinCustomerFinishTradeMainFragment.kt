@@ -1,6 +1,8 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +16,15 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity
+import com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeContracts
 
-class CabinCustomerFinishTradeMainFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainContracts.View {
+class CabinCustomerFinishTradeMainFragment : BaseFragment(),
+    CabinCustomerFinishTradeMainContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainPresenter(this)
+    var presenter: CabinCustomerFinishTradeMainContracts.Presenter? = CabinCustomerFinishTradeMainPresenter(this)
     private lateinit var pageView: View
     private lateinit var mPager: ViewPager
 
@@ -27,6 +32,7 @@ class CabinCustomerFinishTradeMainFragment : com.cabinInformationTechnologies.ca
 
     private lateinit var transitionContainer: MotionLayout
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,8 +44,18 @@ class CabinCustomerFinishTradeMainFragment : com.cabinInformationTechnologies.ca
 
         mPager = pageView.findViewById(R.id.finish_trade_pager)
         val pagerAdapter =
-            com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradePagerAdapter(
-                childFragmentManager, 0
+            CabinCustomerFinishTradePagerAdapter(
+                childFragmentManager,
+                0,
+                object : CabinCustomerFinishTradeContracts.ChangeAddAddressCallback {
+                    override fun Deliery(address: MODELAddress?) {
+                        presenter?.moveToDeliveryAddressDetail(address)
+                    }
+
+                    override fun Invoice(address: MODELAddress?) {
+                        presenter?.moveToInvoiceAddressDetail(address)
+                    }
+                }
             )
         mPager.setOnTouchListener { _, _ -> true }
         mPager.adapter = pagerAdapter
@@ -81,9 +97,6 @@ class CabinCustomerFinishTradeMainFragment : com.cabinInformationTechnologies.ca
     private fun setupPage() {
         setupFirstPage()
 
-        pageView.findViewById<ImageView>(R.id.finish_trade_trade_first_state_ckeckbox)
-            .setOnClickListener { presenter?.pageBackToFirstPage() }
-
         pageView.findViewById<ImageView>(R.id.finish_trade_trade_second_state_ckeckbox)
             .setOnClickListener { presenter?.pageBackward(2) }
 
@@ -95,7 +108,12 @@ class CabinCustomerFinishTradeMainFragment : com.cabinInformationTechnologies.ca
     override fun setupFirstPage() {
         pageView.findViewById<Button>(R.id.finish_trade_button).apply {
             setOnClickListener {
-                presenter?.pageForward(mPager.currentItem)
+                Log.i(null, (activity as CabinCustomerFinishTradeActivity).addressesSelected().toString())//FIXME: REMOVE
+                if ((activity as CabinCustomerFinishTradeActivity).addressesSelected() == true)
+                    presenter?.pageForward(mPager.currentItem)
+                else {
+                    //TODO: FEEDBACK ABOUT ADDRESSES NOT SELECTED
+                }
             }
 
             text = resources.getText(R.string.finish_trade_address_select_button_label)
@@ -126,7 +144,11 @@ class CabinCustomerFinishTradeMainFragment : com.cabinInformationTechnologies.ca
     override fun setupSecondPage() {
         pageView.findViewById<Button>(R.id.finish_trade_button).apply {
             setOnClickListener {
-                presenter?.pageForward(mPager.currentItem)
+                if ((activity as CabinCustomerFinishTradeActivity).paymentSelected() == true)
+                    presenter?.pageForward(mPager.currentItem)
+                else {
+                    //TODO: FEEDBACK ABOUT PAYMENT NOT SELECTED
+                }
             }
             text = resources.getText(R.string.finish_trade_payment_button_label)
         }
@@ -135,6 +157,7 @@ class CabinCustomerFinishTradeMainFragment : com.cabinInformationTechnologies.ca
             resources.getText(R.string.finish_trade_payment_header_label)
 
         pageView.findViewById<ImageView>(R.id.finish_trade_trade_first_state_ckeckbox).apply {
+            setOnClickListener { presenter?.pageBackward(1) }
             setImageResource(R.drawable.cabin_statebar_filled_node)
             isClickable = true
             isEnabled = true
@@ -155,7 +178,11 @@ class CabinCustomerFinishTradeMainFragment : com.cabinInformationTechnologies.ca
 
     override fun setupLastPage() {
         pageView.findViewById<Button>(R.id.finish_trade_button).apply {
-            setOnClickListener { presenter?.pageForward(mPager.currentItem) }
+            if ((activity as CabinCustomerFinishTradeActivity).contractAccepted() == true)
+                setOnClickListener { presenter?.pageForward(mPager.currentItem) }
+            else {
+                //TODO: FEEDBACK ABOUT CONTRACTS NOT ACCEPTED
+            }
             text = resources.getText(R.string.finish_trade_overview_button_label)
         }
 
@@ -163,6 +190,7 @@ class CabinCustomerFinishTradeMainFragment : com.cabinInformationTechnologies.ca
             resources.getText(R.string.finish_trade_overview_header_label)
 
         pageView.findViewById<ImageView>(R.id.finish_trade_trade_first_state_ckeckbox).apply {
+            setOnClickListener { presenter?.pageBackToFirstPage() }
             setImageResource(R.drawable.cabin_statebar_filled_node)
             isClickable = true
             isEnabled = true

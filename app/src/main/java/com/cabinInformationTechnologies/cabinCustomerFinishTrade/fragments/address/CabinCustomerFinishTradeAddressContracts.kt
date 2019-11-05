@@ -1,25 +1,41 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address
 
+import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses
+
 object CabinCustomerFinishTradeAddressContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        //TODO
+    interface View : BaseContracts.View {
+        fun setDeliveryAddresses(addresses: List<MODELAddress?>)
+        fun setInvoiceAddresses(addresses: List<MODELAddress?>)
+        fun showDeliveryAddressDetail(address: MODELAddress)
+        fun showInvoiceAddressDetail(address: MODELAddress)
+        fun setActivityDeliveryAddress(address: MODELAddress?)
+        fun setActivityInvoiceAddress(address: MODELAddress?)
+        fun getSelectedDeliveryAddress(): MODELAddress?
+        fun getSelectedInvoiceAddress(): MODELAddress?
+        fun setupNoDeliveryAddress()
+        fun setupNoInvoiceAddress()
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        //TODO
+    interface Presenter : BaseContracts.Presenter {
+        var deliveryAddress: MODELAddress?
+        var invoiceAddress: MODELAddress?
+
+        fun getAddresses(context: Context)
+        fun setUseDelivery(useDelivery: Boolean)
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        //TODO
+    interface Interactor : BaseContracts.Interactor {
+        fun getAddresses(context: Context)
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        //TODO
+    interface InteractorOutput : BaseContracts.InteractorOutput {
+        fun setAddresses(addresses: MODELAddresses)
+        fun feedback(message: String?)
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
-        //TODO
-    }
-
+    interface Router : BaseContracts.Router
 }

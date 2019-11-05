@@ -1,17 +1,17 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade
 
 import android.os.Bundle
+import android.util.Log
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 
 
+class CabinCustomerFinishTradeActivity : BaseActivity(),
+    CabinCustomerFinishTradeContracts.View {
 
-
-
-class CabinCustomerFinishTradeActivity : com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity(),
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeContracts.View {
-
-    var presenter: com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradePresenter(this)
+    var presenter: CabinCustomerFinishTradeContracts.Presenter? =
+        CabinCustomerFinishTradePresenter(this)
 
     //region Lifecycle
 
@@ -41,7 +41,27 @@ class CabinCustomerFinishTradeActivity : com.cabinInformationTechnologies.cabinC
 
     //region View
 
+    override fun setDeliveryAddress(address: MODELAddress?) {
+        Log.i(null, "setting delivery address to ${address.toString()}")
+        presenter?.deliveryAddress = address
+    }
 
+    override fun setInvoiceAddress(address: MODELAddress?) {
+        Log.i(null, "setting invoice address to ${address.toString()}")
+        presenter?.invoiceAddress = address
+    }
+
+    override fun addressesSelected(): Boolean? {
+        return presenter?.addressesSelected()
+    }
+
+    override fun paymentSelected(): Boolean? {
+        return presenter?.paymentSelected()
+    }
+
+    override fun contractAccepted(): Boolean? {
+        return presenter?.contractAccepted()
+    }
 
     //endregion
 }

@@ -1,18 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent" android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="select address"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:id="@+id/finish_trade_address_delivery_address_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/default_borders_curved_corners"
+                android:orientation="vertical"
+                android:layout_margin="8dp">
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/delivery_address"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                <TextView
+                        android:id="@+id/finish_trade_address_delivery_address_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_margin="8dp"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/add"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                <View
+                        android:id="@+id/finish_trade_address_delivery_address_header_separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/horizontal_divider_0_2"
+                        android:visibility="invisible" />
+            </FrameLayout>
+
+            <Spinner
+                    android:id="@+id/finish_trade_address_delivery_address_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/cabin_finish_trade_address_fields_background"
+                    android:backgroundTint="@color/colorGreyBoxesBackgroundPrimary"
+                    android:padding="4dp"
+                    android:spinnerMode="dialog"
+                    android:visibility="gone" />
+
+            <LinearLayout
+                    android:id="@+id/finish_trade_address_delivery_address_detail_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/cabin_finish_trade_address_fields_background"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                <TextView
+                        android:id="@+id/finish_trade_address_delivery_address_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="13sp" />
+
+                <TextView
+                        android:id="@+id/finish_trade_address_delivery_address_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="13sp" />
+
+                <TextView
+                        android:id="@+id/finish_trade_address_delivery_address_province_district"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="13sp" />
+
+                <TextView
+                        android:id="@+id/finish_trade_address_delivery_address_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="13sp" />
+            </LinearLayout>
+
+            <CheckBox
+                    android:id="@+id/finish_trade_address_delivery_address_use_as_invoice_address_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/use_same_as_invoice_address"
+                    android:textColor="@color/colorTextsPrimary"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/finish_trade_address_invoice_address_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/default_borders_curved_corners"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/invoice_address"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                <TextView
+                        android:id="@+id/finish_trade_address_invoice_address_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_margin="8dp"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/add"
+                        android:textSize="12sp" />
+
+                <View
+                        android:id="@+id/finish_trade_address_invoice_address_header_separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/horizontal_divider_0_2" />
+            </FrameLayout>
+
+            <Spinner
+                    android:id="@+id/finish_trade_address_invoice_address_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/cabin_finish_trade_address_fields_background"
+                    android:backgroundTint="@color/colorGreyBoxesBackgroundPrimary"
+                    android:padding="4dp"
+                    android:spinnerMode="dialog" />
+
+            <LinearLayout
+                    android:id="@+id/finish_trade_address_invoice_address_detail_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/cabin_finish_trade_address_fields_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id="@+id/finish_trade_address_invoice_address_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="13sp" />
+
+                <TextView
+                        android:id="@+id/finish_trade_address_invoice_address_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="13sp" />
+
+                <TextView
+                        android:id="@+id/finish_trade_address_invoice_address_province_district"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="13sp" />
+
+
+                <TextView
+                        android:id="@+id/finish_trade_address_invoice_address_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="13sp" />
+
+                <TextView
+                        android:id="@+id/finish_trade_address_invoice_address_tax_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTextsPrimary"
+                        android:textSize="13sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

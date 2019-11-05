@@ -154,6 +154,7 @@
     <string name="price">Fiyat</string>
     <string name="okay">Tamam</string>
     <string name="retry">Yeniden Dene</string>
+    <string name="add">Ekle</string>
     <!---->
 
     <!--separators-->
@@ -171,6 +172,7 @@
     <string name="a_problem_occurred">Bir hata oluştu.</string>
     <string name="login_required">Bu sayfayı görüntülemek için giriş yapmanız gerekmektedir.</string>
     <string name="no_internet">İnternet bağlantınızı kontrol edip yeniden deneyin.</string>
+    <string name="use_same_as_invoice_address">Faturamı aynı adrese gönder.</string>
 
     <string name="plus_99">+99</string>
 
