@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
@@ -261,6 +262,19 @@ class CabinCustomerFinishTradeAddressFragment(
     override fun hideDeliveryAdd() {
         pageView.findViewById<TextView>(R.id.finish_trade_address_delivery_address_add)
             .visibility = View.GONE
+    }
+
+    override fun showErrorMessage(message: String) {
+        val context = this.context
+        if (context != null)
+            AlertDialog.Builder(context)
+                .setTitle(resources.getText(R.string.error))
+                .setMessage(message)
+                .setPositiveButton(R.string.retry) { _, _ ->
+                    setupPage()
+                }
+                .setNegativeButton(R.string.okay, null)
+                .show()
     }
 
     //endregion

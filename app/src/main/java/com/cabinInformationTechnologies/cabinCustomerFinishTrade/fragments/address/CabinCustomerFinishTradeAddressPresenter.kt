@@ -3,7 +3,6 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.addr
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses
@@ -109,17 +108,11 @@ class CabinCustomerFinishTradeAddressPresenter(var view: CabinCustomerFinishTrad
 
     override fun feedback(message: String?) {
         if (message == null)
-            Toast.makeText(
-                view?.getActivityContext(),
-                view?.getActivityContext()?.resources?.getText(R.string.default_error_message),
-                Toast.LENGTH_SHORT
-            ).show()
+            view?.showErrorMessage(
+                view?.getActivityContext()?.resources?.getText(R.string.default_error_message).toString()
+            )
         else
-            Toast.makeText(
-                view?.getActivityContext(),
-                message,
-                Toast.LENGTH_SHORT
-            ).show()
+            view?.showErrorMessage(message)
     }
 
     //endregion

@@ -1,6 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.address
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
@@ -62,7 +63,7 @@ class CabinCustomerFinishTradeAddressInteractor(var output: CabinCustomerFinishT
                         "Error, value: $value",
                         null
                     )
-                    output?.feedback(value)
+                    output?.feedback(null)
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -72,7 +73,10 @@ class CabinCustomerFinishTradeAddressInteractor(var output: CabinCustomerFinishT
                         "Failure",
                         throwable
                     )
-                    output?.feedback(null)
+                    if (NetworkManager.isNetworkConnected(context))
+                        output?.feedback(null)
+                    else
+                        output?.feedback(context.resources.getString(R.string.no_internet))
                 }
 
                 override fun onServerDown() {

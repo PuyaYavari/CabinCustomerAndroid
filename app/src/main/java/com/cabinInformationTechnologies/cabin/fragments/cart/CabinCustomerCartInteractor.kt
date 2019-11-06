@@ -199,7 +199,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Success ${value.toString()}",
-                        null)
+                        null
+                    )
                     val cart = carts.getCarts()[0]
                     output?.setCart(cart)
                 }
@@ -209,7 +210,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Issue ${value.message}",
-                        null)
+                        null
+                    )
                     output?.feedback(value.message)
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
@@ -219,8 +221,9 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Error $value",
-                        null)
-                    output?.feedback(value)
+                        null
+                    )
+                    output?.feedback(null)
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
@@ -229,7 +232,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Failure ${throwable.message}",
-                        null)
+                        null
+                    )
                     output?.feedback(null)
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
@@ -239,7 +243,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Server Down",
-                        null)
+                        null
+                    )
                 }
 
                 override fun onException(exception: Exception) {
@@ -247,7 +252,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Exception",
-                        exception)
+                        exception
+                    )
                     output?.feedback(null)
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }

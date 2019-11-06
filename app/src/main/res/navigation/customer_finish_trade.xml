@@ -6,5 +6,32 @@
     <fragment
             android:id="@+id/cabinCustomerFinishTradeMainFragment"
             android:name="com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main.CabinCustomerFinishTradeMainFragment"
-            android:label="CabinCustomerFinishTradeMainFragment" />
+            android:label="CabinCustomerFinishTradeMainFragment" >
+        <action
+                android:id="@+id/actionFinishTradeMainToDeliveryAddress"
+                app:destination="@id/cabinCustomerDeliveryAddressFragment2" />
+        <action
+                android:id="@+id/actionFinishTradeMainToInvoiceAddress"
+                app:destination="@id/cabinCustomerInvoiceAddressFragment2" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerDeliveryAddressFragment2"
+            android:name="com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.deliveryAddress.CabinCustomerDeliveryAddressFragment"
+            android:label="CabinCustomerDeliveryAddressFragment" >
+        <argument
+                android:name="address"
+                app:argType="com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress"
+                app:nullable="true"
+                android:defaultValue="@null" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerInvoiceAddressFragment2"
+            android:name="com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressFragment"
+            android:label="CabinCustomerInvoiceAddressFragment" >
+        <argument
+                android:name="address"
+                app:argType="com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress"
+                app:nullable="true"
+                android:defaultValue="@null" />
+    </fragment>
 </navigation>

@@ -20,6 +20,7 @@ object CabinCustomerFinishTradeAddressContracts {
         fun setupNoInvoiceAddress()
         fun showDeliveryAdd()
         fun hideDeliveryAdd()
+        fun showErrorMessage(message: String)
     }
 
     interface Presenter : BaseContracts.Presenter {
