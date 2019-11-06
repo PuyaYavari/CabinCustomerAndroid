@@ -59,4 +59,8 @@ object CabinCustomerCartContracts {
         fun feedback(message: String)
         fun removeItems()
     }
+
+    interface ViewForInteractor {
+        fun getFragmentContext(): Context?
+    }
 }

@@ -3,14 +3,14 @@ package com.cabinInformationTechnologies.cabin.fragments.cart
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 
 class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : CabinCustomerCartContracts.Presenter,
     CabinCustomerCartContracts.InteractorOutput {
 
     var interactor: CabinCustomerCartContracts.Interactor? =
-        CabinCustomerCartInteractor(view?.getActivityContext(),this)
+        CabinCustomerCartInteractor(view as CabinCustomerCartContracts.ViewForInteractor,this)
     var router: CabinCustomerCartContracts.Router? = null
 
     private var priceDetailIsVisible: Boolean = false
@@ -107,7 +107,14 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
                             index++
                         }
                         if (!isIncluded) {
-                            Log.i(myProduct.getId().toString(), "is not included and is removed")
+                            val context = view?.getActivityContext()
+                            if (context != null)
+                                Logger.warn(
+                                    context,
+                                    this::class.java.name,
+                                    "${myProduct.getId()} is not included and is removed",
+                                    null
+                                )
                             datasetIter.remove()
                         }
                     }

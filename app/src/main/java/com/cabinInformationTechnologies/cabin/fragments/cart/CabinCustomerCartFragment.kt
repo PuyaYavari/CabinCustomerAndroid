@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabin.fragments.cart
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 
 
-class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerCartContracts.View {
+class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
+    CabinCustomerCartContracts.View, CabinCustomerCartContracts.ViewForInteractor {
 
     var presenter: CabinCustomerCartContracts.Presenter? = CabinCustomerCartPresenter(this)
     private lateinit var pageView: View
@@ -182,11 +184,11 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
             findViewById<TextView>(R.id.cart_finish_trade_price_detail_first_cargo_sum).text =
                 price.toString()
         }
-        pageView.findViewById<LinearLayout>(R.id.cart_finish_trade_price_detail_cargo_label).addView(cargoPriceView)
+        pageView.findViewById<LinearLayout>(R.id.cart_finish_trade_price_detail_cargo_layout).addView(cargoPriceView)
     }
 
     override fun clearCargoPrices() {
-        pageView.findViewById<LinearLayout>(R.id.cart_finish_trade_price_detail_cargo_label).removeAllViews()
+        pageView.findViewById<LinearLayout>(R.id.cart_finish_trade_price_detail_cargo_layout).removeAllViews()
     }
 
     override fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
@@ -217,6 +219,10 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
 
     override fun hideNoInternet() {
         pageView.findViewById<ConstraintLayout>(R.id.cart_no_internet_layout).visibility = View.INVISIBLE
+    }
+
+    override fun getFragmentContext(): Context? {
+        return this.context
     }
 
     //endregion

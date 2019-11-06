@@ -11,7 +11,7 @@ import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCarts
 import com.squareup.moshi.Moshi
 
-class CabinCustomerCartInteractor(val context: Context?,
+class CabinCustomerCartInteractor(val view: CabinCustomerCartContracts.ViewForInteractor,
                                   var output: CabinCustomerCartContracts.InteractorOutput?) :
     CabinCustomerCartContracts.Interactor {
 
@@ -69,6 +69,7 @@ class CabinCustomerCartInteractor(val context: Context?,
                     )
                 )
             }
+            val context = view.getFragmentContext()
             if (context != null) {
                 NetworkManager.requestFactory(
                     context,
@@ -91,6 +92,7 @@ class CabinCustomerCartInteractor(val context: Context?,
                                 "Product removed from cart.",
                                 null
                             )
+                            output?.setCart(carts.getCarts()[0])
                         }
 
                         override fun onIssue(value: JSONIssue) {
@@ -139,12 +141,11 @@ class CabinCustomerCartInteractor(val context: Context?,
                                 exception
                             )
                         }
-
                     }
                 )
-                output?.setCart(carts.getCarts()[0])
             }
         } catch (exception: Exception) {
+            val context = view.getFragmentContext()
             if (context != null)
                 Logger.failure(
                     context,
@@ -167,7 +168,6 @@ class CabinCustomerCartInteractor(val context: Context?,
             null,
             null,
             carts,
-            //null,
             APICartAdapter(
                 context,
                 Moshi.Builder().build(),
@@ -305,7 +305,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Success ${value.toString()}",
-                        null)
+                        null
+                    )
                     var cart: MODELCart? = null
                     if (carts.getCarts().isNotEmpty())
                          cart = carts.getCarts()[0]
@@ -317,7 +318,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Issue ${value.message}",
-                        null)
+                        null
+                    )
                 }
 
                 override fun onError(value: String, url: String?) {
@@ -325,7 +327,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Error $value",
-                        null)
+                        null
+                    )
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -333,7 +336,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Failure ${throwable.message}",
-                        null)
+                        null
+                    )
                 }
 
                 override fun onServerDown() {
@@ -341,7 +345,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Server Down",
-                        null)
+                        null
+                    )
                 }
 
                 override fun onException(exception: Exception) {
@@ -349,7 +354,8 @@ class CabinCustomerCartInteractor(val context: Context?,
                         context,
                         this::class.java.name,
                         "Exception",
-                        exception)
+                        exception
+                    )
                 }
             }
         )

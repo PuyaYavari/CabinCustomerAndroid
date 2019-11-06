@@ -1,10 +1,16 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main
 
+import android.content.Context
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
 
 object CabinCustomerFinishTradeMainContracts {
 
     interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
+        fun setupPage()
+        fun setupPriceDetails(cart: MODELCart)
+        fun addShippingPrice(sellerName: String, price: Double)
+        fun clearCargoPrices()
         fun showPriceDetail()
         fun hidePriceDetail()
         fun pageForward()
@@ -15,9 +21,11 @@ object CabinCustomerFinishTradeMainContracts {
         fun setupSecondPage()
         fun setupLastPage()
         fun moveIndicatorTo(fromId: Int, toId: Int)
+        fun showErrorMessage(message: String)
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+        fun getCart(context: Context?)
         fun togglePriceDetail()
         fun pageForward(currentPosition: Int)
         fun pageBackward(currentPosition: Int)
@@ -27,11 +35,12 @@ object CabinCustomerFinishTradeMainContracts {
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        //TODO
+        fun getCart(context: Context)
     }
 
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        //TODO
+        fun setCart(cart: MODELCart?)
+        fun feedback(message: String?)
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {

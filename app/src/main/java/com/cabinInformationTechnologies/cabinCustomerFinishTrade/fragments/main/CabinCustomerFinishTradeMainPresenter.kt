@@ -1,9 +1,12 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSeller
 
 class CabinCustomerFinishTradeMainPresenter(var view: CabinCustomerFinishTradeMainContracts.View?) :
     CabinCustomerFinishTradeMainContracts.Presenter,
@@ -41,6 +44,11 @@ class CabinCustomerFinishTradeMainPresenter(var view: CabinCustomerFinishTradeMa
     //endregion
 
     //region Presenter
+
+    override fun getCart(context: Context?) {
+        if (context != null)
+            interactor?.getCart(context)
+    }
 
     override fun togglePriceDetail() {
         priceDetailIsVisible = if (!priceDetailIsVisible) {
@@ -104,7 +112,32 @@ class CabinCustomerFinishTradeMainPresenter(var view: CabinCustomerFinishTradeMa
 
     //region InteractorOutput
 
-    //TODO: Implement your InteractorOutput methods here
+    override fun setCart(cart: MODELCart?) {
+        if (cart != null) {
+            view?.setupPriceDetails(cart)
+
+            val sellerIter: MutableIterator<MODELSeller> = cart.getSellers().iterator()
+            view?.clearCargoPrices()
+            while (sellerIter.hasNext()) {
+                val seller = sellerIter.next()
+                val shippingPrice = seller.getShippingPrice()
+                if (shippingPrice != 0.0 && shippingPrice != null ) {
+                    view?.addShippingPrice(seller.getName(), shippingPrice)
+                }
+            }
+
+            view?.setupPage()
+        }
+    }
+
+    override fun feedback(message: String?) {
+        if (message == null)
+            view?.showErrorMessage(
+                view?.getActivityContext()?.resources?.getString(R.string.default_error_message)
+                    .toString())
+        else
+            view?.showErrorMessage(message)
+    }
 
     //endregion
 }
