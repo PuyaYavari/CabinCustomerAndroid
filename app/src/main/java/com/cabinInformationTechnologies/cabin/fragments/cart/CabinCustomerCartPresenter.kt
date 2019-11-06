@@ -5,6 +5,9 @@ import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 
 class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : CabinCustomerCartContracts.Presenter,
     CabinCustomerCartContracts.InteractorOutput {
@@ -12,6 +15,8 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
     var interactor: CabinCustomerCartContracts.Interactor? =
         CabinCustomerCartInteractor(view as CabinCustomerCartContracts.ViewForInteractor,this)
     var router: CabinCustomerCartContracts.Router? = null
+
+    override val myDataset: MutableList<MODELProduct> = mutableListOf()
 
     private var priceDetailIsVisible: Boolean = false
 
@@ -23,10 +28,6 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router = CabinCustomerCartRouter(activity)
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-        }
     }
 
     override fun onDestroy() {
@@ -52,7 +53,8 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
     }
 
     override fun moveToFinishTrade() {
-        router?.moveToFinishTrade()
+        if (myDataset.isNotEmpty())
+            router?.moveToFinishTrade()
     }
 
     override fun getCart(context: Context) {
@@ -60,11 +62,11 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
         interactor?.getCart(context)
     }
 
-    override fun updateProduct(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun updateProduct(context: Context, product: MODELProduct) {
         interactor?.updateProduct(context, product)
     }
 
-    override fun areProductsEqual(first: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, second: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct): Boolean {
+    override fun areProductsEqual(first: MODELProduct, second: MODELProduct): Boolean {
         if (first.getId() == second.getId() &&
             first.getColors()[0].id == second.getColors()[0].id &&
             first.getColors()[0].sizes[0].id == second.getColors()[0].sizes[0].id)
@@ -72,22 +74,24 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
         return false
     }
 
-    override fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
+    override fun moveToProductDetail(product: MODELProduct, color: MODELColor) {
         router?.moveToProductDetail(product, color)
     }
     //endregion
 
     //region InteractorOutput
 
-    override fun setCart(cart: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart?) {
+    override fun setCart(cart: MODELCart?) {
         view?.hideProgressBar()
         view?.hideNoInternet()
+        if (cart?.getSellers().isNullOrEmpty())
+            myDataset.clear()
         if (cart != null) {
             var sellerIter = cart.getSellers().iterator()
             while (sellerIter.hasNext()) {
                 val seller = sellerIter.next()
-                if (view?.myDataset!!.isNotEmpty()) {
-                    val datasetIter = view?.myDataset!!.iterator()
+                if (myDataset.isNotEmpty()) {
+                    val datasetIter = myDataset.iterator()
                     while (datasetIter.hasNext()) {
                         val myProduct = datasetIter.next()
                         var isIncluded = false
@@ -130,22 +134,22 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
                     var isIncluded = false
                     var index = 0
                     if (product != null) {
-                        while (!isIncluded && index < view?.myDataset!!.size) {
-                            val areEqual = areProductsEqual(product, view?.myDataset!![index])
+                        while (!isIncluded && index < myDataset.size) {
+                            val areEqual = areProductsEqual(product, myDataset[index])
                             if (areEqual)
                                 isIncluded = true
                             index++
                         }
                         if (!isIncluded)
-                            view?.myDataset!!.add(product)
+                            myDataset.add(product)
                     }
                 }
                 val shippingPrice = seller.getShippingPrice()
-                if (shippingPrice != 0.0 && shippingPrice != null && view?.myDataset!!.isNotEmpty()) {
+                if (shippingPrice != 0.0 && shippingPrice != null && myDataset.isNotEmpty()) {
                     view?.addShippingPrice(seller.getName(), shippingPrice)
                 }
             }
-            if (view?.myDataset!!.isNotEmpty())
+            if (myDataset.isNotEmpty())
                 view?.setData(cart)
             else
                 view?.clearAll()

@@ -2,33 +2,33 @@ package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
 import android.content.Context
 import com.cabinInformationTechnologies.cabin.fragments.cart.CabinCustomerCartContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCart
 import com.squareup.moshi.*
 
 class APICartAdapter(val context: Context, moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APICart>() {
     private val options: JsonReader.Options = JsonReader.Options.of("BASKET")
 
-    private val listOfNullableJSONCartAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCart?>> =
+    private val listOfNullableJSONCartAdapter: JsonAdapter<List<JSONCart?>> =
         Moshi.Builder().add(
-            com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONCartAdapter(
+            JSONCartAdapter(
                 context,
                 Moshi.Builder().build(),
                 callback
             )
         ).build()
-            .adapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCart?>>(Types.newParameterizedType(List::class.java,
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCart::class.java), kotlin.collections.emptySet(), "cart")
+            .adapter<List<JSONCart?>>(Types.newParameterizedType(List::class.java, JSONCart::class.java)
+                , kotlin.collections.emptySet(), "cart")
 
     override fun toString(): String = "GeneratedJsonAdapter(APICart)"
 
     @FromJson
     override fun fromJson(reader: JsonReader): com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APICart? {
-        var cart: List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCart?>? = null
+        var cart: List<JSONCart?>? = null
         reader.beginObject()
         while (reader.hasNext()) {
             try {
                 when (reader.selectName(options)) {
                     0 -> cart = listOfNullableJSONCartAdapter.fromJson(reader)
-                        //?: throw JsonDataException("Non-null value 'cart' was null at ${reader.path}")
                     -1 -> {
                         // Unknown name, skip it.
                         reader.skipName()

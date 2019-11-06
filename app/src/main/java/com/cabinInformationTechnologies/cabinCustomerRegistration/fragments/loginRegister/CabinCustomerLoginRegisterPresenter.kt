@@ -2,15 +2,18 @@ package com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.log
 
 import android.app.Activity
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser
 
-class CabinCustomerLoginRegisterPresenter(var view: com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.View?) : com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.InteractorOutput {
+class CabinCustomerLoginRegisterPresenter(var view:com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.View?) : com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.Presenter,
+    CabinCustomerLoginRegisterContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterInteractor(
+    var interactor: CabinCustomerLoginRegisterContracts.Interactor? =
+        CabinCustomerLoginRegisterInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.Router? = null
+    var router: CabinCustomerLoginRegisterContracts.Router? = null
 
     private var email: String = ""
     private var password: String = ""
@@ -25,14 +28,9 @@ class CabinCustomerLoginRegisterPresenter(var view: com.cabinInformationTechnolo
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router =
-            com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterRouter(
+        router = CabinCustomerLoginRegisterRouter(
                 activity
             )
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-        }
     }
 
     override fun onDestroy() {
@@ -109,10 +107,13 @@ class CabinCustomerLoginRegisterPresenter(var view: com.cabinInformationTechnolo
 
     //endregion
 
-    override fun setActiveUser(user: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser) {
-        com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.activeUser = user
-        com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userEmail = email
+    override fun setActiveUser(user: MODELUser) {
+        GlobalData.activeUser = user
+        GlobalData.userEmail = email
         view?.setActiveUser(user)
+        val context = view?.getActivityContext()
+        if (context != null)
+            Logger.login(context, "Cabin") //TODO: GOOGLE AND FACEBOOK LOGIN LOGGING
     }
 
     override fun closeActivity() {

@@ -63,4 +63,8 @@ interface BaseContracts {
         fun failure(context: Context, location: String?, message: String?, exception: Exception?)
     }
 
+    interface FirebaseLogger {
+        fun login(context: Context, method: String)
+    }
+
 }

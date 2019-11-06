@@ -1,11 +1,15 @@
 package com.cabinInformationTechnologies.cabinCustomerBase
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.google.firebase.analytics.FirebaseAnalytics
 
-object Logger: BaseContracts.Logger {
+object Logger: BaseContracts.Logger, BaseContracts.FirebaseLogger {
+
+    //region local logger
+
     override fun debug(
         context: Context,
         location: String?,
@@ -129,10 +133,22 @@ object Logger: BaseContracts.Logger {
         //TODO: SEND HANDLE THE REST
     }
 
-    private fun firebaseLog(context: Context) {
-        var firebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
-        //TODO: SEND TO ANALYTICS
+    //end region local logger
+
+    //region Firebase event logging
+
+    override fun login(context: Context, method: String) {
+        val firebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.METHOD, method)
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
     }
 
+    private fun firebaseLog(context: Context) {
+        val firebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
+
+    }
+
+    //end region Firebase event logging
 
 }

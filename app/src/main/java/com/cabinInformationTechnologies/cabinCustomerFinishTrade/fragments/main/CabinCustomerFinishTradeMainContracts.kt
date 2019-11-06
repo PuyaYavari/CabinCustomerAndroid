@@ -32,15 +32,19 @@ object CabinCustomerFinishTradeMainContracts {
         fun pageBackToFirstPage()
         fun moveToDeliveryAddressDetail(address: MODELAddress?)
         fun moveToInvoiceAddressDetail(address: MODELAddress?)
+        fun sendAddresses(context: Context, delivery: MODELAddress?, invoice: MODELAddress?)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
         fun getCart(context: Context)
+        fun sendAddresses(context: Context, delivery: MODELAddress, invoice: MODELAddress?)
     }
 
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
         fun setCart(cart: MODELCart?)
         fun feedback(message: String?)
+        fun toastFeedback(message: String?)
+        fun pageForward(currentPosition: Int)
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {

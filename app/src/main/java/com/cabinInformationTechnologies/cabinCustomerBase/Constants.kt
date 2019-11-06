@@ -39,6 +39,7 @@ object Constants {
     const val CART_UPDATE_URL: String = "basket/UpdateProduct"
     const val CART_LIST_ALL_URL: String = "basket/listProduct"
     const val CART_REMOVE_ALL_URL: String = "basket/removeProducts"
+    const val CART_MAKE_ORDER_URL: String = "basket/makeOrder"
 
     const val LIST_PERSONAL_INFO_URL: String = "accountSettings/listPersonalInfo"
     const val UPDATE_PERSONAL_INFO_URL: String = "accountSettings/updatePersonalInfo"

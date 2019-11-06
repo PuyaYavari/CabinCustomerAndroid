@@ -1,7 +1,10 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.adapters
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.cart.CabinCustomerCartContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCart
 import com.squareup.moshi.*
 
 class JSONCartAdapter(val context: Context, moshi: Moshi, callback: CabinCustomerCartContracts.CartCallback?) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCart>() {
@@ -33,7 +36,7 @@ class JSONCartAdapter(val context: Context, moshi: Moshi, callback: CabinCustome
 
     private val listOfNullableJSONSellerAdapter: JsonAdapter<List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSeller?>> =
         Moshi.Builder().add(
-            com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONSellerAdapter(
+            JSONSellerAdapter(
                 context,
                 Moshi.Builder().build(),
                 cartCallback
@@ -86,28 +89,60 @@ class JSONCartAdapter(val context: Context, moshi: Moshi, callback: CabinCustome
         }
         reader.endObject()
         return try {
-            val result = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONCart(
+            val result = JSONCart(
                 seller = seller!!,
                 shippingPrice = shippingPrice,
                 subtotal = subtotal,
                 total = total!!
             )
-            if (!seller.isNullOrEmpty() && total == null){
-                cartCallback?.feedback("Basket removed due to a serious problem!")
+            if (!seller.isNullOrEmpty() && total == 0.0){
+                Logger.failure(
+                    context,
+                    this::class.java.name,
+                    "Price doesn't match products so the basket removed!",
+                    null
+                )
+                cartCallback?.feedback("Price doesn't match products so the basket removed!") //TODO: PROPER ERROR
                 cartCallback?.removeItems()
                 null
             } else {
                 result
             }
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
-                context,
-                this::class.java.name,
-                "A field is null and is being skipped.",
-                exception
-            )
-            cartCallback?.feedback("Basket removed due to a serious problem!")
-            cartCallback?.removeItems()
+            if (!seller.isNullOrEmpty() && total == null) {
+                Logger.error(
+                    context,
+                    this::class.java.name,
+                    "Total is null and basket removed.",
+                    exception
+                )
+                cartCallback?.feedback("Basket removed due to a serious problem!") //TODO: PROPER ERROR
+                cartCallback?.removeItems()
+            } else if (seller == null) {
+                Logger.error(
+                    context,
+                    this::class.java.name,
+                    "Seller is null!",
+                    exception
+                )
+                cartCallback?.feedback("Seller is null!") //TODO: PROPER ERROR
+            } else if (seller.isNullOrEmpty() && total == null) {
+                Logger.info(
+                    context,
+                    this::class.java.name,
+                    "Emprty basket",
+                    exception
+                )
+            } else {
+                Logger.error(
+                    context,
+                    this::class.java.name,
+                    "Unknown error!",
+                    exception
+                )
+
+                cartCallback?.feedback(context.resources.getString(R.string.default_error_message))
+            }
             null
         }
     }

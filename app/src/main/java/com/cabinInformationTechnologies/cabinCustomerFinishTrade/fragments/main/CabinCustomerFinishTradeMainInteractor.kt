@@ -8,6 +8,9 @@ import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APICartAdapter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTMakeOrder
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTWITHID
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCarts
 import com.squareup.moshi.Moshi
 
@@ -102,5 +105,105 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
         )
     }
 
+    override fun sendAddresses(context: Context, delivery: MODELAddress, invoice: MODELAddress?) {
+        var data: REQUESTMakeOrder? = null
+        val deliveryId = delivery.id
+        val invoiceId = invoice?.id
+        if (deliveryId != null && invoiceId != null)
+            data = REQUESTMakeOrder(
+                listOf(
+                    REQUESTWITHID(
+                        deliveryId
+                    ),
+                    REQUESTWITHID(
+                        invoiceId
+                    )
+                )
+            )
+        else if (deliveryId != null)
+            data = REQUESTMakeOrder(
+                listOf(
+                    REQUESTWITHID(
+                        deliveryId
+                    )
+                )
+            )
+
+        if (data != null) {
+            NetworkManager.requestFactory<Any?>(
+                context,
+                Constants.CART_MAKE_ORDER_URL,
+                null,
+                null,
+                data,
+                null,
+                null,
+                object : BaseContracts.ResponseCallbacks {
+                    override fun onSuccess(value: Any?) {
+                        Logger.info(
+                            context,
+                            this::class.java.name,
+                            "Order created successfully!",
+                            null
+                        )
+                        output?.pageForward(0)
+                    }
+
+                    override fun onIssue(value: JSONIssue) {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "Issue while creating order!",
+                            null
+                        )
+                        output?.toastFeedback(value.message)
+                    }
+
+                    override fun onError(value: String, url: String?) {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "Error while creating order!",
+                            null
+                        )
+                        output?.toastFeedback(null)
+                    }
+
+                    override fun onFailure(throwable: Throwable) {
+                        Logger.error(
+                            context,
+                            this::class.java.name,
+                            "Failure while creating order!",
+                            throwable
+                        )
+                        if (NetworkManager.isNetworkConnected(context))
+                            output?.toastFeedback(context.resources.getString(R.string.no_internet))
+                        else
+                            output?.toastFeedback(null)
+                    }
+
+                    override fun onServerDown() {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "500 while creating order!",
+                            null
+                        )
+                        output?.toastFeedback(null)
+                    }
+
+                    override fun onException(exception: Exception) {
+                        Logger.error(
+                            context,
+                            this::class.java.name,
+                            "Exception while creating order!",
+                            exception
+                        )
+                        output?.toastFeedback(null)
+                    }
+                }
+            )
+        }
+    }
     //endregion
 }

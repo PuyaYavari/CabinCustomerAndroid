@@ -9,8 +9,6 @@ import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProd
 object CabinCustomerCartContracts {
 
     interface View : BaseContracts.View {
-        val myDataset: MutableList<MODELProduct>
-
         fun showPriceDetail()
         fun hidePriceDetail()
         fun setData(cart: MODELCart)
@@ -28,6 +26,8 @@ object CabinCustomerCartContracts {
     }
 
     interface Presenter : BaseContracts.Presenter {
+        val myDataset: MutableList<MODELProduct>
+
         fun moveToFinishTrade()
         fun togglePriceDetail()
         fun getCart(context: Context)

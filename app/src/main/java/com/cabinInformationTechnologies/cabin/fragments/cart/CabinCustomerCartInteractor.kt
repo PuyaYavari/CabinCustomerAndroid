@@ -293,7 +293,6 @@ class CabinCustomerCartInteractor(val view: CabinCustomerCartContracts.ViewForIn
             null,
             data,
             carts,
-            //null,
             APICartAdapter(
                 context,
                 Moshi.Builder().build(),

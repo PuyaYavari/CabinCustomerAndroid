@@ -22,6 +22,6 @@
     <TextView
             android:text="111 222 333"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/cargo_tacking_code" android:textSize="10sp"
+            android:layout_height="wrap_content" android:id="@+id/cargo_tracking_code" android:textSize="10sp"
             android:textColor="@color/colorTextsPrimary"/>
 </LinearLayout>

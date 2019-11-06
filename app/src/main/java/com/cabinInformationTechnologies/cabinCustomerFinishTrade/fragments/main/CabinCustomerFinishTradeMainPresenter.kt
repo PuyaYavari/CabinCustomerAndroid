@@ -3,6 +3,7 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
@@ -108,6 +109,15 @@ class CabinCustomerFinishTradeMainPresenter(var view: CabinCustomerFinishTradeMa
         router?.moveToInvoiceAddressDetail(address)
     }
 
+    override fun sendAddresses(context: Context, delivery: MODELAddress?, invoice: MODELAddress?) {
+        if (delivery != null) {
+            if (invoice != null && delivery.id != invoice.id)
+                interactor?.sendAddresses(context, delivery, invoice)
+            else
+                interactor?.sendAddresses(context, delivery, null)
+        }
+    }
+
     //endregion
 
     //region InteractorOutput
@@ -137,6 +147,21 @@ class CabinCustomerFinishTradeMainPresenter(var view: CabinCustomerFinishTradeMa
                     .toString())
         else
             view?.showErrorMessage(message)
+    }
+
+    override fun toastFeedback(message: String?) {
+        if (message == null)
+            Toast.makeText(
+                view?.getActivityContext(),
+                view?.getActivityContext()?.resources?.getString(R.string.default_error_message),
+                Toast.LENGTH_SHORT
+            ).show()
+        else
+            Toast.makeText(
+                view?.getActivityContext(),
+                message,
+                Toast.LENGTH_SHORT
+            ).show()
     }
 
     //endregion

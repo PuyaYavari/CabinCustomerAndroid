@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabin.fragments.cart
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +11,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
 
 
 class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
@@ -24,8 +28,6 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
 
     private var totalPrice: Double = 0.0
 
-    override val myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct> = mutableListOf()
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_cart, container, false)
         return pageView
@@ -34,22 +36,22 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
     override fun onResume() {
         super.onResume()
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(resources.getString(R.string.cart_label),null)
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).lockDrawer()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.cart_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideBackButton()
         hideProgressBar()
 
-        if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn) {
+        if (GlobalData.loggedIn) {
             setupPage()
-            if ((activity!! as com.cabinInformationTechnologies.cabin.MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
+            if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
                     .visibility == View.INVISIBLE) {
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).layoutBackToDefault()
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showHeaderNavbar()
+                (activity!! as MainActivity).layoutBackToDefault()
+                (activity!! as MainActivity).showHeaderNavbar()
             } else
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).unblockPage()
+                (activity!! as MainActivity).unblockPage()
         } else
-            (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showNeedLogin()
+            (activity!! as MainActivity).showNeedLogin()
 
         presenter?.onResume()
     }
@@ -75,12 +77,14 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
     private fun setupPage() {
         recyclerView = pageView.findViewById(R.id.cart_products_recyclerview)
 
-        myDataset.clear()
+        presenter?.myDataset?.clear()
         totalPrice = 0.0
 
         getCart()
 
-        viewAdapter = CabinCustomerCartAdapter(this, myDataset)
+        val dataset = presenter?.myDataset
+        if (dataset != null)
+            viewAdapter = CabinCustomerCartAdapter(this, dataset)
         viewManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
         recyclerView.apply {
             setHasFixedSize(false)
@@ -102,9 +106,9 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
 
         pageView.findViewById<Button>(R.id.cart_finish_trade_button).setOnClickListener { presenter?.moveToFinishTrade() }
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(
+        (activity!! as MainActivity).setHeader(
             header = resources.getString(R.string.cart_label),
-            headerExtras = myDataset.size.toString()
+            headerExtras = presenter?.myDataset?.size.toString()
         )
     }
 
@@ -144,7 +148,7 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
             presenter?.updateProduct(context, product)
     }
 
-    override fun setData(cart: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart) {
+    override fun setData(cart: MODELCart) {
         viewAdapter.notifyDataSetChanged()
 
         pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_middle_sum).text =
@@ -155,27 +159,28 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
             cart.getTotal().toString()
         totalPrice = cart.getTotal()
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(
+        (activity!! as MainActivity).setHeader(
             header = resources.getString(R.string.cart_label),
-            headerExtras = myDataset.size.toString()
+            headerExtras = presenter?.myDataset?.size.toString()
         )
     }
 
     override fun clearAll() {
-        myDataset.clear()
+        presenter?.myDataset?.clear()
         clearCargoPrices()
         viewAdapter.notifyDataSetChanged()
 
-        pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_middle_sum).text = "0"
-        pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_cargo_sum).text = "0"
-        pageView.findViewById<TextView>(R.id.cabin_finish_trade_final_price).text = "0"
+        pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_middle_sum).text = "0.0"
+        pageView.findViewById<TextView>(R.id.cart_finish_trade_price_detail_cargo_sum).text = "0.0"
+        pageView.findViewById<TextView>(R.id.cabin_finish_trade_final_price).text = "0.0"
         totalPrice = 0.0
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(
+        (activity!! as MainActivity).setHeader(
             header = resources.getString(R.string.cart_label),
             headerExtras = null
         )
     }
 
+    @SuppressLint("InflateParams")
     override fun addShippingPrice(sellerName: String, price: Double) {
         val cargoPriceView = layoutInflater.inflate(R.layout.cabin_customer_cart_cargo_price_layout, null)
         cargoPriceView.apply {
@@ -196,11 +201,11 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
     }
 
     override fun showProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showProgressBar()
+        (activity!! as MainActivity).showProgressBar()
     }
 
     override fun hideProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     override fun getCurrentItemCount(): Int {

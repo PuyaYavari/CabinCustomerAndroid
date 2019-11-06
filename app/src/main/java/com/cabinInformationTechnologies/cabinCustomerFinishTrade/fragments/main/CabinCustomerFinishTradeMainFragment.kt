@@ -144,9 +144,13 @@ class CabinCustomerFinishTradeMainFragment : BaseFragment(),
     override fun setupFirstPage() {
         pageView.findViewById<Button>(R.id.finish_trade_button).apply {
             setOnClickListener {
-                if ((activity as CabinCustomerFinishTradeActivity).addressesSelected() == true)
-                    presenter?.pageForward(mPager.currentItem)
-                else {
+                if ((activity as CabinCustomerFinishTradeActivity).addressesSelected() == true) {
+                    presenter?.sendAddresses(
+                        this.context,
+                        (activity as CabinCustomerFinishTradeActivity).presenter?.deliveryAddress,
+                        (activity as CabinCustomerFinishTradeActivity).presenter?.invoiceAddress
+                    )
+                } else {
                     //TODO: FEEDBACK ABOUT ADDRESSES NOT SELECTED
                 }
             }
