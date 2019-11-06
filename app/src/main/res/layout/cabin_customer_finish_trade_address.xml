@@ -39,7 +39,7 @@
                         android:paddingEnd="8dp"
                         android:text="@string/add"
                         android:textSize="12sp"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
                 <View
                         android:id="@+id/finish_trade_address_delivery_address_header_separator"

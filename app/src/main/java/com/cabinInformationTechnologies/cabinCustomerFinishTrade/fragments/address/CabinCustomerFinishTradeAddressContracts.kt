@@ -18,6 +18,8 @@ object CabinCustomerFinishTradeAddressContracts {
         fun getSelectedInvoiceAddress(): MODELAddress?
         fun setupNoDeliveryAddress()
         fun setupNoInvoiceAddress()
+        fun showDeliveryAdd()
+        fun hideDeliveryAdd()
     }
 
     interface Presenter : BaseContracts.Presenter {

@@ -64,6 +64,7 @@ class CabinCustomerFinishTradeAddressPresenter(var view: CabinCustomerFinishTrad
     //region Presenter
 
     override fun getAddresses(context: Context) {
+        view?.hideDeliveryAdd()
         interactor?.getAddresses(context)
     }
 
@@ -103,6 +104,7 @@ class CabinCustomerFinishTradeAddressPresenter(var view: CabinCustomerFinishTrad
             view?.setupNoInvoiceAddress()
         else
             view?.setInvoiceAddresses(invoiceAddresses)
+        view?.showDeliveryAdd()
     }
 
     override fun feedback(message: String?) {

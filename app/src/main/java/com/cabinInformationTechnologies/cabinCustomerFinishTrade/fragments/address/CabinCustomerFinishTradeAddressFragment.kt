@@ -221,8 +221,6 @@ class CabinCustomerFinishTradeAddressFragment(
         pageView.findViewById<TextView>(R.id.finish_trade_address_delivery_address_phone)
             .text = ""
 
-        pageView.findViewById<TextView>(R.id.finish_trade_address_delivery_address_add)
-            .visibility = View.VISIBLE
         pageView.findViewById<LinearLayout>(R.id.finish_trade_address_delivery_address_detail_layout)
             .visibility = View.GONE
         pageView.findViewById<Spinner>(R.id.finish_trade_address_delivery_address_spinner)
@@ -253,6 +251,16 @@ class CabinCustomerFinishTradeAddressFragment(
             .visibility = View.GONE
         pageView.findViewById<View>(R.id.finish_trade_address_invoice_address_header_separator)
             .visibility = View.INVISIBLE
+    }
+
+    override fun showDeliveryAdd() {
+        pageView.findViewById<TextView>(R.id.finish_trade_address_delivery_address_add)
+            .visibility = View.VISIBLE
+    }
+
+    override fun hideDeliveryAdd() {
+        pageView.findViewById<TextView>(R.id.finish_trade_address_delivery_address_add)
+            .visibility = View.GONE
     }
 
     //endregion
