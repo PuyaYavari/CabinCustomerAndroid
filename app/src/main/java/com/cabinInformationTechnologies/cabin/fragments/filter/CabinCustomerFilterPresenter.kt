@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
-import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
 
@@ -14,7 +13,11 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
     var interactor: CabinCustomerFilterContracts.Interactor? = CabinCustomerFilterInteractor(this)
     var router: CabinCustomerFilterContracts.Router? = null
     override var filter: MODELFilter? = null
-    private var previousFilter: MODELFilter? = null
+        set(value) {
+            field = value
+            view?.changeActivityFilter()
+        }
+    override var previousFilter: MODELFilter? = null
 
     //region Lifecycle
 
@@ -24,9 +27,6 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router = CabinCustomerFilterRouter(activity)
-
-        filter = (activity as MainActivity).getFilter()
-        previousFilter = filter
     }
 
     override fun onDestroy() {

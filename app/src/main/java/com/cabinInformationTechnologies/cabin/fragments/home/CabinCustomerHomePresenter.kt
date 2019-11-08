@@ -2,6 +2,7 @@ package com.cabinInformationTechnologies.cabin.fragments.home
 
 import android.app.Activity
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 
 class CabinCustomerHomePresenter(var view: CabinCustomerHomeContracts.View?) : CabinCustomerHomeContracts.Presenter,
     CabinCustomerHomeContracts.InteractorOutput {
@@ -19,10 +20,10 @@ class CabinCustomerHomePresenter(var view: CabinCustomerHomeContracts.View?) : C
         val activity = view?.getActivityContext() as? Activity ?: return
         router = CabinCustomerHomeRouter(activity)
 
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
+        if (GlobalData.loggedIn)
+            view?.unlockDrawer()
+        else
+            view?.lockDrawer()
     }
 
     override fun onDestroy() {

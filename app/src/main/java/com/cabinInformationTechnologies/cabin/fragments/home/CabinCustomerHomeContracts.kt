@@ -5,6 +5,8 @@ object CabinCustomerHomeContracts {
     interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
         fun showProgressBar()
         fun hideProgressBar()
+        fun lockDrawer()
+        fun unlockDrawer()
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {

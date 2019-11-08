@@ -86,15 +86,6 @@ class MainActivity : BaseActivity(), MainContracts.View {
             presenter?.requestLogout(this.applicationContext)
         }
 
-        findViewById<TextView>(R.id.sidebar_user_info).text = "user: ${GlobalData.userEmail}"
-
-        try {
-            val pInfo = this.applicationContext.packageManager.getPackageInfo(packageName, 0)
-            findViewById<TextView>(R.id.sidebar_version_info).text = "app version: ${pInfo.versionName}"
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        }
-
         findViewById<ImageButton>(R.id.main_back_button).setOnClickListener { onBackPressed() }
 
         if (GlobalData.loggedIn)
@@ -345,8 +336,18 @@ class MainActivity : BaseActivity(), MainContracts.View {
         findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun unlockDrawer() {
         findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+
+        findViewById<TextView>(R.id.sidebar_user_info).text = "user: ${GlobalData.userEmail}"
+
+        try {
+            val pInfo = this.applicationContext.packageManager.getPackageInfo(packageName, 0)
+            findViewById<TextView>(R.id.sidebar_version_info).text = "app version: ${pInfo.versionName}"
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
     override fun setSelectedSize(size: MODELSize, callback: MainContracts.SelectSizeCallback) {

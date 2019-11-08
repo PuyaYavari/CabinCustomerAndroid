@@ -84,7 +84,18 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
 
     override fun requestFilter(context: Context, filter: MODELFilter?) {
         val responseObject = MODELFilters()
-        var data: REQUESTAPIFilter? = null
+        var data: REQUESTAPIFilter? = REQUESTAPIFilter (
+            listOf (
+                REQUESTFilter(
+                    listOf(),
+                    listOf(),
+                    listOf(),
+                    listOf(),
+                    listOf(),
+                    listOf()
+                )
+            )
+        )
         if (filter != null) {
             val categoryRequest: MutableList<REQUESTWITHID?> = mutableListOf()
             getSelectedCategoriesList(filter.filterCategories).forEach {

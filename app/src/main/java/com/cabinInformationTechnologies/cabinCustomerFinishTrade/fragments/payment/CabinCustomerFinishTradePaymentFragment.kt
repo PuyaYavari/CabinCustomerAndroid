@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
 
-class CabinCustomerFinishTradePaymentFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.View {
+class CabinCustomerFinishTradePaymentFragment : BaseFragment(),
+    CabinCustomerFinishTradePaymentContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentPresenter(
+    var presenter: CabinCustomerFinishTradePaymentContracts.Presenter? =
+        CabinCustomerFinishTradePaymentPresenter(
             this
         )
     private lateinit var pageView: View

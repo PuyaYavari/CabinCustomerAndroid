@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
 
 class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerHomeContracts.View {
@@ -55,11 +56,19 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
     }
 
     override fun showProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showProgressBar()
+        (activity!! as MainActivity).showProgressBar()
     }
 
     override fun hideProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideProgressBar()
+    }
+
+    override fun lockDrawer() {
+        (activity!! as MainActivity).lockDrawer()
+    }
+
+    override fun unlockDrawer() {
+        (activity!! as MainActivity).unlockDrawer()
     }
 
     //endregion

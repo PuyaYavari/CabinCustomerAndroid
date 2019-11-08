@@ -18,12 +18,18 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
     var presenter: CabinCustomerFilterContracts.Presenter? = CabinCustomerFilterPresenter(this)
     private lateinit var pageView: View
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        presenter?.previousFilter = (activity as MainActivity).getFilter()
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_filter, container, false)
+        presenter?.filter = (activity as MainActivity).getFilter()
         val context = this.context
         if (context != null)
             presenter?.requestFilter(context)
@@ -33,7 +39,6 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
 
     override fun onResume() {
         super.onResume()
-        presenter?.filter = (activity as MainActivity).getFilter()
         presenter?.onResume()
     }
 

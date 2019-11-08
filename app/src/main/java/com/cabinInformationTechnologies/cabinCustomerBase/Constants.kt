@@ -29,7 +29,7 @@ object Constants {
 
     const val REGISTER_URL: String = "register/addUser"
 
-    const val PRODUCT_DETAIL_URL: String = "explore/listProduct"
+    const val DISCOVER_LIST_PRODUCTS_URL: String = "explore/listProduct"
     const val DISCOVER_ADD_TO_CART_URL: String = "explore/AddProduct"
     const val DISCOVER_ADD_TO_FAVORITE_URL: String = "explore/addUserFavoriteProduct"
     const val DISCOVER_REMOVE_FROM_FAVORITE_URL: String = "explore/removeUserFavoriteProduct"
@@ -55,4 +55,5 @@ object Constants {
 
     const val LIST_FAVORITES_URL: String = "favorite/listProduct"
 
+    const val LIST_PRODUCT_DETAIL_URL: String = "productDetail/listProduct"
 }

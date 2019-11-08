@@ -2,6 +2,7 @@ package com.cabinInformationTechnologies.cabin.fragments.productDetail
 
 import android.content.Context
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import com.squareup.moshi.Moshi
 
 class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetailContracts.InteractorOutput?) :
@@ -121,7 +122,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
             .build()
         com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.PRODUCT_DETAIL_URL,
+            Constants.LIST_PRODUCT_DETAIL_URL,
             null,
             null,
             data,

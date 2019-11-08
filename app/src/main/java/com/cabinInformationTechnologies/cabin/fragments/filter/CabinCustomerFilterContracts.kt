@@ -15,6 +15,7 @@ object CabinCustomerFilterContracts {
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
         var filter: MODELFilter?
+        var previousFilter: MODELFilter?
 
         fun requestFilter(context: Context)
         fun moveToFilterDetail(filterType: Int)

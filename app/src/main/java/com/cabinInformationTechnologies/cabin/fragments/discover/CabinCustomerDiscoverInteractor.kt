@@ -23,7 +23,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
         var products: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>? = null
         com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIProduct>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.PRODUCT_DETAIL_URL,
+            com.cabinInformationTechnologies.cabinCustomerBase.Constants.DISCOVER_LIST_PRODUCTS_URL,
             page,
             pageSize,
             null,
@@ -110,7 +110,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             .build()
         com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIProduct>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.PRODUCT_DETAIL_URL,
+            com.cabinInformationTechnologies.cabinCustomerBase.Constants.LIST_PRODUCT_DETAIL_URL,
             null,
             null,
             data,

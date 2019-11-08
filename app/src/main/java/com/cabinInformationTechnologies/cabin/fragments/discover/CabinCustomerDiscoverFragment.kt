@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 
 
 class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerDiscoverContracts.View {
@@ -81,7 +82,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     }
 
     override fun showHeaderAndNavbar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showHeaderNavbar()
+        (activity!! as MainActivity).showHeaderNavbar()
     }
 
     private fun reloadProducts(){
@@ -114,22 +115,22 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     }
 
     override fun hideHeaderAndNavbar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideHeaderNavbar()
+        (activity!! as MainActivity).hideHeaderNavbar()
     }
 
-    override fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, position: Int) {
+    override fun moveToProductDetail(product: MODELProduct, position: Int) {
         presenter?.moveToProductDetail(product, position)
     }
 
-    override fun addData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>?) {
+    override fun addData(products: List<MODELProduct>?) {
         hideNoInternet()
         if (products != null)
-            myDataset.addAll(products as Iterable<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>)
+            myDataset.addAll(products as Iterable<MODELProduct>)
         viewAdapter.notifyDataSetChanged()
         hideProgressBar()
     }
 
-    override fun updateProduct(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, position: Int) {
+    override fun updateProduct(product: MODELProduct, position: Int) {
         viewAdapter.updateProduct(product, position)
     }
 
