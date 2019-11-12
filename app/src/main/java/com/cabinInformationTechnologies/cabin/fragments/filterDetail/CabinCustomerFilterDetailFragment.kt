@@ -66,7 +66,17 @@ class CabinCustomerFilterDetailFragment : com.cabinInformationTechnologies.cabin
     }
 
     override fun setupCategoriesPage(dataset: MutableList<MODELFilterCategory>) {
-
+        val viewManager = LinearLayoutManager(this.context)
+        val viewAdapter = CabinCustomerFilterCategoriesAdapter(this, dataset)
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+        pageView.findViewById<Button>(R.id.filter_detail_footer_confirm_button).setOnClickListener {
+            filter?.filterCategories = viewAdapter.getDataset()
+            activity?.onBackPressed()
+        }
     }
 
     override fun setupSexesPage(dataset: MutableList<MODELFilterSex>) {

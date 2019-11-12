@@ -30,4 +30,7 @@ object CabinCustomerFilterDetailContracts {
         fun setSizes(sizes: List<MODELFilterSize>)
     }
 
+    interface CategoryCallback {
+        fun setSubCat(dataset: MutableList<MODELFilterCategory>)
+    }
 }

@@ -84,7 +84,7 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
                         count++
                 }
             }
-            FilterTypeIDs.SIZE -> {
+            FilterTypeIDs.SIZE -> { //FIXME
                 filter?.filterSizes?.forEach {
                     if (it.isSelected)
                         count++

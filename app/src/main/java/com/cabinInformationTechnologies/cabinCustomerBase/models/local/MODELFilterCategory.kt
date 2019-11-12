@@ -12,6 +12,7 @@ class MODELFilterCategory: LocalDataModel {
     var isSelected: Boolean? = null
     var state: threeStateSelection? = null
     private var subFilterCategories: MutableList<MODELFilterCategory>? = null
+    private var isLeaf = false
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
@@ -21,7 +22,7 @@ class MODELFilterCategory: LocalDataModel {
             this.amount = jsonData.amount
             if (!jsonData.filterCategories.isNullOrEmpty()) {
                 subFilterCategories = mutableListOf()
-                state = threeStateSelection.HALFSELECTED
+                state = threeStateSelection.UNSELECTED
                 var selectedSubSizeCount = 0
                 jsonData.filterCategories.forEach {
                     val category = MODELFilterCategory()
@@ -46,6 +47,7 @@ class MODELFilterCategory: LocalDataModel {
                 if (selectedSubSizeCount == subFilterCategories!!.size)
                     state = threeStateSelection.SELECTED
             } else {
+                this.isLeaf = true
                 this.isSelected = jsonData.isSelected
             }
             true
@@ -63,4 +65,9 @@ class MODELFilterCategory: LocalDataModel {
     fun getName(): String = name
     fun getAmount(): Int? = amount
     fun getSubCategories(): MutableList<MODELFilterCategory>? = subFilterCategories
+    fun getIsLeaf() = isLeaf
+
+    fun setSubCategories(subCategories: MutableList<MODELFilterCategory>) {
+        this.subFilterCategories = subCategories
+    }
 }
