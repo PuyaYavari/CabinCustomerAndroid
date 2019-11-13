@@ -36,6 +36,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).hideClear()
         showHeaderAndNavbar()
         hideProgressBar()
 

@@ -7,16 +7,22 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerFilterContracts.View {
 
     var presenter: CabinCustomerFilterContracts.Presenter? = CabinCustomerFilterPresenter(this)
     private lateinit var pageView: View
+
+    private lateinit var callback: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         presenter?.previousFilter = (activity as MainActivity).getFilter()
@@ -34,6 +40,15 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         if (context != null)
             presenter?.requestFilter(context)
         setupActivityLayout()
+
+        // This callback will only be called when MyFragment is at least Started.
+        callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            presenter?.filter = presenter?.previousFilter
+            if (context != null)
+                presenter?.requestFilter(context)
+            activity!!.findNavController(R.id.nav_host_fragment).popBackStack()
+        }
+
         return pageView
     }
 
@@ -80,8 +95,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
             presenter?.moveToFilterDetail(FilterTypeIDs.PRICE)
         }
         pageView.findViewById<Button>(R.id.filter_footer_confirm_button).setOnClickListener {
-            changeActivityFilter()
-            activity?.onBackPressed()
+            activity?.findNavController(R.id.nav_host_fragment)?.popBackStack()
         }
     }
 
@@ -97,58 +111,70 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         hideProgressBar()
     }
 
-    override fun setAmounts() {
-        val filter = presenter?.filter
-        if (filter != null)
-            pageView.apply {
-                var selectedCount: Int? = presenter?.getSelectedCount(FilterTypeIDs.CATEGORY)
-                if (selectedCount != null && selectedCount > 0) {
-                    findViewById<TextView>(R.id.filter_category_count).text = selectedCount.toString()
-                    findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.VISIBLE
-                } else {
-                    findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.INVISIBLE
-                }
+    override fun showCategoriesCountAs(count: Int) {
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_category_count).text = count.toString()
+            findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.VISIBLE
+        }
+    }
 
-                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.SEX)
-                if (selectedCount != null && selectedCount > 0) {
-                    findViewById<TextView>(R.id.filter_sex_count).text = selectedCount.toString()
-                    findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.VISIBLE
-                } else {
-                    findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.INVISIBLE
-                }
+    override fun hideCategoriesCount() {
+        pageView.findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.INVISIBLE
+    }
 
-                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.SELLER)
-                if (selectedCount != null && selectedCount > 0) {
-                    findViewById<TextView>(R.id.filter_brand_count).text = selectedCount.toString()
-                    findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.VISIBLE
-                } else {
-                    findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.INVISIBLE
-                }
+    override fun showSexesCountAs(count: Int) {
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_sex_count).text = count.toString()
+            findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.VISIBLE
+        }
+    }
 
-                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.SIZE)
-                if (selectedCount != null && selectedCount > 0) {
-                    findViewById<TextView>(R.id.filter_size_count).text = selectedCount.toString()
-                    findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.VISIBLE
-                } else {
-                    findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.INVISIBLE
-                }
+    override fun hideSexesCount() {
+        pageView.findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.INVISIBLE
+    }
 
-                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.COLOR)
-                if (selectedCount != null && selectedCount > 0) {
-                    findViewById<TextView>(R.id.filter_color_count).text = selectedCount.toString()
-                    findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.VISIBLE
-                } else {
-                    findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.INVISIBLE
-                }
+    override fun showSellersCountAs(count: Int) {
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_brand_count).text = count.toString()
+            findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.VISIBLE
+        }
+    }
 
-                selectedCount = presenter?.getSelectedCount(FilterTypeIDs.PRICE)
-                if (selectedCount != null && selectedCount > 0) {
-                    findViewById<TextView>(R.id.filter_price_count).text = selectedCount.toString()
-                    findViewById<LinearLayout>(R.id.filter_price_count_layout).visibility = View.VISIBLE
-                } else {
-                    findViewById<LinearLayout>(R.id.filter_price_count_layout).visibility = View.INVISIBLE
-                }
-            }
+    override fun hideSellersCount() {
+        pageView.findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.INVISIBLE
+    }
+
+    override fun showSizesCountAs(count: Int) {
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_size_count).text = count.toString()
+            findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.VISIBLE
+        }
+    }
+
+    override fun hideSizesCount() {
+        pageView.findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.INVISIBLE
+    }
+
+    override fun showColorsCountAs(count: Int) {
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_color_count).text = count.toString()
+            findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.VISIBLE
+        }
+    }
+
+    override fun hideColorsCount() {
+        pageView.findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.INVISIBLE
+    }
+
+    override fun showPricesCountAs(count: Int) {
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_price_count).text = count.toString()
+            findViewById<LinearLayout>(R.id.filter_price_count_layout).visibility = View.VISIBLE
+        }
+    }
+
+    override fun hidePricesCount() {
+        pageView.findViewById<LinearLayout>(R.id.filter_price_count_layout).visibility = View.INVISIBLE
     }
 
     override fun showProgressBar() {
@@ -159,8 +185,8 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         (activity!! as MainActivity).hideProgressBar()
     }
 
-    override fun changeActivityFilter() {
-        (activity!! as MainActivity).setFilter(presenter?.filter)
+    override fun changeActivityFilter(filter: MODELFilter?) {
+        (activity!! as MainActivity).setFilter(filter)
     }
 
     //endregion

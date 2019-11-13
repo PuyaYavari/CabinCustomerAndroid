@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabin.fragments.filterDetail.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,8 +94,10 @@ class CabinCustomerFilterCategoriesSubCategoriesAdapter (val fragment: CabinCust
                                         override fun setSubCat(dataset: MutableList<MODELFilterCategory>) {
                                             myDataset[position].setSubCategories(dataset)
                                             val state = findUpperCategoryState(position)
-                                            if (state != null)
+                                            if (state != null) {
+                                                myDataset[position].state = state
                                                 setUpperCategoryCheckbox(holder, state)
+                                            }
                                         }
                                     }
                                 )
@@ -113,19 +116,29 @@ class CabinCustomerFilterCategoriesSubCategoriesAdapter (val fragment: CabinCust
                         }
 
                         //Setup Checkbox
-                        val state = findUpperCategoryState(position)
+                        myDataset[position].state = findUpperCategoryState(position)
+                        var state = myDataset[position].state
                         if (state != null) {
                             setUpperCategoryCheckbox(holder, state)
                             findViewById<FrameLayout>(R.id.upper_categorybox_checkbox_layout).setOnClickListener {
-                                if (state != threeStateSelection.SELECTED)
-                                    (findViewById<RecyclerView>(R.id.upper_categorybox_recyclerview).adapter as
-                                            CabinCustomerFilterCategoriesSubCategoriesAdapter)
-                                        .toggleAllIsSelecteds(false)
-                                else {
+                                if (state != threeStateSelection.SELECTED) {
+                                    Log.i(null, "State not all selected")
                                     (findViewById<RecyclerView>(R.id.upper_categorybox_recyclerview).adapter as
                                             CabinCustomerFilterCategoriesSubCategoriesAdapter)
                                         .toggleAllIsSelecteds(true)
+                                    myDataset[position].state = findUpperCategoryState(position)
+                                    state = myDataset[position].state
+                                } else {
+                                    Log.i(null, "State all selected")
+                                    (findViewById<RecyclerView>(R.id.upper_categorybox_recyclerview).adapter as
+                                            CabinCustomerFilterCategoriesSubCategoriesAdapter)
+                                        .toggleAllIsSelecteds(false)
+                                    myDataset[position].state = findUpperCategoryState(position)
+                                    state = myDataset[position].state
                                 }
+                                val newState = state
+                                if (newState != null)
+                                    setUpperCategoryCheckbox(holder, newState)
                             }
                         }
                     }

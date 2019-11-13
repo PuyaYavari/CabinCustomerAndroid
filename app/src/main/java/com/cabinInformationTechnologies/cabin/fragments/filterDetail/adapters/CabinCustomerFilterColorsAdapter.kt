@@ -15,7 +15,7 @@ import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustom
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterColor
 
 class CabinCustomerFilterColorsAdapter (val fragment: CabinCustomerFilterDetailFragment,
-                                        private val myDataset: MutableList<MODELFilterColor>)
+                                        private var myDataset: MutableList<MODELFilterColor>)
     : RecyclerView.Adapter<CabinCustomerFilterColorsAdapter.FilterColorViewHolder>() {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -65,4 +65,8 @@ class CabinCustomerFilterColorsAdapter (val fragment: CabinCustomerFilterDetailF
     override fun getItemCount(): Int = myDataset.size
 
     fun getDataset(): MutableList<MODELFilterColor> = myDataset
+    fun setDataset(dataset: MutableList<MODELFilterColor>) {
+        this.myDataset = dataset
+        notifyDataSetChanged()
+    }
 }

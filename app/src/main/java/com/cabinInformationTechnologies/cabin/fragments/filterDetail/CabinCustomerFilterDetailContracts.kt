@@ -11,13 +11,19 @@ object CabinCustomerFilterDetailContracts {
         fun setupSizesPage(dataset: MutableList<MODELFilterSizeGroup>)
         fun setupColorsPage(dataset: MutableList<MODELFilterColor>)
         fun setupPricesPage(dataset: MutableList<MODELFilterPrice>)
+        fun changeCategoriesDataset(dataset: MutableList<MODELFilterCategory>)
+        fun changeSexesDataset(dataset: MutableList<MODELFilterSex>)
+        fun changeSellersDataset(dataset: MutableList<MODELFilterSeller>)
+        fun changeSizesDataset(dataset: MutableList<MODELFilterSizeGroup>)
+        fun changeColorsDataset(dataset: MutableList<MODELFilterColor>)
+        fun changePricesDataset(dataset: MutableList<MODELFilterPrice>)
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        fun setupPage(
-            filterType: Int,
-            filter: MODELFilter?
-        )
+        var filter: MODELFilter?
+
+        fun setupPage(filterType: Int)
+        fun clearFilter(filterType: Int)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor
@@ -32,5 +38,9 @@ object CabinCustomerFilterDetailContracts {
 
     interface CategoryCallback {
         fun setSubCat(dataset: MutableList<MODELFilterCategory>)
+    }
+
+    interface FilterDetailFragment {
+        fun clearFilter()
     }
 }

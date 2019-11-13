@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustomerFilterDetailFragment
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSeller
 
 class CabinCustomerFilterSellerAdapter (val fragment: CabinCustomerFilterDetailFragment,
-                                        private val myDataset: MutableList<MODELFilterSeller>)
+                                        private var myDataset: MutableList<MODELFilterSeller>)
     : RecyclerView.Adapter<CabinCustomerFilterSellerAdapter.FilterSellerViewHolder>(){
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -28,8 +27,8 @@ class CabinCustomerFilterSellerAdapter (val fragment: CabinCustomerFilterDetailF
 
     override fun onBindViewHolder(holder: FilterSellerViewHolder, position: Int) {
         holder.itemView.apply {
-            findViewById<TextView>(R.id.filter_sellerbox_label).text = myDataset[position].name
             findViewById<CheckBox>(R.id.filter_sellerbox_checkbox).apply{
+                text = myDataset[position].name
                 isChecked = myDataset[position].isSelected
                 setOnCheckedChangeListener { _, isChecked ->
                     myDataset[position].isSelected = isChecked
@@ -41,4 +40,8 @@ class CabinCustomerFilterSellerAdapter (val fragment: CabinCustomerFilterDetailF
     override fun getItemCount(): Int = myDataset.size
 
     fun getDataset(): MutableList<MODELFilterSeller> = myDataset
+    fun setDataset(dataset: MutableList<MODELFilterSeller>) {
+        this.myDataset = dataset
+        notifyDataSetChanged()
+    }
 }

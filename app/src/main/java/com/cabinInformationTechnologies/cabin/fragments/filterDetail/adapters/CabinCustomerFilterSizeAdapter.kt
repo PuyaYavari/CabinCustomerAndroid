@@ -32,7 +32,7 @@ class CabinCustomerFilterSizeAdapter (val fragment: CabinCustomerFilterDetailFra
         holder.itemView.apply {
             findViewById<ImageView>(R.id.filter_sizebox_background).apply {
                 background = if(myDataset[position].isSelected)
-                    resources.getDrawable(R.drawable.circle_page_color_dark_cabin_color_stroke, fragment.activity?.theme)
+                    resources.getDrawable(R.drawable.circle_page_color_light_cabin_color_stroke, fragment.activity?.theme)
                 else
                     resources.getDrawable(R.drawable.circle_page_background_color, fragment.activity?.theme)
                 setOnClickListener {

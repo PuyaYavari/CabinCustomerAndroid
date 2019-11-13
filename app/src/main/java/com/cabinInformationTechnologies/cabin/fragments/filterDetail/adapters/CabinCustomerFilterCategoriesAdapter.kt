@@ -11,7 +11,7 @@ import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustom
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
 
 class CabinCustomerFilterCategoriesAdapter (val fragment: CabinCustomerFilterDetailFragment,
-                                            private val myDataset: MutableList<MODELFilterCategory>)
+                                            private var myDataset: MutableList<MODELFilterCategory>)
     : RecyclerView.Adapter<CabinCustomerFilterCategoriesAdapter.FilterCategoryViewHolder>(){
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -46,4 +46,8 @@ class CabinCustomerFilterCategoriesAdapter (val fragment: CabinCustomerFilterDet
     override fun getItemCount(): Int = myDataset.size
 
     fun getDataset() = this.myDataset
+    fun setDataset(dataset: MutableList<MODELFilterCategory>) {
+        this.myDataset = dataset
+        notifyDataSetChanged()
+    }
 }

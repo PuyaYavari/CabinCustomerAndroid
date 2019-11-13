@@ -17,12 +17,13 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
 
         com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.appRunning = true
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).unblockPage()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(resources.getString(R.string.homepage_label),null)
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showHeaderNavbar()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).unlockDrawer()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
+        (activity!! as MainActivity).unblockPage()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.homepage_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).showHeaderNavbar()
+        (activity!! as MainActivity).unlockDrawer()
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).hideClear()
         hideProgressBar()
 
         setupPage()

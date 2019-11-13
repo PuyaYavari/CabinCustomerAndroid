@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.ordersDetail.adapter.*
 
@@ -28,22 +29,23 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
     override fun onResume() {
         super.onResume()
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(resources.getString(R.string.orders_header),null)
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).lockDrawer()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showBackButton()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.orders_header),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).showBackButton()
+        (activity!! as MainActivity).hideClear()
         hideProgressBar()
 
         if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn) {
             setupPage()
-            if ((activity!! as com.cabinInformationTechnologies.cabin.MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
+            if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
                     .visibility == View.INVISIBLE) {
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).layoutBackToDefault()
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showHeaderNavbar()
+                (activity!! as MainActivity).layoutBackToDefault()
+                (activity!! as MainActivity).showHeaderNavbar()
             } else
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).unblockPage()
+                (activity!! as MainActivity).unblockPage()
         } else
-            (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showNeedLogin()
+            (activity!! as MainActivity).showNeedLogin()
 
         presenter?.onResume()
     }
@@ -156,11 +158,11 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
     }
 
     override fun showProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showProgressBar()
+        (activity!! as MainActivity).showProgressBar()
     }
 
     override fun hideProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     //endregion

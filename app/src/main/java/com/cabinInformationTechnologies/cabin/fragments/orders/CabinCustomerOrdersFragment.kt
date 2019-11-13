@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
+import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
 
 
@@ -23,22 +24,24 @@ class CabinCustomerOrdersFragment : com.cabinInformationTechnologies.cabinCustom
     override fun onResume() {
         super.onResume()
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).setHeader(resources.getString(R.string.order_label),null)
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).lockDrawer()
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideBackButton()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.order_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).hideClear()
+
         hideProgressBar()
 
         if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn) {
             setupPage()
-            if ((activity!! as com.cabinInformationTechnologies.cabin.MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
+            if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
                     .visibility == View.INVISIBLE) {
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).layoutBackToDefault()
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showHeaderNavbar()
+                (activity!! as MainActivity).layoutBackToDefault()
+                (activity!! as MainActivity).showHeaderNavbar()
             } else
-                (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).unblockPage()
+                (activity!! as MainActivity).unblockPage()
         } else
-            (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showNeedLogin()
+            (activity!! as MainActivity).showNeedLogin()
 
         presenter?.onResume()
     }
@@ -71,11 +74,11 @@ class CabinCustomerOrdersFragment : com.cabinInformationTechnologies.cabinCustom
     }
 
     override fun showProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showProgressBar()
+        (activity!! as MainActivity).showProgressBar()
     }
 
     override fun hideProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     //endregion

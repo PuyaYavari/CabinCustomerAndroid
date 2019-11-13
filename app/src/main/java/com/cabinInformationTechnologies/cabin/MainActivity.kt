@@ -16,6 +16,8 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cabinInformationTechnologies.cabin.fragments.filter.CabinCustomerFilterContracts
+import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustomerFilterDetailContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity
 import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
@@ -285,6 +287,21 @@ class MainActivity : BaseActivity(), MainContracts.View {
             }
             mainTransitionContainer?.transitionToEnd()
         }
+    }
+
+    override fun showClear(fragment: CabinCustomerFilterContracts.FilterFragment) {
+
+    }
+
+    override fun showClear(fragment: CabinCustomerFilterDetailContracts.FilterDetailFragment) {
+        findViewById<TextView>(R.id.main_clear_button).apply {
+            visibility = View.VISIBLE
+            setOnClickListener { fragment.clearFilter() }
+        }
+    }
+
+    override fun hideClear() {
+        findViewById<TextView>(R.id.main_clear_button).visibility = View.GONE
     }
 
     override fun hideHeaderNavbar() {

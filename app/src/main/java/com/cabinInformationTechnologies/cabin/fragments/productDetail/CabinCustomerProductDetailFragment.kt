@@ -16,6 +16,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.cabinInformationTechnologies.cabin.MainActivity
+import com.cabinInformationTechnologies.cabin.MainContracts
 import com.cabinInformationTechnologies.cabin.R
 
 
@@ -49,9 +51,11 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         pageView = inflater.inflate(R.layout.cabin_customer_product_detail, container, false)
         mPager = pageView.findViewById(R.id.product_detail_product_image_pager) ?: throw (Exception("Couldn't find image pager."))
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideHeaderNavbar()
+        (activity!! as MainActivity).hideHeaderNavbar()
 
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).lockDrawer()
+        (activity!! as MainActivity).lockDrawer()
+
+        (activity!! as MainActivity).hideClear()
 
         hideProgressBar()
 
@@ -496,9 +500,9 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
     override fun showSelectSizeFor(
         product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct,
         color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor,
-        callback: com.cabinInformationTechnologies.cabin.MainContracts.SelectSizeCallback
+        callback: MainContracts.SelectSizeCallback
     ) {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showSelectSize(product, color, callback)
+        (activity!! as MainActivity).showSelectSize(product, color, callback)
     }
 
     override fun indicateSelectedSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize) {
@@ -506,11 +510,11 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
     }
 
     override fun showProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).showProgressBar()
+        (activity!! as MainActivity).showProgressBar()
     }
 
     override fun hideProgressBar() {
-        (activity!! as com.cabinInformationTechnologies.cabin.MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideProgressBar()
     }
 
     //endregion

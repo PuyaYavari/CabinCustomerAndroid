@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup
 
 class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?) :
     CabinCustomerFilterContracts.Presenter, CabinCustomerFilterContracts.InteractorOutput {
@@ -15,7 +16,7 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
     override var filter: MODELFilter? = null
         set(value) {
             field = value
-            view?.changeActivityFilter()
+            view?.changeActivityFilter(value)
         }
     override var previousFilter: MODELFilter? = null
 
@@ -58,6 +59,17 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         return newCount
     }
 
+    private fun countSelectedSizes(sizes: MutableList<MODELFilterSizeGroup>?): Int {
+        var newCount =  0
+        sizes?.forEach { sizeGroup ->
+            sizeGroup.getSizes()?.forEach { size ->
+                if (size.isSelected)
+                    newCount++
+            }
+        }
+        return newCount
+    }
+
     override fun requestFilter(context: Context) {
         interactor?.requestFilter(context, filter)
     }
@@ -85,10 +97,7 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
                 }
             }
             FilterTypeIDs.SIZE -> { //FIXME
-                filter?.filterSizes?.forEach {
-                    if (it.isSelected)
-                        count++
-                }
+                count = countSelectedSizes(filter?.filterSizes)
             }
             FilterTypeIDs.COLOR -> {
                 filter?.colors?.forEach {
@@ -106,13 +115,61 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         return count
     }
 
+    override fun setAmounts() {
+        val filter = this.filter
+        if (filter != null) {
+
+            var selectedCount: Int? = getSelectedCount(FilterTypeIDs.CATEGORY)
+            if (selectedCount != null && selectedCount > 0) {
+                view?.showCategoriesCountAs(selectedCount)
+            } else {
+                view?.hideCategoriesCount()
+            }
+
+            selectedCount = getSelectedCount(FilterTypeIDs.SEX)
+            if (selectedCount > 0) {
+                view?.showSexesCountAs(selectedCount)
+            } else {
+                view?.hideSexesCount()
+            }
+
+            selectedCount = getSelectedCount(FilterTypeIDs.SELLER)
+            if (selectedCount > 0) {
+                view?.showSellersCountAs(selectedCount)
+            } else {
+                view?.hideSellersCount()
+            }
+
+            selectedCount = getSelectedCount(FilterTypeIDs.SIZE)
+            if (selectedCount > 0) {
+                view?.showSizesCountAs(selectedCount)
+            } else {
+                view?.hideSizesCount()
+            }
+
+            selectedCount = getSelectedCount(FilterTypeIDs.COLOR)
+            if (selectedCount > 0) {
+                view?.showColorsCountAs(selectedCount)
+            } else {
+                view?.hideColorsCount()
+            }
+
+            selectedCount = getSelectedCount(FilterTypeIDs.PRICE)
+            if (selectedCount > 0) {
+                view?.showPricesCountAs(selectedCount)
+            } else {
+                view?.hidePricesCount()
+            }
+        }
+    }
+
     //endregion
 
     //region InteractorOutput
 
     override fun refreshFilter(filter: MODELFilter) {
         this.filter = filter
-        view?.setAmounts()
+        setAmounts()
         view?.setupPage()
     }
 

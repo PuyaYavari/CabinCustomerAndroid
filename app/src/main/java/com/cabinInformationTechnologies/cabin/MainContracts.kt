@@ -1,6 +1,8 @@
 package com.cabinInformationTechnologies.cabin
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabin.fragments.filter.CabinCustomerFilterContracts
+import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustomerFilterDetailContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
 
 object MainContracts {
@@ -15,16 +17,19 @@ object MainContracts {
         fun unblockPage()
         fun showBackButton()
         fun hideBackButton()
+        fun showClear(fragment: CabinCustomerFilterContracts.FilterFragment)
+        fun showClear(fragment: CabinCustomerFilterDetailContracts.FilterDetailFragment)
+        fun hideClear()
         fun layoutBackToDefault()
         fun logout()
         fun setHeader(header: String, headerExtras: String?)
         fun lockDrawer()
         fun unlockDrawer()
         fun hideSelectSize()
-        fun showSelectSize(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor, callback: com.cabinInformationTechnologies.cabin.MainContracts.SelectSizeCallback)
-        fun setSelectedSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize, callback: com.cabinInformationTechnologies.cabin.MainContracts.SelectSizeCallback)
-        fun setFilter(filter: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter?)
-        fun getFilter(): com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter?
+        fun showSelectSize(product: MODELProduct, color: MODELColor, callback: SelectSizeCallback)
+        fun setSelectedSize(size: MODELSize, callback: SelectSizeCallback)
+        fun setFilter(filter: MODELFilter?)
+        fun getFilter(): MODELFilter?
         fun showProgressBar()
         fun hideProgressBar()
     }
