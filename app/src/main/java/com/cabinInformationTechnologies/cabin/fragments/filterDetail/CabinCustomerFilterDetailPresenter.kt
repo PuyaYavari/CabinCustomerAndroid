@@ -104,7 +104,15 @@ class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailCont
                     view?.changeSellersDataset(sellers)
             }
             FilterTypeIDs.SIZE -> {
-
+                val sizegroups = filter?.filterSizes
+                sizegroups?.forEach {sizeGroup ->
+                    sizeGroup.isSelected = false
+                    sizeGroup.getSizes()?.forEach {size ->
+                        size.isSelected = false
+                    }
+                }
+                if (sizegroups != null)
+                    view?.changeSizesDataset(sizegroups)
             }
             FilterTypeIDs.COLOR -> {
                 val colors = filter?.colors

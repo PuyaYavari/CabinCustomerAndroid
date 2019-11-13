@@ -168,7 +168,7 @@ class CabinCustomerFilterDetailFragment :
     }
 
     override fun changeSizesDataset(dataset: MutableList<MODELFilterSizeGroup>) {
-
+        (recyclerView.adapter as CabinCustomerFilterSizegroupAdapter).setDataset(dataset)
     }
 
     override fun changeColorsDataset(dataset: MutableList<MODELFilterColor>) {

@@ -13,7 +13,7 @@ import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilt
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup
 
 class CabinCustomerFilterSizegroupAdapter(val fragment: CabinCustomerFilterDetailFragment,
-                                          private val myDataset: MutableList<MODELFilterSizeGroup>)
+                                          private var myDataset: MutableList<MODELFilterSizeGroup>)
     : RecyclerView.Adapter<CabinCustomerFilterSizegroupAdapter.FilterSizegroupViewHolder>() {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -60,4 +60,8 @@ class CabinCustomerFilterSizegroupAdapter(val fragment: CabinCustomerFilterDetai
     override fun getItemCount(): Int = myDataset.size
 
     fun getDataset(): MutableList<MODELFilterSizeGroup> = myDataset
+    fun setDataset(dataset: MutableList<MODELFilterSizeGroup>) {
+        this.myDataset = dataset
+        notifyDataSetChanged()
+    }
 }
