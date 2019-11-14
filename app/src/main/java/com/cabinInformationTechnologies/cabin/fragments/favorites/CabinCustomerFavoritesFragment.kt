@@ -42,6 +42,7 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).hideClear()
+        (activity!! as MainActivity).hideCross()
         hideProgressBar()
 
         if (GlobalData.loggedIn) {

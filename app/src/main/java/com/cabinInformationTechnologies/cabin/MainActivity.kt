@@ -14,17 +14,19 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cabinInformationTechnologies.cabin.fragments.discover.CabinCustomerDiscoverContracts
 import com.cabinInformationTechnologies.cabin.fragments.filter.CabinCustomerFilterContracts
 import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustomerFilterDetailContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.cabin_customer_main.*
-
-
 
 
 class MainActivity : BaseActivity(), MainContracts.View {
@@ -454,5 +456,61 @@ class MainActivity : BaseActivity(), MainContracts.View {
 
     override fun hideProgressBar() {
         findViewById<ConstraintLayout>(R.id.main_progressbar_layout).visibility = View.INVISIBLE
+    }
+
+    override fun hideCross() {
+        findViewById<ImageButton>(R.id.main_cross_button).apply {
+            setOnClickListener {  }
+            visibility = View.INVISIBLE
+        }
+    }
+
+    override fun showCross() {
+        findViewById<ImageButton>(R.id.main_cross_button).apply {
+            setOnClickListener { findNavController(R.id.nav_host_fragment).popBackStack() }
+            visibility = View.VISIBLE
+        }
+    }
+
+    override fun showCrossOfFilter(filter: MODELFilter?) {
+        findViewById<ImageButton>(R.id.main_cross_button).apply {
+            setOnClickListener {
+                findNavController(R.id.nav_host_fragment).popBackStack()
+                presenter?.updateFilterTo(this.context, filter)
+            }
+            visibility = View.VISIBLE
+        }
+    }
+
+    override fun setFilterTo(filter: MODELFilter?) {
+        presenter?.updateFilterTo(this.baseContext, filter)
+    }
+
+    override fun unsetFilterButton() {
+        try {
+            (supportFragmentManager.findFragmentById(R.id.cabinCustomerDiscoverFragment)
+                    as CabinCustomerDiscoverContracts.View).unsetFilterButton()
+        } catch (exception: Exception) {
+            (Logger as BaseContracts.Logger).info(
+                this.baseContext,
+                this::class.java.name,
+                "Error while trying to unset filter button!",
+                exception
+            )
+        }
+    }
+
+    override fun setupFilterButton() {
+        try {
+            (supportFragmentManager.findFragmentById(R.id.cabinCustomerDiscoverFragment)
+                    as CabinCustomerDiscoverContracts.View).setFilterButton()
+        } catch (exception: Exception) {
+            (Logger as BaseContracts.Logger).warn(
+                this.baseContext,
+                this::class.java.name,
+                "Error while trying to set filter button!",
+                exception
+            )
+        }
     }
 }

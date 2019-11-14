@@ -20,7 +20,6 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
             field = value
             view?.changeActivityFilter(value)
         }
-    override var previousFilter: MODELFilter? = null
 
     //region Lifecycle
 

@@ -34,6 +34,7 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).showBackButton()
         (activity!! as MainActivity).hideClear()
+        (activity!! as MainActivity).hideCross()
         hideProgressBar()
 
         if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn) {

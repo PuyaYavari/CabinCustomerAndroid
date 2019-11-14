@@ -16,6 +16,8 @@ object CabinCustomerDiscoverContracts {
         fun feedback(message: String)
         fun showNoInternet()
         fun hideNoInternet()
+        fun unsetFilterButton()
+        fun setFilterButton()
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {

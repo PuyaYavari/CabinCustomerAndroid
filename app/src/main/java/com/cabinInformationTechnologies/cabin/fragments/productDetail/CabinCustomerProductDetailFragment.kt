@@ -56,6 +56,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         (activity!! as MainActivity).lockDrawer()
 
         (activity!! as MainActivity).hideClear()
+        (activity!! as MainActivity).hideCross()
 
         hideProgressBar()
 

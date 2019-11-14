@@ -29,6 +29,7 @@ class CabinCustomerOrdersFragment : com.cabinInformationTechnologies.cabinCustom
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).hideClear()
+        (activity!! as MainActivity).hideCross()
 
         hideProgressBar()
 

@@ -34,6 +34,7 @@ class CabinCustomerFilterDetailFragment :
         pageView = inflater.inflate(R.layout.cabin_customer_filter_detail, container, false)
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).showClear(this)
+        (activity!! as MainActivity).hideCross()
         setupPage()
         return pageView
     }

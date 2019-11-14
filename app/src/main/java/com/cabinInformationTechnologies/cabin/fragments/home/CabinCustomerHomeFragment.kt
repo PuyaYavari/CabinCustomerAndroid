@@ -24,6 +24,7 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
         (activity!! as MainActivity).unlockDrawer()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).hideClear()
+        (activity!! as MainActivity).hideCross()
         hideProgressBar()
 
         setupPage()

@@ -20,7 +20,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     var presenter: CabinCustomerDiscoverContracts.Presenter? = CabinCustomerDiscoverPresenter(this)
     private lateinit var pageView: View
     private lateinit var recyclerView: RecyclerView
-    private val myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct> = mutableListOf()
+    private val myDataset: MutableList<MODELProduct> = mutableListOf()
     private lateinit var viewAdapter: CabinCustomerDiscoverAdapter
     private lateinit var viewManager: GridLayoutManager
 
@@ -37,6 +37,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).hideBackButton()
         (activity!! as MainActivity).hideClear()
+        (activity!! as MainActivity).hideCross()
         showHeaderAndNavbar()
         hideProgressBar()
 
@@ -159,6 +160,16 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
 
     override fun hideNoInternet() {
         pageView.findViewById<ConstraintLayout>(R.id.discover_no_internet_layout).visibility = View.INVISIBLE
+    }
+
+    override fun unsetFilterButton() {
+        pageView.findViewById<FrameLayout>(R.id.discover_header_bottom_bar_filter_layout)
+            .setOnClickListener { }
+    }
+
+    override fun setFilterButton() {
+        pageView.findViewById<FrameLayout>(R.id.discover_header_bottom_bar_filter_layout)
+            .setOnClickListener { presenter?.moveToFilter() }
     }
 
     //endregion

@@ -25,8 +25,10 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
 
     private lateinit var callback: OnBackPressedCallback
 
+    private var previousFilter: MODELFilter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        presenter?.previousFilter = (activity as MainActivity).getFilter()
+        previousFilter = (activity as MainActivity).getFilter()
         super.onCreate(savedInstanceState)
     }
 
@@ -42,12 +44,12 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
             presenter?.requestFilter(context)
         setupActivityLayout()
 
+        (activity as MainActivity).showCrossOfFilter(previousFilter)
+
         // This callback will only be called when MyFragment is at least Started.
         callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            presenter?.filter = presenter?.previousFilter
-            if (context != null)
-                presenter?.requestFilter(context)
-            activity!!.findNavController(R.id.nav_host_fragment).popBackStack()
+            (activity as MainActivity).setFilterTo(previousFilter)
+            activity?.findNavController(R.id.nav_host_fragment)?.popBackStack()
         }
 
         return pageView

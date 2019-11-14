@@ -32,6 +32,12 @@ object MainContracts {
         fun getFilter(): MODELFilter?
         fun showProgressBar()
         fun hideProgressBar()
+        fun hideCross()
+        fun showCross()
+        fun showCrossOfFilter(filter: MODELFilter?)
+        fun setFilterTo(filter: MODELFilter?)
+        fun unsetFilterButton()
+        fun setupFilterButton()
     }
 
     interface Presenter: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
@@ -43,16 +49,20 @@ object MainContracts {
         fun requestLogout(context: Context)
         fun moveToRegistration()
         fun clearFilter(context: Context)
+        fun updateFilterTo(context: Context, filter: MODELFilter?)
     }
 
     interface Interactor: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
         fun logout(context: Context)
         fun clearFilter(context: Context)
+        fun updateFilterTo(context: Context, filter: MODELFilter?)
     }
 
     interface InteractorOutput: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
         fun logout()
         fun unableToLogout(message: String?)
+        fun refreshFilter(filter: MODELFilter)
+        fun updateFilterFailedFeedback(context: Context, message: String?, filter: MODELFilter?)
     }
 
     interface Router: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {

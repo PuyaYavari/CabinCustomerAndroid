@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 
 class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
     MainContracts.InteractorOutput {
@@ -12,7 +14,7 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
         MainInteractor(this)
     var router: MainContracts.Router? = null
 
-    override var filter: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter? = null
+    override var filter: MODELFilter? = null
 
     //region Lifecycle
 
@@ -61,6 +63,10 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
         interactor?.clearFilter(context)
     }
 
+    override fun updateFilterTo(context: Context, filter: MODELFilter?) {
+        interactor?.updateFilterTo(context, filter)
+    }
+
     //endregion
 
     //region InteractorOutput
@@ -84,6 +90,29 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
                 view?.getActivityContext()?.resources?.getText(R.string.a_problem_occurred),
                 Toast.LENGTH_SHORT
             ).show()
+    }
+
+    override fun refreshFilter(filter: MODELFilter) {
+        this.filter = filter
+    }
+
+    override fun updateFilterFailedFeedback(context: Context, message: String?, filter: MODELFilter?) {
+        if (message == null)
+            AlertDialog
+                .Builder(context)
+                .setTitle(R.string.failed_to_reset_filter)
+                .setMessage(R.string.default_error_message)
+                .setPositiveButton(R.string.retry) { _, _ -> updateFilterTo(context, filter) }
+                .setNegativeButton(R.string.okay){_, _ ->  }
+                .show()
+        else
+            AlertDialog
+                .Builder(context)
+                .setTitle(R.string.failed_to_reset_filter)
+                .setMessage(message)
+                .setPositiveButton(R.string.retry) { _, _ -> updateFilterTo(context, filter) }
+                .setNegativeButton(R.string.okay){_, _ ->  }
+                .show()
     }
 
     //endregion

@@ -177,5 +177,6 @@
     <string name="use_same_as_invoice_address">Faturamı aynı adrese gönder.</string>
 
     <string name="plus_99">+99</string>
+    <string name="failed_to_reset_filter">Filtre eski haline getirtilemedi!</string>
 
 </resources>
