@@ -3,7 +3,9 @@ package com.cabinInformationTechnologies.cabin.fragments.filter
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
+import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup
@@ -163,6 +165,26 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         }
     }
 
+    override fun clearFilter(context: Context) {
+        if (filter != null && !isFilterAllUnselected()) {
+            view?.unsetPage()
+            interactor?.clearFilter(context)
+        }
+    }
+
+    private fun isFilterAllUnselected (): Boolean {
+        val allSelectedCount =
+            getSelectedCount(FilterTypeIDs.CATEGORY)                +
+                getSelectedCount(FilterTypeIDs.SEX)                 +
+                    getSelectedCount(FilterTypeIDs.SELLER)          +
+                        getSelectedCount(FilterTypeIDs.SIZE)        +
+                            getSelectedCount(FilterTypeIDs.COLOR)   +
+                                getSelectedCount(FilterTypeIDs.PRICE)
+        if (allSelectedCount > 0)
+            return false
+        return true
+    }
+
     //endregion
 
     //region InteractorOutput
@@ -171,6 +193,25 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         this.filter = filter
         setAmounts()
         view?.setupPage()
+    }
+
+    override fun failedToClearFilter(message: String?) {
+        if (message != null)
+            Toast.makeText(
+                view?.getActivityContext(),
+                message,
+                Toast.LENGTH_SHORT
+            ).show()
+        else
+            Toast.makeText(
+                view?.getActivityContext(),
+                view?.getActivityContext()?.resources?.getString(R.string.default_error_message),
+                Toast.LENGTH_SHORT
+            ).show()
+        //TODO BETTER FEEDBACK
+        val lastFilter = this.filter
+        if (lastFilter != null)
+            refreshFilter(lastFilter)
     }
 
     //endregion

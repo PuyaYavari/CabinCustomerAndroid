@@ -26,10 +26,10 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
             MutableList<Int?> {
         val selectedCategories: MutableList<Int?> = mutableListOf()
         categories?.forEach {
-            val subCagories = it.getSubCategories()
+            val subCategories = it.getSubCategories()
             val isSelected = it.isSelected
-            if (!subCagories.isNullOrEmpty())
-                selectedCategories.addAll(getSelectedCategoriesList(subCagories))
+            if (!subCategories.isNullOrEmpty())
+                selectedCategories.addAll(getSelectedCategoriesList(subCategories))
             else if (isSelected != null && isSelected)
                 selectedCategories.add(it.getId())
         }
@@ -164,7 +164,8 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                             context,
                             this::class.java.name,
                             "Filter received.",
-                            null)
+                            null
+                        )
                     }
                 }
 
@@ -173,7 +174,8 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                         context,
                         this::class.java.name,
                         "Filter not received.\n" + "ISSUE: ${value.message}",
-                        null)
+                        null
+                    )
                 }
 
                 override fun onError(value: String, url: String?) {
@@ -181,7 +183,8 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                         context,
                         this::class.java.name,
                         "Filter not received.\nERROR: $value",
-                        null)
+                        null
+                    )
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -189,7 +192,8 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                         context,
                         this::class.java.name,
                         "Failure.",
-                        throwable)
+                        throwable
+                    )
                 }
 
                 override fun onServerDown() {
@@ -197,7 +201,8 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                         context,
                         this::class.java.name,
                         "Server Down.",
-                        null)
+                        null
+                    )
                 }
 
                 override fun onException(exception: Exception) {
@@ -205,9 +210,99 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                         context,
                         this::class.java.name,
                         "Exception.",
-                        exception)
+                        exception
+                    )
+                }
+            }
+        )
+    }
+
+    override fun clearFilter(context: Context) {
+        val responseObject = MODELFilters()
+        val data: REQUESTAPIFilter? = REQUESTAPIFilter (
+            listOf (
+                REQUESTFilter(
+                    listOf(),
+                    listOf(),
+                    listOf(),
+                    listOf(),
+                    listOf(),
+                    listOf()
+                )
+            )
+        )
+        NetworkManager.requestFactory<APIFilter?>(
+            context,
+            Constants.LIST_FILTER_URL,
+            null,
+            null,
+            data,
+            responseObject,
+            null,
+            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+                override fun onSuccess(value: Any?) {
+                    if (value == true) {
+                        val returnedFilter = responseObject.getFilters()[0]
+                        if (returnedFilter != null)
+                            output?.refreshFilter(returnedFilter)
+                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                            context,
+                            this::class.java.name,
+                            "Filter received.",
+                            null
+                        )
+                    }
                 }
 
+                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
+                    output?.failedToClearFilter(value.message)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                        context,
+                        this::class.java.name,
+                        "Filter not received.\n" + "ISSUE: ${value.message}",
+                        null
+                    )
+                }
+
+                override fun onError(value: String, url: String?) {
+                    output?.failedToClearFilter(value)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                        context,
+                        this::class.java.name,
+                        "Filter not received.\nERROR: $value",
+                        null
+                    )
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    output?.failedToClearFilter(null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        context,
+                        this::class.java.name,
+                        "Failure.",
+                        throwable
+                    )
+                }
+
+                override fun onServerDown() {
+                    output?.failedToClearFilter(null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                        context,
+                        this::class.java.name,
+                        "Server Down.",
+                        null
+                    )
+                }
+
+                override fun onException(exception: Exception) {
+                    output?.failedToClearFilter(null)
+                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        context,
+                        this::class.java.name,
+                        "Exception.",
+                        exception
+                    )
+                }
             }
         )
     }

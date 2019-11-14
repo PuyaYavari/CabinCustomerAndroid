@@ -17,7 +17,8 @@ import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerFilterContracts.View {
+class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
+    CabinCustomerFilterContracts.View, CabinCustomerFilterContracts.FilterFragment {
 
     var presenter: CabinCustomerFilterContracts.Presenter? = CabinCustomerFilterPresenter(this)
     private lateinit var pageView: View
@@ -99,16 +100,20 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         }
     }
 
-    private fun setupActivityLayout() {
-        if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.main_header).translationY != 0f &&
-            (activity!! as MainActivity).findViewById<BottomNavigationView>(R.id.navbar).translationY != 0f) {
-            (activity!! as MainActivity).hideNavbarFromHidden()
-        } else if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.main_header).translationY == 0f &&
-            (activity!! as MainActivity).findViewById<BottomNavigationView>(R.id.navbar).translationY == 0f) {
-            (activity!! as MainActivity).hideNavbarFromDefault()
-        }
-        (activity!! as MainActivity).lockDrawer()
-        hideProgressBar()
+    override fun unsetPage() {
+        pageView.findViewById<ConstraintLayout>(R.id.filter_categories_layout).setOnClickListener {}
+        pageView.findViewById<ConstraintLayout>(R.id.filter_sex_layout).setOnClickListener {}
+        pageView.findViewById<ConstraintLayout>(R.id.filter_brand_layout).setOnClickListener {}
+        pageView.findViewById<ConstraintLayout>(R.id.filter_size_layout).setOnClickListener {}
+        pageView.findViewById<ConstraintLayout>(R.id.filter_color_layout).setOnClickListener {}
+        pageView.findViewById<ConstraintLayout>(R.id.filter_price_layout).setOnClickListener {}
+        pageView.findViewById<Button>(R.id.filter_footer_confirm_button).setOnClickListener {}
+        hideCategoriesCount()
+        hideSexesCount()
+        hideSellersCount()
+        hideSizesCount()
+        hideColorsCount()
+        hidePricesCount()
     }
 
     override fun showCategoriesCountAs(count: Int) {
@@ -119,7 +124,10 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
     }
 
     override fun hideCategoriesCount() {
-        pageView.findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.INVISIBLE
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_category_count).text = ""
+            findViewById<LinearLayout>(R.id.filter_category_count_layout).visibility = View.INVISIBLE
+        }
     }
 
     override fun showSexesCountAs(count: Int) {
@@ -130,7 +138,10 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
     }
 
     override fun hideSexesCount() {
-        pageView.findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.INVISIBLE
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_sex_count).text = ""
+            findViewById<LinearLayout>(R.id.filter_sex_count_layout).visibility = View.INVISIBLE
+        }
     }
 
     override fun showSellersCountAs(count: Int) {
@@ -141,7 +152,10 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
     }
 
     override fun hideSellersCount() {
-        pageView.findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.INVISIBLE
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_brand_count).text = ""
+            findViewById<LinearLayout>(R.id.filter_brand_count_layout).visibility = View.INVISIBLE
+        }
     }
 
     override fun showSizesCountAs(count: Int) {
@@ -152,7 +166,10 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
     }
 
     override fun hideSizesCount() {
-        pageView.findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.INVISIBLE
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_size_count).text = ""
+            findViewById<LinearLayout>(R.id.filter_size_count_layout).visibility = View.INVISIBLE
+        }
     }
 
     override fun showColorsCountAs(count: Int) {
@@ -163,7 +180,10 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
     }
 
     override fun hideColorsCount() {
-        pageView.findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.INVISIBLE
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_color_count).text = ""
+            findViewById<LinearLayout>(R.id.filter_color_count_layout).visibility = View.INVISIBLE
+        }
     }
 
     override fun showPricesCountAs(count: Int) {
@@ -174,7 +194,10 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
     }
 
     override fun hidePricesCount() {
-        pageView.findViewById<LinearLayout>(R.id.filter_price_count_layout).visibility = View.INVISIBLE
+        pageView.apply {
+            findViewById<TextView>(R.id.filter_price_count).text = ""
+            findViewById<LinearLayout>(R.id.filter_price_count_layout).visibility = View.INVISIBLE
+        }
     }
 
     override fun showProgressBar() {
@@ -189,5 +212,23 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         (activity!! as MainActivity).setFilter(filter)
     }
 
+    override fun clearFilter() {
+        val context =  this.context
+        if (context != null)
+            presenter?.clearFilter(context)
+    }
+
+    private fun setupActivityLayout() {
+        if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.main_header).translationY != 0f &&
+            (activity!! as MainActivity).findViewById<BottomNavigationView>(R.id.navbar).translationY != 0f) {
+            (activity!! as MainActivity).hideNavbarFromHidden()
+        } else if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.main_header).translationY == 0f &&
+            (activity!! as MainActivity).findViewById<BottomNavigationView>(R.id.navbar).translationY == 0f) {
+            (activity!! as MainActivity).hideNavbarFromDefault()
+        }
+        (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).showClear(this)
+        hideProgressBar()
+    }
     //endregion
 }

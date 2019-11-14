@@ -7,6 +7,7 @@ object CabinCustomerFilterContracts {
 
     interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
         fun setupPage()
+        fun unsetPage()
 
         fun showProgressBar()
         fun hideProgressBar()
@@ -33,14 +34,17 @@ object CabinCustomerFilterContracts {
         fun requestFilter(context: Context)
         fun moveToFilterDetail(filterType: Int)
         fun getSelectedCount(filterType: Int): Int
+        fun clearFilter(context: Context)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
         fun requestFilter(context: Context, filter: MODELFilter?)
+        fun clearFilter(context: Context)
     }
 
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
         fun refreshFilter(filter: MODELFilter)
+        fun failedToClearFilter(message: String?)
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
@@ -48,7 +52,7 @@ object CabinCustomerFilterContracts {
     }
 
     interface FilterFragment {
-
+        fun clearFilter()
     }
 
 }

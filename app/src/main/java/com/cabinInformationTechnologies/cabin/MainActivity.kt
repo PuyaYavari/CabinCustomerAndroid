@@ -290,7 +290,10 @@ class MainActivity : BaseActivity(), MainContracts.View {
     }
 
     override fun showClear(fragment: CabinCustomerFilterContracts.FilterFragment) {
-
+        findViewById<TextView>(R.id.main_clear_button).apply {
+            visibility = View.VISIBLE
+            setOnClickListener { fragment.clearFilter() }
+        }
     }
 
     override fun showClear(fragment: CabinCustomerFilterDetailContracts.FilterDetailFragment) {
