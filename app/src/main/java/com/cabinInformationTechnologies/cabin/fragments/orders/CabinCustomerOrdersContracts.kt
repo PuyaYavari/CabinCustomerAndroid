@@ -12,7 +12,7 @@ object CabinCustomerOrdersContracts {
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-
+        
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor
