@@ -20,14 +20,16 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import java.util.*
 
 
-class CabinCustomerPersonalDataOptionsFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsContracts.View {
+class CabinCustomerPersonalDataOptionsFragment : BaseFragment(),
+    CabinCustomerPersonalDataOptionsContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsPresenter(
+    var presenter: CabinCustomerPersonalDataOptionsContracts.Presenter? =
+        CabinCustomerPersonalDataOptionsPresenter(
             this
         )
     private lateinit var pageView: View
@@ -75,7 +77,7 @@ class CabinCustomerPersonalDataOptionsFragment : com.cabinInformationTechnologie
 
         pageView.findViewById<EditText>(R.id.personal_data_options_name_input).apply {
             filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_NAME_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_NAME_LENGTH)
                 else InputFilter.LengthFilter(30))
             addTextChangedListener( object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -88,7 +90,7 @@ class CabinCustomerPersonalDataOptionsFragment : com.cabinInformationTechnologie
 
         pageView.findViewById<EditText>(R.id.personal_data_options_surname_input).apply {
             filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_SURNAME_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_SURNAME_LENGTH)
                 else InputFilter.LengthFilter(30))
             addTextChangedListener( object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -101,7 +103,7 @@ class CabinCustomerPersonalDataOptionsFragment : com.cabinInformationTechnologie
 
         pageView.findViewById<EditText>(R.id.personal_data_options_phone_input).apply {
             filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PHONE_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_PHONE_LENGTH)
                 else InputFilter.LengthFilter(20), //TODO: LIMIT BASED ON PRESENTER.PHONE
                 InputFilter { src, _, _, _, _, _ ->
                     if (src == "") { // for backspace
@@ -179,7 +181,7 @@ class CabinCustomerPersonalDataOptionsFragment : com.cabinInformationTechnologie
             isClickable = false
             isFocusable = false
             filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_EMAIL_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_EMAIL_LENGTH)
                 else InputFilter.LengthFilter(50))
             addTextChangedListener( object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -207,6 +209,7 @@ class CabinCustomerPersonalDataOptionsFragment : com.cabinInformationTechnologie
             presenter?.getInitialData(context)
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     override fun selectMan() {
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
@@ -234,6 +237,7 @@ class CabinCustomerPersonalDataOptionsFragment : com.cabinInformationTechnologie
         pageView.findViewById<ImageButton>(R.id.personal_data_options_woman_button).setImageResource(R.drawable.icon_woman_pink)
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     override fun selectWoman() {
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
@@ -285,6 +289,7 @@ class CabinCustomerPersonalDataOptionsFragment : com.cabinInformationTechnologie
         pageView.findViewById<EditText>(R.id.personal_data_options_surname_input).setText(surname)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun setBirthday(date: Date) {
         pageView.findViewById<EditText>(R.id.personal_data_options_birthday_input).setText(
             "${date.date}/${date.month+1}/${date.year}"

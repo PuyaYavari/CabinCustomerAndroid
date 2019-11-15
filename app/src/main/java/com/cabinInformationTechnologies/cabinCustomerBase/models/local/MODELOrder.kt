@@ -1,20 +1,24 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONOrder
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MODELOrder: LocalDataModel {
     private var id: Int = 0
     private var code: String = ""
     private var price: Double = 0.0
-    private var orderDate: String? = null
+    private var orderDate: Date? = null
     private var orderTime: String? = null
     private var paymentType: String? = null
 
     var sellers: MutableList<MODELOrderSeller?> = mutableListOf()
     var productCount: Int = 0
 
+    @SuppressLint("SimpleDateFormat")
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonData = modelData as JSONOrder
@@ -26,7 +30,14 @@ class MODELOrder: LocalDataModel {
                     sellers.add(seller)
             }
             this.price = jsonData.price
-            this.orderDate = jsonData.orderDate
+            val orderDateData = jsonData.orderDate
+            if (orderDateData != null)
+                orderDate = SimpleDateFormat("yyyy-MM-dd").parse(orderDateData)
+            if (orderDate != null) {
+                val orderYear = orderDate?.year
+                if (orderYear != null)
+                    orderDate?.year = orderYear + 1900
+            }
             this.orderTime = jsonData.orderTime
             this.productCount = jsonData.productCount
             this.paymentType = jsonData.paymentType
@@ -42,4 +53,11 @@ class MODELOrder: LocalDataModel {
         }
 
     }
+
+    fun getId() = id
+    fun getCode() = code
+    fun getPrice() = price
+    fun getOrderDate() = orderDate
+    fun getOrderTime() = orderTime
+    fun getPaymentType() = paymentType
 }

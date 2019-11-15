@@ -69,7 +69,8 @@ class CabinCustomerOrdersFragment : com.cabinInformationTechnologies.cabinCustom
         mPager = pageView.findViewById(R.id.orders_pager)
         val pagerAdapter =
             CabinCustomerOrdersScreenSlidePagerAdapter(
-                childFragmentManager, 0
+                childFragmentManager,
+                0
             )
         mPager.adapter = pagerAdapter
     }

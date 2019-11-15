@@ -45,7 +45,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <FrameLayout
                     android:id="@+id/order_count_picture_count_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,46 +61,24 @@
                         android:id="@+id/order_count_background"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_gravity="center"
                         android:background="@drawable/order_count_background_shape"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                <TextView
+                        android:id="@+id/order_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="Segoe UI"
+                        android:gravity="center"
+                        android:textColor="@color/colorButtonLabelsPrimary"
+                        android:textSize="12sp" />
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="0"
-                            android:fontFamily="Segoe UI"
-                            android:gravity="center"
-                            android:text="+"
-                            android:textColor="@color/colorButtonLabelsPrimary"
-                            android:textSize="12sp" />
-
-                    <TextView
-                            android:id="@+id/order_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="0"
-                            android:fontFamily="Segoe UI"
-                            android:gravity="center"
-                            android:text="50"
-                            android:textColor="@color/colorButtonLabelsPrimary"
-                            android:textSize="12sp" />
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -121,7 +99,6 @@
                     android:layout_gravity="center_horizontal|center"
                     android:fontFamily="Segoe UI"
                     android:gravity="center"
-                    android:text="year/month/day"
                     android:textColor="@color/colorTextsPrimary"
                     android:textSize="12sp" />
 
@@ -132,7 +109,6 @@
                     android:layout_gravity="center_horizontal|center"
                     android:fontFamily="Segoe UI"
                     android:gravity="center"
-                    android:text="hour:min"
                     android:textColor="@color/colorTextsPrimary"
                     android:textSize="12sp" />
         </LinearLayout>
@@ -160,7 +136,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="255"
                         android:textColor="@color/colorPriceGreen"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -193,7 +168,6 @@
                     android:layout_gravity="center_horizontal|center"
                     android:fontFamily="Segoe UI"
                     android:gravity="right|end"
-                    android:text="Kapıda ödeme"
                     android:textColor="@color/colorTextsPrimary"
                     android:textSize="12sp" />
 
