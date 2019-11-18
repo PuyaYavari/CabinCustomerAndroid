@@ -9,13 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.orders.CabinCustomerOrdersAdapter
 import com.cabinInformationTechnologies.cabin.fragments.orders.CabinCustomerOrdersContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrder
 
-class CabinCustomerOrdersShippingFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
+class CabinCustomerOrdersShippingFragment (val orders: MutableList<MODELOrder?>,
+                                           val manager: CabinCustomerOrdersContracts.FragmentsManager) :
+    com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
     CabinCustomerOrdersShippingFragmentContracts.View,
     CabinCustomerOrdersContracts.FragmentsView{
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: CabinCustomerOrdersAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     var presenter: CabinCustomerOrdersShippingFragmentContracts.Presenter? =
@@ -26,9 +29,9 @@ class CabinCustomerOrdersShippingFragment : com.cabinInformationTechnologies.cab
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.cabin_customer_orders_main, container, false)
 
-        val myDataset = arrayOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19") //TODO: remove
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = CabinCustomerOrdersAdapter(this, myDataset)
+        viewAdapter = CabinCustomerOrdersAdapter(this, mutableListOf(), orders, mutableListOf())
+        viewAdapter.setOrdersPageTo(0)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.main_orders_recyclerview).apply {
             setHasFixedSize(true)
@@ -62,9 +65,6 @@ class CabinCustomerOrdersShippingFragment : com.cabinInformationTechnologies.cab
 
     //region View
 
-    override fun orderboxOnClickListener() {
-        presenter?.showOrderDetails()
-    }
 
     //endregion
 }

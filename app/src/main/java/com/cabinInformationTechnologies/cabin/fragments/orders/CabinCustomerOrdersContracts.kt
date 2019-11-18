@@ -1,23 +1,36 @@
 package com.cabinInformationTechnologies.cabin.fragments.orders
 
+import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrders
+
 object CabinCustomerOrdersContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
+    interface View : BaseContracts.View {
         fun showProgressBar()
         fun hideProgressBar()
     }
 
-    interface FragmentsView : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        fun orderboxOnClickListener()
-    }
-
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface FragmentsView : BaseContracts.View {
 
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor
+    interface FragmentsManager {
+        val orders: MODELOrders
+        var currentPage: Int
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput
+        fun getNewPage(page: Int, adapter: CabinCustomerOrdersAdapter)
+    }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router
+    interface Presenter : BaseContracts.Presenter
+
+    interface Interactor : BaseContracts.Interactor {
+        fun getNewPageIn(context: Context, page: Int, adapter: CabinCustomerOrdersAdapter)
+    }
+
+    interface InteractorOutput : BaseContracts.InteractorOutput {
+        fun setOrdersIn(orders: MODELOrders, adapter: CabinCustomerOrdersAdapter)
+    }
+
+    interface Router : BaseContracts.Router
 }

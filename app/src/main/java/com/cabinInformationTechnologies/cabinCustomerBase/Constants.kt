@@ -16,6 +16,7 @@ object Constants {
     const val MAX_EXTRADITION_REASON_LENGTH: Int = 512
 
     const val FAVORITE_PAGE_SIZE: Int = 10
+    const val ORDERS_PAGE_SIZE: Int = 10
 
 
     /*------------------------------URLS------------------------------*/
@@ -56,4 +57,6 @@ object Constants {
     const val LIST_FAVORITES_URL: String = "favorite/listProduct"
 
     const val LIST_PRODUCT_DETAIL_URL: String = "productDetail/listProduct"
+
+    const val LIST_ORDERS_URL: String = "order/listOrder"
 }

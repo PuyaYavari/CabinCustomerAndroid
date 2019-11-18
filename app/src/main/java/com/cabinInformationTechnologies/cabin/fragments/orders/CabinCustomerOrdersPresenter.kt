@@ -2,10 +2,12 @@ package com.cabinInformationTechnologies.cabin.fragments.orders
 
 import android.app.Activity
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrders
 
 class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?) :
     CabinCustomerOrdersContracts.Presenter,
-    CabinCustomerOrdersContracts.InteractorOutput {
+    CabinCustomerOrdersContracts.InteractorOutput,
+    CabinCustomerOrdersContracts.FragmentsManager {
 
     var interactor: CabinCustomerOrdersContracts.Interactor? =
         CabinCustomerOrdersInteractor(this)
@@ -37,6 +39,33 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
     //endregion
 
     //region InteractorOutput
+
+    override fun setOrdersIn(orders: MODELOrders, adapter: CabinCustomerOrdersAdapter) {
+        //TODO: INC CURRENT PAGE
+        this.orders.pending.addAll(orders.pending)
+        this.orders.shipped.addAll(orders.shipped)
+        this.orders.sent.addAll(orders.sent)
+        adapter.notifyNewData()
+    }
+
+
+    //endregion
+
+    //region FragmentsManager
+
+    override val orders: MODELOrders = MODELOrders()
+    override var currentPage: Int = 0
+
+    override fun getNewPage(page: Int, adapter: CabinCustomerOrdersAdapter) {
+        //TODO: DON'T SEND REQUEST IF PAGE <= CURRENT PAGE
+        val context = view?.getActivityContext()
+        if (context != null)
+            interactor?.getNewPageIn(
+                context,
+                page,
+                adapter
+            )
+    }
 
     //endregion
 }

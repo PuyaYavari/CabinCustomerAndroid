@@ -9,6 +9,5 @@ data class JSONColor (@Json(name = "ID") val id: Int,
                       @Json(name = "HEX_CODE") val hexCode: String,
                       @Json(name = "RGB_CODE") val rgbCode: String?,//FIXME: BETTER RGB CODE FROM BACKEND
                       @Json(name = "ISFAVORITE") val isFavorite: Boolean?,
-                      @Json(name = "IMAGE") val images: List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONImage>?,
-                      @Json(name = "SIZE") val sizes: List<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSize>
-                      )
+                      @Json(name = "IMAGE") val images: List<JSONImage>?,
+                      @Json(name = "SIZE") val sizes: List<JSONSize>)
