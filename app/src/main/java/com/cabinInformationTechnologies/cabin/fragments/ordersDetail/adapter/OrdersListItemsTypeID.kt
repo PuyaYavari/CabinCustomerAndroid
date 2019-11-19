@@ -5,9 +5,9 @@ abstract class OrdersListItemsTypeID {
     abstract val type: Int
 
     companion object {
-        val ORDERBOX_TYPE = 0
-        val HEADERBOX_TYPE = 1
-        val CARGOBOX_TYPE = 2
-        val FOOTERBOX_TYPE = 3
+        const val PRODUCTBOX_TYPE = 0
+        const val HEADERBOX_TYPE = 1
+        const val CARGOBOX_TYPE = 2
+        const val FOOTERBOX_TYPE = 3
     }
 }

@@ -2,6 +2,7 @@ package com.cabinInformationTechnologies.cabin.fragments.orders.fragments.sent
 
 import android.app.Activity
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrder
 
 class CabinCustomerOrdersSentFragmentPresenter(var view: CabinCustomerOrdersSentFragmentContracts.View?) :
     CabinCustomerOrdersSentFragmentContracts.Presenter,
@@ -43,8 +44,8 @@ class CabinCustomerOrdersSentFragmentPresenter(var view: CabinCustomerOrdersSent
 
     //region Presenter
 
-    override fun showOrderDetails() {
-        router?.moveToDetailsPage()
+    override fun moveToDetailsPage(order: MODELOrder) {
+        router?.moveToDetailsPage(order)
     }
 
     //endregion

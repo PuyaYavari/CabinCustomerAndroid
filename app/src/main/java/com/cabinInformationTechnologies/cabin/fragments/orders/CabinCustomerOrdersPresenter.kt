@@ -41,7 +41,7 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
     //region InteractorOutput
 
     override fun setOrdersIn(orders: MODELOrders, adapter: CabinCustomerOrdersAdapter) {
-        //TODO: INC CURRENT PAGE
+        currentPage += 1
         this.orders.pending.addAll(orders.pending)
         this.orders.shipped.addAll(orders.shipped)
         this.orders.sent.addAll(orders.sent)
@@ -59,12 +59,13 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
     override fun getNewPage(page: Int, adapter: CabinCustomerOrdersAdapter) {
         //TODO: DON'T SEND REQUEST IF PAGE <= CURRENT PAGE
         val context = view?.getActivityContext()
-        if (context != null)
+        if (context != null) {
             interactor?.getNewPageIn(
                 context,
                 page,
                 adapter
             )
+        }
     }
 
     //endregion

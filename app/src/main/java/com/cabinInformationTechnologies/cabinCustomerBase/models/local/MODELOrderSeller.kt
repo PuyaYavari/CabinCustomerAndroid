@@ -19,7 +19,7 @@ class MODELOrderSeller: LocalDataModel {
     private var deliveryDate: Date? = null
     private var cargo: MutableList<MODELCargo?> = mutableListOf()
 
-    var products: MutableList<MODELProduct?> = mutableListOf()
+    var products: MutableList<MODELOrderProduct?> = mutableListOf()
 
     @SuppressLint("SimpleDateFormat")
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
@@ -28,16 +28,22 @@ class MODELOrderSeller: LocalDataModel {
             this.id = jsonData.id
             this.name = jsonData.name
             jsonData.products.forEach {
-                val product = MODELProduct()
+                val product = MODELOrderProduct()
                 if (product.mapFrom(context, it))
                     this.products.add(product)
             }
             this.shippingPrice = jsonData.shippingPrice
             this.subtotal = jsonData.subtotal
             this.total = jsonData.total
-            this.phone = jsonData.phone
-            this.address = jsonData.address
-            this.returnPayment = jsonData.returnPayment
+            val phoneData = jsonData.phone
+            if (phoneData != null)
+                this.phone = phoneData
+            val addressData = jsonData.address
+            if (addressData != null)
+                this.address = addressData
+            val returnPaymentData = jsonData.returnPayment
+            if (returnPaymentData != null)
+                this.returnPayment = returnPaymentData
             val deliveryDateData = jsonData.deliveryDate
             if (deliveryDateData != null)
                 deliveryDate = SimpleDateFormat("yyyy-MM-dd").parse(deliveryDateData)
@@ -62,4 +68,15 @@ class MODELOrderSeller: LocalDataModel {
             false
         }
     }
+
+    fun getId() = this.id
+    fun getName() = this.name
+    fun getShippingPrice() = this.shippingPrice
+    fun getSubtotal() = this.subtotal
+    fun getTotal() = this.total
+    fun getPhone() = this.phone
+    fun getAddress() = this.address
+    fun getReturnPayment() = this.returnPayment
+    fun getDeliveryDate() = this.deliveryDate
+    fun getCargo() = this.cargo
 }

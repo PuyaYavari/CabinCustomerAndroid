@@ -2,6 +2,7 @@ package com.cabinInformationTechnologies.cabin.fragments.orders.fragments.pendin
 
 import android.app.Activity
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrder
 
 class CabinCustomerOrdersPendingFragmentPresenter(var view: CabinCustomerOrdersPendingFragmentContracts.View?) :
     CabinCustomerOrdersPendingFragmentContracts.Presenter,
@@ -43,8 +44,8 @@ class CabinCustomerOrdersPendingFragmentPresenter(var view: CabinCustomerOrdersP
 
     //region Presenter
 
-    override fun showOrderDetails() {
-        router?.moveToDetailsPage()
+    override fun moveToDetailsPage(order: MODELOrder) {
+        router?.moveToDetailsPage(order)
     }
 
     //endregion

@@ -2,6 +2,7 @@ package com.cabinInformationTechnologies.cabin.fragments.orders
 
 import android.content.Context
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrder
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrders
 
 object CabinCustomerOrdersContracts {
@@ -12,7 +13,7 @@ object CabinCustomerOrdersContracts {
     }
 
     interface FragmentsView : BaseContracts.View {
-
+        fun moveToOrderDetail(order: MODELOrder)
     }
 
     interface FragmentsManager {

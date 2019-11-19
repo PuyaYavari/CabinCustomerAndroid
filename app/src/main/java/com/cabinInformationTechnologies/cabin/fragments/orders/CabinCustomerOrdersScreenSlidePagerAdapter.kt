@@ -6,19 +6,18 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.cabinInformationTechnologies.cabin.fragments.orders.fragments.pending.CabinCustomerOrdersPendingFragment
 import com.cabinInformationTechnologies.cabin.fragments.orders.fragments.sent.CabinCustomerOrdersSentFragment
 import com.cabinInformationTechnologies.cabin.fragments.orders.fragments.shipping.CabinCustomerOrdersShippingFragment
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrders
 
 class CabinCustomerOrdersScreenSlidePagerAdapter(
-    fm: FragmentManager, behavior: Int, val orders: MODELOrders, val manager: CabinCustomerOrdersContracts.FragmentsManager)
+    fm: FragmentManager, behavior: Int, val manager: CabinCustomerOrdersContracts.FragmentsManager)
     : FragmentStatePagerAdapter(fm, behavior) {
 
     override fun getCount(): Int = NUM_PAGES
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            PagesIDs.PENDING_PAGE -> CabinCustomerOrdersPendingFragment(orders.pending, manager)
-            PagesIDs.SHIPPING_PAGE -> CabinCustomerOrdersShippingFragment(orders.shipped, manager)
-            else -> CabinCustomerOrdersSentFragment(orders.sent, manager)
+            PagesIDs.PENDING_PAGE -> CabinCustomerOrdersPendingFragment(manager)
+            PagesIDs.SHIPPING_PAGE -> CabinCustomerOrdersShippingFragment(manager)
+            else -> CabinCustomerOrdersSentFragment(manager)
         }
 
     }

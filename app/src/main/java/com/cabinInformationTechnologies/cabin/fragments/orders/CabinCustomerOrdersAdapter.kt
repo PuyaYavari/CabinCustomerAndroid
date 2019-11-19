@@ -13,12 +13,11 @@ import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrde
 
 class CabinCustomerOrdersAdapter(val view: CabinCustomerOrdersContracts.FragmentsView,
                                  val manager: CabinCustomerOrdersContracts.FragmentsManager,
-                                 private val pendingDataset: MutableList<MODELOrder?>,
-                                 private val shippedDataset: MutableList<MODELOrder?>,
-                                 private val sentDataset: MutableList<MODELOrder?>) :
+                                 val myDataset: MutableList<MODELOrder?>,
+                                 currentPage: Int) :
     RecyclerView.Adapter<CabinCustomerOrdersAdapter.OrdersViewHolder>() {
 
-    private var currentOrdersPageID: Int = 0
+    private var currentOrdersPageID: Int = currentPage
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -43,39 +42,36 @@ class CabinCustomerOrdersAdapter(val view: CabinCustomerOrdersContracts.Fragment
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         holder.itemView.apply {
+            findViewById<TextView>(R.id.order_count).text = myDataset[position]?.productCount.toString()
+            findViewById<TextView>(R.id.order_price).text = myDataset[position]?.getPrice().toString()
+            findViewById<TextView>(R.id.order_date).text =
+                "${myDataset[position]?.getOrderDate()?.year}/" +
+                        "${myDataset[position]?.getOrderDate()?.month}/" +
+                        "${myDataset[position]?.getOrderDate()?.date}"
+            findViewById<TextView>(R.id.order_datetime).text = myDataset[position]?.getOrderTime()
+            findViewById<TextView>(R.id.order_payment_type).text = myDataset[position]?.getPaymentType()
             when (currentOrdersPageID) {
                 PagesIDs.PENDING_PAGE -> {
-                    findViewById<TextView>(R.id.order_count).text = pendingDataset[position]?.productCount.toString()
-                    findViewById<TextView>(R.id.order_price).text = pendingDataset[position]?.getPrice().toString()
-                    findViewById<TextView>(R.id.order_date).text =
-                        "${pendingDataset[position]?.getOrderDate()?.year}/" +
-                        "${pendingDataset[position]?.getOrderDate()?.month}/" +
-                        "${pendingDataset[position]?.getOrderDate()?.date}"
-                    findViewById<TextView>(R.id.order_datetime).text = pendingDataset[position]?.getOrderTime()
-                    findViewById<TextView>(R.id.order_payment_type).text = pendingDataset[position]?.getPaymentType()
-                    findViewById<ConstraintLayout>(R.id.order_background).setOnClickListener { }//TODO
+
+                    findViewById<ConstraintLayout>(R.id.order_background).setOnClickListener {
+                        val order = myDataset[position]
+                        if (order != null)
+                            view.moveToOrderDetail(order)
+                    }
                 }
                 PagesIDs.SHIPPING_PAGE -> {
-                    findViewById<TextView>(R.id.order_count).text = shippedDataset[position]?.productCount.toString()
-                    findViewById<TextView>(R.id.order_price).text = shippedDataset[position]?.getPrice().toString()
-                    findViewById<TextView>(R.id.order_date).text =
-                        "${shippedDataset[position]?.getOrderDate()?.year}/" +
-                        "${shippedDataset[position]?.getOrderDate()?.month}/" +
-                        "${shippedDataset[position]?.getOrderDate()?.date}"
-                    findViewById<TextView>(R.id.order_datetime).text = shippedDataset[position]?.getOrderTime()
-                    findViewById<TextView>(R.id.order_payment_type).text = shippedDataset[position]?.getPaymentType()
-                    findViewById<ConstraintLayout>(R.id.order_background).setOnClickListener { }//TODO
+                    findViewById<ConstraintLayout>(R.id.order_background).setOnClickListener {
+                        val order = myDataset[position]
+                        if (order != null)
+                            view.moveToOrderDetail(order)
+                    }
                 }
                 PagesIDs.SENT_PAGE -> {
-                    findViewById<TextView>(R.id.order_count).text = sentDataset[position]?.productCount.toString()
-                    findViewById<TextView>(R.id.order_price).text = sentDataset[position]?.getPrice().toString()
-                    findViewById<TextView>(R.id.order_date).text =
-                        "${sentDataset[position]?.getOrderDate()?.year}/" +
-                        "${sentDataset[position]?.getOrderDate()?.month}/" +
-                        "${sentDataset[position]?.getOrderDate()?.date}"
-                    findViewById<TextView>(R.id.order_datetime).text = sentDataset[position]?.getOrderTime()
-                    findViewById<TextView>(R.id.order_payment_type).text = sentDataset[position]?.getPaymentType()
-                    findViewById<ConstraintLayout>(R.id.order_background).setOnClickListener { }//TODO
+                    findViewById<ConstraintLayout>(R.id.order_background).setOnClickListener {
+                        val order = myDataset[position]
+                        if (order != null)
+                            view.moveToOrderDetail(order)
+                    }
                 }
                 else -> {
                     findViewById<TextView>(R.id.order_count).text = ""
@@ -83,7 +79,7 @@ class CabinCustomerOrdersAdapter(val view: CabinCustomerOrdersContracts.Fragment
                     findViewById<TextView>(R.id.order_date).text = ""
                     findViewById<TextView>(R.id.order_datetime).text = ""
                     findViewById<TextView>(R.id.order_payment_type).text = ""
-                    findViewById<ConstraintLayout>(R.id.order_background).setOnClickListener { }//TODO
+                    findViewById<ConstraintLayout>(R.id.order_background).setOnClickListener { }
                     val context = view.getActivityContext()
                     if (context != null)
                         Logger.failure(
@@ -95,28 +91,11 @@ class CabinCustomerOrdersAdapter(val view: CabinCustomerOrdersContracts.Fragment
                 }
             }
         }
-        if (manager.currentPage == 0)
-            manager.getNewPage(1, this)
         //TODO: PAGING
     }
 
     override fun getItemCount(): Int {
-        when (currentOrdersPageID) {
-            PagesIDs.PENDING_PAGE -> return pendingDataset.size
-            PagesIDs.SHIPPING_PAGE -> return shippedDataset.size
-            PagesIDs.SENT_PAGE -> return sentDataset.size
-            else -> {
-                val context = view.getActivityContext()
-                if (context != null)
-                    Logger.warn(
-                        context,
-                        this::class.java.name,
-                        "Unknown page!",
-                        null
-                    )
-            }
-        }
-        return -1
+        return myDataset.size
     }
 
     fun setOrdersPageTo(page: Int) {
@@ -137,9 +116,9 @@ class CabinCustomerOrdersAdapter(val view: CabinCustomerOrdersContracts.Fragment
 
     fun notifyNewData() {
         when(currentOrdersPageID) {
-            PagesIDs.PENDING_PAGE -> pendingDataset.addAll(manager.orders.pending)
-            PagesIDs.SHIPPING_PAGE -> shippedDataset.addAll(manager.orders.shipped)
-            PagesIDs.SENT_PAGE -> sentDataset.addAll(manager.orders.sent)
+            PagesIDs.PENDING_PAGE -> myDataset.addAll(manager.orders.pending)
+            PagesIDs.SHIPPING_PAGE -> myDataset.addAll(manager.orders.shipped)
+            PagesIDs.SENT_PAGE -> myDataset.addAll(manager.orders.sent)
         }
         notifyDataSetChanged()
     }

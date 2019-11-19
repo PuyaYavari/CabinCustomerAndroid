@@ -2,7 +2,7 @@ package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
 import android.content.Context
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONOrders
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIOrders
 
 class MODELOrders: LocalDataModel {
     var pending: MutableList<MODELOrder?> = mutableListOf()
@@ -10,24 +10,28 @@ class MODELOrders: LocalDataModel {
     var sent: MutableList<MODELOrder?> = mutableListOf()
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
-        return try {
-            val jsondata = modelData as JSONOrders
-            jsondata.pending.forEach {
-                val order = MODELOrder()
-                if (order.mapFrom(context, it))
-                    pending.add(order)
+        try {
+            val jsonData = modelData as APIOrders
+            val ordersData = jsonData.orders?.get(0)
+            if (ordersData != null) {
+                ordersData.pending.forEach {
+                    val order = MODELOrder()
+                    if (order.mapFrom(context, it))
+                        pending.add(order)
+                }
+                ordersData.shipped.forEach {
+                    val order = MODELOrder()
+                    if (order.mapFrom(context, it))
+                        shipped.add(order)
+                }
+                ordersData.sent.forEach {
+                    val order = MODELOrder()
+                    if (order.mapFrom(context, it))
+                        sent.add(order)
+                }
+                return true
             }
-            jsondata.shipped.forEach {
-                val order = MODELOrder()
-                if (order.mapFrom(context, it))
-                    shipped.add(order)
-            }
-            jsondata.sent.forEach {
-                val order = MODELOrder()
-                if (order.mapFrom(context, it))
-                    sent.add(order)
-            }
-            true
+            return false
         } catch (exception: Exception) {
             Logger.warn(
                 context,
@@ -35,7 +39,7 @@ class MODELOrders: LocalDataModel {
                 "Error while mapping orders!",
                 exception
             )
-            false
+            return false
         }
     }
 }

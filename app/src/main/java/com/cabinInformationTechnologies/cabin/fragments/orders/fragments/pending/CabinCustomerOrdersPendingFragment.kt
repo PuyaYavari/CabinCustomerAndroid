@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.orders.CabinCustomerOrdersAdapter
 import com.cabinInformationTechnologies.cabin.fragments.orders.CabinCustomerOrdersContracts
+import com.cabinInformationTechnologies.cabin.fragments.orders.PagesIDs
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrder
 
-class CabinCustomerOrdersPendingFragment(val orders: MutableList<MODELOrder?>,
-                                         val manager: CabinCustomerOrdersContracts.FragmentsManager) :
+class CabinCustomerOrdersPendingFragment(val manager: CabinCustomerOrdersContracts.FragmentsManager) :
     com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
     CabinCustomerOrdersPendingFragmentContracts.View,
     CabinCustomerOrdersContracts.FragmentsView{
@@ -30,8 +30,10 @@ class CabinCustomerOrdersPendingFragment(val orders: MutableList<MODELOrder?>,
         val view = inflater.inflate(R.layout.cabin_customer_orders_main, container, false)
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = CabinCustomerOrdersAdapter(this, orders, mutableListOf(), mutableListOf())
-        viewAdapter.setOrdersPageTo(0)
+        viewAdapter = CabinCustomerOrdersAdapter(this, manager, manager.orders.pending, PagesIDs.PENDING_PAGE)
+
+        if (manager.currentPage == 0)
+            manager.getNewPage(1, viewAdapter)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.main_orders_recyclerview).apply {
             setHasFixedSize(true)
@@ -65,7 +67,9 @@ class CabinCustomerOrdersPendingFragment(val orders: MutableList<MODELOrder?>,
 
     //region View
 
-
+    override fun moveToOrderDetail(order: MODELOrder) {
+        presenter?.moveToDetailsPage(order)
+    }
 
     //endregion
 }

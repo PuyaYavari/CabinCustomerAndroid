@@ -18,5 +18,8 @@
               android:name="com.cabinInformationTechnologies.cabin.fragments.ordersDetail.CabinCustomerOrdersDetailFragment"
               android:label="CabinCustomerOrdersDetailFragment">
         <argument android:name="pageType" app:argType="integer" android:defaultValue="0"/>
+        <argument
+                android:name="order"
+                app:argType="com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrder" />
     </fragment>
 </navigation>

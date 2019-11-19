@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrders
 
 
 class CabinCustomerOrdersFragment :
@@ -71,12 +70,10 @@ class CabinCustomerOrdersFragment :
     private fun setupPage () {
         mPager = pageView.findViewById(R.id.orders_pager)
 
-        //TODO GET PAGE 1
         val pagerAdapter =
             CabinCustomerOrdersScreenSlidePagerAdapter(
                 childFragmentManager,
                 0,
-                MODELOrders(),
                 presenter as CabinCustomerOrdersContracts.FragmentsManager
             )
         mPager.adapter = pagerAdapter

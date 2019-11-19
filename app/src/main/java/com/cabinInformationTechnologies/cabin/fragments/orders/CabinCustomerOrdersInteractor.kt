@@ -5,8 +5,8 @@ import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIOrders
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONOrders
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrders
 
 class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.InteractorOutput?) :
@@ -20,7 +20,7 @@ class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.Int
 
     override fun getNewPageIn(context: Context, page: Int, adapter: CabinCustomerOrdersAdapter) {
         val responseObject = MODELOrders()
-        NetworkManager.requestFactory<JSONOrders>(
+        NetworkManager.requestFactory<APIOrders>(
             context,
             Constants.LIST_ORDERS_URL,
             page,

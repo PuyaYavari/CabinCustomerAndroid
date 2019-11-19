@@ -157,6 +157,8 @@
     <string name="add">Ekle</string>
     <string name="error">Hata</string>
     <string name="clear">Temizle</string>
+    <string name="extradition">İade</string>
+    <string name="remaining_time">Kalan süre</string>
     <!---->
 
     <!--separators-->

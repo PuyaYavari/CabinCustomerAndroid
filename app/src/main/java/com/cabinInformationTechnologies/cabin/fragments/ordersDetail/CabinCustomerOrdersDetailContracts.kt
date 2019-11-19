@@ -1,17 +1,19 @@
 package com.cabinInformationTechnologies.cabin.fragments.ordersDetail
 
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrder
+
 object CabinCustomerOrdersDetailContracts {
 
     interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        fun setupPendingPage()
-        fun setupShippingPage()
-        fun setupSentPage()
+        fun setupPendingPage(myDataset: MutableList<Detailbox>)
+        fun setupShippingPage(myDataset: MutableList<Detailbox>)
+        fun setupSentPage(myDataset: MutableList<Detailbox>)
         fun showProgressBar()
         fun hideProgressBar()
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        fun setupPropperPage(pageID: Int)
+        fun setupProperPage(pageID: Int, order: MODELOrder)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor

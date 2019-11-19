@@ -73,10 +73,11 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
         recyclerView = pageView.findViewById(R.id.orders_detail_recyclerview)
 
         val pageTypeID = args.pageType
-        presenter?.setupPropperPage(pageTypeID)
+        val order = args.order
+        presenter?.setupProperPage(pageTypeID, order)
     }
 
-    override fun setupPendingPage() {
+    override fun setupPendingPage(myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox>) {
 
         val buttikCount = 2 // TODO: Remove line
         val ordersCount = 4 // TODO: Remove line
@@ -85,8 +86,10 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
 
         for (i in 0..buttikCount) {
             for (j in 0..ordersCount) {
-                myDataset.add(Orderbox())
+                myDataset.add(Productbox())
             }
+            val footer = Footerbox()
+            footer.totalPrice = 1000.0
             myDataset.add(Footerbox())
         }
 
@@ -102,7 +105,7 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
         pageView.findViewById<TextView>(R.id.orders_addressbar_order_type_label).text = resources.getText(R.string.pending_orders_label)
     }
 
-    override fun setupShippingPage() {
+    override fun setupShippingPage(myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox>) {
 
 
         val buttikCount = 3 // TODO: Remove line
@@ -113,7 +116,7 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
         for (i in 0..buttikCount) {
             myDataset.add(Cargobox())
             for (j in 0..ordersCount) {
-                myDataset.add(Orderbox())
+                myDataset.add(Productbox())
             }
             myDataset.add(Footerbox())
         }
@@ -130,7 +133,7 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
         pageView.findViewById<TextView>(R.id.orders_addressbar_order_type_label).text = resources.getText(R.string.shipping_orders_label)
     }
 
-    override fun setupSentPage() {
+    override fun setupSentPage(myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox>) {
 
 
         val buttikCount = 4 // TODO: Remove line
@@ -141,7 +144,7 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
         for (i in 0..buttikCount) {
             myDataset.add(Headerbox())
             for (j in 0..ordersCount) {
-                myDataset.add(Orderbox())
+                myDataset.add(Productbox())
             }
             myDataset.add(Footerbox())
         }

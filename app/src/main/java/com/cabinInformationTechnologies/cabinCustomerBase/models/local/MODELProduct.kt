@@ -5,7 +5,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class MODELProduct : com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel, Parcelable{
+class MODELProduct : LocalDataModel, Parcelable{
 
     private var id: Int = -1
     private lateinit var sellerName: String
@@ -17,13 +17,13 @@ class MODELProduct : com.cabinInformationTechnologies.cabinCustomerBase.models.l
     private lateinit var cargoDuration: String
     private var cargoTypeId: Int? = null
     private lateinit var cargoType: String
-    private var colors: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor> = mutableListOf()
+    private var colors: MutableList<MODELColor> = mutableListOf()
 
     @Throws(java.lang.Exception::class)
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonModel = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONProduct
-            val seller = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSellerName()
+            val seller = MODELSellerName()
             id = jsonModel.id
             if (seller.mapFrom(context, jsonModel.sellerName[0]))
                 sellerName = seller.name
@@ -96,7 +96,7 @@ class MODELProduct : com.cabinInformationTechnologies.cabinCustomerBase.models.l
         cargoDuration: String,
         cargoTypeId: Int?,
         cargoType: String,
-        colors: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor>
+        colors: MutableList<MODELColor>
     ) {
         this.id = id
         this.sellerName = sellerName

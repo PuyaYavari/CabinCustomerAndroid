@@ -1,5 +1,7 @@
 package com.cabinInformationTechnologies.cabin.fragments.orders.fragments.shipping
 
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrder
+
 object CabinCustomerOrdersShippingFragmentContracts {
 
     interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
@@ -7,7 +9,7 @@ object CabinCustomerOrdersShippingFragmentContracts {
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        fun showOrderDetails()
+        fun moveToDetailsPage(order: MODELOrder)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
@@ -19,7 +21,7 @@ object CabinCustomerOrdersShippingFragmentContracts {
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
-        fun moveToDetailsPage()
+        fun moveToDetailsPage(order: MODELOrder)
     }
 
 }

@@ -30,7 +30,7 @@ class CabinCustomerOrdersDetailAdapter(val fragment: com.cabinInformationTechnol
         val inflater = LayoutInflater.from(parent.context)
 
         when (viewType) {
-            OrdersListItemsTypeID.ORDERBOX_TYPE -> {
+            OrdersListItemsTypeID.PRODUCTBOX_TYPE -> {
                 val boxView = inflater.inflate(R.layout.cabin_customer_orders_detail_orderbox_view, parent, false)
                 return OrdersDetailViewHolder(boxView)
             }
@@ -63,7 +63,7 @@ class CabinCustomerOrdersDetailAdapter(val fragment: com.cabinInformationTechnol
         }
 
         when (viewType) {
-            OrdersListItemsTypeID.ORDERBOX_TYPE -> {
+            OrdersListItemsTypeID.PRODUCTBOX_TYPE -> {
                 val holder = viewHolder as OrdersDetailViewHolder
                 holder.itemView.orders_detail_ordercount_label.text = position.toString()
                 if(prevType == -1 || prevType == OrdersListItemsTypeID.FOOTERBOX_TYPE) {
@@ -77,7 +77,7 @@ class CabinCustomerOrdersDetailAdapter(val fragment: com.cabinInformationTechnol
                             fragment.context?.getDrawable(R.drawable.orders_detailbox_left_right_borders_with_bottom_separator)
                     }
                 }
-                prevType = OrdersListItemsTypeID.ORDERBOX_TYPE
+                prevType = OrdersListItemsTypeID.PRODUCTBOX_TYPE
             }
             OrdersListItemsTypeID.CARGOBOX_TYPE -> {
                 val holder = viewHolder as OrdersDetailCargoViewHolder

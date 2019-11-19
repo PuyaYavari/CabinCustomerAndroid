@@ -2,12 +2,14 @@ package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Parcelable
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONOrder
-import java.text.SimpleDateFormat
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-class MODELOrder: LocalDataModel {
+@Parcelize
+class MODELOrder: LocalDataModel, Parcelable {
     private var id: Int = 0
     private var code: String = ""
     private var price: Double = 0.0
@@ -23,23 +25,27 @@ class MODELOrder: LocalDataModel {
         return try {
             val jsonData = modelData as JSONOrder
             this.id = jsonData.id
-            this.code = jsonData.orderCode
+            val codeData = jsonData.orderCode
+            if (codeData != null)
+                this.code = codeData
             jsonData.sellers.forEach {
                 val seller = MODELOrderSeller()
                 if (seller.mapFrom(context, it))
                     sellers.add(seller)
             }
             this.price = jsonData.price
-            val orderDateData = jsonData.orderDate
-            if (orderDateData != null)
-                orderDate = SimpleDateFormat("yyyy-MM-dd").parse(orderDateData)
+//            val orderDateData = jsonData.orderDate FIXME: UNCOMMENT
+//            if (orderDateData != null) FIXME: UNCOMMENT
+//                orderDate = SimpleDateFormat("yyyy-MM-dd").parse(orderDateData) FIXME: UNCOMMENT
             if (orderDate != null) {
                 val orderYear = orderDate?.year
                 if (orderYear != null)
                     orderDate?.year = orderYear + 1900
             }
             this.orderTime = jsonData.orderTime
-            this.productCount = jsonData.productCount
+            val productCount = jsonData.productCount
+            if (productCount != null)
+                this.productCount = productCount
             this.paymentType = jsonData.paymentType
             true
         } catch (exception: Exception) {
