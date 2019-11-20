@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
-import com.cabinInformationTechnologies.cabin.fragments.ordersDetail.adapter.*
+import com.cabinInformationTechnologies.cabin.fragments.ordersDetail.adapter.CabinCustomerOrdersDetailAdapter
 
 
 class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerOrdersDetailContracts.View {
@@ -74,25 +74,13 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
 
         val pageTypeID = args.pageType
         val order = args.order
+
+        pageView.findViewById<TextView>(R.id.orders_detail_order_id).text = order.getId().toString()
+
         presenter?.setupProperPage(pageTypeID, order)
     }
 
     override fun setupPendingPage(myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox>) {
-
-        val buttikCount = 2 // TODO: Remove line
-        val ordersCount = 4 // TODO: Remove line
-
-        val myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox> = mutableListOf()
-
-        for (i in 0..buttikCount) {
-            for (j in 0..ordersCount) {
-                myDataset.add(Productbox())
-            }
-            val footer = Footerbox()
-            footer.totalPrice = 1000.0
-            myDataset.add(Footerbox())
-        }
-
         val viewAdapter = CabinCustomerOrdersDetailAdapter(this, myDataset)
         val viewManager = LinearLayoutManager(this.context)
 
@@ -106,21 +94,6 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
     }
 
     override fun setupShippingPage(myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox>) {
-
-
-        val buttikCount = 3 // TODO: Remove line
-        val ordersCount = 4 // TODO: Remove line
-
-        val myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox> = mutableListOf()
-
-        for (i in 0..buttikCount) {
-            myDataset.add(Cargobox())
-            for (j in 0..ordersCount) {
-                myDataset.add(Productbox())
-            }
-            myDataset.add(Footerbox())
-        }
-
         val viewAdapter = CabinCustomerOrdersDetailAdapter(this, myDataset)
         val viewManager = LinearLayoutManager(this.context)
 
@@ -134,21 +107,6 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
     }
 
     override fun setupSentPage(myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox>) {
-
-
-        val buttikCount = 4 // TODO: Remove line
-        val ordersCount = 4 // TODO: Remove line
-
-        val myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox> = mutableListOf()
-
-        for (i in 0..buttikCount) {
-            myDataset.add(Headerbox())
-            for (j in 0..ordersCount) {
-                myDataset.add(Productbox())
-            }
-            myDataset.add(Footerbox())
-        }
-
         val viewAdapter = CabinCustomerOrdersDetailAdapter(this, myDataset)
         val viewManager = LinearLayoutManager(this.context)
 

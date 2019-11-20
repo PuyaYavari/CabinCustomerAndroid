@@ -4,7 +4,7 @@ import android.content.Context
 import com.squareup.moshi.*
 
 class JSONImageAdapter (val context: Context, moshi: Moshi) : JsonAdapter<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONImage>() {
-    private val options: JsonReader.Options = JsonReader.Options.of("URL", "PRIORITY")
+    private val options: JsonReader.Options = JsonReader.Options.of("URL", "EXTENSION","PRIORITY")
 
     private val stringAdapter: JsonAdapter<String> =
         moshi.adapter<String>(String::class.java, kotlin.collections.emptySet(), "url")
@@ -17,6 +17,7 @@ class JSONImageAdapter (val context: Context, moshi: Moshi) : JsonAdapter<com.ca
     @FromJson
     override fun fromJson(reader: JsonReader): com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONImage? {
         var url: String? = null
+        var extension: String? = null
         var priority: Boolean? = null
         reader.beginObject()
         while (reader.hasNext()) {
@@ -24,7 +25,8 @@ class JSONImageAdapter (val context: Context, moshi: Moshi) : JsonAdapter<com.ca
                 when (reader.selectName(options)) {
                     0 -> url = stringAdapter.fromJson(reader)
                         //?: throw JsonDataException("Non-null value 'url' was null at ${reader.path}")
-                    1 -> priority = nullableBooleanAdapter.fromJson(reader)
+                    1 -> extension = stringAdapter.fromJson(reader)
+                    2 -> priority = nullableBooleanAdapter.fromJson(reader)
                     -1 -> {
                         // Unknown name, skip it.
                         reader.skipName()
@@ -45,6 +47,7 @@ class JSONImageAdapter (val context: Context, moshi: Moshi) : JsonAdapter<com.ca
         return try {
             val result = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONImage(
                 url = url!!,
+                extension = extension!!,
                 priority = priority
             )
             result
@@ -67,6 +70,8 @@ class JSONImageAdapter (val context: Context, moshi: Moshi) : JsonAdapter<com.ca
         writer.beginObject()
         writer.name("URL")
         stringAdapter.toJson(writer, value.url)
+        writer.name("EXTENSION")
+        stringAdapter.toJson(writer, value.extension)
         writer.name("PRIORITY")
         nullableBooleanAdapter.toJson(writer, value.priority)
         writer.endObject()

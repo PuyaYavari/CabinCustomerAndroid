@@ -57,9 +57,9 @@ class CabinCustomerOrdersDetailPresenter(var view: CabinCustomerOrdersDetailCont
                         val price = it?.getPrice()
                         if (price != null)
                             productBox.price = price
-//                        val size = it?.//TODO
-//                        if (size != null)
-//                            productBox.sizeName = size
+                        val size = it?.getSizeName()
+                        if (size != null)
+                            productBox.sizeName = size
                         myDataset.add(productBox)
                     }
                     val footerbox = Footerbox()
@@ -102,9 +102,9 @@ class CabinCustomerOrdersDetailPresenter(var view: CabinCustomerOrdersDetailCont
                         val price = it?.getPrice()
                         if (price != null)
                             productBox.price = price
-//                        val size = it?.//TODO
-//                        if (size != null)
-//                            productBox.sizeName = size
+                        val size = it?.getSizeName()
+                        if (size != null)
+                            productBox.sizeName = size
                         myDataset.add(productBox)
                     }
                     val footerbox = Footerbox()
@@ -126,6 +126,18 @@ class CabinCustomerOrdersDetailPresenter(var view: CabinCustomerOrdersDetailCont
                     val deliveryDate = seller?.getDeliveryDate()
                     if (deliveryDate != null)
                         headerbox.deliveryDate = deliveryDate
+                    val returnDescription = seller?.getReturnDescription()
+                    if (returnDescription != null)
+                        headerbox.returnDescription = returnDescription
+                    val returnPayment = seller?.getReturnPayment()
+                    if (returnPayment != null)
+                        headerbox.returnPayment = returnPayment
+                    val returnProcedure = seller?.getReturnProcedure()
+                    if (returnProcedure != null)
+                        headerbox.returnSteps = returnProcedure
+                    val returnRemainingDay = seller?.getReturnRemainingDay()
+                    if (returnRemainingDay != null)
+                        headerbox.returnRemainingDay = returnRemainingDay
                     myDataset.add(headerbox)
                     seller?.products?.forEach {
                         val productBox = Productbox()
@@ -141,9 +153,9 @@ class CabinCustomerOrdersDetailPresenter(var view: CabinCustomerOrdersDetailCont
                         val price = it?.getPrice()
                         if (price != null)
                             productBox.price = price
-//                        val size = it?.//TODO
-//                        if (size != null)
-//                            productBox.sizeName = size
+                        val size = it?.getSizeName()
+                        if (size != null)
+                            productBox.sizeName = size
                         myDataset.add(productBox)
                     }
                     val footerbox = Footerbox()

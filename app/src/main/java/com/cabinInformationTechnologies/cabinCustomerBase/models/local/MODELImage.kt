@@ -2,9 +2,10 @@ package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
 import android.content.Context
 
-class MODELImage: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
-    lateinit var url: String
-    var priority: Boolean = false
+class MODELImage: LocalDataModel {
+    private var url: String = ""
+    private var extension: String = ""
+    private var priority: Boolean = false
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
@@ -15,9 +16,10 @@ class MODELImage: com.cabinInformationTechnologies.cabinCustomerBase.models.loca
                     "Image is null.",
                     null)
             val jsonModel = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONImage
-            url = jsonModel.url
+            this.url = jsonModel.url
+            this.extension = jsonModel.extension
             if (jsonModel.priority != null)
-                priority = jsonModel.priority
+                this.priority = jsonModel.priority
             true
         } catch (exception : Exception){
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
@@ -28,4 +30,8 @@ class MODELImage: com.cabinInformationTechnologies.cabinCustomerBase.models.loca
             false
         }
     }
+
+    fun getURL() = this.url
+    fun getExtension() = this.extension
+    fun getPriority() = this.priority
 }

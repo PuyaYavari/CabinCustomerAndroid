@@ -4,9 +4,12 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.ordersDetail.CabinCustomerOrdersDetailContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import kotlinx.android.synthetic.main.cabin_customer_orders_detail_orderbox_view.view.*
 
 
@@ -62,10 +65,31 @@ class CabinCustomerOrdersDetailAdapter(val fragment: com.cabinInformationTechnol
             viewHolder.itemView.layoutParams = param
         }
 
+        val context = fragment.context
+
         when (viewType) {
             OrdersListItemsTypeID.PRODUCTBOX_TYPE -> {
                 val holder = viewHolder as OrdersDetailViewHolder
-                holder.itemView.orders_detail_ordercount_label.text = position.toString()
+                try {
+                    val productData = myDataset[position] as Productbox
+                    holder.itemView.apply {
+                        findViewById<TextView>(R.id.orders_detail_ordercount_label).text =
+                            productData.amount.toString()
+                        findViewById<TextView>(R.id.orders_detail_item_code).text = productData.code
+                        findViewById<TextView>(R.id.orders_detail_color_label).text = productData.colorName
+                        findViewById<TextView>(R.id.orders_detail_size).text = productData.sizeName
+                        findViewById<TextView>(R.id.orders_detail_price).text = productData.price.toString()
+                        //TODO: SET IMAGE
+                    }
+                } catch (exception: Exception) {
+                    if (context != null)
+                        Logger.error(
+                            context,
+                            this::class.java.name,
+                            "",
+                            exception
+                        )
+                }
                 if(prevType == -1 || prevType == OrdersListItemsTypeID.FOOTERBOX_TYPE) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         holder.itemView.orders_detail_orderbox_layout.background =
@@ -81,14 +105,73 @@ class CabinCustomerOrdersDetailAdapter(val fragment: com.cabinInformationTechnol
             }
             OrdersListItemsTypeID.CARGOBOX_TYPE -> {
                 val holder = viewHolder as OrdersDetailCargoViewHolder
+                try {
+                    val productData = myDataset[position] as Cargobox
+                    holder.itemView.apply {
+                        findViewById<TextView>(R.id.cargo_tracking_code).text =
+                            productData.cargoTrackingCode
+                        //TODO: SET IMAGE
+                    }
+                } catch (exception: Exception) {
+                    if (context != null)
+                        Logger.error(
+                            context,
+                            this::class.java.name,
+                            "",
+                            exception
+                        )
+                }
                 prevType = OrdersListItemsTypeID.CARGOBOX_TYPE
             }
             OrdersListItemsTypeID.HEADERBOX_TYPE -> {
                 val holder = viewHolder as OrdersDetailHeaderViewHolder
+                try {
+                    val productData = myDataset[position] as Headerbox
+                    holder.itemView.apply {
+                        findViewById<TextView>(R.id.orders_detail_delivery_day).text =
+                            productData.deliveryDate?.date.toString()
+                        findViewById<TextView>(R.id.orders_detail_delivery_month).text =
+                            productData.deliveryDate?.month.toString()
+                        findViewById<TextView>(R.id.orders_detail_delivery_year).text =
+                            productData.deliveryDate?.year.toString()
+                        findViewById<TextView>(R.id.orders_detail_headerbox_extradition_remaining_time).text =
+                            productData.returnRemainingDay
+                        findViewById<LinearLayout>(R.id.orders_detail_headerbox_extradition_button_layout)
+                            .setOnClickListener {
+                                //TODO: OPEN RETURN PROCEDURE DIALOG
+                            }
+                    }
+                } catch (exception: Exception) {
+                    if (context != null)
+                        Logger.error(
+                            context,
+                            this::class.java.name,
+                            "",
+                            exception
+                        )
+                }
                 prevType = OrdersListItemsTypeID.HEADERBOX_TYPE
             }
             OrdersListItemsTypeID.FOOTERBOX_TYPE -> {
                 val holder = viewHolder as OrdersDetailFooterViewHolder
+                try {
+                    val productData = myDataset[position] as Footerbox
+                    holder.itemView.apply {
+                        findViewById<TextView>(R.id.orders_detail_seller).text = productData.sellerName
+                        findViewById<TextView>(R.id.orders_detail_footer_cargo_price).text =
+                            productData.shippingPrice.toString()
+                        findViewById<TextView>(R.id.orders_detail_footer_order_price).text =
+                            productData.totalPrice.toString()
+                    }
+                } catch (exception: Exception) {
+                    if (context != null)
+                        Logger.error(
+                            context,
+                            this::class.java.name,
+                            "",
+                            exception
+                        )
+                }
                 prevType = OrdersListItemsTypeID.FOOTERBOX_TYPE
             }
             else -> throw IllegalStateException("unsupported item type")

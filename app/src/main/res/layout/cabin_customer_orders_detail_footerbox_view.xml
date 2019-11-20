@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="344dp"
-        android:layout_height="52dp"
         android:id="@+id/orders_detail_footerbox_constraint_layout"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/orders_detailbox_left_bottom_right_borders">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/orders_detailbox_left_bottom_right_borders"
+        android:padding="8dp">
 
     <LinearLayout
             android:id="@+id/orders_detail_seller_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:gravity="start"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="start">
+            app:layout_constraintTop_toTopOf="parent">
 
         <TextView
                 android:id="@+id/orders_detail_seller_label"
@@ -43,14 +42,13 @@
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:gravity="start"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="start">
+            app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
                 android:id="@+id/orders_detail_footer_labels"
@@ -90,7 +88,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:gravity="center"
-                        android:text="10"
                         android:textColor="@color/colorPriceGreen"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -157,7 +154,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="100"
                         android:textColor="@color/colorPriceGreen"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"

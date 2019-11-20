@@ -12,6 +12,6 @@ data class JSONOrderSeller (@Json(name = "ID") val id: Int,
                             @Json(name = "TOTAL_PRICE") val total: Double,
                             @Json(name = "PHONE") val phone: String?,
                             @Json(name = "ADDRESS") val address: String?,
-                            @Json(name = "RETURN_PAYMENT") val returnPayment: String?,
                             @Json(name = "DELIVERY_DATE") val deliveryDate: String?,
+                            @Json(name = "RETURN_PROCEDURE") val returnProcedure: List<JSONReturnProcedure?>?,
                             @Json(name = "CARGO") val cargo: List<JSONCargo?>?)

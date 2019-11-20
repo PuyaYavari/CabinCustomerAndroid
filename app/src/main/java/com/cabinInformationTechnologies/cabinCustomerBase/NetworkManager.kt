@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.util.Log
+import com.cabinInformationTechnologies.cabinCustomerBase.models.Request
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -22,7 +23,7 @@ object NetworkManager {
 
     fun retrofit() : Retrofit = Retrofit.Builder()
         .client(OkHttpClient().newBuilder().addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build())
-        .baseUrl(com.cabinInformationTechnologies.cabinCustomerBase.Constants.BASE_URL)
+        .baseUrl(Constants.BASE_URL)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
@@ -70,7 +71,7 @@ object NetworkManager {
             ?: Moshi.Builder().add(KotlinJsonAdapterFactory()).build().adapter<T>(T::class.java)
 
         val call = apiServices.sendRequest(
-            com.cabinInformationTechnologies.cabinCustomerBase.models.Request(
+            Request(
                 getActiveUserData(),
                 getPaging(page, pageSize),
                 data

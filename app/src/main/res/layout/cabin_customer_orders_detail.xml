@@ -101,7 +101,6 @@
                         android:id="@+id/orders_detail_order_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="111222333"
                         android:textColor="@color/colorPrimary"
                         android:textSize="10sp" />
             </LinearLayout>
@@ -111,11 +110,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/orders_detail_recyclerview"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
 
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -15,8 +15,11 @@ class MODELOrderSeller: LocalDataModel {
     private var total: Double = 0.0
     private var phone: String = ""
     private var address: String = ""
-    private var returnPayment: String = ""
     private var deliveryDate: Date? = null
+    private var returnPayment: String = ""
+    private var returnRemainingDay: String = ""
+    private var returnDescription: String = ""
+    private var returnProcedure: MutableList<String> = mutableListOf()
     private var cargo: MutableList<MODELCargo?> = mutableListOf()
 
     var products: MutableList<MODELOrderProduct?> = mutableListOf()
@@ -41,9 +44,6 @@ class MODELOrderSeller: LocalDataModel {
             val addressData = jsonData.address
             if (addressData != null)
                 this.address = addressData
-            val returnPaymentData = jsonData.returnPayment
-            if (returnPaymentData != null)
-                this.returnPayment = returnPaymentData
             val deliveryDateData = jsonData.deliveryDate
             if (deliveryDateData != null)
                 deliveryDate = SimpleDateFormat("yyyy-MM-dd").parse(deliveryDateData)
@@ -51,6 +51,22 @@ class MODELOrderSeller: LocalDataModel {
                 val deliveryYear = deliveryDate?.year
                 if (deliveryYear != null)
                     deliveryDate?.year = deliveryYear + 1900
+            }
+            val returnRemainingDay = jsonData.returnProcedure?.get(0)?.remainingDay
+            if (returnRemainingDay != null)
+                this.returnRemainingDay = returnRemainingDay
+            val returnPaymentData = jsonData.returnProcedure?.get(0)?.payment
+            if (returnPaymentData != null)
+                this.returnPayment = returnPaymentData
+            val returnDescription = jsonData.returnProcedure?.get(0)?.description
+            if (returnDescription != null)
+                this.returnDescription = returnDescription
+            jsonData.returnProcedure?.get(0)?.steps?.forEach {
+                if (it != null) {
+                    val description = it.descriptor
+                    if (description != null)
+                        returnProcedure.add(description)
+                }
             }
             jsonData.cargo?.forEach {
                 val cargo = MODELCargo()
@@ -78,5 +94,8 @@ class MODELOrderSeller: LocalDataModel {
     fun getAddress() = this.address
     fun getReturnPayment() = this.returnPayment
     fun getDeliveryDate() = this.deliveryDate
+    fun getReturnDescription() = this.returnDescription
+    fun getReturnProcedure() = this.returnProcedure
+    fun getReturnRemainingDay() = this.returnRemainingDay
     fun getCargo() = this.cargo
 }

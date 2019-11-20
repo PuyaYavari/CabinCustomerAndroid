@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIProduct
 import com.squareup.moshi.Moshi
 
 class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts.InteractorOutput?) :
@@ -21,7 +22,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             .add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter(context,Moshi.Builder().build()))
             .build()
         var products: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>? = null
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIProduct>(
+        NetworkManager.requestFactory<APIProduct>(
             context,
             com.cabinInformationTechnologies.cabinCustomerBase.Constants.DISCOVER_LIST_PRODUCTS_URL,
             page,

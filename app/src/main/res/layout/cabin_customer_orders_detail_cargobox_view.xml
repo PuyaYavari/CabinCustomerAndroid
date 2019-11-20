@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="344dp"
-        android:layout_height="wrap_content" android:orientation="vertical"
         android:id="@+id/orders_detail_cargo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/orders_detailbox_left_top_right_borders"
         android:gravity="center_horizontal"
-        android:paddingTop="8dp" android:background="@drawable/orders_detailbox_left_top_right_borders">
+        android:orientation="vertical"
+        android:padding="8dp">
 
     <ImageView
-            android:layout_width="86dp"
-            android:layout_height="40dp"
             android:id="@+id/cargo_logo"
-            app:srcCompat="@drawable/aras_cargo_logo"
-            android:contentDescription="the logo of the cargo company"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="the logo of the cargo company" />
+
     <TextView
+            android:id="@+id/cargo_taracking_code_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/cargo_tracking_number_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/cargo_taracking_code_label" android:textSize="10sp"
-            android:textColor="@color/colorTextsPrimary"/>
+            android:textColor="@color/colorTextsPrimary"
+            android:textSize="10sp" />
+
     <TextView
-            android:text="111 222 333"
+            android:id="@+id/cargo_tracking_code"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/cargo_tracking_code" android:textSize="10sp"
-            android:textColor="@color/colorTextsPrimary"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextsPrimary"
+            android:textSize="10sp" />
 </LinearLayout>

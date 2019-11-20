@@ -6,6 +6,7 @@ import android.os.Parcelable
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONOrder
 import kotlinx.android.parcel.Parcelize
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Parcelize
@@ -34,9 +35,9 @@ class MODELOrder: LocalDataModel, Parcelable {
                     sellers.add(seller)
             }
             this.price = jsonData.price
-//            val orderDateData = jsonData.orderDate FIXME: UNCOMMENT
-//            if (orderDateData != null) FIXME: UNCOMMENT
-//                orderDate = SimpleDateFormat("yyyy-MM-dd").parse(orderDateData) FIXME: UNCOMMENT
+            val orderDateData = jsonData.orderDate
+            if (orderDateData != null)
+                orderDate = SimpleDateFormat("yyyy-MM-dd").parse(orderDateData)
             if (orderDate != null) {
                 val orderYear = orderDate?.year
                 if (orderYear != null)
