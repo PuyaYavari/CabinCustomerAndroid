@@ -5,7 +5,7 @@ import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrde
 object CabinCustomerOrdersShippingFragmentContracts {
 
     interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        //TODO
+        fun checkData()
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {

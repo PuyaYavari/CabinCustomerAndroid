@@ -78,15 +78,15 @@ class CabinCustomerOrdersDetailPresenter(var view: CabinCustomerOrdersDetailCont
                 val myDataset: MutableList<CabinCustomerOrdersDetailContracts.Detailbox> = mutableListOf()
                 order.sellers.forEach { seller ->
                     val cargobox = Cargobox()
-                    val imageURL = seller?.getCargo()?.get(0)?.getLogoUrl()
-                    if (imageURL != null)
-                        cargobox.cargoImageURL = imageURL
-                    val cargoName = seller?.getCargo()?.get(0)?.getName()
-                    if (cargoName != null)
-                        cargobox.cargoName = cargoName
-                    val cargoTrackingCode = seller?.getCargo()?.get(0)?.getTrackingCode()
-                    if (cargoTrackingCode != null)
-                        cargobox.cargoTrackingCode = cargoTrackingCode
+//                    val imageURL = seller?.getCargo()?.get(0)?.getLogoUrl() //FIXME: UNCOMMENT
+//                    if (imageURL != null) //FIXME: UNCOMMENT
+//                        cargobox.cargoImageURL = imageURL //FIXME: UNCOMMENT
+//                    val cargoName = seller?.getCargo()?.get(0)?.getName() //FIXME: UNCOMMENT
+//                    if (cargoName != null) //FIXME: UNCOMMENT
+//                        cargobox.cargoName = cargoName //FIXME: UNCOMMENT
+//                    val cargoTrackingCode = seller?.getCargo()?.get(0)?.getTrackingCode() //FIXME: UNCOMMENT
+//                    if (cargoTrackingCode != null) //FIXME: UNCOMMENT
+//                        cargobox.cargoTrackingCode = cargoTrackingCode //FIXME: UNCOMMENT
                     myDataset.add(cargobox)
                     seller?.products?.forEach {
                         val productBox = Productbox()

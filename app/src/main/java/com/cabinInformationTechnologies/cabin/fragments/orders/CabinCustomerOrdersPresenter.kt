@@ -1,7 +1,11 @@
 package com.cabinInformationTechnologies.cabin.fragments.orders
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrders
 
 class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?) :
@@ -41,11 +45,51 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
     //region InteractorOutput
 
     override fun setOrdersIn(orders: MODELOrders, adapter: CabinCustomerOrdersAdapter) {
+        view?.hideProgressBar()
         currentPage += 1
         this.orders.pending.addAll(orders.pending)
         this.orders.shipped.addAll(orders.shipped)
         this.orders.sent.addAll(orders.sent)
-        adapter.notifyNewData()
+        adapter.notifyNewPage()
+    }
+
+    override fun setFirstPage(orders: MODELOrders) {
+        view?.hideProgressBar()
+        this.orders.pending.clear()
+        this.orders.shipped.clear()
+        this.orders.sent.clear()
+        currentPage = 1
+        this.orders.pending.addAll(orders.pending)
+        this.orders.shipped.addAll(orders.shipped)
+        this.orders.sent.addAll(orders.sent)
+        view?.setupPage()
+    }
+
+    override fun feedback(context: Context, message: String?) {
+        view?.hideProgressBar()
+        if (message == null)
+            Toast.makeText(
+                context,
+                context.resources.getString(R.string.default_error_message),
+                Toast.LENGTH_SHORT
+            ).show()
+        else
+            Toast.makeText(
+                context,
+                message,
+                Toast.LENGTH_SHORT
+            ).show()
+    }
+
+    override fun refresh(orders: MODELOrders) {
+        view?.hideProgressBar()
+        this.orders.pending.clear()
+        this.orders.shipped.clear()
+        this.orders.sent.clear()
+        currentPage = 1
+        this.orders.pending.addAll(orders.pending)
+        this.orders.shipped.addAll(orders.shipped)
+        this.orders.sent.addAll(orders.sent)
     }
 
 
@@ -55,6 +99,11 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
 
     override val orders: MODELOrders = MODELOrders()
     override var currentPage: Int = 0
+
+    override fun getFirstPage(context: Context) {
+        view?.showProgressBar()
+        interactor?.getFirstPage(context)
+    }
 
     override fun getNewPage(page: Int, adapter: CabinCustomerOrdersAdapter) {
         //TODO: DON'T SEND REQUEST IF PAGE <= CURRENT PAGE
@@ -66,6 +115,10 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
                 adapter
             )
         }
+    }
+
+    override fun refresh(context: Context, refreshLayout: SwipeRefreshLayout?, adapter: CabinCustomerOrdersAdapter) {
+        interactor?.refresh(context, refreshLayout, adapter)
     }
 
     //endregion

@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 
 
 class CabinCustomerOrdersFragment :
@@ -16,7 +17,7 @@ class CabinCustomerOrdersFragment :
 
     var presenter: CabinCustomerOrdersContracts.Presenter? = CabinCustomerOrdersPresenter(this)
     private lateinit var pageView: View
-    private lateinit var mPager: ViewPager
+    private var mPager: ViewPager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_orders, container, false)
@@ -35,8 +36,13 @@ class CabinCustomerOrdersFragment :
 
         hideProgressBar()
 
-        if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn) {
-            setupPage()
+        if (GlobalData.loggedIn) {
+            val context = this.context
+            if (context != null && (presenter as CabinCustomerOrdersContracts.FragmentsManager)
+                    .currentPage == 0)
+                (presenter as CabinCustomerOrdersContracts.FragmentsManager).getFirstPage(context)
+            else
+                setupPage()
             if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
                     .visibility == View.INVISIBLE) {
                 (activity!! as MainActivity).layoutBackToDefault()
@@ -67,7 +73,7 @@ class CabinCustomerOrdersFragment :
 
     //region View
 
-    private fun setupPage () {
+    override fun setupPage () {
         mPager = pageView.findViewById(R.id.orders_pager)
 
         val pagerAdapter =
@@ -76,7 +82,7 @@ class CabinCustomerOrdersFragment :
                 0,
                 presenter as CabinCustomerOrdersContracts.FragmentsManager
             )
-        mPager.adapter = pagerAdapter
+        mPager?.adapter = pagerAdapter
     }
 
     override fun showProgressBar() {

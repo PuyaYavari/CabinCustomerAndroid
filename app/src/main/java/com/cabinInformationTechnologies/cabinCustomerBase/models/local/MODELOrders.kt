@@ -14,17 +14,17 @@ class MODELOrders: LocalDataModel {
             val jsonData = modelData as APIOrders
             val ordersData = jsonData.orders?.get(0)
             if (ordersData != null) {
-                ordersData.pending.forEach {
+                ordersData.pending?.forEach {
                     val order = MODELOrder()
                     if (order.mapFrom(context, it))
                         pending.add(order)
                 }
-                ordersData.shipped.forEach {
+                ordersData.shipped?.forEach {
                     val order = MODELOrder()
                     if (order.mapFrom(context, it))
                         shipped.add(order)
                 }
-                ordersData.sent.forEach {
+                ordersData.sent?.forEach {
                     val order = MODELOrder()
                     if (order.mapFrom(context, it))
                         sent.add(order)
