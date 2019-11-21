@@ -60,7 +60,7 @@ interface BaseContracts {
         fun info(context: Context, location: String?, message: String, exception: Exception?)
         fun verbose(context: Context, location: String?, message: String, exception: Exception?)
         fun warn(context: Context, location: String?, message: String, exception: Exception?)
-        fun failure(context: Context, location: String?, message: String?, exception: Exception?)
+        fun failure(context: Context, location: String?, message: String?, throwable: Throwable?)
     }
 
     interface FirebaseLogger {

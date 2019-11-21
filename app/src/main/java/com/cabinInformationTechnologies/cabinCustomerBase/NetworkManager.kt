@@ -3,8 +3,11 @@ package com.cabinInformationTechnologies.cabinCustomerBase
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.util.Log
+import com.cabinInformationTechnologies.cabinCustomerBase.models.Paging
 import com.cabinInformationTechnologies.cabinCustomerBase.models.Request
+import com.cabinInformationTechnologies.cabinCustomerBase.models.UserAuth
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.IssueResponseMapper
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -22,12 +25,16 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 object NetworkManager {
 
     fun retrofit() : Retrofit = Retrofit.Builder()
-        .client(OkHttpClient().newBuilder().addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build())
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(ScalarsConverterFactory.create())
-        .addConverterFactory(MoshiConverterFactory.create())
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .build()
+                                        .client(OkHttpClient()
+                                        .newBuilder()
+                                        .addInterceptor(HttpLoggingInterceptor() //FIXME: REMOVE TO STOP LOGGING REQUEST AND RESPONSES
+                                        .setLevel(HttpLoggingInterceptor.Level.BODY)) //FIXME: REMOVE TO STOP LOGGING REQUEST AND RESPONSES
+                                        .build())
+                                        .baseUrl(Constants.BASE_URL)
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(MoshiConverterFactory.create())
+                                        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                                        .build()
 
     fun isNetworkConnected(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -35,21 +42,21 @@ object NetworkManager {
         return activeNetwork?.isConnectedOrConnecting == true
     }
 
-    fun getActiveUserData(): com.cabinInformationTechnologies.cabinCustomerBase.models.UserAuth? {
-        return if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userId != 0) {
-            com.cabinInformationTechnologies.cabinCustomerBase.models.UserAuth(
-                com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.session,
-                com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userId
+    fun getActiveUserData(): UserAuth? {
+        return if (GlobalData.userId != 0) {
+            UserAuth(
+                GlobalData.session,
+                GlobalData.userId
             )
         } else {
             null
         }
     }
 
-    fun getPaging(page: Int?, pageSize: Int?): com.cabinInformationTechnologies.cabinCustomerBase.models.Paging? {
-        var paging : com.cabinInformationTechnologies.cabinCustomerBase.models.Paging? = null
+    fun getPaging(page: Int?, pageSize: Int?): Paging? {
+        var paging : Paging? = null
         if (page != null && pageSize != null) {
-            paging = com.cabinInformationTechnologies.cabinCustomerBase.models.Paging(page, pageSize)
+            paging = Paging(page, pageSize)
         }
         return paging
     }
@@ -61,7 +68,7 @@ object NetworkManager {
                                          page: Int?,
                                          pageSize: Int?,
                                          data: Any?,
-                                         responseClass: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel?,
+                                         responseClass: LocalDataModel?,
                                          responseAdapter: JsonAdapter<T>?,
                                          ResponseCallbacks: BaseContracts.ResponseCallbacks
     ){
@@ -82,7 +89,7 @@ object NetworkManager {
                     response.isSuccessful -> {
                         try {
                             val responseBody: Any? = response.body()
-                            val issue = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.IssueResponseMapper.issueResponseMapper(
+                            val issue = IssueResponseMapper.issueResponseMapper(
                                 context,
                                 responseBody.toString()
                             )
@@ -102,7 +109,7 @@ object NetworkManager {
                     (response.code() in 300..500) -> {
                         try {
                             val responseBody: Any? = response.body()
-                            val issue = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.IssueResponseMapper.issueResponseMapper(
+                            val issue = IssueResponseMapper.issueResponseMapper(
                                 context,
                                 responseBody.toString()
                             )
@@ -119,9 +126,13 @@ object NetworkManager {
             }
 
             override fun onFailure(call: Call<String?>, t: Throwable) {
-                Log.d("FAIL", t.toString())
-                Log.d("FAIL MESSAGE", t.message.toString()) //TODO WHAT CAN I DO SOMETIMES!?
-                ResponseCallbacks.onFailure(t) //TODO CHECK IF INTERNET CONNECTED
+                Logger.failure(
+                    context,
+                    this::class.java.name,
+                    "SERIOUS PROBLEM, NETWORK MANAGER FAILURE!",
+                    t
+                )
+                ResponseCallbacks.onFailure(t)
             }
         })
     }

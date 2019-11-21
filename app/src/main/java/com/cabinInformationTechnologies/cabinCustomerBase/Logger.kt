@@ -118,14 +118,14 @@ object Logger: BaseContracts.Logger, BaseContracts.FirebaseLogger {
         context: Context,
         location: String?,
         message: String?,
-        exception: Exception?
+        throwable: Throwable?
     ) {
-        if (location != null && message != null && exception != null) {
-            Log.wtf("Failure", "LOCATION: $location \nMESSAGE: $message", exception)
-            Crashlytics.log(Log.ERROR, "WTF", "MESSAGE: $message \nEXCEPTION: ${exception.toString()}" )
-        } else if (exception != null) {
-            Log.wtf("Failure", null, exception)
-            Crashlytics.log(Log.ERROR, "WTF", "EXCEPTION: ${exception.toString()}" )
+        if (location != null && message != null && throwable != null) {
+            Log.wtf("Failure", "LOCATION: $location \nMESSAGE: $message", throwable)
+            Crashlytics.log(Log.ERROR, "WTF", "MESSAGE: $message \nTHROWABLE: ${throwable.toString()}" )
+        } else if (throwable != null) {
+            Log.wtf("Failure", null, throwable)
+            Crashlytics.log(Log.ERROR, "WTF", "THROWABLE: ${throwable.toString()}" )
         } else {
             Log.wtf("Failure", "Unexpected Problem", null)
             Crashlytics.log(Log.ERROR, "WTF", "" )

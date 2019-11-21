@@ -159,6 +159,9 @@
     <string name="clear">Temizle</string>
     <string name="extradition">İade</string>
     <string name="remaining_time">Kalan süre</string>
+    <string name="extradition_procedure">İade Prosedürü</string>
+    <string name="receiver_name">Alıcı İsmi</string>
+    <string name="receiver_address">Alıcı Adresi</string>
     <!---->
 
     <!--separators-->

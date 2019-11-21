@@ -47,7 +47,7 @@ class JSONImageAdapter (val context: Context, moshi: Moshi) : JsonAdapter<com.ca
         return try {
             val result = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONImage(
                 url = url!!,
-                extension = extension!!,
+                extension = extension,
                 priority = priority
             )
             result

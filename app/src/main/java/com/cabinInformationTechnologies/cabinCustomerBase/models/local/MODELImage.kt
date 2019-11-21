@@ -4,7 +4,7 @@ import android.content.Context
 
 class MODELImage: LocalDataModel {
     private var url: String = ""
-    private var extension: String = ""
+    private var extension: String? = ""
     private var priority: Boolean = false
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
