@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.ordersDetail.CabinCustomerOrdersDetailContracts
+import com.cabinInformationTechnologies.cabin.fragments.ordersDetail.ExtraditionProcedureDialogFragment
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import kotlinx.android.synthetic.main.cabin_customer_orders_detail_orderbox_view.view.*
 
@@ -134,12 +135,27 @@ class CabinCustomerOrdersDetailAdapter(val fragment: com.cabinInformationTechnol
                             productData.deliveryDate?.month.toString()
                         findViewById<TextView>(R.id.orders_detail_delivery_year).text =
                             productData.deliveryDate?.year.toString()
-                        findViewById<TextView>(R.id.orders_detail_headerbox_extradition_remaining_time).text =
-                            productData.returnRemainingDay
-                        findViewById<LinearLayout>(R.id.orders_detail_headerbox_extradition_button_layout)
-                            .setOnClickListener {
-                                //TODO: OPEN RETURN PROCEDURE DIALOG
+                        if (productData.isReturnable) {
+                            findViewById<TextView>(R.id.orders_detail_headerbox_extradition_remaining_time).text =
+                                productData.returnRemainingDay
+                            findViewById<LinearLayout>(R.id.orders_detail_headerbox_extradition_button_layout).apply {
+                                setOnClickListener {
+
+                                    val extraditionDialogFragment = ExtraditionProcedureDialogFragment(productData)
+                                    val fragmentManager = fragment.fragmentManager
+                                    if (fragmentManager != null)
+                                        extraditionDialogFragment.show(fragmentManager,null)
+                                }
+                                visibility = View.VISIBLE
                             }
+                        } else {
+                            findViewById<TextView>(R.id.orders_detail_headerbox_extradition_remaining_time).text =
+                                ""
+                            findViewById<LinearLayout>(R.id.orders_detail_headerbox_extradition_button_layout).apply {
+                                setOnClickListener { }
+                                visibility = View.GONE
+                            }
+                        }
                     }
                 } catch (exception: Exception) {
                     if (context != null)

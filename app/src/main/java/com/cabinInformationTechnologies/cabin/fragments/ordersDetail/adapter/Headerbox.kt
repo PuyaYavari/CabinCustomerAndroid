@@ -5,10 +5,14 @@ import java.util.*
 
 class Headerbox(): CabinCustomerOrdersDetailContracts.Detailbox {
     var deliveryDate: Date? = null
+    var isReturnable = false
     var returnRemainingDay: String = ""
     var returnDescription: String = ""
     var returnPayment: String = ""
     var returnSteps: MutableList<String> = mutableListOf()
+    var sellerName: String = ""
+    var sellerAddress: String = ""
+    var sellerPhone: String = ""
 
     /* setter getter for parameters */
 

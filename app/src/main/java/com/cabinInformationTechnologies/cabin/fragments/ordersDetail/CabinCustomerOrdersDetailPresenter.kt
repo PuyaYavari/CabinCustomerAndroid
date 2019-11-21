@@ -126,18 +126,22 @@ class CabinCustomerOrdersDetailPresenter(var view: CabinCustomerOrdersDetailCont
                     val deliveryDate = seller?.getDeliveryDate()
                     if (deliveryDate != null)
                         headerbox.deliveryDate = deliveryDate
-                    val returnDescription = seller?.getReturnDescription()
-                    if (returnDescription != null)
-                        headerbox.returnDescription = returnDescription
-                    val returnPayment = seller?.getReturnPayment()
-                    if (returnPayment != null)
-                        headerbox.returnPayment = returnPayment
-                    val returnProcedure = seller?.getReturnProcedure()
-                    if (returnProcedure != null)
-                        headerbox.returnSteps = returnProcedure
-                    val returnRemainingDay = seller?.getReturnRemainingDay()
-                    if (returnRemainingDay != null)
-                        headerbox.returnRemainingDay = returnRemainingDay
+                    val sellerNameData = seller?.getName()
+                    if (sellerNameData != null)
+                        headerbox.sellerName = sellerNameData
+                    val sellerAddressData = seller?.getAddress()
+                    if (sellerAddressData != null)
+                        headerbox.sellerAddress = sellerAddressData
+                    val sellerPhoneData = seller?.getPhone()
+                    if (sellerPhoneData != null)
+                        headerbox.sellerPhone = sellerPhoneData
+                    if (seller?.isReturnable() == true) {
+                        headerbox.isReturnable = true
+                        headerbox.returnDescription = seller.getReturnDescription()
+                        headerbox.returnPayment = seller.getReturnPayment()
+                        headerbox.returnSteps = seller.getReturnProcedure()
+                        headerbox.returnRemainingDay = seller.getReturnRemainingDay()
+                    }
                     myDataset.add(headerbox)
                     seller?.products?.forEach {
                         val productBox = Productbox()
