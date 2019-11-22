@@ -236,5 +236,9 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
         return this.context
     }
 
+    override fun setActivityCart(cart: MODELCart) {
+        (activity as MainActivity).presenter?.cart = cart
+    }
+
     //endregion
 }

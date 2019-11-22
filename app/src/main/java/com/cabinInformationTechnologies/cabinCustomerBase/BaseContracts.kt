@@ -59,7 +59,7 @@ interface BaseContracts {
         fun error(context: Context, location: String?, message: String, exception: Throwable)
         fun info(context: Context, location: String?, message: String, exception: Exception?)
         fun verbose(context: Context, location: String?, message: String, exception: Exception?)
-        fun warn(context: Context, location: String?, message: String, exception: Exception?)
+        fun warn(context: Context, location: String?, message: String, throwable: Throwable?)
         fun failure(context: Context, location: String?, message: String?, throwable: Throwable?)
     }
 

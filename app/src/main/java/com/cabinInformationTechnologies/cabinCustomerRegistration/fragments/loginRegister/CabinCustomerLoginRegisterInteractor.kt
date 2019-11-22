@@ -1,11 +1,17 @@
 package com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister
 
 import android.content.Context
-import android.util.Log
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUsers
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 
-class CabinCustomerLoginRegisterInteractor(var output: com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.InteractorOutput?) :
-    com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.Interactor {
+class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegisterContracts.InteractorOutput?) :
+    CabinCustomerLoginRegisterContracts.Interactor {
 
 
 
@@ -16,24 +22,25 @@ class CabinCustomerLoginRegisterInteractor(var output: com.cabinInformationTechn
     //region Interactor
 
     override fun login(context: Context, email: String, password: String){
-        val responseClass = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUsers()
-        val data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPILogin(
+        val responseClass = MODELUsers()
+        val data = REQUESTAPILogin(
             listOf(
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTLogin(
+                REQUESTLogin(
                     email,
                     password
                 )
             )
         )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIUser>(
-            context ,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.LOGIN_URL,
+        NetworkManager.requestFactory<APIUser>(
+            context,
+            Constants.LOGIN_URL,
             null,
             null,
             data,
             responseClass,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object :
+                BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true && responseClass.users.size != 0) {
                         output?.setActiveUser(responseClass.users[0])
@@ -41,51 +48,143 @@ class CabinCustomerLoginRegisterInteractor(var output: com.cabinInformationTechn
                     }
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         value.message,
-                        null)
+                        null
+                    )
+                    //TODO: FEEDBACK
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         value,
-                        null)
-                    if (url != null)
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
-                            context,
-                            this::class.java.name,
-                            url,
-                            null)
+                        null
+                    )
+                    //TODO: FEEDBACK
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Log.d("Login OnFailure", throwable.message.toString())
-                    //TODO
+                    Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "Login OnFailure",
+                        throwable
+                    )
+                    //TODO: FEEDBACK
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "Server Down",
-                        null)
-                    //TODO
+                        null
+                    )
+                    //TODO: FEEDBACK
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "",
-                        exception)
+                        exception
+                    )
+                    //TODO: FEEDBACK
                 }
             }
         )
+    }
+
+    override fun login(context: Context, account: GoogleSignInAccount) {
+        val responseClass = MODELUsers()
+        val userId = account.id
+        val userEmail = account.email
+        if (userId != null && userEmail != null) {
+            val data = REQUESTAPIGoogleLogin(
+                listOf(
+                    REQUESTGoogleLogin(
+                        userId,
+                        userEmail,
+                        account.displayName,
+                        account.familyName
+                    )
+                )
+            )
+            NetworkManager.requestFactory<APIUser>(
+                context,
+                Constants.GOOGLE_LOGIN_URL,
+                null,
+                null,
+                data,
+                responseClass,
+                null,
+                object :
+                    BaseContracts.ResponseCallbacks {
+                    override fun onSuccess(value: Any?) {
+                        if (value == true && responseClass.users.size != 0) {
+                            output?.setActiveUser(responseClass.users[0])
+                            output?.closeActivity()
+                        }
+                    }
+
+                    override fun onIssue(value: JSONIssue) {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            value.message,
+                            null
+                        )
+                        //TODO: FEEDBACK
+                    }
+
+                    override fun onError(value: String, url: String?) {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            value,
+                            null
+                        )
+                        //TODO: FEEDBACK
+                    }
+
+                    override fun onFailure(throwable: Throwable) {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "Google Login OnFailure",
+                            throwable
+                        )
+                        //TODO: FEEDBACK
+                    }
+
+                    override fun onServerDown() {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "Server Down",
+                            null
+                        )
+                        //TODO: FEEDBACK
+                    }
+
+                    override fun onException(exception: Exception) {
+                        Logger.error(
+                            context,
+                            this::class.java.name,
+                            "",
+                            exception
+                        )
+                        //TODO: FEEDBACK
+                    }
+                }
+            )
+        }
     }
 
     override fun register(
@@ -95,29 +194,29 @@ class CabinCustomerLoginRegisterInteractor(var output: com.cabinInformationTechn
         sex: Int,
         emailPermit: Boolean
     ) {
-        val data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIRegister(
+        val data = REQUESTAPIRegister(
             listOf(
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTRegister(
+                REQUESTRegister(
                     com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userId,
                     email,
                     password,
                     emailPermit,
-                    com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTGender(sex)
+                    REQUESTGender(sex)
                 )
             )
         )
 
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<Any?>(
+        NetworkManager.requestFactory<Any?>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.REGISTER_URL,
+            Constants.REGISTER_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.info(
                         context,
                         this::class.java.name,
                         "SUCCESS",
@@ -125,8 +224,8 @@ class CabinCustomerLoginRegisterInteractor(var output: com.cabinInformationTechn
                     output?.sendLoginRequest()
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "ISSUE",
@@ -135,7 +234,7 @@ class CabinCustomerLoginRegisterInteractor(var output: com.cabinInformationTechn
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "ERROR",
@@ -144,7 +243,7 @@ class CabinCustomerLoginRegisterInteractor(var output: com.cabinInformationTechn
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "FAILURE",
@@ -153,7 +252,7 @@ class CabinCustomerLoginRegisterInteractor(var output: com.cabinInformationTechn
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "SERVER DOWN",
@@ -162,7 +261,7 @@ class CabinCustomerLoginRegisterInteractor(var output: com.cabinInformationTechn
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "Exception",

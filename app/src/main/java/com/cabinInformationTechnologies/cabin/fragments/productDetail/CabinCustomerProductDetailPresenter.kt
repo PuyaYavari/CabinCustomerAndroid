@@ -3,6 +3,13 @@ package com.cabinInformationTechnologies.cabin.fragments.productDetail
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabin.MainContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
 
 class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailContracts.View?) :
     CabinCustomerProductDetailContracts.Presenter,
@@ -12,15 +19,18 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
         CabinCustomerProductDetailInteractor(this)
     var router: CabinCustomerProductDetailContracts.Router? = null
 
-    private var selectedColor: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor? = null
-    private var selectedSize: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize? = null
-    private lateinit var product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
-    private var initialColor: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor? = null
+    private var cart: MODELCart = MODELCart()
+
+    private var selectedColor: MODELColor? = null
+    private var selectedSize: MODELSize? = null
+    private var selectedSizeAmount: Int = 0
+    private var product: MODELProduct = MODELProduct()
+    private var initialColor: MODELColor? = null
     private var initialColorIsPicked = false
 
-    private var colorsDataset : MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor> = mutableListOf()
-    private var sizesDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize> = mutableListOf()
-    private var colorSizesDataset : MutableMap<Int ,MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize>> = mutableMapOf()
+    private var colorsDataset : MutableList<MODELColor> = mutableListOf()
+    private var sizesDataset: MutableList<MODELSize> = mutableListOf()
+    private var colorSizesDataset : MutableMap<Int ,MutableList<MODELSize>> = mutableMapOf()
 
     //region Lifecycle
 
@@ -53,12 +63,12 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
         interactor?.requestProduct(context, id)
     }
 
-    override fun setInitialColor(color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor?) {
+    override fun setInitialColor(color: MODELColor?) {
         initialColor = color
         initialColorIsPicked = color != null
     }
 
-    override fun setProduct(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun setProduct(product: MODELProduct) {
         this.product = product
         view?.setupProductDetail(product)
         setupDatasets()
@@ -75,48 +85,55 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             amount,
             colorId,
             sizeId
-            )
+        )
+        view?.showButtonProgresBar()
     }
 
     override fun addToCartButtonListener(context: Context) {
-        if (selectedSize != null) {
-            try {
-                val selectedColor = selectedColor
-                val selectedSize = selectedSize
-                if (selectedColor != null && selectedSize != null) {
-                    view?.addToCart(product.getId(), 1, selectedColor.id, selectedSize.id)
+        if (GlobalData.loggedIn) {
+            if (selectedSize != null) {
+                try {
+                    val selectedColor = selectedColor
+                    val selectedSize = selectedSize
+                    if (selectedColor != null && selectedSize != null) {
+                        view?.addToCart(product.getId(), 1, selectedColor.id, selectedSize.id)
+                    }
+                } catch (exception: Exception) {
+                    Logger.error(
+                        context,
+                        this::class.java.name,
+                        "SelectedSize is null!!",
+                        exception
+                    )
                 }
-            } catch (exception: Exception) {
-                com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
-                    context,
-                    this::class.java.name,
-                    "SelectedSize is null!!",
-                    exception)
+            } else {
+                val selectedColor = selectedColor
+                if (selectedColor != null)
+                    view?.showSelectSizeFor(
+                        product,
+                        selectedColor,
+                        object : MainContracts.SelectSizeCallback {
+                            override fun selectSize(size: MODELSize) {
+                                view?.indicateSelectedSize(size)
+                                setSelectedSize(size)
+                            }
+
+                            override fun confirm() {
+                                val selectedSize = selectedSize
+                                if (selectedSize != null)
+                                    addToCart(
+                                        context,
+                                        product.getId(),
+                                        1,
+                                        selectedColor.id,
+                                        selectedSize.id
+                                    )
+                            }
+                        }
+                    )
             }
         } else {
-            val selectedColor = selectedColor
-            if (selectedColor != null)
-                view?.showSelectSizeFor(
-                    product,
-                    selectedColor,
-                    object : com.cabinInformationTechnologies.cabin.MainContracts.SelectSizeCallback{
-                        override fun selectSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize) {
-                            view?.indicateSelectedSize(size)
-                            setSelectedSize(size)
-                        }
-
-                        override fun confirm() {
-                            val selectedSize = selectedSize
-                            if (selectedSize != null)
-                                addToCart(
-                                    context,
-                                    product.getId(),
-                                    1,
-                                    selectedColor.id,
-                                    selectedSize.id
-                                )
-                        }
-                    })
+            view?.directToRegistration()
         }
     }
 
@@ -128,7 +145,7 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             initialColor = null
         val colors = product.getColors()
         colors.forEach {modelColor ->
-            val colorSizes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize> = mutableListOf()
+            val colorSizes: MutableList<MODELSize> = mutableListOf()
             modelColor.sizes.forEach{ modelSize ->
                 colorSizes.add(modelSize)
             }
@@ -152,19 +169,62 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             view?.indicateSelectedSize(size)
     }
 
-    override fun setSelectedColor(color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
+    override fun setSelectedColor(color: MODELColor) {
         selectedColor = color
     }
 
-    override fun setSelectedSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize?) {
+    override fun setSelectedSize(size: MODELSize?) {
         selectedSize = size
+        var amount = 0
+        this.cart.getSellers().forEach {seller ->
+            seller.getProducts().forEach {product ->
+                if (product != null && product.getId() == this.product.getId()) {
+                    product.getColors().forEach {color ->
+                        if (color.id == selectedColor?.id)
+                            color.sizes.forEach {size ->
+                                if (size.id == selectedSize?.id) {
+                                    val productAmount = product.getAmount()
+                                    if (productAmount != null)
+                                        amount = productAmount
+                                }
+                            }
+                    }
+                }
+            }
+        }
+        selectedSizeAmount = if (amount > 0) {
+            view?.showCounter(amount)
+            amount
+        } else {
+            view?.showAddToCartButton()
+            0
+        }
     }
 
-    override fun setSizesDataset(sizesDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize>) {
+    override fun setSizesDataset(sizesDataset: MutableList<MODELSize>) {
         this.sizesDataset = sizesDataset
     }
 
-    override fun getSizesOfColor(id: Int): MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize>? = colorSizesDataset[id]
+    override fun getSizesOfColor(id: Int): MutableList<MODELSize>? = colorSizesDataset[id]
+
+    override fun increaseAmount(context: Context?) {
+        val colorId = selectedColor?.id
+        val sizeId = selectedSize?.id
+        if (context != null && colorId != null && sizeId != null) {
+            interactor?.updateProduct(context, product.getId(), colorId, sizeId, selectedSizeAmount+1)
+        }
+    }
+
+    override fun decreaseAmount(context: Context?) {
+        val colorId = selectedColor?.id
+        val sizeId = selectedSize?.id
+        if (context != null && colorId != null && sizeId != null && selectedSizeAmount > 0) {
+            interactor?.updateProduct(context, product.getId(), colorId, sizeId, selectedSizeAmount-1)
+        } else if (selectedSizeAmount <= 0) {
+            selectedSizeAmount = 0
+            view?.showAddToCartButton()
+        }
+    }
 
     //endregion
 
@@ -177,7 +237,7 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             view?.showMessage(message, false)//FIXME: ISSUCCESSFUL?
     }
 
-    override fun updateProduct(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun updateProduct(product: MODELProduct) {
         setProduct(product)
     }
 
@@ -188,12 +248,49 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             view?.uncheckFavorite()
     }
 
-    override fun addToFavorite(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
+    override fun addToFavorite(context: Context, product: MODELProduct, color: MODELColor) {
         interactor?.addFavorite(context, product, color)
     }
 
-    override fun removeFromFavorite(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
+    override fun removeFromFavorite(context: Context, product: MODELProduct, color: MODELColor) {
         interactor?.removeFavorite(context, product, color)
+    }
+
+    override fun setCart(cart: MODELCart?) {
+        if (cart != null) {
+            this.cart = cart
+            view?.setActivityCart(cart)
+            var amount = 0
+            this.cart.getSellers().forEach {seller ->
+                seller.getProducts().forEach {product ->
+                    if (product != null && product.getId() == this.product.getId()) {
+                        product.getColors().forEach {color ->
+                            if (color.id == selectedColor?.id)
+                                color.sizes.forEach {size ->
+                                    if (size.id == selectedSize?.id) {
+                                        val productAmount = product.getAmount()
+                                        if (productAmount != null)
+                                            amount = productAmount
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
+            if (amount > 0) {
+                selectedSizeAmount = amount
+                view?.showCounter(amount)
+            } else {
+                selectedSizeAmount = 0
+                view?.showAddToCartButton()
+            }
+        } else {
+            view?.setActivityCart(MODELCart())
+        }
+    }
+
+    override fun productAddedToCart() {
+        view?.showCounter(1)
     }
 
     //endregion

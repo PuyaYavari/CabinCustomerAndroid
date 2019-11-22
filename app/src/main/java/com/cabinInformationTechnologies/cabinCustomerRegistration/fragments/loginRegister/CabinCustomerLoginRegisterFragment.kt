@@ -1,6 +1,8 @@
 package com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,23 +10,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.cabinInformationTechnologies.cabin.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
+
 
 class CabinCustomerLoginRegisterFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.View {
+    CabinCustomerLoginRegisterContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterPresenter(
+    var presenter: CabinCustomerLoginRegisterContracts.Presenter? =
+        CabinCustomerLoginRegisterPresenter(
             this
         )
     private lateinit var pageView: View
     private lateinit var cardsTransitionContainer: MotionLayout
     private lateinit var headerTransitionContainer: MotionLayout
+
+    private val G_SIGN_IN: Int = 100
+    private val F_SIGN_IN: Int = 200
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_login_register, container, false)
@@ -53,11 +60,25 @@ class CabinCustomerLoginRegisterFragment : com.cabinInformationTechnologies.cabi
         presenter?.onCreate()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == G_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            presenter?.handleGoogleSignInResult(this.context, task)
+        }
+
+    }
+
     //region View
 
     private fun setupPage() {
         setupLoginPage()
         setupRegisterPage()
+        setupGoogleAndFacebookButtons()
         cardsTransitionContainer = pageView.findViewById(R.id.login_register_card_motion_layout)
         cardsTransitionContainer.setTransition(R.id.loginRegisterNothingVisible, R.id.loginVisible)
         cardsTransitionContainer.transitionToEnd()
@@ -122,6 +143,31 @@ class CabinCustomerLoginRegisterFragment : com.cabinInformationTechnologies.cabi
                 presenter?.setEmailPermit(isChecked)
             }
         pageView.findViewById<TextView>(R.id.register_card_view_login_text).setOnClickListener { switchToLogin() }
+    }
+
+    private fun setupGoogleAndFacebookButtons() {
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        val gso =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("cabin-7f196")
+                .requestEmail()
+                .build()
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        val mGoogleSignInClient = GoogleSignIn.getClient(this.activity as Activity, gso)
+
+        pageView.findViewById<ImageView>(R.id.login_google_button).setOnClickListener {
+            val signInIntent = mGoogleSignInClient.signInIntent
+            startActivityForResult(signInIntent, G_SIGN_IN)
+        }
+
+        pageView.findViewById<ImageView>(R.id.register_google_button).setOnClickListener {
+            val signInIntent = mGoogleSignInClient.signInIntent
+            startActivityForResult(signInIntent, G_SIGN_IN)
+        }
     }
 
     private fun switchToRegister() {

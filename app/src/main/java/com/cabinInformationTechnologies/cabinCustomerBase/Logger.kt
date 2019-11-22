@@ -85,24 +85,24 @@ object Logger: BaseContracts.Logger, BaseContracts.FirebaseLogger {
         context: Context,
         location: String?,
         message: String,
-        exception: Exception?) {
+        throwable: Throwable?) {
         try {
             if (location != null) {
-                if (exception != null) {
-                    Log.w("Warn", "LOCATION: $location \nMESSAGE: $message", exception)
+                if (throwable != null) {
+                    Log.w("Warn", "LOCATION: $location \nMESSAGE: $message", throwable)
                     Crashlytics.log(
                         Log.WARN,
                         "WARN",
-                        "LOCATION: $location \nMESSAGE: $message \nEXCEPTION: ${exception.toString()}"
+                        "LOCATION: $location \nMESSAGE: $message \nEXCEPTION: ${throwable.toString()}"
                     )
                 } else {
                     Log.w("Warn", "LOCATION: $location \nMESSAGE: $message", null)
                     Crashlytics.log(Log.WARN, "WARN", "LOCATION: $location \nMESSAGE: $message")
                 }
             } else {
-                if (exception != null) {
-                    Log.w("Warn", message, exception)
-                    Crashlytics.log(Log.WARN, "WARN", "MESSAGE: $message \nEXCEPTION: ${exception.toString()}" )
+                if (throwable != null) {
+                    Log.w("Warn", message, throwable)
+                    Crashlytics.log(Log.WARN, "WARN", "MESSAGE: $message \nEXCEPTION: ${throwable.toString()}" )
                 } else {
                     Log.w("Warn", message, null)
                     Crashlytics.log(Log.WARN, "WARN", "MESSAGE: $message" )

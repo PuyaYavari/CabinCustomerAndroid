@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.R
 
+
 class CabinCustomerRegistrationActivity : com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity(),
     com.cabinInformationTechnologies.cabinCustomerRegistration.CabinCustomerRegistrationContracts.View {
 
@@ -15,6 +16,9 @@ class CabinCustomerRegistrationActivity : com.cabinInformationTechnologies.cabin
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cabin_customer_registeration)
+
+
+
         presenter?.onCreate(intent.extras)
     }
 

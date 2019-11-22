@@ -10,6 +10,7 @@ import android.view.ViewOutlineProvider
 import android.widget.Button
 import android.widget.TextView
 import android.widget.ToggleButton
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
@@ -19,6 +20,7 @@ import androidx.viewpager.widget.ViewPager
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.MainContracts
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
 
 
 class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
@@ -116,10 +118,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         presenter?.setInitialColor(args.initialColor)
         presenter?.setProduct(args.product)
 
-        pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).setOnClickListener {
-            if (context != null)
-                presenter?.addToCartButtonListener(context)
-        }
+        presenter?.setCart((activity as MainActivity).presenter?.cart)
 
         pageView.findViewById<ToggleButton>(R.id.product_detail_favourite_button).outlineProvider = object : ViewOutlineProvider() {
             override fun getOutline(view: View?, outline: Outline?) {
@@ -131,36 +130,36 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
 
     private fun setupImagesIndicator(){
         indicatorAnimationContainer = pageView.findViewById(R.id.product_detail_indicator_motion_layout)
-        when {
-            imagesList.size == 5 -> {
+        when (imagesList.size) {
+            5 -> {
                 pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image2_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image3_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image4_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image5_indicator).visibility = View.VISIBLE
             }
-            imagesList.size == 4 -> {
+            4 -> {
                 pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image2_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image3_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image4_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
             }
-            imagesList.size == 3 -> {
+            3 -> {
                 pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image2_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image3_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image4_indicator).visibility = View.GONE
                 pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
             }
-            imagesList.size == 2 -> {
+            2 -> {
                 pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image2_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image3_indicator).visibility = View.GONE
                 pageView.findViewById<View>(R.id.image4_indicator).visibility = View.GONE
                 pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
             }
-            imagesList.size == 1 -> {
+            1 -> {
                 pageView.findViewById<View>(R.id.image1_indicator).visibility = View.VISIBLE
                 pageView.findViewById<View>(R.id.image2_indicator).visibility = View.GONE
                 pageView.findViewById<View>(R.id.image3_indicator).visibility = View.GONE
@@ -186,8 +185,8 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         mPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageSelected(position: Int) {
                 if(previousPage < position) {
-                    when {
-                        imagesList.size == 5 -> when (position) {
+                    when (imagesList.size) {
+                        5 -> when (position) {
                             1 -> {
                                 indicatorAnimationContainer
                                     .setTransition(R.id.product_detail_0p_indicator, R.id.product_detail_024p_indicator)
@@ -209,7 +208,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                                 indicatorAnimationContainer.transitionToEnd()
                             }
                         }
-                        imagesList.size == 4 -> when (position) {
+                        4 -> when (position) {
                             1 -> {
                                 indicatorAnimationContainer
                                     .setTransition(R.id.product_detail_0p_indicator, R.id.product_detail_033p_indicator)
@@ -226,7 +225,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                                 indicatorAnimationContainer.transitionToEnd()
                             }
                         }
-                        imagesList.size == 3 -> when (position) {
+                        3 -> when (position) {
                             1 -> {
                                 indicatorAnimationContainer
                                     .setTransition(R.id.product_detail_0p_indicator, R.id.product_detail_05p_indicator)
@@ -238,7 +237,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                                 indicatorAnimationContainer.transitionToEnd()
                             }
                         }
-                        imagesList.size == 2 -> when (position) {
+                        2 -> when (position) {
                             1 -> {
                                 indicatorAnimationContainer
                                     .setTransition(R.id.product_detail_0p_indicator, R.id.product_detail_1p_indicator)
@@ -247,8 +246,8 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                         }
                     }
                 } else if (previousPage > position) {
-                    when {
-                        imagesList.size == 5 -> when (position) {
+                    when (imagesList.size) {
+                        5 -> when (position) {
                             0 -> {
                                 indicatorAnimationContainer
                                     .setTransition(
@@ -282,7 +281,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                                 indicatorAnimationContainer.transitionToEnd()
                             }
                         }
-                        imagesList.size == 4 -> when (position) {
+                        4 -> when (position) {
                             0 -> {
                                 indicatorAnimationContainer
                                     .setTransition(
@@ -308,7 +307,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                                 indicatorAnimationContainer.transitionToEnd()
                             }
                         }
-                        imagesList.size == 3 -> when (position) {
+                        3 -> when (position) {
                             0 -> {
                                 indicatorAnimationContainer
                                     .setTransition(
@@ -326,7 +325,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                                 indicatorAnimationContainer.transitionToEnd()
                             }
                         }
-                        imagesList.size == 2 -> when (position) {
+                        2 -> when (position) {
                             0 -> {
                                 indicatorAnimationContainer
                                     .setTransition(
@@ -516,6 +515,57 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
 
     override fun hideProgressBar() {
         (activity!! as MainActivity).hideProgressBar()
+    }
+
+    override fun directToRegistration() {
+        (activity!! as MainActivity).presenter?.moveToRegistration()
+    }
+
+    override fun showAddToCartButton() {
+        pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_button_progress_bar).visibility = View.GONE
+        pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_counter).visibility = View.GONE
+        pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).apply {
+            setOnClickListener {
+                presenter?.addToCartButtonListener(this.context)
+            }
+            visibility = View.VISIBLE
+        }
+    }
+
+    override fun showButtonProgresBar() {
+        pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_button_progress_bar).visibility = View.VISIBLE
+        pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_counter).visibility = View.GONE
+        pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).apply {
+            setOnClickListener { }
+            visibility = View.INVISIBLE
+        }
+    }
+
+    override fun showCounter(amount: Int) {
+        val context = this.context
+        pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_button_progress_bar).visibility = View.GONE
+        pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_counter).visibility = View.VISIBLE
+        pageView.findViewById<Button>(R.id.product_detail_add_to_cart_counter_dec_button).setOnClickListener {
+            if (context != null)
+                presenter?.decreaseAmount(context)
+        }
+        pageView.findViewById<TextView>(R.id.product_detail_add_to_cart_counter_count).text = amount.toString()
+        pageView.findViewById<Button>(R.id.product_detail_add_to_cart_counter_inc_button).setOnClickListener {
+            if (context != null)
+                presenter?.increaseAmount(context)
+        }
+        pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).apply {
+            setOnClickListener { }
+            visibility = View.INVISIBLE
+        }
+    }
+
+    override fun setActivityCart(cart: MODELCart) {
+        (activity as MainActivity).presenter?.cart = cart
+    }
+
+    override fun setAmount(amount: Int) {
+        pageView.findViewById<TextView>(R.id.product_detail_add_to_cart_counter_count).text = amount.toString()
     }
 
     //endregion

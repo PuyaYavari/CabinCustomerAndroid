@@ -2,7 +2,7 @@ package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
 import android.content.Context
 
-class MODELSize: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
+class MODELSize: LocalDataModel {
     var id: Int = -1
     lateinit var name: String
 

@@ -87,6 +87,7 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
         if (cart?.getSellers().isNullOrEmpty())
             myDataset.clear()
         if (cart != null) {
+            view?.setActivityCart(cart)
             var sellerIter = cart.getSellers().iterator()
             while (sellerIter.hasNext()) {
                 val seller = sellerIter.next()
@@ -154,6 +155,7 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
             else
                 view?.clearAll()
         } else {
+            view?.setActivityCart(MODELCart())
             view?.clearAll()
         }
     }

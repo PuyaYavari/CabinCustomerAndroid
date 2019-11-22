@@ -53,6 +53,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
     /* Multidex */
     implementation 'com.android.support:multidex:1.0.3'
 

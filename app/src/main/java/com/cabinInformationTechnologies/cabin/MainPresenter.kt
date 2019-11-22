@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 
 class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
@@ -15,6 +16,7 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
     var router: MainContracts.Router? = null
 
     override var filter: MODELFilter? = null
+    override var cart: MODELCart = MODELCart()
 
     //region Lifecycle
 
@@ -65,6 +67,10 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
 
     override fun updateFilterTo(context: Context, filter: MODELFilter?) {
         interactor?.updateFilterTo(context, filter)
+    }
+
+    override fun updateCart(context: Context) {
+        interactor?.getCart(context)
     }
 
     //endregion

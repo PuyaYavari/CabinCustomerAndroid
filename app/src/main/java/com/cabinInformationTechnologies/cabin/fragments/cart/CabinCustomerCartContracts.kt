@@ -23,6 +23,7 @@ object CabinCustomerCartContracts {
         fun feedback(message: String)
         fun showNoInternet()
         fun hideNoInternet()
+        fun setActivityCart(cart: MODELCart)
     }
 
     interface Presenter : BaseContracts.Presenter {

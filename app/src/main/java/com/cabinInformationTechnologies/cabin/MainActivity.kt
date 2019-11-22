@@ -99,6 +99,7 @@ class MainActivity : BaseActivity(), MainContracts.View {
         if (GlobalData.loggedIn)
             unblockPage()
 
+        presenter?.updateCart(this.applicationContext)
         presenter?.clearFilter(this.applicationContext)
     }
 
@@ -521,7 +522,10 @@ class MainActivity : BaseActivity(), MainContracts.View {
     override fun showDrawerButton() {
         findViewById<ImageButton>(R.id.main_drawer_button).apply {
             setOnClickListener {
-                drawerLayout.openDrawer(Gravity.LEFT)
+                if (GlobalData.loggedIn)
+                    drawerLayout.openDrawer(Gravity.LEFT)
+                else
+                    presenter?.moveToRegistration()
             }
             visibility = View.VISIBLE
         }

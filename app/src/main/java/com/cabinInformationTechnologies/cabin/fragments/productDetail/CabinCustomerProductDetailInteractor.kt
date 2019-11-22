@@ -2,7 +2,15 @@ package com.cabinInformationTechnologies.cabin.fragments.productDetail
 
 import android.content.Context
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.Constants
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APICartAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
 import com.squareup.moshi.Moshi
 
 class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetailContracts.InteractorOutput?) :
@@ -20,42 +28,44 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                            colorId: Int,
                            sizeId: Int
     ){
-        val data: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct? =
-            com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct(
+        val data: REQUESTAPIProduct? =
+            REQUESTAPIProduct(
                 listOf(
-                    com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProduct(
+                    REQUESTProduct(
                         productId,
                         amount,
                         listOf(
-                            com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTColor(
+                            REQUESTColor(
                                 colorId,
-                                listOf(com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTSize(sizeId))
+                                listOf(REQUESTSize(sizeId))
                             )
                         )
                     )
                 )
             )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIProduct>(
+        NetworkManager.requestFactory<APIProduct>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.DISCOVER_ADD_TO_CART_URL,
+            Constants.DISCOVER_ADD_TO_CART_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     output?.showMessage(null)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.info(
                         context,
                         this::class.java.name,
                         "SUCCESS, Value: $value",
-                        null)
+                        null
+                    )
+                    output?.productAddedToCart()
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
+                override fun onIssue(value: JSONIssue) {
                     output?.showMessage(value.message)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "ISSUE, Value: $value",
@@ -64,7 +74,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "Error, Value: $value",
@@ -74,7 +84,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "FAILURE",
@@ -84,7 +94,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "SERVER DOWN",
@@ -93,7 +103,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "EXCEPTION",
@@ -106,34 +116,34 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
     }
 
     override fun requestProduct(context: Context, id: Int) {
-        val data: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct =
-            com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct(
+        val data =
+            REQUESTAPIProduct(
                 listOf(
-                    com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProduct(
+                    REQUESTProduct(
                         id,
                         null,
                         null
                     )
                 )
             )
-        val responseClass = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProducts()
+        val responseClass = MODELProducts()
         val moshi: Moshi = Moshi.Builder()
-            .add(com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter(context,Moshi.Builder().build()))
+            .add(JSONProductAdapter(context,Moshi.Builder().build()))
             .build()
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory(
+        NetworkManager.requestFactory(
             context,
             Constants.LIST_PRODUCT_DETAIL_URL,
             null,
             null,
             data,
             responseClass,
-            com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter(moshi),
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            APIProductAdapter(moshi),
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true) {
                         if (responseClass.products.isNotEmpty())
                             output?.updateProduct(responseClass.products[0])
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        Logger.info(
                             context,
                             this::class.java.name,
                             "SUCCESS, Value: $value",
@@ -141,9 +151,9 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                     }
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
+                override fun onIssue(value: JSONIssue) {
                     output?.showMessage(value.message) //TODO: HANDLE
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "ISSUE, Value: $value",
@@ -152,7 +162,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "Error, Value: $value",
@@ -162,7 +172,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "FAILURE",
@@ -172,7 +182,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "SERVER DOWN",
@@ -181,7 +191,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "EXCEPTION",
@@ -193,14 +203,14 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
         )
     }
 
-    override fun addFavorite(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
-        val data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct(
+    override fun addFavorite(context: Context, product: MODELProduct, color: MODELColor) {
+        val data = REQUESTAPIProduct(
             listOf(
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProduct(
+                REQUESTProduct(
                     product.getId(),
                     null,
                     listOf(
-                        com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTColor(
+                        REQUESTColor(
                             color.id,
                             null
                         )
@@ -208,26 +218,26 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 )
             )
         )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<Any?>(
+        NetworkManager.requestFactory<Any?>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.DISCOVER_ADD_TO_FAVORITE_URL,
+            Constants.DISCOVER_ADD_TO_FAVORITE_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks{
+            object : BaseContracts.ResponseCallbacks{
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.info(
                         context,
                         this::class.java.name,
                         "SUCCESS, Value: $value",
                         null)
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
+                override fun onIssue(value: JSONIssue) {
                     output?.showMessage(value.message) //TODO: HANDLE
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "ISSUE, Value: $value",
@@ -236,7 +246,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "Error, Value: $value",
@@ -246,7 +256,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "FAILURE",
@@ -256,7 +266,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "SERVER DOWN",
@@ -265,7 +275,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "EXCEPTION",
@@ -277,14 +287,14 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
         )
     }
 
-    override fun removeFavorite(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
-        val data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct(
+    override fun removeFavorite(context: Context, product: MODELProduct, color: MODELColor) {
+        val data = REQUESTAPIProduct(
             listOf(
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProduct(
+                REQUESTProduct(
                     product.getId(),
                     null,
                     listOf(
-                        com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTColor(
+                        REQUESTColor(
                             color.id,
                             null
                         )
@@ -292,26 +302,26 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 )
             )
         )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<Any?>(
+        NetworkManager.requestFactory<Any?>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.DISCOVER_REMOVE_FROM_FAVORITE_URL,
+            Constants.DISCOVER_REMOVE_FROM_FAVORITE_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks{
+            object : BaseContracts.ResponseCallbacks{
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.info(
                         context,
                         this::class.java.name,
                         "SUCCESS, Value: $value",
                         null)
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
+                override fun onIssue(value: JSONIssue) {
                     output?.showMessage(value.message) //TODO: HANDLE
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "ISSUE, Value: $value",
@@ -320,7 +330,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "Error, Value: $value",
@@ -330,7 +340,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "FAILURE",
@@ -340,7 +350,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "SERVER DOWN",
@@ -349,13 +359,107 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "EXCEPTION",
                         exception)
                     output?.showMessage(context.resources.getString(R.string.a_problem_occurred))
                     //TODO: HANDLE
+                }
+            }
+        )
+    }
+
+    override fun updateProduct(context: Context, productId: Int, colorId: Int, sizeId: Int, amount: Int) {
+        val carts = MODELCarts()
+        val data = REQUESTAPIProduct(
+                listOf(
+                    REQUESTProduct(
+                        productId,
+                        amount,
+                        listOf(
+                            REQUESTColor(
+                                colorId,
+                                listOf(
+                                    REQUESTSize(
+                                        sizeId
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        NetworkManager.requestFactory(
+            context,
+            Constants.CART_UPDATE_URL,
+            null,
+            null,
+            data,
+            carts,
+            APICartAdapter(
+                context,
+                Moshi.Builder().build(),
+                null
+            ),
+            object : BaseContracts.ResponseCallbacks {
+                override fun onSuccess(value: Any?) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Success ${value.toString()}",
+                        null
+                    )
+                    var cart: MODELCart? = null
+                    if (carts.getCarts().isNotEmpty())
+                        cart = carts.getCarts()[0]
+                    output?.setCart(cart)
+                }
+
+                override fun onIssue(value: JSONIssue) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Issue ${value.message}",
+                        null
+                    )
+                }
+
+                override fun onError(value: String, url: String?) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Error $value",
+                        null
+                    )
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Failure ${throwable.message}",
+                        null
+                    )
+                }
+
+                override fun onServerDown() {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Server Down",
+                        null
+                    )
+                }
+
+                override fun onException(exception: Exception) {
+                    Logger.error(
+                        context,
+                        this::class.java.name,
+                        "Exception",
+                        exception
+                    )
                 }
             }
         )

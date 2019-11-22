@@ -1,10 +1,14 @@
 package com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 
 class CabinCustomerLoginRegisterPresenter(var view:com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.View?) : com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.Presenter,
     CabinCustomerLoginRegisterContracts.InteractorOutput {
@@ -57,8 +61,8 @@ class CabinCustomerLoginRegisterPresenter(var view:com.cabinInformationTechnolog
         email = emailInput
     }
 
-    override fun setInputtedPassword(passwordInput: String) {
-        password = passwordInput
+    override fun setInputtedPassword(password: String) {
+        this.password = password
     }
 
     override fun switchLoginButton() {
@@ -103,6 +107,27 @@ class CabinCustomerLoginRegisterPresenter(var view:com.cabinInformationTechnolog
         val context = view?.getActivityContext()
         if (context != null)
             interactor?.register(context ,email, password, sex, emailPermit)
+    }
+
+    override fun handleGoogleSignInResult(
+        context: Context?,
+        completedTask: Task<GoogleSignInAccount>
+    ) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            // Signed in successfully, show authenticated UI.
+            if (account != null && context != null)
+                interactor?.login(context, account)
+        } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            if (context != null)
+                Logger.warn(
+                    context,
+                    this::class.java.name,
+                    "GoogleSignInResult:failed",
+                    e
+                )
+        }
     }
 
     //endregion

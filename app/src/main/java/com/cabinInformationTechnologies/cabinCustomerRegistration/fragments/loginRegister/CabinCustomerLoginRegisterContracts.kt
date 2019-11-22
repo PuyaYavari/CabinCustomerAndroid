@@ -1,6 +1,8 @@
 package com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister
 
 import android.content.Context
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
 
 object CabinCustomerLoginRegisterContracts {
 
@@ -27,10 +29,12 @@ object CabinCustomerLoginRegisterContracts {
         fun login()
         fun register()
         fun forgetPassword()
+        fun handleGoogleSignInResult(context: Context?, completedTask: Task<GoogleSignInAccount>)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
         fun login(context: Context ,email: String, password: String)
+        fun login(context: Context, account: GoogleSignInAccount)
         fun register(context: Context ,email: String, password: String, sex: Int, emailPermit: Boolean)
     }
 

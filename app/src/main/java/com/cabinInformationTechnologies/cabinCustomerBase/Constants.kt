@@ -27,6 +27,8 @@ object Constants {
 
     const val LOGIN_URL: String = "login/login"
     const val LOGOUT_URL: String = "login/logout"
+    const val GOOGLE_LOGIN_URL: String = "login/loginGoogle"
+    const val FACEBOOK_LOGIN_URL: String = "login/loginFacebook"
 
     const val REGISTER_URL: String = "register/addUser"
 

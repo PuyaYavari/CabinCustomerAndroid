@@ -5,11 +5,10 @@ import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APICartAdapter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilters
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
+import com.squareup.moshi.Moshi
 
 class MainInteractor(var output: MainContracts.InteractorOutput?) :
     MainContracts.Interactor {
@@ -329,6 +328,81 @@ class MainInteractor(var output: MainContracts.InteractorOutput?) :
             }
         }
         return selected
+    }
+
+    override fun getCart(context: Context) {
+        val carts = MODELCarts()
+        NetworkManager.requestFactory(
+            context,
+            Constants.CART_LIST_ALL_URL,
+            null,
+            null,
+            null,
+            carts,
+            APICartAdapter(
+                context,
+                Moshi.Builder().build(),
+                null
+            ),
+            object : BaseContracts.ResponseCallbacks {
+                override fun onSuccess(value: Any?) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Success ${value.toString()}",
+                        null
+                    )
+                    val cart = carts.getCarts()[0]
+                    output?.cart = cart
+                }
+
+                override fun onIssue(value: JSONIssue) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Issue ${value.message}",
+                        null
+                    )
+                }
+
+                override fun onError(value: String, url: String?) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Error $value",
+                        null
+                    )
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Failure ${throwable.message}",
+                        null
+                    )
+                }
+
+                override fun onServerDown() {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Server Down",
+                        null
+                    )
+                }
+
+                override fun onException(exception: Exception) {
+                    Logger.error(
+                        context,
+                        this::class.java.name,
+                        "Exception",
+                        exception
+                    )
+                }
+
+            }
+        )
     }
 
     //endregion

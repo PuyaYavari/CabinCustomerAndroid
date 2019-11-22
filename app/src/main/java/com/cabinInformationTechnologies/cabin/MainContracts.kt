@@ -44,6 +44,7 @@ object MainContracts {
 
     interface Presenter: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
         var filter: MODELFilter?
+        var cart: MODELCart
 
         fun moveToProfileOptions()
         fun moveToMeasure()
@@ -52,15 +53,19 @@ object MainContracts {
         fun moveToRegistration()
         fun clearFilter(context: Context)
         fun updateFilterTo(context: Context, filter: MODELFilter?)
+        fun updateCart(context: Context)
     }
 
     interface Interactor: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
         fun logout(context: Context)
         fun clearFilter(context: Context)
         fun updateFilterTo(context: Context, filter: MODELFilter?)
+        fun getCart(context: Context)
     }
 
     interface InteractorOutput: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
+        var cart: MODELCart
+
         fun logout()
         fun unableToLogout(message: String?)
         fun refreshFilter(filter: MODELFilter)
@@ -81,14 +86,5 @@ object MainContracts {
 
     interface NoInternetCallback {
         fun retry()
-    }
-
-    interface SetFilterCallback {
-        fun setCategories(categories: MutableList<MODELFilterCategory>?)
-        fun setSexes(sexes: MutableList<MODELFilterSex>?)
-        fun setSellers(sellers: MutableList<MODELFilterSeller>?)
-        fun setSizes(sizes: MutableList<MODELFilterSizeGroup>?)
-        fun setColors(colors: MutableList<MODELFilterColor>?)
-        fun setPrices(prices: MutableList<MODELFilterPrice>?)
     }
 }
