@@ -51,15 +51,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         pageView = inflater.inflate(R.layout.cabin_customer_product_detail, container, false)
         mPager = pageView.findViewById(R.id.product_detail_product_image_pager) ?: throw (Exception("Couldn't find image pager."))
 
-        (activity!! as MainActivity).hideHeaderNavbar()
-
-        (activity!! as MainActivity).lockDrawer()
-
-        (activity!! as MainActivity).hideClear()
-        (activity!! as MainActivity).hideCross()
-
-        hideProgressBar()
-
+        setupActivity()
         setupPage()
 
         return pageView
@@ -87,6 +79,14 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
     }
 
     //region View
+
+    private fun setupActivity() {
+        (activity!! as MainActivity).hideHeaderNavbar()
+        (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideClear()
+        (activity!! as MainActivity).hideCross()
+        (activity!! as MainActivity).hideProgressBar()
+    }
 
     private fun setupPage() {
         val context = context

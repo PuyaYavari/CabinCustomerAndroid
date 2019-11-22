@@ -30,16 +30,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_discover, container, false)
 
-        (activity!! as MainActivity).layoutBackToDefault()
-        (activity!! as MainActivity).unblockPage()
-        (activity!! as MainActivity).setHeader(resources.getString(R.string.discover_label),null)
-        (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).lockDrawer()
-        (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).hideClear()
-        (activity!! as MainActivity).hideCross()
-        showHeaderAndNavbar()
-        hideProgressBar()
+        setupActivity()
 
         viewAdapter = CabinCustomerDiscoverAdapter(this, myDataset)
         viewManager = GridLayoutManager(this.context, 2)
@@ -73,6 +64,22 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     }
 
     //region View
+
+    private fun setupActivity() {
+        (activity!! as MainActivity).apply {
+            layoutBackToDefault()
+            unblockPage()
+            setHeader(resources.getString(R.string.discover_label), null)
+            hideBackButton()
+            lockDrawer()
+            hideDrawerButton()
+            hideBackButton()
+            hideClear()
+            hideCross()
+            showHeaderNavbar()
+            hideProgressBar()
+        }
+    }
 
     private fun setupPage() {
         pageView.findViewById<FrameLayout>(R.id.discover_header_bottom_bar_filter_layout)

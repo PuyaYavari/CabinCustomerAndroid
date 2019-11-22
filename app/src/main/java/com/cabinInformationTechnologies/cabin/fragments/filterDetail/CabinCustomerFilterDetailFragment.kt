@@ -32,9 +32,7 @@ class CabinCustomerFilterDetailFragment :
         savedInstanceState: Bundle?
     ): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_filter_detail, container, false)
-        (activity!! as MainActivity).lockDrawer()
-        (activity!! as MainActivity).showClear(this)
-        (activity!! as MainActivity).hideCross()
+        setupActivity()
         setupPage()
         return pageView
     }
@@ -61,6 +59,13 @@ class CabinCustomerFilterDetailFragment :
     }
 
     //region View
+
+    private fun setupActivity() {
+        (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideDrawerButton()
+        (activity!! as MainActivity).showClear(this)
+        (activity!! as MainActivity).hideCross()
+    }
 
     private fun setupPage() {
         recyclerView = pageView.findViewById(R.id.filter_detail_recycler_view)

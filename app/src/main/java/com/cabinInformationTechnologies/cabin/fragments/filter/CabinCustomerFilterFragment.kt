@@ -44,6 +44,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
             presenter?.requestFilter(context)
         setupActivityLayout()
 
+        (activity as MainActivity).hideDrawerButton()
         (activity as MainActivity).showCrossOfFilter(previousFilter)
 
         // This callback will only be called when MyFragment is at least Started.

@@ -17,16 +17,7 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
 
         com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.appRunning = true
 
-        (activity!! as MainActivity).unblockPage()
-        (activity!! as MainActivity).setHeader(resources.getString(R.string.homepage_label),null)
-        (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).showHeaderNavbar()
-        (activity!! as MainActivity).unlockDrawer()
-        (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).hideClear()
-        (activity!! as MainActivity).hideCross()
-        hideProgressBar()
-
+        setupActivity()
         setupPage()
         return pageView
     }
@@ -53,6 +44,19 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
     }
 
     //region View
+
+    private fun setupActivity() {
+        (activity!! as MainActivity).unblockPage()
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.homepage_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).showHeaderNavbar()
+        (activity!! as MainActivity).unlockDrawer()
+        (activity!! as MainActivity).showDrawerButton()
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).hideClear()
+        (activity!! as MainActivity).hideCross()
+        (activity!! as MainActivity).hideProgressBar()
+    }
 
     private fun setupPage() {
     }

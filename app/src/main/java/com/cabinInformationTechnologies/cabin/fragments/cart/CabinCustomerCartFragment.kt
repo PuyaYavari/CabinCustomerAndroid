@@ -36,24 +36,7 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
     override fun onResume() {
         super.onResume()
 
-        (activity!! as MainActivity).setHeader(resources.getString(R.string.cart_label),null)
-        (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).lockDrawer()
-        (activity!! as MainActivity).hideBackButton()
-        (activity!! as MainActivity).hideClear()
-        (activity!! as MainActivity).hideCross()
-        hideProgressBar()
-
-        if (GlobalData.loggedIn) {
-            setupPage()
-            if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
-                    .visibility == View.INVISIBLE) {
-                (activity!! as MainActivity).layoutBackToDefault()
-                (activity!! as MainActivity).showHeaderNavbar()
-            } else
-                (activity!! as MainActivity).unblockPage()
-        } else
-            (activity!! as MainActivity).showNeedLogin()
+        setupActivity()
 
         presenter?.onResume()
     }
@@ -75,6 +58,27 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
     }
 
     //region View
+
+    private fun setupActivity() {
+        (activity!! as MainActivity).setHeader(resources.getString(R.string.cart_label),null)
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).lockDrawer()
+        (activity!! as MainActivity).hideDrawerButton()
+        (activity!! as MainActivity).hideBackButton()
+        (activity!! as MainActivity).hideClear()
+        (activity!! as MainActivity).hideCross()
+        (activity!! as MainActivity).hideProgressBar()
+        if (GlobalData.loggedIn) {
+            setupPage()
+            if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
+                    .visibility == View.INVISIBLE) {
+                (activity!! as MainActivity).layoutBackToDefault()
+                (activity!! as MainActivity).showHeaderNavbar()
+            } else
+                (activity!! as MainActivity).unblockPage()
+        } else
+            (activity!! as MainActivity).showNeedLogin()
+    }
 
     private fun setupPage() {
         recyclerView = pageView.findViewById(R.id.cart_products_recyclerview)

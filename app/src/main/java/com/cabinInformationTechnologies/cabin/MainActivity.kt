@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -43,6 +44,8 @@ class MainActivity : BaseActivity(), MainContracts.View {
 
     private var selectSizeOpen = false
 
+    private lateinit var drawerLayout: DrawerLayout
+
     //region Lifecycle
 
     @SuppressLint("SetTextI18n")
@@ -50,6 +53,7 @@ class MainActivity : BaseActivity(), MainContracts.View {
         super.onCreate(savedInstanceState)
         getActiveUser()
         setContentView(R.layout.cabin_customer_main)
+        drawerLayout = findViewById(R.id.drawer_layout)
         presenter?.onCreate(intent.extras)
 
         overridePendingTransition(
@@ -511,6 +515,22 @@ class MainActivity : BaseActivity(), MainContracts.View {
                 "Error while trying to set filter button!",
                 exception
             )
+        }
+    }
+
+    override fun showDrawerButton() {
+        findViewById<ImageButton>(R.id.main_drawer_button).apply {
+            setOnClickListener {
+                drawerLayout.openDrawer(Gravity.LEFT)
+            }
+            visibility = View.VISIBLE
+        }
+    }
+
+    override fun hideDrawerButton() {
+        findViewById<ImageButton>(R.id.main_drawer_button).apply {
+            setOnClickListener {  }
+            visibility = View.INVISIBLE
         }
     }
 }

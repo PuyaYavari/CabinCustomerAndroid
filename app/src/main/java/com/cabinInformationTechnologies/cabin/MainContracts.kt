@@ -38,6 +38,8 @@ object MainContracts {
         fun setFilterTo(filter: MODELFilter?)
         fun unsetFilterButton()
         fun setupFilterButton()
+        fun showDrawerButton()
+        fun hideDrawerButton()
     }
 
     interface Presenter: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
