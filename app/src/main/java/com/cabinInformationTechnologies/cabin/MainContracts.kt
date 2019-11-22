@@ -40,6 +40,8 @@ object MainContracts {
         fun setupFilterButton()
         fun showDrawerButton()
         fun hideDrawerButton()
+        fun setCartBadge(amount: Int)
+        fun removeCartBadge()
     }
 
     interface Presenter: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {

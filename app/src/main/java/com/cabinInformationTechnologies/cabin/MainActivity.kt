@@ -46,6 +46,8 @@ class MainActivity : BaseActivity(), MainContracts.View {
 
     private lateinit var drawerLayout: DrawerLayout
 
+    private lateinit var bottomNav: BottomNavigationView
+
     //region Lifecycle
 
     @SuppressLint("SetTextI18n")
@@ -54,6 +56,7 @@ class MainActivity : BaseActivity(), MainContracts.View {
         getActiveUser()
         setContentView(R.layout.cabin_customer_main)
         drawerLayout = findViewById(R.id.drawer_layout)
+        bottomNav = findViewById(R.id.navbar)
         presenter?.onCreate(intent.extras)
 
         overridePendingTransition(
@@ -122,8 +125,10 @@ class MainActivity : BaseActivity(), MainContracts.View {
 
     override fun onResume() {
         super.onResume()
-        if (GlobalData.loggedIn)
+        if (GlobalData.loggedIn) {
             unblockPage()
+            unlockDrawer()
+        }
         presenter?.onResume()
     }
 
@@ -536,5 +541,13 @@ class MainActivity : BaseActivity(), MainContracts.View {
             setOnClickListener {  }
             visibility = View.INVISIBLE
         }
+    }
+
+    override fun setCartBadge(amount: Int) {
+        //TODO
+    }
+
+    override fun removeCartBadge() {
+        //TODO
     }
 }

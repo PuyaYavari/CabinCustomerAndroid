@@ -17,6 +17,17 @@ class MainPresenter(var view: MainContracts.View?) : MainContracts.Presenter,
 
     override var filter: MODELFilter? = null
     override var cart: MODELCart = MODELCart()
+        set(value) {
+            field = value
+            var productCount = 0
+            cart.getSellers().forEach {seller ->
+                productCount += seller.getProducts().size
+            }
+            if (productCount > 0)
+                view?.setCartBadge(productCount)
+            else
+                view?.removeCartBadge()
+        }
 
     //region Lifecycle
 

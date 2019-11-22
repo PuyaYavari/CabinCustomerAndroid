@@ -1,0 +1,19 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/counter_badge"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:background="@drawable/circle_cabin_color"/>
+</FrameLayout>
