@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
 import com.cabinInformationTechnologies.cabin.MainActivity
@@ -28,6 +29,7 @@ class CabinCustomerOrdersFragment :
         super.onResume()
 
         setupActivity()
+        setupPage()
 
         presenter?.onResume()
     }
@@ -59,13 +61,26 @@ class CabinCustomerOrdersFragment :
         (activity!! as MainActivity).hideClear()
         (activity!! as MainActivity).hideCross()
         (activity!! as MainActivity).hideProgressBar()
+
+    }
+
+    override fun setupPage () {
         if (GlobalData.loggedIn) {
             val context = this.context
             if (context != null && (presenter as CabinCustomerOrdersContracts.FragmentsManager)
                     .currentPage == 0)
                 (presenter as CabinCustomerOrdersContracts.FragmentsManager).getFirstPage(context)
-            else
-                setupPage()
+            else {
+                mPager = pageView.findViewById(R.id.orders_pager)
+
+                val pagerAdapter =
+                    CabinCustomerOrdersScreenSlidePagerAdapter(
+                        childFragmentManager,
+                        0,
+                        presenter as CabinCustomerOrdersContracts.FragmentsManager
+                    )
+                mPager?.adapter = pagerAdapter
+            }
             if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)
                     .visibility == View.INVISIBLE) {
                 (activity!! as MainActivity).layoutBackToDefault()
@@ -74,18 +89,7 @@ class CabinCustomerOrdersFragment :
                 (activity!! as MainActivity).unblockPage()
         } else
             (activity!! as MainActivity).showNeedLogin()
-    }
 
-    override fun setupPage () {
-        mPager = pageView.findViewById(R.id.orders_pager)
-
-        val pagerAdapter =
-            CabinCustomerOrdersScreenSlidePagerAdapter(
-                childFragmentManager,
-                0,
-                presenter as CabinCustomerOrdersContracts.FragmentsManager
-            )
-        mPager?.adapter = pagerAdapter
     }
 
     override fun showProgressBar() {
@@ -94,6 +98,16 @@ class CabinCustomerOrdersFragment :
 
     override fun hideProgressBar() {
         (activity!! as MainActivity).hideProgressBar()
+    }
+
+    override fun showNoInternet() {
+        hideProgressBar()
+        pageView.findViewById<ConstraintLayout>(R.id.orders_no_internet_layout).visibility = View.VISIBLE
+        pageView.findViewById<Button>(R.id.orders_no_internet_button).setOnClickListener { setupPage() }
+    }
+
+    override fun hideNoInternet() {
+        pageView.findViewById<ConstraintLayout>(R.id.orders_no_internet_layout).visibility = View.INVISIBLE
     }
 
     //endregion

@@ -46,6 +46,7 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
 
     override fun setOrdersIn(orders: MODELOrders, adapter: CabinCustomerOrdersAdapter) {
         view?.hideProgressBar()
+        view?.hideNoInternet()
         currentPage += 1
         this.orders.pending.addAll(orders.pending)
         this.orders.shipped.addAll(orders.shipped)
@@ -55,6 +56,7 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
 
     override fun setFirstPage(orders: MODELOrders) {
         view?.hideProgressBar()
+        view?.hideNoInternet()
         this.orders.pending.clear()
         this.orders.shipped.clear()
         this.orders.sent.clear()
@@ -83,6 +85,7 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
 
     override fun refresh(orders: MODELOrders) {
         view?.hideProgressBar()
+        view?.hideNoInternet()
         this.orders.pending.clear()
         this.orders.shipped.clear()
         this.orders.sent.clear()
@@ -92,7 +95,9 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
         this.orders.sent.addAll(orders.sent)
     }
 
-
+    override fun showNoInternet() {
+        view?.showNoInternet()
+    }
     //endregion
 
     //region FragmentsManager
@@ -120,6 +125,5 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
     override fun refresh(context: Context, refreshLayout: SwipeRefreshLayout?, adapter: CabinCustomerOrdersAdapter) {
         interactor?.refresh(context, refreshLayout, adapter)
     }
-
     //endregion
 }

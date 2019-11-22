@@ -537,7 +537,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_counter).visibility = View.GONE
         pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).apply {
             setOnClickListener { }
-            visibility = View.INVISIBLE
+            visibility = View.VISIBLE
         }
     }
 

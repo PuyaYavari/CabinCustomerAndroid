@@ -67,6 +67,8 @@ class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.Int
                         "Failure!",
                         throwable
                     )
+                    if (!NetworkManager.isNetworkConnected(context))
+                        output?.showNoInternet()
                     //TODO: FEEDBACK
                 }
 

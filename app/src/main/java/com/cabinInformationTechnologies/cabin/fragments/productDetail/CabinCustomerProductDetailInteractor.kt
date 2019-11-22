@@ -22,6 +22,89 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
 
     //region Interactor
 
+    private fun requestCart(context: Context) {
+        val responseObject = MODELCarts()
+        NetworkManager.requestFactory(
+            context,
+            Constants.CART_LIST_ALL_URL,
+            null,
+            null,
+            null,
+            responseObject,
+            APICartAdapter(
+                context,
+                Moshi.Builder().build(),
+                null
+            ),
+            object : BaseContracts.ResponseCallbacks {
+                override fun onSuccess(value: Any?) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Success ${value.toString()}",
+                        null
+                    )
+                    output?.setCart(responseObject.getCarts()[0])
+                }
+
+                override fun onIssue(value: JSONIssue) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Issue ${value.message}",
+                        null
+                    )
+                    output?.productAddedToCart()
+                    //TODO: FEEDBACK
+                }
+
+                override fun onError(value: String, url: String?) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Error $value",
+                        null
+                    )
+                    output?.productAddedToCart()
+                    //TODO: FEEDBACK
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Failure ${throwable.message}",
+                        null
+                    )
+                    output?.productAddedToCart()
+                    //TODO: FEEDBACK
+                }
+
+                override fun onServerDown() {
+                    Logger.info(
+                        context,
+                        this::class.java.name,
+                        "Server Down",
+                        null
+                    )
+                    output?.productAddedToCart()
+                    //TODO: FEEDBACK
+                }
+
+                override fun onException(exception: Exception) {
+                    Logger.error(
+                        context,
+                        this::class.java.name,
+                        "Exception",
+                        exception
+                    )
+                    output?.productAddedToCart()
+                    //TODO: FEEDBACK
+                }
+            }
+        )
+    }
+
     override fun addToCart(context: Context,
                            productId: Int,
                            amount: Int,
@@ -53,14 +136,14 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
             null,
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    output?.showMessage(null)
                     Logger.info(
                         context,
                         this::class.java.name,
                         "SUCCESS, Value: $value",
                         null
                     )
-                    output?.productAddedToCart()
+                    output?.showMessage(null)
+                    requestCart(context)
                 }
 
                 override fun onIssue(value: JSONIssue) {

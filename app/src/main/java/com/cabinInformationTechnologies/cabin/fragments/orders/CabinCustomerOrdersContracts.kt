@@ -12,6 +12,8 @@ object CabinCustomerOrdersContracts {
         fun setupPage()
         fun showProgressBar()
         fun hideProgressBar()
+        fun showNoInternet()
+        fun hideNoInternet()
     }
 
     interface FragmentsView : BaseContracts.View {
@@ -40,6 +42,7 @@ object CabinCustomerOrdersContracts {
         fun setOrdersIn(orders: MODELOrders, adapter: CabinCustomerOrdersAdapter)
         fun feedback(context: Context, message: String?)
         fun refresh(orders: MODELOrders)
+        fun showNoInternet()
     }
 
     interface Router : BaseContracts.Router

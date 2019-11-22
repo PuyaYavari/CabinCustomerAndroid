@@ -3,6 +3,7 @@ package com.cabinInformationTechnologies.cabin.fragments.productDetail
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import com.cabinInformationTechnologies.cabin.MainContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
@@ -192,6 +193,7 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
                 }
             }
         }
+        Log.d(null, amount.toString())
         selectedSizeAmount = if (amount > 0) {
             view?.showCounter(amount)
             amount
