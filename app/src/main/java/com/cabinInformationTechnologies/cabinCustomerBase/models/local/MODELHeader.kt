@@ -6,18 +6,16 @@ import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONHea
 
 class MODELHeader: LocalDataModel {
     private var id: Int = 0
-    private var name: String = ""
+    private var text: String = ""
     private var mainBanners: MutableList<MODELBanner>? = null
-    private var subBanners: MutableList<MODELBanner>? = null
-    private var image: MODELImage = MODELImage()
-    private var headers: MutableList<MODELHeader>? = null
+    private var subBanners: MutableList<MODELBannerGroup>? = null
 
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
             val jsonData = modelData as JSONHeader
             this.id = jsonData.id
-            this.name = jsonData.name
+            this.text = jsonData.text
             val mainBannersData = jsonData.mainBanner
             if (mainBannersData != null) {
                 val mainBanners: MutableList<MODELBanner> = mutableListOf()
@@ -30,25 +28,15 @@ class MODELHeader: LocalDataModel {
             }
             val subBannersData = jsonData.subBanners
             if (subBannersData != null) {
-                val subBanners: MutableList<MODELBanner> = mutableListOf()
+                val subBanners: MutableList<MODELBannerGroup> = mutableListOf()
                 subBannersData.forEach {
-                    val banner = MODELBanner()
+                    val banner = MODELBannerGroup()
                     if (banner.mapFrom(context, it))
                         subBanners.add(banner)
                 }
                 this.subBanners = subBanners
             }
-            val headerData = jsonData.header
-            if (headerData != null) {
-                val headers: MutableList<MODELHeader> = mutableListOf()
-                headerData.forEach {
-                    val header = MODELHeader()
-                    if (header.mapFrom(context, it))
-                        headers.add(header)
-                }
-                this.headers = headers
-            }
-            image.mapFrom(context, jsonData.image[0])
+            true
         } catch (exception: Exception) {
             Logger.warn(
                 context,
@@ -61,9 +49,7 @@ class MODELHeader: LocalDataModel {
     }
 
     fun getId() = this.id
-    fun getName() = this.name
+    fun getText() = this.text
     fun getMainBanners() = this.mainBanners
     fun getSubBanners() = this.subBanners
-    fun getImage() = this.image
-    fun getHeader() = this.headers
 }

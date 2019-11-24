@@ -7,6 +7,7 @@ import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONBan
 class MODELBanner: LocalDataModel {
     private var id: Int = 0
     private var description: String? = null
+    private var filter: MODELFilterSelecteds = MODELFilterSelecteds()
     private var image: MODELImage = MODELImage()
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
@@ -14,7 +15,7 @@ class MODELBanner: LocalDataModel {
             val jsonData = modelData as JSONBanner
             this.id = jsonData.id
             this.description = jsonData.description
-            image.mapFrom(context, jsonData.image[0])
+            image.mapFrom(context, jsonData.image[0]) && filter.mapFrom(context, jsonData.filter[0])
         } catch (exception: Exception) {
             Logger.warn(
                 context,
@@ -28,5 +29,6 @@ class MODELBanner: LocalDataModel {
 
     fun getId() = this.id
     fun getDescription() = this.description
+    fun getFilter() = this.filter
     fun getImage() = this.image
 }

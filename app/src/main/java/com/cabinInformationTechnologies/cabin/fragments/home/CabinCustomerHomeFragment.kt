@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 
 class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerHomeContracts.View {
 
@@ -15,7 +19,18 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_home, container, false)
 
-        com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.appRunning = true
+        GlobalData.appRunning = true
+
+        val mainBanner = pageView.findViewById<ImageView>(R.id.home_main_banner)
+        val mainBannerParams = mainBanner.layoutParams
+        var displayWidth = -1
+        val displayMetrics = context?.resources?.displayMetrics
+        if(displayMetrics != null) {
+            displayWidth = displayMetrics.widthPixels
+        }
+        mainBannerParams.width = displayWidth
+        mainBannerParams.height = displayWidth * 4/3 //FIXME: FIND BEST RATIO
+        mainBanner.layoutParams = mainBannerParams
 
         setupActivity()
         setupPage()
@@ -59,6 +74,12 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
     }
 
     private fun setupPage() {
+        //TODO: SETUP MAIN BANNER
+        pageView.findViewById<RecyclerView>(R.id.home_recycler_view).apply {
+            setHasFixedSize(false)
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+            adapter = presenter?.homeAdapter
+        }
     }
 
     override fun showProgressBar() {
