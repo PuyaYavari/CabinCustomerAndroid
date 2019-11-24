@@ -1,7 +1,9 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment
 
-class CabinCustomerFinishTradePaymentInteractor(var output: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.InteractorOutput?) :
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.Interactor {
+import android.content.Context
+
+class CabinCustomerFinishTradePaymentInteractor(var output: CabinCustomerFinishTradePaymentContracts.InteractorOutput?) :
+    CabinCustomerFinishTradePaymentContracts.Interactor {
 
     override fun unregister() {
         output = null
@@ -9,7 +11,9 @@ class CabinCustomerFinishTradePaymentInteractor(var output: com.cabinInformation
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
+    override fun getAgreements(context: Context, id: Int) {
+
+    }
 
     //endregion
 }

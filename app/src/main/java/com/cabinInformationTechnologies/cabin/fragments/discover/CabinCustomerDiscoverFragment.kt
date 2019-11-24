@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSorts
 
 
 class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerDiscoverContracts.View {
@@ -20,7 +22,6 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     var presenter: CabinCustomerDiscoverContracts.Presenter? = CabinCustomerDiscoverPresenter(this)
     private lateinit var pageView: View
     private lateinit var recyclerView: RecyclerView
-    private val myDataset: MutableList<MODELProduct> = mutableListOf()
     private lateinit var viewAdapter: CabinCustomerDiscoverAdapter
     private lateinit var viewManager: GridLayoutManager
 
@@ -32,7 +33,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
 
         setupActivity()
 
-        viewAdapter = CabinCustomerDiscoverAdapter(this, myDataset)
+        viewAdapter = CabinCustomerDiscoverAdapter(presenter)
         viewManager = GridLayoutManager(this.context, 2)
 
         setupPage()
@@ -84,6 +85,8 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     private fun setupPage() {
         pageView.findViewById<FrameLayout>(R.id.discover_header_bottom_bar_filter_layout)
             .setOnClickListener { presenter?.moveToFilter() }
+        pageView.findViewById<FrameLayout>(R.id.discover_header_bottom_bar_arrange_layout)
+            .setOnClickListener { presenter?.getSortOptions(this.context) }
 //        if (){
 //            clearPage()
             reloadProducts()
@@ -95,7 +98,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     }
 
     private fun reloadProducts(){
-        presenter?.getProducts(page,pageSize)
+        presenter?.getProducts(page)
 
         recyclerView = pageView.findViewById(R.id.discover_recyclerview)
 
@@ -117,10 +120,10 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
         }
     }
 
-    private fun clearPage(){ //FIXME
-        myDataset.clear()
-        presenter?.resetPage()
+    override fun resetPage() {
+        presenter?.myDataset?.clear()
         viewAdapter.notifyDataSetChanged()
+        presenter?.resetPage()
     }
 
     override fun hideHeaderAndNavbar() {
@@ -134,7 +137,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     override fun addData(products: List<MODELProduct>?) {
         hideNoInternet()
         if (products != null)
-            myDataset.addAll(products as Iterable<MODELProduct>)
+            presenter?.myDataset?.addAll(products as Iterable<MODELProduct>)
         viewAdapter.notifyDataSetChanged()
         hideProgressBar()
     }
@@ -177,6 +180,22 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     override fun setFilterButton() {
         pageView.findViewById<FrameLayout>(R.id.discover_header_bottom_bar_filter_layout)
             .setOnClickListener { presenter?.moveToFilter() }
+    }
+
+    override fun showSorts(sorts: MODELSorts) {
+        val context = this.context
+        if (context != null) {
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            builder.setTitle(resources.getString(R.string.sort))
+            val sortsArray: Array<String?> = arrayOfNulls<String>(sorts.sorts.size)
+            for (i in sortsArray.indices)
+                sortsArray[i] = sorts.sorts[i]?.getName()
+            builder.setItems(sortsArray) { dialog, index ->
+                dialog.dismiss()
+                presenter?.setSort(sorts.sorts[index])
+            }
+            builder.show()
+        }
     }
 
     //endregion

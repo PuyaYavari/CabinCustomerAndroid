@@ -1,8 +1,10 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONUser
 
-class MODELUser: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
+class MODELUser: LocalDataModel {
     private var id: Int = 0
     private var session: String = ""
     var name: String? = null
@@ -10,18 +12,19 @@ class MODELUser: com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
-            val jsonModel = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONUser
+            val jsonModel = modelData as JSONUser
             this.id = jsonModel.id
             this.session = jsonModel.session
             this.name = jsonModel.firstname
             this.surname = jsonModel.lastname
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+            Logger.error(
                 context,
                 this::class.java.name,
                 "Error while mapping user!!",
-                exception)
+                exception
+            )
             false
         }
     }

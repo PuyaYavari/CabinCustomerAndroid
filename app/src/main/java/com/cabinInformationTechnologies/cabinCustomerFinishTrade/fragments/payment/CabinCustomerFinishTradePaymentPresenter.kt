@@ -1,6 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 
 class CabinCustomerFinishTradePaymentPresenter(var view: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.View?) :
@@ -43,13 +44,17 @@ class CabinCustomerFinishTradePaymentPresenter(var view: com.cabinInformationTec
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun getAgreements(context: Context, id: Int) {
+
+    }
 
     //endregion
 
     //region InteractorOutput
 
-    //TODO: Implement your InteractorOutput methods here
+    override fun setAgreements() {
+
+    }
 
     //endregion
 }

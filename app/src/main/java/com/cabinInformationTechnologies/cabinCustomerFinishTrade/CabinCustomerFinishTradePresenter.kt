@@ -12,8 +12,10 @@ class CabinCustomerFinishTradePresenter(var view: CabinCustomerFinishTradeContra
         CabinCustomerFinishTradeInteractor(this)
     var router: CabinCustomerFinishTradeContracts.Router? = null
 
+    override var id: Int? = null
     override var deliveryAddress: MODELAddress? = null
     override var invoiceAddress: MODELAddress? = null
+    override var price: Double? = null
     //region Lifecycle
 
     override fun onCreate(bundle: Bundle?) {

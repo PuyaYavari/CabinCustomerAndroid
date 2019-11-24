@@ -11,8 +11,7 @@ import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 
-class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts.View,
-                                    private val myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>)
+class CabinCustomerDiscoverAdapter (val presenter: CabinCustomerDiscoverContracts.Presenter?)
     : RecyclerView.Adapter<CabinCustomerDiscoverAdapter.DiscoverProductViewHolder>(){
 
     // Provide a reference to the views for each data item
@@ -27,7 +26,7 @@ class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts
     }
 
     override fun onBindViewHolder(holder: DiscoverProductViewHolder, position: Int) {
-        val data = myDataset[position]
+        val data = presenter?.myDataset?.get(position)
         holder.itemView.apply {
             findViewById<ToggleButton>(R.id.discover_productbox_favourite_button).outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View?, outline: Outline?) {
@@ -39,15 +38,15 @@ class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts
                 val params = layoutParams
                 params.height = params.width * 4/3
                 layoutParams = params
-                setOnClickListener { fragment.moveToProductDetail(myDataset[position], position) }
+                setOnClickListener { presenter?.moveToProductDetail(presenter.myDataset[position], position) }
 //                setImageDrawable() TODO
             }
-            findViewById<TextView>(R.id.discover_productbox_seller_name).text = data.getSellerName()
-            findViewById<TextView>(R.id.discover_productbox_product_name).text = data.getProductName()
-            findViewById<TextView>(R.id.discover_productbox_product_price).text = data.getPrice().toString()
+            findViewById<TextView>(R.id.discover_productbox_seller_name).text = data?.getSellerName()
+            findViewById<TextView>(R.id.discover_productbox_product_name).text = data?.getProductName()
+            findViewById<TextView>(R.id.discover_productbox_product_price).text = data?.getPrice().toString()
 
             findViewById<ToggleButton>(R.id.discover_productbox_favourite_button).isClickable = false //FIXME: ISCLICKABLE!?
-            data.getColors().forEach {
+            data?.getColors()?.forEach {
                 if (it.favourite)
                     findViewById<ToggleButton>(R.id.discover_productbox_favourite_button).isChecked = true //FIXME: NON FAV CAN BE INDICATED AS FAV
             }
@@ -55,11 +54,11 @@ class CabinCustomerDiscoverAdapter (val fragment: CabinCustomerDiscoverContracts
         }
     }
 
-    override fun getItemCount() = myDataset.size
+    override fun getItemCount() = presenter?.myDataset?.size ?: 0
 
     fun updateProduct(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, position: Int) {
         //TODO: REMOVE IF PRODUCT FINISHED
-        myDataset[position] = product
+        presenter?.myDataset?.set(position, product)
         notifyItemChanged(position)
     }
 }

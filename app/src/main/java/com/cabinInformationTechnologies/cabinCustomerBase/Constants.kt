@@ -17,6 +17,7 @@ object Constants {
 
     const val FAVORITE_PAGE_SIZE: Int = 10
     const val ORDERS_PAGE_SIZE: Int = 10
+    const val DISCOVER_PAGE_SIZE: Int = 20
 
 
     /*------------------------------URLS------------------------------*/
@@ -38,11 +39,14 @@ object Constants {
     const val DISCOVER_REMOVE_FROM_FAVORITE_URL: String = "explore/removeUserFavoriteProduct"
     const val LIST_FILTER_URL: String = "explore/listFilter"
     const val CLEAR_FILTER_PRODUCTS_URL: String = "explore/filterRemoveProducts"
+    const val LIST_SORT_URL: String = "explore/listSortOptions"
 
     const val CART_UPDATE_URL: String = "basket/UpdateProduct"
     const val CART_LIST_ALL_URL: String = "basket/listProduct"
     const val CART_REMOVE_ALL_URL: String = "basket/removeProducts"
     const val CART_MAKE_ORDER_URL: String = "basket/makeOrder"
+    const val CART_LIST_ORDER_AGREEMENT_URL: String = "basket/listOrderAgreements"
+    const val CART_ACTIVATE_ORDER_URL: String = "basket/activateOrder"
 
     const val LIST_PERSONAL_INFO_URL: String = "accountSettings/listPersonalInfo"
     const val UPDATE_PERSONAL_INFO_URL: String = "accountSettings/updatePersonalInfo"

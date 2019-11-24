@@ -1,5 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment
 
+import android.content.Context
+
 object CabinCustomerFinishTradePaymentContracts {
 
     interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
@@ -7,15 +9,15 @@ object CabinCustomerFinishTradePaymentContracts {
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        //TODO
+        fun getAgreements(context: Context, id: Int)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        //TODO
+        fun getAgreements(context: Context, id: Int)
     }
 
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        //TODO
+        fun setAgreements()
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {

@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSort
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSorts
 
 class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.View?) :
     CabinCustomerDiscoverContracts.Presenter,
@@ -14,8 +17,12 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
     var router: CabinCustomerDiscoverContracts.Router? = null
     private var currentPage = 0
 
-    private var lastEnteredProduct: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct? = null
+    private var lastEnteredProduct: MODELProduct? = null
     private var lastEnteredProductPosition: Int = -1
+
+    override val myDataset: MutableList<MODELProduct> = mutableListOf()
+
+    private var sort: MODELSort? = null
 
     //region Lifecycle
 
@@ -25,11 +32,6 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router = CabinCustomerDiscoverRouter(activity)
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
     }
 
     override fun onDestroy() {
@@ -44,18 +46,22 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
 
     //region Presenter
 
-    override fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct, position: Int) {
+    override fun moveToProductDetail(product: MODELProduct, position: Int) {
         lastEnteredProduct = product
         lastEnteredProductPosition = position
         router?.moveToProductDetail(product)
     }
 
-    override fun getProducts(page: Int, pageSize: Int) {
+    override fun getProducts(page: Int) {
         val context = view?.getActivityContext()
         if (context != null && currentPage < page) {
             if (view?.getCurrentItemCount() == 0)
                 view?.showProgressBar()
-            interactor?.getProducts(context, page, pageSize)
+            val currentSort = this.sort
+            if (currentSort == null)
+                interactor?.getProducts(context, page)
+            else
+                interactor?.getProducts(context, page, currentSort.getId())
         }
     }
 
@@ -69,20 +75,31 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
         router?.moveToFilter()
     }
 
-    //endregion
+    override fun getSortOptions(context: Context?) {
+        if (context != null)
+            interactor?.getSortOptions(context)
+    }
 
-    //region InteractorOutput
-
-    override fun addData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>?) {
-        currentPage += 1
-        view?.addData(products)
+    override fun setSort(sort: MODELSort?) {
+        this.sort = sort
+        view?.resetPage()
     }
 
     override fun resetPage() {
         currentPage = 0
+        getProducts(currentPage + 1)
     }
 
-    override fun updateProduct(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    //endregion
+
+    //region InteractorOutput
+
+    override fun addData(products: List<MODELProduct>?) {
+        currentPage += 1
+        view?.addData(products)
+    }
+
+    override fun updateProduct(product: MODELProduct) {
         if (lastEnteredProductPosition > -1)
             view?.updateProduct(product, lastEnteredProductPosition)
         lastEnteredProductPosition = -1
@@ -105,6 +122,10 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
             view?.hideNoInternet()
         else if (view?.getCurrentItemCount() == 0)
             view?.showNoInternet()
+    }
+
+    override fun showSorts(sorts: MODELSorts) {
+        view?.showSorts(sorts)
     }
 
     //endregion

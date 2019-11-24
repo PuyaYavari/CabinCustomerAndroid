@@ -8,12 +8,10 @@ import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIProduct
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProducts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSorts
 import com.squareup.moshi.Moshi
 
 class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts.InteractorOutput?) :
@@ -25,7 +23,24 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
 
     //region Interactor
 
-    override fun getProducts(context: Context, page: Int, pageSize: Int) {
+    override fun getProducts(context: Context, page: Int) {
+        requestProducts(context, page, null)
+    }
+
+    override fun getProducts(context: Context, page: Int, sort: Int) {
+        requestProducts(context, page, sort)
+    }
+
+    private fun requestProducts(context: Context, page: Int, sort: Int?){
+        var data: REQUESTAPISort? = null
+        if (sort != null)
+            data = REQUESTAPISort(
+                listOf(
+                    REQUESTWITHID(
+                        sort
+                    )
+                )
+            )
         val responseClass = MODELProducts()
         val moshi: Moshi = Moshi.Builder()
             .add(JSONProductAdapter(context,Moshi.Builder().build()))
@@ -35,8 +50,8 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             context,
             Constants.DISCOVER_LIST_PRODUCTS_URL,
             page,
-            pageSize,
-            null,
+            Constants.DISCOVER_PAGE_SIZE,
+            data,
             responseClass,
             APIProductAdapter(moshi),
             object : BaseContracts.ResponseCallbacks {
@@ -100,7 +115,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                     output?.feedback(exception.message)//FIXME
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
-        })
+            })
     }
 
     override fun getProduct(context: Context, id: Int) {
@@ -135,7 +150,8 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                             context,
                             this::class.java.name,
                             "SUCCESS, Value: $value",
-                            null)
+                            null
+                        )
                     }
                 }
 
@@ -144,8 +160,9 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         context,
                         this::class.java.name,
                         "ISSUE, Value: $value",
-                        null)
-                    //TODO: SHOW ISSUE
+                        null
+                    )
+                    //TODO: FEEDBACK
                 }
 
                 override fun onError(value: String, url: String?) {
@@ -153,7 +170,9 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         context,
                         this::class.java.name,
                         "Error, Value: $value",
-                        null)
+                        null
+                    )
+                    //TODO: FEEDBACK
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -161,7 +180,9 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         context,
                         this::class.java.name,
                         "FAILURE",
-                        throwable)
+                        throwable
+                    )
+                    //TODO: FEEDBACK
                 }
 
                 override fun onServerDown() {
@@ -169,7 +190,9 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         context,
                         this::class.java.name,
                         "SERVER DOWN",
-                        null)
+                        null
+                    )
+                    //TODO: FEEDBACK
                 }
 
                 override fun onException(exception: Exception) {
@@ -177,7 +200,85 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         context,
                         this::class.java.name,
                         "EXCEPTION",
-                        exception)
+                        exception
+                    )
+                    //TODO: FEEDBACK
+                }
+            }
+        )
+    }
+
+    override fun getSortOptions(context: Context) {
+        val responseObject = MODELSorts()
+        NetworkManager.requestFactory<APISortOptions>(
+            context,
+            Constants.LIST_SORT_URL,
+            null,
+            null,
+            null,
+            responseObject,
+            null,
+            object : BaseContracts.ResponseCallbacks {
+                override fun onSuccess(value: Any?) {
+                    if (value == true) {
+                        output?.showSorts(responseObject)
+                        Logger.info(
+                            context,
+                            this::class.java.name,
+                            "getSort, SUCCESS",
+                            null
+                        )
+                    }
+                }
+
+                override fun onIssue(value: JSONIssue) {
+                    Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "ISSUE, Value: $value",
+                        null
+                    )
+                    //TODO: FEEDBACK
+                }
+
+                override fun onError(value: String, url: String?) {
+                    Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "Error, Value: $value",
+                        null
+                    )
+                    //TODO: FEEDBACK
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    Logger.error(
+                        context,
+                        this::class.java.name,
+                        "FAILURE",
+                        throwable
+                    )
+                    //TODO: FEEDBACK
+                }
+
+                override fun onServerDown() {
+                    Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "SERVER DOWN",
+                        null
+                    )
+                    //TODO: FEEDBACK
+                }
+
+                override fun onException(exception: Exception) {
+                    Logger.error(
+                        context,
+                        this::class.java.name,
+                        "EXCEPTION",
+                        exception
+                    )
+                    //TODO: FEEDBACK
                 }
             }
         )

@@ -13,8 +13,10 @@ object CabinCustomerFinishTradeContracts {
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+        var id: Int?
         var deliveryAddress: MODELAddress?
         var invoiceAddress: MODELAddress?
+        var price: Double?
 
         fun addressesSelected(): Boolean
         fun paymentSelected(): Boolean
