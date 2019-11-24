@@ -7,11 +7,13 @@ import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APICartAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIOrderId
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTMakeOrder
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTWITHID
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCarts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrderID
 import com.squareup.moshi.Moshi
 
 class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTradeMainContracts.InteractorOutput?) :
@@ -106,6 +108,7 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
     }
 
     override fun sendAddresses(context: Context, delivery: MODELAddress, invoice: MODELAddress?) {
+        val responseObject = MODELOrderID()
         var data: REQUESTMakeOrder? = null
         val deliveryId = delivery.id
         val invoiceId = invoice?.id
@@ -130,23 +133,28 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
             )
 
         if (data != null) {
-            NetworkManager.requestFactory<Any?>(
+            NetworkManager.requestFactory<APIOrderId>(
                 context,
                 Constants.CART_MAKE_ORDER_URL,
                 null,
                 null,
                 data,
-                null,
+                responseObject,
                 null,
                 object : BaseContracts.ResponseCallbacks {
                     override fun onSuccess(value: Any?) {
-                        Logger.info(
-                            context,
-                            this::class.java.name,
-                            "Order created successfully!",
-                            null
-                        )
-                        output?.pageForward(0)
+                        if (value == true) {
+                            Logger.info(
+                                context,
+                                this::class.java.name,
+                                "Order created successfully!",
+                                null
+                            )
+                            output?.setActivityOrderId(responseObject.getId())
+                            output?.pageForward(0)
+                        } else {
+                            output?.toastFeedback(null)
+                        }
                     }
 
                     override fun onIssue(value: JSONIssue) {

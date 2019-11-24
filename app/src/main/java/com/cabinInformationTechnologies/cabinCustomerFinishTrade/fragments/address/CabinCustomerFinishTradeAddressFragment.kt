@@ -94,7 +94,7 @@ class CabinCustomerFinishTradeAddressFragment(
 
         pageView.findViewById<TextView>(R.id.finish_trade_address_delivery_address_add)
             .setOnClickListener {
-                callback.Deliery(null)
+                callback.Delivery(null)
             }
 
         pageView.findViewById<TextView>(R.id.finish_trade_address_invoice_address_add)
@@ -104,7 +104,7 @@ class CabinCustomerFinishTradeAddressFragment(
 
         pageView.findViewById<LinearLayout>(R.id.finish_trade_address_delivery_address_detail_layout)
             .setOnClickListener {
-                callback.Deliery(getSelectedDeliveryAddress())
+                callback.Delivery(getSelectedDeliveryAddress())
             }
 
         pageView.findViewById<LinearLayout>(R.id.finish_trade_address_invoice_address_detail_layout)

@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade
 
+import android.content.Context
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 
 object CabinCustomerFinishTradeContracts {
@@ -9,26 +10,28 @@ object CabinCustomerFinishTradeContracts {
         fun setInvoiceAddress(address: MODELAddress?)
         fun addressesSelected(): Boolean?
         fun paymentSelected(): Boolean?
-        fun contractAccepted(): Boolean?
+        fun notifySuccess()
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        var id: Int?
+        var orderId: Int?
         var deliveryAddress: MODELAddress?
         var invoiceAddress: MODELAddress?
         var price: Double?
+        var PIFAccepted: Boolean
+        var DSAAccepted: Boolean
 
         fun addressesSelected(): Boolean
         fun paymentSelected(): Boolean
-        fun contractAccepted(): Boolean
+        fun activateOrder(context: Context?)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        //TODO
+        fun activateOrder(context: Context, orderId: Int)
     }
 
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        //TODO
+        fun success()
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
@@ -36,7 +39,7 @@ object CabinCustomerFinishTradeContracts {
     }
 
     interface ChangeAddAddressCallback {
-        fun Deliery(address: MODELAddress?)
+        fun Delivery(address: MODELAddress?)
         fun Invoice(address: MODELAddress?)
     }
 }

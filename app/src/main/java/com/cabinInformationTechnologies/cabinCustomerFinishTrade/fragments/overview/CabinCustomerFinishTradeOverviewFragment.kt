@@ -1,11 +1,19 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.ScrollView
+import android.widget.TextView
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAgreements
+import com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity
+
 
 class CabinCustomerFinishTradeOverviewFragment : BaseFragment(),
     CabinCustomerFinishTradeOverviewContracts.View {
@@ -23,6 +31,10 @@ class CabinCustomerFinishTradeOverviewFragment : BaseFragment(),
     ): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_finish_trade_overview, container, false)
         setupPage()
+        presenter?.listAgreements(
+            this.context,
+            (activity as CabinCustomerFinishTradeActivity).presenter?.orderId
+        )
         return pageView
     }
 
@@ -49,11 +61,55 @@ class CabinCustomerFinishTradeOverviewFragment : BaseFragment(),
 
     //region View
 
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     private fun setupPage() {
+        pageView.apply {
+            val deliveryAddress = (activity as CabinCustomerFinishTradeActivity).presenter?.deliveryAddress
+            findViewById<TextView>(R.id.finish_trade_overview_delivery_address).text =
+                "${deliveryAddress?.address} ${deliveryAddress?.district}/${deliveryAddress?.province}"
+            val invoiceAddress = (activity as CabinCustomerFinishTradeActivity).presenter?.invoiceAddress
+            findViewById<TextView>(R.id.finish_trade_overview_invoice_address).text =
+                "${invoiceAddress?.address} ${invoiceAddress?.district}/${invoiceAddress?.province}"
+            findViewById<TextView>(R.id.finish_trade_payment_sum_price).text =
+                (activity as CabinCustomerFinishTradeActivity).presenter?.price.toString()
+            findViewById<ScrollView>(R.id.finish_trade_overview_layout).setOnTouchListener { _, _ ->
+                findViewById<TextView>(R.id.finish_trade_accept_preliminary_information_form).parent.requestDisallowInterceptTouchEvent(false)
+                findViewById<TextView>(R.id.finish_trade_accept_distance_sales_agreement).parent.requestDisallowInterceptTouchEvent(false)
+                false
+            }
 
+            findViewById<TextView>(R.id.finish_trade_accept_preliminary_information_form).setOnTouchListener { _, _ ->
+                findViewById<TextView>(R.id.finish_trade_accept_preliminary_information_form).parent.requestDisallowInterceptTouchEvent(true)
+                false
+            }
+
+            findViewById<TextView>(R.id.finish_trade_accept_distance_sales_agreement).setOnTouchListener { _, _ ->
+                findViewById<TextView>(R.id.finish_trade_accept_distance_sales_agreement).parent.requestDisallowInterceptTouchEvent(true)
+                false
+            }
+        }
     }
 
-    //TODO: Implement your View methods here
+    override fun setAgreements(agreements: MODELAgreements) {
+        pageView.apply {
+            findViewById<TextView>(R.id.finish_trade_accept_preliminary_information_form).apply {
+                text = agreements.getPIF()
+                movementMethod = ScrollingMovementMethod()
+            }
+            findViewById<TextView>(R.id.finish_trade_accept_distance_sales_agreement).apply {
+                text = agreements.getDSA()
+                movementMethod = ScrollingMovementMethod()
+            }
+            findViewById<CheckBox>(R.id.finish_trade_accept_preliminary_information_form_checkbox)
+                .setOnCheckedChangeListener { _, isChecked ->
+                    (activity as CabinCustomerFinishTradeActivity).presenter?.PIFAccepted = isChecked
+                }
+            findViewById<CheckBox>(R.id.finish_trade_accept_distance_sales_agreement_checkbox)
+                .setOnCheckedChangeListener { _, isChecked ->
+                    (activity as CabinCustomerFinishTradeActivity).presenter?.DSAAccepted = isChecked
+                }
+        }
+    }
 
     //endregion
 }

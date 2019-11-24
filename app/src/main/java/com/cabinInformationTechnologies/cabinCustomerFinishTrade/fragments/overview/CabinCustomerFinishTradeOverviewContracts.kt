@@ -1,24 +1,28 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview
 
+import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAgreements
+
 object CabinCustomerFinishTradeOverviewContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        //TODO
+    interface View : BaseContracts.View {
+        fun setAgreements(agreements: MODELAgreements)
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        //TODO
+    interface Presenter : BaseContracts.Presenter {
+        fun listAgreements(context: Context?, orderId: Int?)
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        //TODO
+    interface Interactor : BaseContracts.Interactor {
+        fun listAgreements(context: Context, orderId: Int)
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        //TODO
+    interface InteractorOutput : BaseContracts.InteractorOutput {
+        fun setAgreements(agreements: MODELAgreements)
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
+    interface Router : BaseContracts.Router {
         //TODO
     }
 

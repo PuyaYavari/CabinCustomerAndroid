@@ -125,6 +125,7 @@ class CabinCustomerFinishTradeMainPresenter(var view: CabinCustomerFinishTradeMa
     override fun setCart(cart: MODELCart?) {
         if (cart != null) {
             view?.setupPriceDetails(cart)
+            view?.setActivityPrice(cart.getTotal())
 
             val sellerIter: MutableIterator<MODELSeller> = cart.getSellers().iterator()
             view?.clearCargoPrices()
@@ -162,6 +163,10 @@ class CabinCustomerFinishTradeMainPresenter(var view: CabinCustomerFinishTradeMa
                 message,
                 Toast.LENGTH_SHORT
             ).show()
+    }
+
+    override fun setActivityOrderId(id: Int) {
+        view?.setActivityOrderId(id)
     }
 
     //endregion

@@ -126,7 +126,7 @@ class CabinCustomerFinishTradeMainFragment : BaseFragment(),
                 childFragmentManager,
                 0,
                 object : CabinCustomerFinishTradeContracts.ChangeAddAddressCallback {
-                    override fun Deliery(address: MODELAddress?) {
+                    override fun Delivery(address: MODELAddress?) {
                         presenter?.moveToDeliveryAddressDetail(address)
                     }
 
@@ -217,10 +217,8 @@ class CabinCustomerFinishTradeMainFragment : BaseFragment(),
 
     override fun setupLastPage() {
         pageView.findViewById<Button>(R.id.finish_trade_button).apply {
-            if ((activity as CabinCustomerFinishTradeActivity).contractAccepted() == true)
-                setOnClickListener { presenter?.pageForward(mPager.currentItem) }
-            else {
-                //TODO: FEEDBACK ABOUT CONTRACTS NOT ACCEPTED
+            setOnClickListener {
+                (activity as CabinCustomerFinishTradeActivity).presenter?.activateOrder(this.context)
             }
             text = resources.getText(R.string.finish_trade_overview_button_label)
         }
@@ -305,6 +303,14 @@ class CabinCustomerFinishTradeMainFragment : BaseFragment(),
                 }
                 .setNegativeButton(R.string.okay, null)
                 .show()
+    }
+
+    override fun setActivityPrice(price: Double) {
+        (activity as CabinCustomerFinishTradeActivity).presenter?.price = price
+    }
+
+    override fun setActivityOrderId(id: Int) {
+        (activity as CabinCustomerFinishTradeActivity).presenter?.orderId = id
     }
 
     //endregion

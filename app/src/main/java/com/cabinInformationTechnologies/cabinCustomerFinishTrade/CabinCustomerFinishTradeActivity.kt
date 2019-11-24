@@ -1,5 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade
 
+
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import com.cabinInformationTechnologies.cabin.R
@@ -59,8 +61,17 @@ class CabinCustomerFinishTradeActivity : BaseActivity(),
         return presenter?.paymentSelected()
     }
 
-    override fun contractAccepted(): Boolean? {
-        return presenter?.contractAccepted()
+    override fun notifySuccess() {
+        val dialog = AlertDialog.Builder(this)
+        dialog
+            .setTitle(resources.getString(R.string.congratulations))
+            .setMessage(resources.getString(R.string.order_created))
+            .setPositiveButton(
+                R.string.okay
+            ) { _, _ ->
+                this.finish()
+            }
+            .show()
     }
 
     //endregion

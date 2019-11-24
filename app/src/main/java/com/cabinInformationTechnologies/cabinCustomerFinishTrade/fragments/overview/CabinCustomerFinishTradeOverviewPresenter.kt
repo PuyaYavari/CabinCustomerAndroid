@@ -1,7 +1,9 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAgreements
 
 class CabinCustomerFinishTradeOverviewPresenter(var view: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewContracts.View?) :
     com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewContracts.Presenter,
@@ -43,13 +45,18 @@ class CabinCustomerFinishTradeOverviewPresenter(var view: com.cabinInformationTe
 
     //region Presenter
 
-    //TODO: Implement your Presenter methods here
+    override fun listAgreements(context: Context?, orderId: Int?) {
+        if (context != null && orderId != null)
+            interactor?.listAgreements(context, orderId)
+    }
 
     //endregion
 
     //region InteractorOutput
 
-    //TODO: Implement your InteractorOutput methods here
+    override fun setAgreements(agreements: MODELAgreements) {
+        view?.setAgreements(agreements)
+    }
 
     //endregion
 }

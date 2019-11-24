@@ -15,7 +15,7 @@ import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustom
 import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustomerFilterDetailFragment
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
-import com.cabinInformationTechnologies.cabinCustomerBase.threeStateSelection
+import com.cabinInformationTechnologies.cabinCustomerBase.ThreeStateSelection
 
 class CabinCustomerFilterCategoriesSubCategoriesAdapter (val fragment: CabinCustomerFilterDetailFragment,
                                                          private val myDataset: MutableList<MODELFilterCategory>,
@@ -121,7 +121,7 @@ class CabinCustomerFilterCategoriesSubCategoriesAdapter (val fragment: CabinCust
                         if (state != null) {
                             setUpperCategoryCheckbox(holder, state)
                             findViewById<FrameLayout>(R.id.upper_categorybox_checkbox_layout).setOnClickListener {
-                                if (state != threeStateSelection.SELECTED) {
+                                if (state != ThreeStateSelection.SELECTED) {
                                     Log.i(null, "State not all selected")
                                     (findViewById<RecyclerView>(R.id.upper_categorybox_recyclerview).adapter as
                                             CabinCustomerFilterCategoriesSubCategoriesAdapter)
@@ -157,23 +157,23 @@ class CabinCustomerFilterCategoriesSubCategoriesAdapter (val fragment: CabinCust
             1
     }
 
-    fun setUpperCategoryCheckbox(holder: FilterSubCategoryViewHolder, state: threeStateSelection) {
+    fun setUpperCategoryCheckbox(holder: FilterSubCategoryViewHolder, state: ThreeStateSelection) {
         holder.itemView.apply {
-            if (state == threeStateSelection.UNSELECTED) {
+            if (state == ThreeStateSelection.UNSELECTED) {
                 findViewById<ImageView>(R.id.upper_categorybox_checkbox_background)
                     .setImageResource(R.drawable.categorybox_checkbox_ring)
                 findViewById<ImageView>(R.id.upper_categorybox_checkbox_minus)
                     .visibility = View.INVISIBLE
                 findViewById<ImageView>(R.id.upper_categorybox_checkbox_tick)
                     .visibility = View.INVISIBLE
-            } else if (state == threeStateSelection.HALFSELECTED) {
+            } else if (state == ThreeStateSelection.HALFSELECTED) {
                 findViewById<ImageView>(R.id.upper_categorybox_checkbox_background)
                     .setImageResource(R.drawable.categorybox_checkbox_ring)
                 findViewById<ImageView>(R.id.upper_categorybox_checkbox_minus)
                     .visibility = View.VISIBLE
                 findViewById<ImageView>(R.id.upper_categorybox_checkbox_tick)
                     .visibility = View.INVISIBLE
-            } else if (state == threeStateSelection.SELECTED) {
+            } else if (state == ThreeStateSelection.SELECTED) {
                 findViewById<ImageView>(R.id.upper_categorybox_checkbox_background)
                     .setImageResource(R.drawable.categorybox_checkbox_circle)
                 findViewById<ImageView>(R.id.upper_categorybox_checkbox_minus)
@@ -206,18 +206,18 @@ class CabinCustomerFilterCategoriesSubCategoriesAdapter (val fragment: CabinCust
         notifyDataSetChanged()
     }
 
-    private fun findUpperCategoryState(position: Int): threeStateSelection? {
+    private fun findUpperCategoryState(position: Int): ThreeStateSelection? {
         if (getItemViewType(position) == 1) {
             var selectedCategoriesCount = 0
-            var state = threeStateSelection.UNSELECTED
+            var state = ThreeStateSelection.UNSELECTED
             myDataset[position].getSubCategories()?.forEach {
                 if (it.isSelected == true) {
                     selectedCategoriesCount++
-                    state = threeStateSelection.HALFSELECTED
+                    state = ThreeStateSelection.HALFSELECTED
                 }
             }
             if (selectedCategoriesCount == myDataset[position].getSubCategories()?.size)
-                state = threeStateSelection.SELECTED
+                state = ThreeStateSelection.SELECTED
             return state
         }
         return null

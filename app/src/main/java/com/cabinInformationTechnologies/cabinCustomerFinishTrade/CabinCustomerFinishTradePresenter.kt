@@ -1,6 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 
@@ -12,10 +13,12 @@ class CabinCustomerFinishTradePresenter(var view: CabinCustomerFinishTradeContra
         CabinCustomerFinishTradeInteractor(this)
     var router: CabinCustomerFinishTradeContracts.Router? = null
 
-    override var id: Int? = null
+    override var orderId: Int? = null
     override var deliveryAddress: MODELAddress? = null
     override var invoiceAddress: MODELAddress? = null
     override var price: Double? = null
+    override var DSAAccepted: Boolean = false
+    override var PIFAccepted: Boolean = false
     //region Lifecycle
 
     override fun onCreate(bundle: Bundle?) {
@@ -47,14 +50,20 @@ class CabinCustomerFinishTradePresenter(var view: CabinCustomerFinishTradeContra
         return true
     }
 
-    override fun contractAccepted(): Boolean {
-        //TODO: DID USER ACCEPT THE CONTRACT
-        return true
+    override fun activateOrder(context: Context?) {
+        val id = this.orderId
+        if (DSAAccepted && PIFAccepted && context != null && id != null)
+            interactor?.activateOrder(context, id)
     }
+
 
     //endregion
 
     //region InteractorOutput
+
+    override fun success() {
+        view?.notifySuccess()
+    }
 
     //endregion
 }

@@ -1,6 +1,6 @@
 package com.cabinInformationTechnologies.cabinCustomerBase
 
-enum class threeStateSelection {
+enum class ThreeStateSelection {
     SELECTED,
     HALFSELECTED,
     UNSELECTED

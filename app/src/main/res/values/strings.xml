@@ -167,6 +167,7 @@
     <string name="preliminary_information_form">Ön Bilgilendirme Formu</string>
     <string name="distance_sales_agreement">Mesafeli Satış Sözleşmesi</string>
     <string name="agreement_and_forms">Sözleşme ve Formlar</string>
+    <string name="congratulations">Tebrikler</string>
     <!---->
 
     <!--separators-->
@@ -195,5 +196,8 @@
 
     <string name="accept_preliminary_information_form">Ön Bilgilendirme Formunu kabul ediyorum.</string>
     <string name="accept_distance_sales_agreement">Mesafeli Satış Sözleşmesini kabul ediyorum.</string>
+
+    <string name="order_created">Siparişiniz başarıyla oluşturulmuştur.</string>
+    <string name="order_tracking_informer_text">Siparişinizi \'SİPARİŞLERİM\' sayfasından takip edebilirsiniz.</string>
 
 </resources>

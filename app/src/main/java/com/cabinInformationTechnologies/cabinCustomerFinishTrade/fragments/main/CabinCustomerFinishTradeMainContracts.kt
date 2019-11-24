@@ -22,6 +22,8 @@ object CabinCustomerFinishTradeMainContracts {
         fun setupLastPage()
         fun moveIndicatorTo(fromId: Int, toId: Int)
         fun showErrorMessage(message: String)
+        fun setActivityPrice(price: Double)
+        fun setActivityOrderId(id: Int)
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
@@ -45,6 +47,7 @@ object CabinCustomerFinishTradeMainContracts {
         fun feedback(message: String?)
         fun toastFeedback(message: String?)
         fun pageForward(currentPosition: Int)
+        fun setActivityOrderId(id: Int)
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {

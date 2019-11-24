@@ -3,14 +3,14 @@ package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 import android.content.Context
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONFilterCategory
-import com.cabinInformationTechnologies.cabinCustomerBase.threeStateSelection
+import com.cabinInformationTechnologies.cabinCustomerBase.ThreeStateSelection
 
 class MODELFilterCategory: LocalDataModel {
     private var id: Int = -1
     private var name: String = ""
     private var amount: Int? = null
     var isSelected: Boolean? = null
-    var state: threeStateSelection? = null
+    var state: ThreeStateSelection? = null
     private var subFilterCategories: MutableList<MODELFilterCategory>? = null
     private var isLeaf = false
 
@@ -22,7 +22,7 @@ class MODELFilterCategory: LocalDataModel {
             this.amount = jsonData.amount
             if (!jsonData.filterCategories.isNullOrEmpty()) {
                 subFilterCategories = mutableListOf()
-                state = threeStateSelection.UNSELECTED
+                state = ThreeStateSelection.UNSELECTED
                 var selectedSubSizeCount = 0
                 jsonData.filterCategories.forEach {
                     val category = MODELFilterCategory()
@@ -31,21 +31,21 @@ class MODELFilterCategory: LocalDataModel {
                         val subCatIsSelected = category.isSelected
                         val subCatState = category.state
                         if (subCatIsSelected != null && subCatIsSelected) {
-                            state = threeStateSelection.HALFSELECTED
+                            state = ThreeStateSelection.HALFSELECTED
                             selectedSubSizeCount++
                         }
                         if (subCatState != null) {
-                            if (subCatState == threeStateSelection.HALFSELECTED) {
-                                state = threeStateSelection.HALFSELECTED
-                            } else if (subCatState == threeStateSelection.SELECTED) {
-                                state = threeStateSelection.HALFSELECTED
+                            if (subCatState == ThreeStateSelection.HALFSELECTED) {
+                                state = ThreeStateSelection.HALFSELECTED
+                            } else if (subCatState == ThreeStateSelection.SELECTED) {
+                                state = ThreeStateSelection.HALFSELECTED
                                 selectedSubSizeCount++
                             }
                         }
                     }
                 }
                 if (selectedSubSizeCount == subFilterCategories!!.size)
-                    state = threeStateSelection.SELECTED
+                    state = ThreeStateSelection.SELECTED
             } else {
                 this.isLeaf = true
                 this.isSelected = jsonData.isSelected
