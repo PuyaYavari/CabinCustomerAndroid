@@ -16,7 +16,7 @@
 
     <color name="colorTextsPrimary">#707070</color>
     <color name="colorLightTextsPrimary">#B7B7B7</color>
-    <color name="homePageTextsPrimary">#FFFFFF</color>
+    <color name="colorWhiteTextsPrimary">#FFFFFF</color>
     <color name="colorBordersPrimary">#707070</color>
     <color name="colorLightBordersPrimary">#C8C8C8</color>
     <color name="colorButtonLabelsPrimary">#FFFFFF</color>

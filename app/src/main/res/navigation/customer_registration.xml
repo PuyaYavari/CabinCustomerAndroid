@@ -6,5 +6,21 @@
     <fragment
             android:id="@+id/cabinCustomerLoginFragment"
             android:name="com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterFragment"
-            android:label="CabinCustomerLoginFragment" />
+            android:label="CabinCustomerLoginFragment" >
+        <action
+                android:id="@+id/actionLoginToForgotPassword"
+                app:destination="@id/cabinCustomerForgotPasswordFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerForgotPasswordFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.forgotPassword.CabinCustomerForgotPasswordFragment"
+            android:label="CabinCustomerForgotPasswordFragment" >
+        <action
+                android:id="@+id/actionForgotPasswordToResetPassword"
+                app:destination="@id/cabinCustomerResetPasswordFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/cabinCustomerResetPasswordFragment"
+            android:name="com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.resetPassword.CabinCustomerResetPasswordFragment"
+            android:label="CabinCustomerResetPasswordFragment" />
 </navigation>

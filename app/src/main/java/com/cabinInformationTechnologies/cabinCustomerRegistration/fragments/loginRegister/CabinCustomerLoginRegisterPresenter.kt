@@ -80,7 +80,7 @@ class CabinCustomerLoginRegisterPresenter(var view:com.cabinInformationTechnolog
     }
 
     override fun forgetPassword() {
-        //TODO
+        router?.moveToForgotPassword()
     }
 
     override fun setInputtedPasswordConfirmation(password: String) {

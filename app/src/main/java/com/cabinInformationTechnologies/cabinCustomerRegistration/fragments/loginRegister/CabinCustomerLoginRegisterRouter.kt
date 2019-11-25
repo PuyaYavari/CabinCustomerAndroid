@@ -1,9 +1,11 @@
 package com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister
 
 import android.app.Activity
+import androidx.navigation.findNavController
+import com.cabinInformationTechnologies.cabin.R
 
 class CabinCustomerLoginRegisterRouter(var activity: Activity?) :
-    com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.Router {
+    CabinCustomerLoginRegisterContracts.Router {
 
     override fun unregister() {
         activity = null
@@ -11,6 +13,10 @@ class CabinCustomerLoginRegisterRouter(var activity: Activity?) :
 
     //region Router
 
+    override fun moveToForgotPassword() {
+        val action = CabinCustomerLoginRegisterFragmentDirections.actionLoginToForgotPassword()
+        activity!!.findNavController(R.id.customer_registration_navhost).navigate(action)
+    }
 
     //endregion
 }

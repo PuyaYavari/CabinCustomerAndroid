@@ -44,6 +44,8 @@ object CabinCustomerLoginRegisterContracts {
         fun sendLoginRequest()
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router
+    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
+        fun moveToForgotPassword()
+    }
 
 }

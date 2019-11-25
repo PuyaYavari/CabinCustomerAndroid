@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="TextView"
-            android:textColor="@color/homePageTextsPrimary" />
+            android:textColor="@color/colorWhiteTextsPrimary" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sub_banner_group_recycler_view"
