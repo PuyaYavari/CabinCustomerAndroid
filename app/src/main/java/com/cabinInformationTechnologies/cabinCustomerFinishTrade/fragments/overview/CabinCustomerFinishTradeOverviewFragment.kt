@@ -1,7 +1,9 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -93,11 +95,19 @@ class CabinCustomerFinishTradeOverviewFragment : BaseFragment(),
     override fun setAgreements(agreements: MODELAgreements) {
         pageView.apply {
             findViewById<TextView>(R.id.finish_trade_accept_preliminary_information_form).apply {
-                text = agreements.getPIF()
+                text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(agreements.getPIF(), Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(agreements.getPIF())
+                }
                 movementMethod = ScrollingMovementMethod()
             }
             findViewById<TextView>(R.id.finish_trade_accept_distance_sales_agreement).apply {
-                text = agreements.getDSA()
+                text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(agreements.getDSA(), Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(agreements.getDSA())
+                }
                 movementMethod = ScrollingMovementMethod()
             }
             findViewById<CheckBox>(R.id.finish_trade_accept_preliminary_information_form_checkbox)
