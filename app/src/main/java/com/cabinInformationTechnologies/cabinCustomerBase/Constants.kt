@@ -65,4 +65,6 @@ object Constants {
     const val LIST_PRODUCT_DETAIL_URL: String = "productDetail/listProduct"
 
     const val LIST_ORDERS_URL: String = "order/listOrder"
+
+    const val LIST_BANNERS_URL: String = "mainPage/listBanner"
 }

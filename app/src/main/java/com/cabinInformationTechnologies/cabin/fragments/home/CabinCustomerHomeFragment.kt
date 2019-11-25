@@ -32,6 +32,8 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
         mainBannerParams.height = displayWidth * 4/3 //FIXME: FIND BEST RATIO
         mainBanner.layoutParams = mainBannerParams
 
+        presenter?.requestHeaders(this.context)
+
         setupActivity()
         setupPage()
         return pageView

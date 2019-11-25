@@ -1,6 +1,7 @@
 package com.cabinInformationTechnologies.cabin.fragments.home
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.fragments.home.adapters.CabinCustomerHomeAdapter
 import com.cabinInformationTechnologies.cabin.fragments.home.adapters.CabinCustomerHomeHeaderAdapter
@@ -60,6 +61,11 @@ class CabinCustomerHomePresenter(var view: CabinCustomerHomeContracts.View?) : C
 
     override fun moveToRegistration() {
         router?.moveToRegistration()
+    }
+
+    override fun requestHeaders(context: Context?) {
+        if (context != null)
+            interactor?.getHeaders(context)
     }
 
     //endregion

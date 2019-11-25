@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabin.fragments.home
 
+import android.content.Context
 import com.cabinInformationTechnologies.cabin.fragments.home.adapters.CabinCustomerHomeAdapter
 import com.cabinInformationTechnologies.cabin.fragments.home.adapters.CabinCustomerHomeHeaderAdapter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELBannerGroup
@@ -22,11 +23,11 @@ object CabinCustomerHomeContracts {
         var homeAdapter: CabinCustomerHomeAdapter
 
         fun moveToRegistration()
-        //TODO: SEND SELECTED BANNER DATA TO BACKEND AND GO TO DISCOVER
+        fun requestHeaders(context: Context?)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        //TODO: GET HEADER
+        fun getHeaders(context: Context)
     }
 
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {

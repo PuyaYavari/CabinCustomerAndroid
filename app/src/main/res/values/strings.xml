@@ -5,8 +5,8 @@
     <string name="root_info">DAHA FAZLA BİLGİ İÇİN</string>
     <string name="slogan">Sınırsızca denemek için.</string>
     <string name="e_mail_hint">E-POSTA</string>
-    <string name="password_hint">ŞİFRE</string>
-    <string name="password_confirmation_hint">ŞİFRE TEKRAR</string>
+    <string name="password_hint">Şifre</string>
+    <string name="password_confirmation_hint">Şifre tekrar</string>
     <string name="forget_password">Şifremi unuttum</string>
     <string name="title_activity_cabin_customer_root">cabinCustomerRoot</string>
     <string name="action_settings">Settings</string>
@@ -21,44 +21,6 @@
 
     <string name="emailconfirmation_text">Hesabınız başarıyla oluşturulmuştu. E-postanızı onayladıktan sonra hesabınıza
         giriş yapabilirsiniz.
-    </string>
-
-    <string name="user_agreement">U-Nets (as NNs in general) need to have a fixed input dimension, and then,
-        in order to achieve the central part and output mask dimension, a determined
-        number of poolings and upsamplings are required. As the native dimensions
-        of the photos vary, they are resized (normally downscaled) to meet the input
-        size requirements of the U-Net.
-        In order to accommodate different input dimensions, several U-Net models
-        are required. Architecturally there are no major differences between them, but
-        the number of levels that they have is established with regard to its input shape.
-        For example, a U-Net with an input size of (256 × 256) will need five levels (five
-        levels for the encoder part, one for the central and five levels for the decoder
-        part) and one with (512 × 512) will need six.
-        Also, in our U-Net, the number of filters on the central part of the network
-        is constant (1024) independently of the input size. This means that every model
-        will start and finish with a different number of filters. Referring back to the
-        same examples as before, the initial and final number of filters for the U-Net
-        with 256 as input size is 32, and for the 512 one is 16.
-        This Chapter contains all the information related to the testing done during this
-        project. This introduction will explain briefly the implementation methodology
-        of our NN. Additionally, it also contains the reasons why we selected the used
-        dataset and its description.
-        The network was developed using Keras (see Subsection 3.1.4) as the main
-        core, supported by Tensorflow (see Subsection 3.1.3), CUDA (see Subsection
-        3.1.1) and cuDNN (see Subsection3.1.2). The first steps of the training were
-        done on the development system, but the main body of the experiments was
-        performed on the DTIC’s Asimov server, with its characteristics listed in Sub-
-        section 3.3.
-        The main dataset used to perform the training and experiments is Unite the
-        People [19] UPi-S1h variation, with more than 10.2k images after preprocessing
-        (see Section 4.2) it to fit the desired form that will enable us to train the network.
-        This database was selected because it is specifically oriented to human segmen-
-        tation and contains different environments, occlusion and lighting situations.
-        During all the experimentation, the dataset was randomly divided in two sets,
-        one for training and one for validation, representing the 90% and 10% (9256 and
-        1029) of the original dataset, respectively. All the training process was done us-
-        ing the bce_dice_loss as the loss function (see Section 4.6). Additionally, we also
-        recorded a test sequence to test the proposed approach with our own data.
     </string>
 
     <string name="persons_height">Boyunuz</string>
@@ -208,5 +170,11 @@
         Gönderim sürecini "Siparişlerim"\n
         sayfasından takip edebilirsiniz.
     </string>
+
+    <string name="reset_password_informer_text">
+        Mailinize gelen onay kodu ile yeni şifrenizi oluşturun.
+    </string>
+
+    <string name="confirmation_code_hint">Mail adresinize gönderilen kodu girin</string>
 
 </resources>
