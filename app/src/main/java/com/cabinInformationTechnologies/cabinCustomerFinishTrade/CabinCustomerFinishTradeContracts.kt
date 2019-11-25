@@ -11,6 +11,7 @@ object CabinCustomerFinishTradeContracts {
         fun addressesSelected(): Boolean?
         fun paymentSelected(): Boolean?
         fun notifySuccess()
+        fun finishActivity()
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {

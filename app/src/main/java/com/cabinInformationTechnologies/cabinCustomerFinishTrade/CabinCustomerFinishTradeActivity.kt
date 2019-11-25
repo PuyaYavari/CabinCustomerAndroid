@@ -1,7 +1,6 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade
 
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import com.cabinInformationTechnologies.cabin.R
@@ -62,16 +61,11 @@ class CabinCustomerFinishTradeActivity : BaseActivity(),
     }
 
     override fun notifySuccess() {
-        val dialog = AlertDialog.Builder(this)
-        dialog
-            .setTitle(resources.getString(R.string.congratulations))
-            .setMessage(resources.getString(R.string.order_created))
-            .setPositiveButton(
-                R.string.okay
-            ) { _, _ ->
-                this.finish()
-            }
-            .show()
+        OrderActivatedDialogFragment(this).show(supportFragmentManager,null)
+    }
+
+    override fun finishActivity() {
+        finish()
     }
 
     //endregion

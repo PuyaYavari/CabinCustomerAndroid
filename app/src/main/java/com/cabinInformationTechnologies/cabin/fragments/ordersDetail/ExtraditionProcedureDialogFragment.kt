@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.ordersDetail.adapter.Headerbox
 
-class ExtraditionProcedureDialogFragment(val headerbox: Headerbox): DialogFragment() {
+class ExtraditionProcedureDialogFragment(private val headerbox: Headerbox): DialogFragment() {
 
     private lateinit var dialogView: View
 

@@ -203,4 +203,10 @@
 
     <string name="forgot_password_helper_text">Şifre sıfırlama işlemi için mail adresinizi yazınız</string>
 
+    <string name="order_activated_informer">
+        Siparişiniz başarıyla tamamlanmıştır.\n\n
+        Gönderim sürecini "Siparişlerim"\n
+        sayfasından takip edebilirsiniz.
+    </string>
+
 </resources>
