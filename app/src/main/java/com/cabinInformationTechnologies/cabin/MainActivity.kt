@@ -2,6 +2,7 @@ package com.cabinInformationTechnologies.cabin
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -23,14 +24,16 @@ import com.cabinInformationTechnologies.cabin.fragments.filter.CabinCustomerFilt
 import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustomerFilterDetailContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ActivityResultListener
 import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
+import com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.cabin_customer_main.*
 
 
-class MainActivity : BaseActivity(), MainContracts.View {
+class MainActivity : BaseActivity(), MainContracts.View{
     private var currentNavController: LiveData<NavController>? = null
 
     var presenter: MainContracts.Presenter? =
@@ -541,6 +544,23 @@ class MainActivity : BaseActivity(), MainContracts.View {
             setOnClickListener {  }
             visibility = View.INVISIBLE
         }
+    }
+
+    override fun moveToFinishTrade() {
+        this.startActivityForResult(Intent(this, CabinCustomerFinishTradeActivity::class.java),
+            object : ActivityResultListener {
+                override fun onActivityResult(resultCode: Int, data: Intent?) {
+                    val toPage = data?.extras?.getInt("toPage")
+                    if (toPage != null) {
+                        Toast.makeText(
+                            getActivityContext(),
+                            "toPage $toPage",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        //TODO: MOVE TO ORDERS PAGE
+                    }
+                }
+            })
     }
 
     override fun setCartBadge(amount: Int) {

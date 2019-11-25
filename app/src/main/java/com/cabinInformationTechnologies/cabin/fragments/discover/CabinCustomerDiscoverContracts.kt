@@ -29,9 +29,9 @@ object CabinCustomerDiscoverContracts {
         val myDataset: MutableList<MODELProduct>
 
         fun moveToProductDetail(product: MODELProduct, position: Int)
-        fun getProducts(page:Int)
-        fun resetPage()
-        fun updateLastEnteredProduct(context: Context)
+        fun getProducts(context: Context?, page:Int)
+        fun resetPage(context: Context?)
+        fun updateLastEnteredProduct(context: Context?)
         fun moveToFilter()
         fun getSortOptions(context: Context?)
         fun setSort(sort: MODELSort?)

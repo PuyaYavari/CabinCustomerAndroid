@@ -25,7 +25,6 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     private lateinit var viewAdapter: CabinCustomerDiscoverAdapter
     private lateinit var viewManager: GridLayoutManager
 
-    private val pageSize = 20
     private var page = 1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -98,7 +97,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     }
 
     private fun reloadProducts(){
-        presenter?.getProducts(page)
+        presenter?.getProducts(this.context, page)
 
         recyclerView = pageView.findViewById(R.id.discover_recyclerview)
 
@@ -123,7 +122,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
     override fun resetPage() {
         presenter?.myDataset?.clear()
         viewAdapter.notifyDataSetChanged()
-        presenter?.resetPage()
+        presenter?.resetPage(this.context)
     }
 
     override fun hideHeaderAndNavbar() {
@@ -187,7 +186,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
         if (context != null) {
             val builder: AlertDialog.Builder = AlertDialog.Builder(context)
             builder.setTitle(resources.getString(R.string.sort))
-            val sortsArray: Array<String?> = arrayOfNulls<String>(sorts.sorts.size)
+            val sortsArray: Array<String?> = arrayOfNulls(sorts.sorts.size)
             for (i in sortsArray.indices)
                 sortsArray[i] = sorts.sorts[i]?.getName()
             builder.setItems(sortsArray) { dialog, index ->

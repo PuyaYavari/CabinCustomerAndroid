@@ -6,12 +6,12 @@ import android.content.ContextWrapper
 import androidx.fragment.app.Fragment
 
 
-abstract class BaseFragment: Fragment(), com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
+abstract class BaseFragment: Fragment(), BaseContracts.View {
 
-    fun getBaseActivity(): com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity? {
+    fun getBaseActivity(): BaseActivity? {
         var context = context
         while (context is ContextWrapper) {
-            if (context is com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity) {
+            if (context is BaseActivity) {
                 return context
             }
             context = context.baseContext

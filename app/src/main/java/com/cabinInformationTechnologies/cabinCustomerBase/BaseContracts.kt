@@ -1,12 +1,15 @@
 package com.cabinInformationTechnologies.cabinCustomerBase
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Url
+
 
 interface BaseContracts {
 
@@ -65,6 +68,10 @@ interface BaseContracts {
 
     interface FirebaseLogger {
         fun login(context: Context, method: String)
+    }
+
+    interface ActivityResultListener {
+        fun onActivityResult(resultCode: Int, data: Intent?)
     }
 
 }

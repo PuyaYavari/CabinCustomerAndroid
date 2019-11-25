@@ -52,8 +52,7 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
         router?.moveToProductDetail(product)
     }
 
-    override fun getProducts(page: Int) {
-        val context = view?.getActivityContext()
+    override fun getProducts(context: Context?, page: Int) {
         if (context != null && currentPage < page) {
             if (view?.getCurrentItemCount() == 0)
                 view?.showProgressBar()
@@ -65,9 +64,9 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
         }
     }
 
-    override fun updateLastEnteredProduct(context: Context) {
+    override fun updateLastEnteredProduct(context: Context?) {
         val product = lastEnteredProduct
-        if (product != null)
+        if (product != null && context != null)
             interactor?.getProduct(context, product.getId())
     }
 
@@ -85,9 +84,9 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
         view?.resetPage()
     }
 
-    override fun resetPage() {
+    override fun resetPage(context: Context?) {
         currentPage = 0
-        getProducts(currentPage + 1)
+        getProducts(context,currentPage + 1)
     }
 
     //endregion

@@ -52,11 +52,6 @@ class CabinCustomerCartPresenter(var view: CabinCustomerCartContracts.View?) : C
         }
     }
 
-    override fun moveToFinishTrade() {
-        if (myDataset.isNotEmpty())
-            router?.moveToFinishTrade()
-    }
-
     override fun getCart(context: Context) {
         view?.showProgressBar()
         interactor?.getCart(context)

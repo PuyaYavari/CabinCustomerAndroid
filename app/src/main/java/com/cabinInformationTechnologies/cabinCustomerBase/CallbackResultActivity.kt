@@ -1,18 +1,17 @@
 package com.cabinInformationTechnologies.cabinCustomerBase
 
-
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-//import android.support.v7.app.AppCompatActivity
 import com.cabinInformationTechnologies.cabin.R
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.concurrent.atomic.AtomicInteger
 
-abstract class BaseActivity: AppCompatActivity(), BaseContracts.View {
 
+abstract class CallbackResultActivity : AppCompatActivity(), BaseContracts.View {
+    //FIXME: HAS ISSUES, MANY PROBLEMS ON GETCONTEXT
     var dialog: Dialog? = null
 
     override fun getActivityContext(): Context? {

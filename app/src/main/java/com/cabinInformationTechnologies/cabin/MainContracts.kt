@@ -42,6 +42,7 @@ object MainContracts {
         fun hideDrawerButton()
         fun setCartBadge(amount: Int)
         fun removeCartBadge()
+        fun moveToFinishTrade()
     }
 
     interface Presenter: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {

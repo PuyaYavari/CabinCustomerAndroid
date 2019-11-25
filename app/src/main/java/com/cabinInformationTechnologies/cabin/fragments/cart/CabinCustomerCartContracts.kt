@@ -29,7 +29,6 @@ object CabinCustomerCartContracts {
     interface Presenter : BaseContracts.Presenter {
         val myDataset: MutableList<MODELProduct>
 
-        fun moveToFinishTrade()
         fun togglePriceDetail()
         fun getCart(context: Context)
         fun updateProduct(context: Context, product: MODELProduct)
@@ -49,7 +48,6 @@ object CabinCustomerCartContracts {
     }
 
     interface Router : BaseContracts.Router {
-        fun moveToFinishTrade()
         fun moveToProductDetail(product: MODELProduct, color: MODELColor)
     }
 

@@ -3,6 +3,7 @@ package com.cabinInformationTechnologies.cabin.fragments.discover
 import android.app.Activity
 import androidx.navigation.findNavController
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 
 class CabinCustomerDiscoverRouter(var activity: Activity?) :
     CabinCustomerDiscoverContracts.Router {
@@ -13,7 +14,7 @@ class CabinCustomerDiscoverRouter(var activity: Activity?) :
 
     //region Router
 
-    override fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun moveToProductDetail(product: MODELProduct) {
         val action = CabinCustomerDiscoverFragmentDirections.actionDiscoverToProductDetail(product, null)
         activity!!.findNavController(R.id.nav_host_fragment).navigate(action)
     }

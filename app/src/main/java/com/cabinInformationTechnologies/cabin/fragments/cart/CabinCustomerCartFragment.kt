@@ -110,7 +110,9 @@ class CabinCustomerCartFragment : com.cabinInformationTechnologies.cabinCustomer
             presenter?.togglePriceDetail()
         }
 
-        pageView.findViewById<Button>(R.id.cart_finish_trade_button).setOnClickListener { presenter?.moveToFinishTrade() }
+        pageView.findViewById<Button>(R.id.cart_finish_trade_button).setOnClickListener {
+            (activity as MainActivity).moveToFinishTrade()
+        }
 
         (activity!! as MainActivity).setHeader(
             header = resources.getString(R.string.cart_label),

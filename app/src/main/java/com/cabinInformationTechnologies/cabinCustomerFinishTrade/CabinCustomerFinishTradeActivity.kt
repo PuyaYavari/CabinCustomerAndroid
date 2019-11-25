@@ -1,6 +1,8 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.cabinInformationTechnologies.cabin.R
@@ -65,6 +67,9 @@ class CabinCustomerFinishTradeActivity : BaseActivity(),
     }
 
     override fun finishActivity() {
+        val data = Intent()
+        data.putExtra("toPage", 0)
+        setResult(Activity.RESULT_OK, data)
         finish()
     }
 
