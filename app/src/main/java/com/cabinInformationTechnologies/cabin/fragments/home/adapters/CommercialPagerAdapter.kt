@@ -5,8 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELBanner
+
 
 class CommercialPagerAdapter(val myDataset: MutableList<MODELBanner>?, val inflater: LayoutInflater): PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -14,12 +16,16 @@ class CommercialPagerAdapter(val myDataset: MutableList<MODELBanner>?, val infla
         commercialBanner.findViewById<ImageView>(R.id.commercial_banner_layout).apply {
             //TODO: SET IMAGE AND ON CLICK
         }
-        container.addView(commercialBanner)
+        container.addView(commercialBanner, position)
         return commercialBanner
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view === `object`
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        (container as ViewPager).removeView(`object` as View)
     }
 
     override fun getCount(): Int = myDataset?.size ?: 0

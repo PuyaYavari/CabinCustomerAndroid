@@ -78,6 +78,8 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
             hideCross()
             showHeaderNavbar()
             hideProgressBar()
+            hideRecyclerView()
+            setHeaderColor(null as Int?)
         }
     }
 
@@ -103,7 +105,7 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
 
         recyclerView.apply {
             setHasFixedSize(false)
-            layoutManager = viewManager
+            layoutManager = viewManager as RecyclerView.LayoutManager?
             adapter = viewAdapter
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {

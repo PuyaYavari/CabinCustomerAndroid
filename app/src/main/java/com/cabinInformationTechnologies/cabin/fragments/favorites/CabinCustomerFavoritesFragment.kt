@@ -67,6 +67,8 @@ class CabinCustomerFavoritesFragment : BaseFragment(), CabinCustomerFavoritesCon
         (activity!! as MainActivity).hideClear()
         (activity!! as MainActivity).hideCross()
         (activity!! as MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideRecyclerView()
+        (activity!! as MainActivity).setHeaderColor(null as Int?)
         if (GlobalData.loggedIn) {
             setupPage()
             if ((activity!! as MainActivity).findViewById<ConstraintLayout>(R.id.blocker_layout)

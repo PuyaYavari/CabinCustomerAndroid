@@ -4,12 +4,15 @@
         android:id="@+id/sub_banner_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:orientation="vertical"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp">
 
     <ImageView
             android:id="@+id/sub_banner_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/sample_product" />
 </androidx.cardview.widget.CardView>

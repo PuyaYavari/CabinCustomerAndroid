@@ -6,7 +6,7 @@ import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONBan
 
 class MODELBannerGroup : LocalDataModel {
     private var id: Int = -1
-    private var text: String = ""
+    private var text: String? = null
     private var isCommercial: Boolean = false
     private var banners: MutableList<MODELBanner> = mutableListOf()
 
@@ -14,7 +14,7 @@ class MODELBannerGroup : LocalDataModel {
         return try {
             val jsonData = modelData as JSONBannerGroup
             this.id = jsonData.id
-            this.text = jsonData.text ?: ""
+            this.text = jsonData.text
             this.isCommercial = jsonData.commercial ?: false
             jsonData.banners.forEach {
                 val banner = MODELBanner()

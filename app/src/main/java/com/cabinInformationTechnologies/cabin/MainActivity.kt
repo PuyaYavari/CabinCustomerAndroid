@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -561,6 +563,81 @@ class MainActivity : BaseActivity(), MainContracts.View{
                     }
                 }
             })
+    }
+
+    override fun getRecyclerView(): RecyclerView {
+        return findViewById(R.id.main_header_recyclerview)
+    }
+
+    override fun hideRecyclerView() {
+        findViewById<RecyclerView>(R.id.main_header_recyclerview).visibility = View.GONE
+    }
+
+    override fun setHeaderColor(colorHex: String?) {
+        if (colorHex != null) {
+            try {
+                findViewById<ConstraintLayout>(R.id.main_header).background
+                    .setTintList(ColorStateList.valueOf(Color.parseColor(colorHex)))
+            } catch (exception: Exception) {
+                Logger.verbose(
+                    applicationContext,
+                    this::class.java.name,
+                    "couldn't parse color!",
+                    exception
+                )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    findViewById<ConstraintLayout>(R.id.main_header)
+                        .setBackgroundColor(resources.getColor(R.color.colorPrimary, theme))
+                } else {
+                    findViewById<ConstraintLayout>(R.id.main_header)
+                        .setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                }
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                findViewById<ConstraintLayout>(R.id.main_header)
+                    .setBackgroundColor(resources.getColor(R.color.colorPrimary, theme))
+            } else {
+                findViewById<ConstraintLayout>(R.id.main_header)
+                    .setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            }
+        }
+    }
+
+    override fun setHeaderColor(colorId: Int?) {
+        if (colorId != null) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    findViewById<ConstraintLayout>(R.id.main_header)
+                        .setBackgroundColor(colorId)
+                } else {
+                    findViewById<ConstraintLayout>(R.id.main_header)
+                        .setBackgroundColor(colorId)
+                }
+            } catch (exception: Exception) {
+                Logger.verbose(
+                    applicationContext,
+                    this::class.java.name,
+                    "color not found!",
+                    exception
+                )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    findViewById<ConstraintLayout>(R.id.main_header)
+                        .setBackgroundColor(resources.getColor(R.color.colorPrimary, theme))
+                } else {
+                    findViewById<ConstraintLayout>(R.id.main_header)
+                        .setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                }
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                findViewById<ConstraintLayout>(R.id.main_header)
+                    .setBackgroundColor(resources.getColor(R.color.colorPrimary, theme))
+            } else {
+                findViewById<ConstraintLayout>(R.id.main_header)
+                    .setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            }
+        }
     }
 
     override fun setCartBadge(amount: Int) {

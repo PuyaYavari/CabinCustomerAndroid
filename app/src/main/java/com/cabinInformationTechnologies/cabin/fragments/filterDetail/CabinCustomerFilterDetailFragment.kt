@@ -65,6 +65,8 @@ class CabinCustomerFilterDetailFragment :
         (activity!! as MainActivity).hideDrawerButton()
         (activity!! as MainActivity).showClear(this)
         (activity!! as MainActivity).hideCross()
+        (activity!! as MainActivity).hideRecyclerView()
+        (activity!! as MainActivity).setHeaderColor(null as Int?)
     }
 
     private fun setupPage() {

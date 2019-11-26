@@ -3,6 +3,7 @@ package com.cabinInformationTechnologies.cabin.fragments.home.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabin.fragments.home.CabinCustomerHomeContracts
@@ -22,7 +23,13 @@ class SubBannerAdapter (val presenter: CabinCustomerHomeContracts.Presenter?, va
     }
 
     override fun onBindViewHolder(holder: SubBannerViewHolder, position: Int) {
-        holder.itemView.apply {
+        if (position == 0) {
+            val params = holder.itemView.layoutParams as RecyclerView.LayoutParams
+            params.marginStart = 40
+            holder.itemView.layoutParams = params
+        }
+        holder.itemView.findViewById<ImageView>(R.id.sub_banner_image).apply {
+
             //TODO: SET IMAGE AND ON CLICK AND SET LAYOUT PARAMS IF NEEDED
         }
     }

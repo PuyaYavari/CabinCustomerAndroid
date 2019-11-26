@@ -53,6 +53,7 @@ class CabinCustomerHomeHeaderAdapter(val presenter: CabinCustomerHomeContracts.P
             setOnClickListener {
                 notifyItemChanged(selectedPosition)
                 selectedPosition = position
+                notifyItemChanged(selectedPosition)
                 presenter?.myDataset = presenter?.headers?.get(position)?.getSubBanners() ?: mutableListOf()
             }
         }

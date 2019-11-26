@@ -38,6 +38,8 @@
     <color name="colorPlaceholderPrimary">#707070</color>
     <color name="colorStrikesPrimary">#C8C8C8</color>
 
+    <color name="colorHomeHeaderPrimary">#595959</color>
+
     <color name="colorPriceGreen">#009f00</color>
     <color name="colorPricePurple">#6b0045</color>
 

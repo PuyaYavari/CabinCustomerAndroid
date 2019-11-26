@@ -61,6 +61,8 @@ class CabinCustomerOrdersDetailFragment : com.cabinInformationTechnologies.cabin
         (activity!! as MainActivity).hideClear()
         (activity!! as MainActivity).hideCross()
         (activity!! as MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideRecyclerView()
+        (activity!! as MainActivity).setHeaderColor(null as Int?)
 
         if (com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn) {
             setupPage()

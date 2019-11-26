@@ -88,6 +88,9 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         (activity!! as MainActivity).hideClear()
         (activity!! as MainActivity).hideCross()
         (activity!! as MainActivity).hideProgressBar()
+        (activity!! as MainActivity).hideDrawerButton()
+        (activity!! as MainActivity).hideRecyclerView()
+        (activity!! as MainActivity).setHeaderColor(null as Int?)
     }
 
     private fun setupPage() {

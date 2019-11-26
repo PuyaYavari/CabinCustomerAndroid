@@ -44,7 +44,6 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
             presenter?.requestFilter(context)
         setupActivityLayout()
 
-        (activity as MainActivity).hideDrawerButton()
         (activity as MainActivity).showCrossOfFilter(previousFilter)
 
         // This callback will only be called when MyFragment is at least Started.
@@ -231,6 +230,9 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         }
         (activity!! as MainActivity).lockDrawer()
         (activity!! as MainActivity).showClear(this)
+        (activity!! as MainActivity).hideDrawerButton()
+        (activity!! as MainActivity).hideRecyclerView()
+        (activity!! as MainActivity).setHeaderColor(null as Int?)
         hideProgressBar()
     }
     //endregion

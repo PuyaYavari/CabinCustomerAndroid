@@ -39,8 +39,15 @@ class CabinCustomerHomeAdapter(val presenter: CabinCustomerHomeContracts.Present
         when (getItemViewType(position)) {
             BannerGroupTypeIDs.SUB -> {
                 holder.itemView.apply {
-                    findViewById<TextView>(R.id.sub_banner_group_header)
-                        .text = presenter?.myDataset?.get(position)?.getText()
+                    findViewById<TextView>(R.id.sub_banner_group_header).apply {
+                        if (presenter?.myDataset?.get(position)?.getText() != null) {
+                            visibility = View.VISIBLE
+                            text = presenter.myDataset[position].getText()
+                        } else {
+                            visibility = View.GONE
+                            text = null
+                        }
+                    }
                     findViewById<RecyclerView>(R.id.sub_banner_group_recycler_view).apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
@@ -50,6 +57,15 @@ class CabinCustomerHomeAdapter(val presenter: CabinCustomerHomeContracts.Present
             }
             BannerGroupTypeIDs.COMMERCIAL -> {
                 holder.itemView.apply {
+                    findViewById<TextView>(R.id.commercial_banner_group_header).apply {
+                        if (presenter?.myDataset?.get(position)?.getText() != null) {
+                            visibility = View.VISIBLE
+                            text = presenter.myDataset[position].getText()
+                        } else {
+                            visibility = View.GONE
+                            text = null
+                        }
+                    }
                     //TODO: SET PAGER LAYOUT PARAMS IF NEEDED
                     val inflater = LayoutInflater.from(context)
                     findViewById<ViewPager>(R.id.commercial_banner_pager)

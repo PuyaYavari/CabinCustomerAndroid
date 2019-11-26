@@ -1,5 +1,6 @@
 package com.cabinInformationTechnologies.cabin.fragments.home
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -73,13 +74,30 @@ class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomer
         (activity!! as MainActivity).hideClear()
         (activity!! as MainActivity).hideCross()
         (activity!! as MainActivity).hideProgressBar()
+        (activity!! as MainActivity).setHeader("", null)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            (activity!! as MainActivity).setHeaderColor(null as Int?)
+        } else {
+            (activity!! as MainActivity).setHeaderColor(null as Int?)
+        }
     }
 
     private fun setupPage() {
+        (activity!! as MainActivity).getRecyclerView().apply {
+            visibility = View.VISIBLE
+            setHasFixedSize(false)
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = presenter?.headerAdapter
+        }
+
         //TODO: SETUP MAIN BANNER
         pageView.findViewById<RecyclerView>(R.id.home_recycler_view).apply {
             setHasFixedSize(false)
-            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = object : LinearLayoutManager(this.context, VERTICAL, false) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
             adapter = presenter?.homeAdapter
         }
     }

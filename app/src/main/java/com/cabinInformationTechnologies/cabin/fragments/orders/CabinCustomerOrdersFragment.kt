@@ -61,7 +61,8 @@ class CabinCustomerOrdersFragment :
         (activity!! as MainActivity).hideClear()
         (activity!! as MainActivity).hideCross()
         (activity!! as MainActivity).hideProgressBar()
-
+        (activity!! as MainActivity).hideRecyclerView()
+        (activity!! as MainActivity).setHeaderColor(null as Int?)
     }
 
     override fun setupPage () {

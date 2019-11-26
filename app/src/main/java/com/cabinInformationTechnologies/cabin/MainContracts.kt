@@ -1,6 +1,7 @@
 package com.cabinInformationTechnologies.cabin
 
 import android.content.Context
+import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.fragments.filter.CabinCustomerFilterContracts
 import com.cabinInformationTechnologies.cabin.fragments.filterDetail.CabinCustomerFilterDetailContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
@@ -43,6 +44,10 @@ object MainContracts {
         fun setCartBadge(amount: Int)
         fun removeCartBadge()
         fun moveToFinishTrade()
+        fun getRecyclerView(): RecyclerView
+        fun hideRecyclerView()
+        fun setHeaderColor(colorHex: String?)
+        fun setHeaderColor(colorId: Int?)
     }
 
     interface Presenter: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
