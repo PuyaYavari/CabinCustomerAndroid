@@ -13,13 +13,17 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Sex
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser
+import com.cabinInformationTechnologies.cabinCustomerRegistration.CabinCustomerRegistrationActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 
 
-class CabinCustomerLoginRegisterFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
+class CabinCustomerLoginRegisterFragment : BaseFragment(),
     CabinCustomerLoginRegisterContracts.View {
 
     var presenter: CabinCustomerLoginRegisterContracts.Presenter? =
@@ -205,7 +209,7 @@ class CabinCustomerLoginRegisterFragment : com.cabinInformationTechnologies.cabi
     }
 
     override fun selectMan() {
-        presenter?.setSex(com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Sex.MAN)
+        presenter?.setSex(Sex.MAN)
         pageView.findViewById<Button>(R.id.register_woman_button).background = resources
             .getDrawable(R.drawable.cabin_register_woman_button, this.context?.theme)
         pageView.findViewById<Button>(R.id.register_man_button).background = resources
@@ -213,15 +217,15 @@ class CabinCustomerLoginRegisterFragment : com.cabinInformationTechnologies.cabi
     }
 
     override fun selectWoman() {
-        presenter?.setSex(com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Sex.WOMAN)
+        presenter?.setSex(Sex.WOMAN)
         pageView.findViewById<Button>(R.id.register_man_button).background = resources
             .getDrawable(R.drawable.cabin_register_man_button, this.context?.theme)
         pageView.findViewById<Button>(R.id.register_woman_button).background = resources
             .getDrawable(R.drawable.cabin_register_woman_button_checked, this.context?.theme)
     }
 
-    override fun setActiveUser(user: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser) {
-        (activity!! as com.cabinInformationTechnologies.cabinCustomerRegistration.CabinCustomerRegistrationActivity).setActiveUser(user)
+    override fun setActiveUser(user: MODELUser) {
+        (activity!! as CabinCustomerRegistrationActivity).setActiveUser(user)
     }
 
     override fun closeActivity() {

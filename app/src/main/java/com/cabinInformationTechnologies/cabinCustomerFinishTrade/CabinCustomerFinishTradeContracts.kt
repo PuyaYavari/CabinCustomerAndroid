@@ -35,9 +35,7 @@ object CabinCustomerFinishTradeContracts {
         fun success()
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
-        //TODO
-    }
+    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router
 
     interface ChangeAddAddressCallback {
         fun Delivery(address: MODELAddress?)

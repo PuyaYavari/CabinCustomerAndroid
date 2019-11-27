@@ -43,7 +43,6 @@ object CabinCustomerCartContracts {
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
         fun setCart(cart: MODELCart?)
-        fun feedback(message: String?)
         fun noInternet(isNetworkConnected: Boolean)
     }
 

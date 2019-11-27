@@ -487,11 +487,22 @@ class MainActivity : BaseActivity(), MainContracts.View{
         }
     }
 
-    override fun showCrossOfFilter(filter: MODELFilter?) {
+    override fun showCrossOfFilter(context: Context, filter: MODELFilter?) {
         findViewById<ImageButton>(R.id.main_cross_button).apply {
             setOnClickListener {
-                findNavController(R.id.nav_host_fragment).popBackStack()
-                presenter?.updateFilterTo(this.context, filter)
+                androidx.appcompat.app.AlertDialog
+                    .Builder(context)
+                    .setTitle(resources.getString(R.string.attention))
+                    .setMessage(resources.getString(R.string.clear_filter_alert))
+                    .setPositiveButton(resources.getString(R.string.yes)) { dialog, _ ->
+                        dialog.dismiss()
+                        findNavController(R.id.nav_host_fragment).popBackStack()
+                        presenter?.updateFilterTo(this.context, filter)
+                    }
+                    .setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
             }
             visibility = View.VISIBLE
         }

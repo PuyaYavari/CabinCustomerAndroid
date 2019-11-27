@@ -9,7 +9,6 @@ class CabinCustomerOrdersPendingFragmentInteractor(var output: CabinCustomerOrde
 
     //region Interactor
 
-    //TODO: Implement your Interactor methods here
 
     //endregion
 }

@@ -3,9 +3,8 @@ package com.cabinInformationTechnologies.cabin.fragments.filter
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
+import androidx.navigation.NavController
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
-import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup
@@ -71,8 +70,8 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         return newCount
     }
 
-    override fun requestFilter(context: Context) {
-        interactor?.requestFilter(context, filter)
+    override fun requestFilter(context: Context, navController: NavController) {
+        interactor?.requestFilter(context, filter, navController)
     }
 
     override fun moveToFilterDetail(filterType: Int) {
@@ -193,25 +192,5 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         setAmounts()
         view?.setupPage()
     }
-
-    override fun failedToClearFilter(message: String?) {
-        if (message != null)
-            Toast.makeText(
-                view?.getActivityContext(),
-                message,
-                Toast.LENGTH_SHORT
-            ).show()
-        else
-            Toast.makeText(
-                view?.getActivityContext(),
-                view?.getActivityContext()?.resources?.getString(R.string.default_error_message),
-                Toast.LENGTH_SHORT
-            ).show()
-        //TODO BETTER FEEDBACK
-        val lastFilter = this.filter
-        if (lastFilter != null)
-            refreshFilter(lastFilter)
-    }
-
     //endregion
 }

@@ -4,9 +4,9 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
+import com.cabinInformationTechnologies.cabinCustomerBase.ThreeStateSelection
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
-import com.cabinInformationTechnologies.cabinCustomerBase.ThreeStateSelection
 
 class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailContracts.View?) :
     CabinCustomerFilterDetailContracts.Presenter,
@@ -150,8 +150,6 @@ class CabinCustomerFilterDetailPresenter(var view: CabinCustomerFilterDetailCont
     //endregion
 
     //region InteractorOutput
-
-    //TODO: Implement your InteractorOutput methods here
 
     //endregion
 }

@@ -9,12 +9,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
 import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 
 
 class CabinCustomerOrdersFragment :
-    com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    CabinCustomerOrdersContracts.View {
+    BaseFragment(), CabinCustomerOrdersContracts.View {
 
     var presenter: CabinCustomerOrdersContracts.Presenter? = CabinCustomerOrdersPresenter(this)
     private lateinit var pageView: View

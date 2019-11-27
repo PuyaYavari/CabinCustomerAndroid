@@ -1,10 +1,8 @@
 package com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister
 
 import android.content.Context
-import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
-import com.cabinInformationTechnologies.cabinCustomerBase.Constants
-import com.cabinInformationTechnologies.cabinCustomerBase.Logger
-import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUsers
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -13,7 +11,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegisterContracts.InteractorOutput?) :
     CabinCustomerLoginRegisterContracts.Interactor {
 
-
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -43,59 +43,111 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
                 BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true && responseClass.users.size != 0) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: login",
+                            null
+                        )
                         output?.setActiveUser(responseClass.users[0])
                         output?.closeActivity()
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { login(context, email, password) }
                     }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        value.message,
+                        "ISSUE: ${value.message}",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { login(context, email, password) }
                 }
 
                 override fun onError(value: String, url: String?) {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        value,
+                        "Error, Value: $value, URL: $url",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { login(context, email, password) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Login OnFailure",
+                        "FAILURE",
                         throwable
                     )
-                    //TODO: FEEDBACK
+                    if (NetworkManager.isNetworkConnected(context))
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { login(context, email, password) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { login(context, email, password) }
                 }
 
                 override fun onServerDown() {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
+                        "SERVER DOWN!!",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { login(context, email, password) }
                 }
 
                 override fun onException(exception: Exception) {
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "",
+                        "EXCEPTION",
                         exception
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { login(context, email, password) }
                 }
             }
         )
@@ -128,59 +180,111 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
                     BaseContracts.ResponseCallbacks {
                     override fun onSuccess(value: Any?) {
                         if (value == true && responseClass.users.size != 0) {
+                            Logger.verbose(
+                                context,
+                                this::class.java.name,
+                                "SUCCESS: google login.",
+                                null
+                            )
                             output?.setActiveUser(responseClass.users[0])
                             output?.closeActivity()
+                        } else {
+                            Logger.warn(
+                                context,
+                                this::class.java.name,
+                                "AMBIGUOUS RESPONSE: ${value.toString()}",
+                                null
+                            )
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.error),
+                                message = context.resources.getString(R.string.default_error_message),
+                                neutralText = context.resources.getString(R.string.okay)
+                            ) { login(context, account) }
                         }
                     }
 
                     override fun onIssue(value: JSONIssue) {
-                        Logger.warn(
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            value.message,
+                            "ISSUE: ${value.message}",
                             null
                         )
-                        //TODO: FEEDBACK
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = value.message,
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { login(context, account) }
                     }
 
                     override fun onError(value: String, url: String?) {
                         Logger.warn(
                             context,
                             this::class.java.name,
-                            value,
+                            "Error, Value: $value, URL: $url",
                             null
                         )
-                        //TODO: FEEDBACK
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { login(context, account) }
                     }
 
                     override fun onFailure(throwable: Throwable) {
-                        Logger.warn(
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            "Google Login OnFailure",
+                            "FAILURE",
                             throwable
                         )
-                        //TODO: FEEDBACK
+                        if (NetworkManager.isNetworkConnected(context))
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.error),
+                                message = context.resources.getString(R.string.default_error_message),
+                                neutralText = context.resources.getString(R.string.okay)
+                            ) { login(context, account) }
+                        else
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.attention),
+                                message = context.resources.getString(R.string.no_internet),
+                                neutralText = context.resources.getString(R.string.okay)
+                            ) { login(context, account) }
                     }
 
                     override fun onServerDown() {
                         Logger.warn(
                             context,
                             this::class.java.name,
-                            "Server Down",
+                            "SERVER DOWN!!",
                             null
                         )
-                        //TODO: FEEDBACK
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { login(context, account) }
                     }
 
                     override fun onException(exception: Exception) {
                         Logger.error(
                             context,
                             this::class.java.name,
-                            "",
+                            "EXCEPTION",
                             exception
                         )
-                        //TODO: FEEDBACK
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { login(context, account) }
                     }
                 }
             )
@@ -197,7 +301,7 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
         val data = REQUESTAPIRegister(
             listOf(
                 REQUESTRegister(
-                    com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userId,
+                    GlobalData.userId,
                     email,
                     password,
                     emailPermit,
@@ -216,57 +320,96 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
             null,
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "SUCCESS",
-                        null)
+                        "SUCCESS: registered.",
+                        null
+                    )
                     output?.sendLoginRequest()
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "ISSUE",
-                        null)
-                    //TODO
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { register(context, email, password, sex, emailPermit) }
                 }
 
                 override fun onError(value: String, url: String?) {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "ERROR",
-                        null)
-                    //TODO
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { register(context, email, password, sex, emailPermit) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
                         "FAILURE",
-                        throwable)
-                    //TODO
+                        throwable
+                    )
+                    if (NetworkManager.isNetworkConnected(context))
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { register(context, email, password, sex, emailPermit) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { register(context, email, password, sex, emailPermit) }
                 }
 
                 override fun onServerDown() {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "SERVER DOWN",
-                        null)
-                    //TODO
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { register(context, email, password, sex, emailPermit) }
                 }
 
                 override fun onException(exception: Exception) {
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
-                        exception)
-                    //TODO
+                        "EXCEPTION",
+                        exception
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { register(context, email, password, sex, emailPermit) }
                 }
 
             }

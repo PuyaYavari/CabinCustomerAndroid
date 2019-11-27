@@ -1,18 +1,17 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 
-class CabinCustomerFinishTradePaymentPresenter(var view: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.InteractorOutput {
+class CabinCustomerFinishTradePaymentPresenter(var view: CabinCustomerFinishTradePaymentContracts.View?) :
+    CabinCustomerFinishTradePaymentContracts.Presenter,
+    CabinCustomerFinishTradePaymentContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentInteractor(
+    var interactor: CabinCustomerFinishTradePaymentContracts.Interactor? =
+        CabinCustomerFinishTradePaymentInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentContracts.Router? = null
+    var router: CabinCustomerFinishTradePaymentContracts.Router? = null
 
     //region Lifecycle
 
@@ -22,14 +21,9 @@ class CabinCustomerFinishTradePaymentPresenter(var view: com.cabinInformationTec
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router =
-            com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment.CabinCustomerFinishTradePaymentRouter(
+            CabinCustomerFinishTradePaymentRouter(
                 activity
             )
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
     }
 
     override fun onDestroy() {
@@ -44,17 +38,9 @@ class CabinCustomerFinishTradePaymentPresenter(var view: com.cabinInformationTec
 
     //region Presenter
 
-    override fun getAgreements(context: Context, id: Int) {
-
-    }
-
     //endregion
 
     //region InteractorOutput
-
-    override fun setAgreements() {
-
-    }
 
     //endregion
 }

@@ -68,13 +68,13 @@ object Logger: BaseContracts.Logger, BaseContracts.FirebaseLogger {
         context: Context,
         location: String?,
         message: String,
-        exception: Exception?
+        throwable: Throwable?
     ) {
         try {
             if (location != null)
-                Log.v("Verbose", "LOCATION: $location \nMESSAGE: $message", exception)
+                Log.v("Verbose", "LOCATION: $location \nMESSAGE: $message", throwable)
             else
-                Log.v("Verbose", message, exception)
+                Log.v("Verbose", message, throwable)
             //TODO: SEND HANDLE THE REST
         } catch (exception: Exception) {
             failure(context, this::class.java.name, null, exception)

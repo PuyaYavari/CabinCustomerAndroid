@@ -3,7 +3,6 @@ package com.cabinInformationTechnologies.cabin.fragments.discover
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSort
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSorts
@@ -103,17 +102,6 @@ class CabinCustomerDiscoverPresenter(var view: CabinCustomerDiscoverContracts.Vi
             view?.updateProduct(product, lastEnteredProductPosition)
         lastEnteredProductPosition = -1
         lastEnteredProduct = null
-    }
-
-    override fun feedback(message: String?) {
-        if (message != null) {
-            view?.feedback(message)
-        } else {
-            val defaultMessage = view?.getActivityContext()?.resources?.getString(R.string.default_error_message)
-            if (defaultMessage != null)
-                view?.feedback(defaultMessage)
-        }
-        view?.hideProgressBar()
     }
 
     override fun noInternet(isNetworkConnected: Boolean) {

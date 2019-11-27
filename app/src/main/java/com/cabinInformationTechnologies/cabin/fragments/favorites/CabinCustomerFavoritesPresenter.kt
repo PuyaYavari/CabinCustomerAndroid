@@ -3,7 +3,6 @@ package com.cabinInformationTechnologies.cabin.fragments.favorites
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import com.cabinInformationTechnologies.cabin.R
 
 class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.View?) :
     CabinCustomerFavoritesContracts.Presenter,
@@ -94,17 +93,6 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
 
     override fun undoRemove() {
         view?.undoRemove()
-    }
-
-    override fun feedback(message: String?) {
-        if (message != null) {
-            view?.feedback(message)
-        } else {
-            val defaultMessage = view?.getActivityContext()?.resources?.getString(R.string.default_error_message)
-            if (defaultMessage != null)
-                view?.feedback(defaultMessage)
-        }
-        view?.hideProgressBar()
     }
 
     override fun noInternet(isNetworkConnected: Boolean) {

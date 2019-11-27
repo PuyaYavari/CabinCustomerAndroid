@@ -12,7 +12,7 @@ import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -96,7 +96,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
     private fun setupPage() {
         val context = context
         if (context != null)
-            presenter?.requestProduct(context, args.product.getId())
+            presenter?.requestProduct(context, args.product.getId(), findNavController())
         val imagePagerParams = mPager.layoutParams
         var displayWidth = -1
         val displayMetrics = context?.resources?.displayMetrics
@@ -448,24 +448,17 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         showSizesOfColor(firstColorID)
     }
 
-    override fun showMessage(message: String, isSuccessful: Boolean) {
-        pageView.findViewById<ConstraintLayout>(R.id.product_detail_info_popup).apply {
-            visibility = View.VISIBLE
-            pageView.findViewById<TextView>(R.id.product_detail_info_popup_text).text = message
-            Handler().postDelayed({
-                visibility = View.INVISIBLE
-            }, 3000) //FIXME: ANIMATION
-        }
-    }
 
     override fun showDefaultMessage() {
-        pageView.findViewById<ConstraintLayout>(R.id.product_detail_info_popup).apply {
+        pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_button_progress_bar)
+            .visibility = View.GONE
+        pageView.findViewById<CardView>(R.id.product_detail_info_popup).apply {
             visibility = View.VISIBLE
             pageView.findViewById<TextView>(R.id.product_detail_info_popup_text).text =
                 resources.getText(R.string.product_added_to_cart)
             Handler().postDelayed({
                 visibility = View.INVISIBLE
-            }, 3000) //FIXME: ANIMATION
+            }, 3000)
         }
     }
 
@@ -535,7 +528,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         }
     }
 
-    override fun showButtonProgresBar() {
+    override fun showButtonProgressBar() {
         pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_button_progress_bar).visibility = View.VISIBLE
         pageView.findViewById<CardView>(R.id.product_detail_add_to_cart_counter).visibility = View.GONE
         pageView.findViewById<Button>(R.id.product_detail_add_to_cart_button).apply {
@@ -569,6 +562,10 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
 
     override fun setAmount(amount: Int) {
         pageView.findViewById<TextView>(R.id.product_detail_add_to_cart_counter_count).text = amount.toString()
+    }
+
+    override fun closePage() {
+        findNavController().popBackStack()
     }
 
     //endregion

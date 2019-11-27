@@ -8,6 +8,7 @@ object CabinCustomerFinishTradeOverviewContracts {
 
     interface View : BaseContracts.View {
         fun setAgreements(agreements: MODELAgreements)
+        fun closeActivity()
     }
 
     interface Presenter : BaseContracts.Presenter {
@@ -20,10 +21,9 @@ object CabinCustomerFinishTradeOverviewContracts {
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
         fun setAgreements(agreements: MODELAgreements)
+        fun closeActivity()
     }
 
-    interface Router : BaseContracts.Router {
-        //TODO
-    }
+    interface Router : BaseContracts.Router
 
 }

@@ -9,10 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistrict
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince
 
 
 class CabinCustomerInvoiceAddressFragment : BaseFragment(),
@@ -33,7 +36,7 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
     private var provinceSet = FieldSet.NO
     private var districtSet = FieldSet.NO
 
-    override var provinces: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince?> = listOf()
+    override var provinces: List<MODELProvince?> = listOf()
         set(value) {
             field = value
             ArrayAdapter(
@@ -125,10 +128,6 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
 
     //region View
 
-    override fun onBackPressed() {
-        activity!!.onBackPressed()
-    }
-
     private fun setupPage() {
         if (args.address != null) {
             operationType = OperationType.EDIT
@@ -137,11 +136,11 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
         }
 
         pageView.findViewById<ImageButton>(R.id.invoice_address_back_button)
-            .setOnClickListener { onBackPressed() }
+            .setOnClickListener { findNavController().popBackStack() }
 
         pageView.findViewById<EditText>(R.id.invoice_address_name).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_NAME_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_NAME_LENGTH)
                 else InputFilter.LengthFilter(30))
             addTextChangedListener(object :
                 TextWatcher {
@@ -155,7 +154,7 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
 
         pageView.findViewById<EditText>(R.id.invoice_address_surname).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_SURNAME_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_SURNAME_LENGTH)
                 else InputFilter.LengthFilter(30))
             addTextChangedListener(object :
                 TextWatcher {
@@ -169,7 +168,7 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
 
         pageView.findViewById<EditText>(R.id.invoice_address_phone).apply {
             filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PHONE_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_PHONE_LENGTH)
                 else InputFilter.LengthFilter(20), //TODO: LIMIT BASED ON PRESENTER.PHONE
                 InputFilter { src, _, _, _, _, _ ->
                     if (src == "") { // for backspace
@@ -199,10 +198,10 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
         //FIXME: DOESN'T WORK AFTER A FIELD IS FOCUSED
         provinceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val province = parent?.getItemAtPosition(p2) as com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince
+                val province = parent?.getItemAtPosition(p2) as MODELProvince
                 val context = context
                 if (context != null) {
-                    presenter?.getDistrictsOfProvince(context, province)
+                    presenter?.getDistrictsOfProvince(context, province, findNavController())
                     presenter?.setProvince(province)
                 }
             }
@@ -226,11 +225,11 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
 
         val context = this.context
         if (context != null)
-            presenter?.getProvinces(context)
+            presenter?.getProvinces(context, findNavController())
 
         pageView.findViewById<EditText>(R.id.invoice_address_address).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_ADDRESS_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_ADDRESS_LENGTH)
                 else InputFilter.LengthFilter(300))
             addTextChangedListener(object :
                 TextWatcher {
@@ -244,7 +243,7 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
 
         pageView.findViewById<EditText>(R.id.invoice_address_address_header).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_ADDRESS_HEADER_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_ADDRESS_HEADER_LENGTH)
                 else InputFilter.LengthFilter(30))
             addTextChangedListener(object :
                 TextWatcher {
@@ -263,7 +262,7 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
 
         pageView.findViewById<EditText>(R.id.invoice_address_corporation_name).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_CORPORATION_NAME_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_CORPORATION_NAME_LENGTH)
                 else InputFilter.LengthFilter(50))
             addTextChangedListener(object :
                 TextWatcher {
@@ -277,7 +276,7 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
 
         pageView.findViewById<EditText>(R.id.invoice_address_tax_number).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_TAX_NUMBER_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_TAX_NUMBER_LENGTH)
                 else InputFilter.LengthFilter(50))
             addTextChangedListener(object :
                 TextWatcher {
@@ -291,7 +290,7 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
 
         pageView.findViewById<EditText>(R.id.invoice_address_tax_administration).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_TAX_ADMINISTRATION_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_TAX_ADMINISTRATION_LENGTH)
                 else InputFilter.LengthFilter(50))
             addTextChangedListener(object :
                 TextWatcher {
@@ -346,6 +345,10 @@ class CabinCustomerInvoiceAddressFragment : BaseFragment(),
             isClickable = false
             alpha = 0.5f
         }
+    }
+
+    override fun success() {
+        findNavController().popBackStack()
     }
 
     private fun setupInitialData() {

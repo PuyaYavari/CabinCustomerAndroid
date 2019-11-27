@@ -3,6 +3,9 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.Informer
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 
 class CabinCustomerFinishTradePresenter(var view: CabinCustomerFinishTradeContracts.View?) :
@@ -51,9 +54,17 @@ class CabinCustomerFinishTradePresenter(var view: CabinCustomerFinishTradeContra
     }
 
     override fun activateOrder(context: Context?) {
+        val informer: BaseContracts.Feedbacker by lazy { Informer() }
         val id = this.orderId
         if (DSAAccepted && PIFAccepted && context != null && id != null)
             interactor?.activateOrder(context, id)
+        else if (context != null)
+            informer.feedback(
+                context = context,
+                title = context.resources.getString(R.string.attention),
+                message = context.resources.getString(R.string.accept_agreements_please),
+                neutralText = context.resources.getString(R.string.okay)
+            )
     }
 
 

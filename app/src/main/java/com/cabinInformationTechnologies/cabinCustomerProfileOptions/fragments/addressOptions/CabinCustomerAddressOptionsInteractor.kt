@@ -1,10 +1,23 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions
 
 import android.content.Context
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIAddressAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIRemoveAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTRemoveAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses
 import com.squareup.moshi.Moshi
 
-class CabinCustomerAddressOptionsInteractor(var output: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.InteractorOutput?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Interactor {
+class CabinCustomerAddressOptionsInteractor(var output: CabinCustomerAddressOptionsContracts.InteractorOutput?) :
+    CabinCustomerAddressOptionsContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -12,152 +25,217 @@ class CabinCustomerAddressOptionsInteractor(var output: com.cabinInformationTech
 
     //region Interactor
 
-    override fun getAddresses(context: Context) {
-        val responseObject = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses()
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIAddress>(
+    override fun getAddresses(context: Context, navController: NavController) {
+        val responseObject = MODELAddresses()
+        NetworkManager.requestFactory(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.LIST_ADDRESSES_URL,
+            Constants.LIST_ADDRESSES_URL,
             null,
             null,
             null,
             responseObject,
-            com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIAddressAdapter(
+            APIAddressAdapter(
                 context,
                 Moshi.Builder().build()
             ),
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    if (value == true)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: addresses received.",
+                            null
+                        )
                         output?.setAddresses(responseObject)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
-                        context,
-                        this::class.java.name,
-                        "Success, value: ${value.toString()}",
-                        null)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message)
+                        ) { getAddresses(context, navController) }
+                    }
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue, value: ${value.message}",
-                        null)
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message
+                    ) { getAddresses(context, navController) }
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, value: $value",
-                        null)
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getAddresses(context, navController) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
-                        throwable)
+                        "FAILURE",
+                        throwable
+                    )
+                    if (NetworkManager.isNetworkConnected(context))
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message)
+                        ) { getAddresses(context, navController) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet)
+                        ) { getAddresses(context, navController) }
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getAddresses(context, navController) }
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
-                        exception)
+                        "EXCEPTION",
+                        exception
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getAddresses(context, navController) }
                 }
-
             }
         )
     }
 
-    override fun removeAddress(context: Context, address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress) {
-        var data: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIRemoveAddress? = null
+    override fun removeAddress(context: Context, address: MODELAddress) {
+        var data: REQUESTAPIRemoveAddress? = null
         val id = address.id
         if (id != null)
-            data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIRemoveAddress(
+            data = REQUESTAPIRemoveAddress(
                 listOf(
-                    com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTRemoveAddress(
+                    REQUESTRemoveAddress(
                         id
                     )
                 )
             )
         if (data != null)
-            com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<Any?>(
+            NetworkManager.requestFactory<Any?>(
                 context,
-                com.cabinInformationTechnologies.cabinCustomerBase.Constants.REMOVE_ADDRESS_URL,
+                Constants.REMOVE_ADDRESS_URL,
                 null,
                 null,
                 data,
                 null,
                 null,
-                object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+                object : BaseContracts.ResponseCallbacks {
                     override fun onSuccess(value: Any?) {
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            "Success, value: ${value.toString()}",
-                            null)
-                        output?.addressRemovedFeedback(true, null)//TODO: FEEDBACK
+                            "SUCCESS: address removed.",
+                            null
+                        )
                     }
 
-                    override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    override fun onIssue(value: JSONIssue) {
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            "Issue, value: ${value.message}",
-                            null)
-                        output?.addressRemovedFeedback(false, null)//TODO: FEEDBACK
+                            "ISSUE: ${value.message}",
+                            null
+                        )
+                        output?.undoRemove()
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     }
 
                     override fun onError(value: String, url: String?) {
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                        Logger.warn(
                             context,
                             this::class.java.name,
-                            "Error, value: $value",
-                            null)
-                        output?.addressRemovedFeedback(false, null)//TODO: FEEDBACK
+                            "Error, Value: $value, URL: $url",
+                            null
+                        )
+                        output?.undoRemove()
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     }
 
                     override fun onFailure(throwable: Throwable) {
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            "Failure",
-                            throwable)
-                        output?.addressRemovedFeedback(false, null)//TODO: FEEDBACK
+                            "FAILURE",
+                            throwable
+                        )
+                        output?.undoRemove()
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     }
 
                     override fun onServerDown() {
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                        Logger.warn(
                             context,
                             this::class.java.name,
-                            "Server Down",
-                            null)
-                        output?.addressRemovedFeedback(false, null)//TODO: FEEDBACK
+                            "SERVER DOWN!!",
+                            null
+                        )
+                        output?.undoRemove()
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     }
 
                     override fun onException(exception: Exception) {
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                        Logger.error(
                             context,
                             this::class.java.name,
-                            "Exception",
-                            exception)
-                        output?.addressRemovedFeedback(false, null)//TODO: FEEDBACK
+                            "EXCEPTION",
+                            exception
+                        )
+                        output?.undoRemove()
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     }
-
                 }
             )
     }
-
     //endregion
 }

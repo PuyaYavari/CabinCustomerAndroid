@@ -131,6 +131,9 @@
     <string name="agreement_and_forms">Sözleşme ve Formlar</string>
     <string name="congratulations">Tebrikler</string>
     <string name="send">Gönder</string>
+    <string name="attention">Dikkat</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
     <!---->
 
     <!--separators-->
@@ -177,4 +180,13 @@
 
     <string name="confirmation_code_hint">Mail adresinize gönderilen kodu girin</string>
 
+    <string name="clear_filter_alert">Filtreyi en son haline getirip geri çıkmak istiyormusunuz?</string>
+
+    <string name="select_address_please">Lütfen adreslerinizi seçin.</string>
+    <string name="select_payment_please">Lütfen ödeme şeklinizi seçin.</string>
+    <string name="accept_agreements_please">Lütfen anlaşmaları okuyup onaylayın.</string>
+
+    <string name="password_changed_successfully">Şifreniz başarıyla güncellenmiştir.</string>
+
+    <string name="address_saved_successfully">Adresiniz başarıyla kaydedilmiştir.</string>
 </resources>

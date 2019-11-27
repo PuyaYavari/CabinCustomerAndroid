@@ -1,9 +1,22 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices
 
 import android.content.Context
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
+import com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Announcements
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIAnnouncementPref
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIAnnouncementPrefs
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAnnouncemetPref
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAnnouncementPrefs
 
-class CabinCustomerNotificationChoicesInteractor(var output: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices.CabinCustomerNotificationChoicesContracts.InteractorOutput?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices.CabinCustomerNotificationChoicesContracts.Interactor {
+class CabinCustomerNotificationChoicesInteractor(var output: CabinCustomerNotificationChoicesContracts.InteractorOutput?) :
+    CabinCustomerNotificationChoicesContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -11,153 +24,214 @@ class CabinCustomerNotificationChoicesInteractor(var output: com.cabinInformatio
 
     //region Interactor
 
-    override fun recieveInitialData(context: Context) {
-        val responceObject = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAnnouncementPrefs()
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIAnnouncementPref>(
+    override fun receiveInitialData(context: Context, navController: NavController) {
+        val responceObject = MODELAnnouncementPrefs()
+        NetworkManager.requestFactory<APIAnnouncementPref>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.LIST_ANNOUNCEMENT_URL,
+            Constants.LIST_ANNOUNCEMENT_URL,
             null,
             null,
             null,
             responceObject,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks{
+            object : BaseContracts.ResponseCallbacks{
                 override fun onSuccess(value: Any?) {
-                    if (value == true)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: announcements received.",
+                            null
+                        )
                         output?.setPrefs(responceObject)
-                    else
-                        output?.error(null)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
-                        context,
-                        this::class.java.name,
-                        "value: ${value.toString()}",
-                        null)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message)
+                        ) { receiveInitialData(context, navController) }
+                    }
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    output?.error(value.message)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "value: $value",
-                        null)
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message
+                    ) { receiveInitialData(context, navController) }
                 }
 
                 override fun onError(value: String, url: String?) {
-                    output?.error(value)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "value: $value",
-                        null)
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { receiveInitialData(context, navController) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    output?.error(null)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
-                        throwable)
+                        "FAILURE",
+                        throwable
+                    )
+                    if (NetworkManager.isNetworkConnected(context))
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message)
+                        ) { receiveInitialData(context, navController) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet)
+                        ) { receiveInitialData(context, navController) }
                 }
 
                 override fun onServerDown() {
-                    output?.error(null)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { receiveInitialData(context, navController) }
                 }
 
                 override fun onException(exception: Exception) {
-                    output?.error(null)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
-                        exception)
+                        "EXCEPTION",
+                        exception
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { receiveInitialData(context, navController) }
                 }
             }
         )
     }
 
-    override fun sendPrefs(context: Context, prefs: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAnnouncementPrefs) {
-        val data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIAnnouncementPrefs(
+    override fun sendPrefs(context: Context, prefs: MODELAnnouncementPrefs) {
+        val data = REQUESTAPIAnnouncementPrefs(
             listOf(
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAnnouncemetPref(
-                    com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Announcements.EMAIL,
+                REQUESTAnnouncemetPref(
+                    Announcements.EMAIL,
                     prefs.email
                 ),
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAnnouncemetPref(
-                    com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Announcements.SMS,
+                REQUESTAnnouncemetPref(
+                    Announcements.SMS,
                     prefs.sms
                 ),
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAnnouncemetPref(
-                    com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Announcements.PHONE,
+                REQUESTAnnouncemetPref(
+                    Announcements.PHONE,
                     prefs.phone
                 )
             )
         )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIAnnouncementPref>(
+        NetworkManager.requestFactory<APIAnnouncementPref>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.UPDATE_ANNOUNCEMENT_URL,
+            Constants.UPDATE_ANNOUNCEMENT_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "value: ${value.toString()}",
-                        null)
+                        "SUCCESS: announcements updated.",
+                        null
+                    )
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "value: $value",
-                        null)
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(context, value.message)
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "value: $value",
-                        null)
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
-                        throwable)
+                        "FAILURE",
+                        throwable
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
-                        exception)
+                        "EXCEPTION",
+                        exception
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
             }
         )
     }
-
     //endregion
 }

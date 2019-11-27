@@ -3,17 +3,19 @@ package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.c
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
+import com.cabinInformationTechnologies.cabinCustomerBase.Informer
 
-class CabinCustomerChangePasswordPresenter(var view: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.InteractorOutput {
+class CabinCustomerChangePasswordPresenter(var view: CabinCustomerChangePasswordContracts.View?) :
+    CabinCustomerChangePasswordContracts.Presenter, CabinCustomerChangePasswordContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordInteractor(
+    var interactor: CabinCustomerChangePasswordContracts.Interactor? =
+        CabinCustomerChangePasswordInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.Router? = null
+    var router: CabinCustomerChangePasswordContracts.Router? = null
 
     private lateinit var password: String
     private lateinit var newPassword: String
@@ -30,14 +32,9 @@ class CabinCustomerChangePasswordPresenter(var view: com.cabinInformationTechnol
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordRouter(
+        router = CabinCustomerChangePasswordRouter(
                 activity
             )
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-        }
     }
 
     override fun onDestroy() {
@@ -53,44 +50,33 @@ class CabinCustomerChangePasswordPresenter(var view: com.cabinInformationTechnol
     //region Presenter
 
     override fun setPassword(inputtedPassword: String) {
-        if (inputtedPassword.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PASSWORD_LENGTH) {
+        if (inputtedPassword.length <= Constants.MAX_PASSWORD_LENGTH) {
             this.password = inputtedPassword
             passwordFilled = inputtedPassword.isNotEmpty()
         } else {
             passwordFilled = false
-            Log.e("input error", "password too long!")
         }
-
         validatePage()
     }
 
     override fun setNewPassword(inputtedPassword: String) {
-        if (inputtedPassword.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PASSWORD_LENGTH) {
+        if (inputtedPassword.length <= Constants.MAX_PASSWORD_LENGTH) {
             this.newPassword = inputtedPassword
             newPasswordFilled = inputtedPassword.isNotEmpty()
         } else {
             newPasswordFilled = false
-            Log.e("input error", "new password too long!")
         }
-
         validatePage()
     }
 
     override fun setNewPasswordConfirmation(inputtedPassword: String) {
-        if (inputtedPassword.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PASSWORD_LENGTH) {
+        if (inputtedPassword.length <= Constants.MAX_PASSWORD_LENGTH) {
             this.newPasswordConfirmation = inputtedPassword
             newPasswordConfirmationFilled = inputtedPassword.isNotEmpty()
         } else {
             newPasswordConfirmationFilled = false
-            Log.e("input error", "new password confirmation too long!")
         }
-
         validatePage()
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        val pattern = "^(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{8,}$".toRegex()
-        return (pattern.matches(password))
     }
 
     private fun validatePage() {
@@ -99,22 +85,26 @@ class CabinCustomerChangePasswordPresenter(var view: com.cabinInformationTechnol
     }
 
     override fun confirmPage(context: Context) {
-        if (isPasswordValid(newPassword) && newPassword == newPasswordConfirmation) {
+        val informer: BaseContracts.Feedbacker by lazy { Informer() }
+        if (newPassword == newPasswordConfirmation) {
             interactor?.sendPasswordData(context, newPassword, password)
-        } else if (!isPasswordValid(newPassword)){
-            view!!.showErrorMessage(com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.ChangePasswordFieldIDs.NEW_PASSWORD)
-        } else if (newPassword != newPasswordConfirmation) {
-            view!!.showErrorMessage(com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.ChangePasswordFieldIDs.NEW_PASSWORD_CONFIRMATION)
         } else {
-            view!!.showErrorMessage(-1)
+            informer.feedback(
+                context = context,
+                title = context.resources.getString(R.string.attention),
+                message = context.resources.getString(R.string.change_password_new_password_confirmation_error),
+                neutralText = context.resources.getString(R.string.okay)
+            )
         }
     }
-
-    //TODO: WAIT UNTIL SUCCESS OR FAIL ARRIVES AND SHOW THE MESSAGE
 
     //endregion
 
     //region InteractorOutput
+
+    override fun success() {
+        view?.success()
+    }
 
     //endregion
 }

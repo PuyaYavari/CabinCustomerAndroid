@@ -11,12 +11,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.Informer
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
 import com.cabinInformationTechnologies.cabinCustomerFinishTrade.CabinCustomerFinishTradeActivity
@@ -32,6 +33,10 @@ class CabinCustomerFinishTradeMainFragment : BaseFragment(),
     private lateinit var callback: OnBackPressedCallback
 
     private lateinit var transitionContainer: MotionLayout
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -103,6 +108,7 @@ class CabinCustomerFinishTradeMainFragment : BaseFragment(),
         }
     }
 
+    @SuppressLint("InflateParams")
     override fun addShippingPrice(sellerName: String, price: Double) {
         val cargoPriceView = layoutInflater.inflate(R.layout.cabin_customer_cart_cargo_price_layout, null)
         cargoPriceView.apply {
@@ -151,7 +157,14 @@ class CabinCustomerFinishTradeMainFragment : BaseFragment(),
                         (activity as CabinCustomerFinishTradeActivity).presenter?.invoiceAddress
                     )
                 } else {
-                    //TODO: FEEDBACK ABOUT ADDRESSES NOT SELECTED
+                    val context = this.context
+                    if (context != null)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.select_address_please),
+                            neutralText = context.resources.getString(R.string.okay)
+                        )
                 }
             }
 
@@ -186,7 +199,14 @@ class CabinCustomerFinishTradeMainFragment : BaseFragment(),
                 if ((activity as CabinCustomerFinishTradeActivity).paymentSelected() == true)
                     presenter?.pageForward(mPager.currentItem)
                 else {
-                    //TODO: FEEDBACK ABOUT PAYMENT NOT SELECTED
+                    val context = this.context
+                    if (context != null)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.select_payment_please),
+                            neutralText = context.resources.getString(R.string.okay)
+                        )
                 }
             }
             text = resources.getText(R.string.finish_trade_payment_button_label)
@@ -292,25 +312,16 @@ class CabinCustomerFinishTradeMainFragment : BaseFragment(),
         transitionContainer.transitionToEnd()
     }
 
-    override fun showErrorMessage(message: String) {
-        val context = this.context
-        if (context != null)
-            AlertDialog.Builder(context)
-                .setTitle(resources.getText(R.string.error))
-                .setMessage(message)
-                .setPositiveButton(R.string.retry) { _, _ ->
-                    getCart()
-                }
-                .setNegativeButton(R.string.okay, null)
-                .show()
-    }
-
     override fun setActivityPrice(price: Double) {
         (activity as CabinCustomerFinishTradeActivity).presenter?.price = price
     }
 
     override fun setActivityOrderId(id: Int) {
         (activity as CabinCustomerFinishTradeActivity).presenter?.orderId = id
+    }
+
+    override fun closeActivity() {
+        activity?.finish()
     }
 
     //endregion

@@ -1,10 +1,13 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices
 
 import android.content.Context
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAnnouncementPrefs
 
 object CabinCustomerNotificationChoicesContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
+    interface View : BaseContracts.View {
         fun enableEmail()
         fun disableEmail()
         fun enableSms()
@@ -13,23 +16,22 @@ object CabinCustomerNotificationChoicesContracts {
         fun disablePhone()
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface Presenter : BaseContracts.Presenter {
         fun setEmail(context: Context, emailState: Boolean)
         fun setPhone(context: Context, phoneState: Boolean)
         fun setSMS(context: Context, smsState: Boolean)
-        fun reciveInitialData(context: Context)
+        fun receiveInitialData(context: Context, navController: NavController)
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        fun recieveInitialData(context: Context)
-        fun sendPrefs(context: Context, prefs: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAnnouncementPrefs)
+    interface Interactor : BaseContracts.Interactor {
+        fun receiveInitialData(context: Context, navController: NavController)
+        fun sendPrefs(context: Context, prefs: MODELAnnouncementPrefs)
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        fun setPrefs(prefs: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAnnouncementPrefs)
-        fun error(message: String?)
+    interface InteractorOutput : BaseContracts.InteractorOutput {
+        fun setPrefs(prefs: MODELAnnouncementPrefs)
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router
+    interface Router : BaseContracts.Router
 
 }

@@ -2,15 +2,12 @@ package com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.add
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
@@ -76,141 +73,8 @@ class CabinCustomerAddExtraditionFragment : com.cabinInformationTechnologies.cab
 
         recyclerView = pageView.findViewById(R.id.add_extradition_products_recyclerview)
 
-        val myDataset: List<com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionContracts.Product> =
-            listOf(
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "1",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "2",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "3",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "4",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "5",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "6",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "7",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "8",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "9",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "10",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "11",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "12",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "13",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "14",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "15",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "16",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "17",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "18",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "19",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "20",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "21",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "22",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "23",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "24",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "25",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "26",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "27",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "28",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "29",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "30",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "31",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "32",
-                    R.drawable.order_picture_example
-                ),
-                com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.ExtraditionProduct(
-                    "33",
-                    R.drawable.order_picture_example
-                )
-            ) //TODO: REMOVE
+        val myDataset: List<Int> = mutableListOf(1)
+
 
         viewAdapter =
             com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionAdapter(
@@ -235,20 +99,8 @@ class CabinCustomerAddExtraditionFragment : com.cabinInformationTechnologies.cab
         }
     }
 
-    override fun setupERListener(product: com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionContracts.Product) { //FIXME: MANY PROBLEMS :)
-        pageView.findViewById<EditText>(R.id.add_extradition_extradition_reason_input).apply {
-            Toast.makeText(this.context, product.temp.toString(), Toast.LENGTH_SHORT).show()
-            setText(product.ER)
-            addTextChangedListener(object :
-                TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    product.ER = p0.toString()
-                    product.temp += 1
-                }
-                override fun afterTextChanged(p0: Editable?) {}
-            })
-        }
+    override fun setupERListener() {
+
     }
 
     //endregion

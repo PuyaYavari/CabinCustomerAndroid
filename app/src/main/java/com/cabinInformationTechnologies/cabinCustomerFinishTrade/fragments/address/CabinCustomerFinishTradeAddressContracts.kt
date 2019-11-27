@@ -20,7 +20,7 @@ object CabinCustomerFinishTradeAddressContracts {
         fun setupNoInvoiceAddress()
         fun showDeliveryAdd()
         fun hideDeliveryAdd()
-        fun showErrorMessage(message: String)
+        fun closeActivity()
     }
 
     interface Presenter : BaseContracts.Presenter {
@@ -37,7 +37,7 @@ object CabinCustomerFinishTradeAddressContracts {
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
         fun setAddresses(addresses: MODELAddresses)
-        fun feedback(message: String?)
+        fun closeActivity()
     }
 
     interface Router : BaseContracts.Router

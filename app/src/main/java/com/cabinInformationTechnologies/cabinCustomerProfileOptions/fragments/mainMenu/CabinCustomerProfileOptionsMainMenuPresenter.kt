@@ -3,15 +3,15 @@ package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.m
 import android.app.Activity
 import android.os.Bundle
 
-class CabinCustomerProfileOptionsMainMenuPresenter(var view: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.InteractorOutput {
+class CabinCustomerProfileOptionsMainMenuPresenter(var view: CabinCustomerProfileOptionsMainMenuContracts.View?) :
+    CabinCustomerProfileOptionsMainMenuContracts.Presenter,
+    CabinCustomerProfileOptionsMainMenuContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuInteractor(
+    var interactor: CabinCustomerProfileOptionsMainMenuContracts.Interactor? =
+        CabinCustomerProfileOptionsMainMenuInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.Router? = null
+    var router: CabinCustomerProfileOptionsMainMenuContracts.Router? = null
 
     //region Lifecycle
 
@@ -21,13 +21,9 @@ class CabinCustomerProfileOptionsMainMenuPresenter(var view: com.cabinInformatio
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuRouter(
+            CabinCustomerProfileOptionsMainMenuRouter(
                 activity
             )
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-        }
     }
 
     override fun onDestroy() {

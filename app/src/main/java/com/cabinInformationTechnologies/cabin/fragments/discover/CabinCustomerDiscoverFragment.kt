@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
@@ -157,10 +156,6 @@ class CabinCustomerDiscoverFragment : com.cabinInformationTechnologies.cabinCust
 
     override fun getCurrentItemCount(): Int {
         return pageView.findViewById<RecyclerView>(R.id.discover_recyclerview).adapter?.itemCount ?: 0
-    }
-
-    override fun feedback(message: String) {
-        Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
     }
 
     override fun showNoInternet() {

@@ -3,7 +3,6 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
@@ -141,32 +140,12 @@ class CabinCustomerFinishTradeMainPresenter(var view: CabinCustomerFinishTradeMa
         }
     }
 
-    override fun feedback(message: String?) {
-        if (message == null)
-            view?.showErrorMessage(
-                view?.getActivityContext()?.resources?.getString(R.string.default_error_message)
-                    .toString())
-        else
-            view?.showErrorMessage(message)
-    }
-
-    override fun toastFeedback(message: String?) {
-        if (message == null)
-            Toast.makeText(
-                view?.getActivityContext(),
-                view?.getActivityContext()?.resources?.getString(R.string.default_error_message),
-                Toast.LENGTH_SHORT
-            ).show()
-        else
-            Toast.makeText(
-                view?.getActivityContext(),
-                message,
-                Toast.LENGTH_SHORT
-            ).show()
-    }
-
     override fun setActivityOrderId(id: Int) {
         view?.setActivityOrderId(id)
+    }
+
+    override fun closeActivity() {
+        view?.closeActivity()
     }
 
     //endregion

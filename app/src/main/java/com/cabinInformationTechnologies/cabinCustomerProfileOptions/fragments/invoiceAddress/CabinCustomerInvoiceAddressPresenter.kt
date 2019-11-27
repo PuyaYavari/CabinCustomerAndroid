@@ -4,19 +4,21 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
 
-class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressContracts.InteractorOutput {
+class CabinCustomerInvoiceAddressPresenter(var view: CabinCustomerInvoiceAddressContracts.View?) :
+    CabinCustomerInvoiceAddressContracts.Presenter,
+    CabinCustomerInvoiceAddressContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressInteractor(
+    var interactor: CabinCustomerInvoiceAddressContracts.Interactor? =
+        CabinCustomerInvoiceAddressInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressContracts.Router? = null
+    var router: CabinCustomerInvoiceAddressContracts.Router? = null
 
-    private val address = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress()
+    private val address = MODELAddress()
 
     private lateinit var countryCode: String
     private var phone: String = ""
@@ -37,10 +39,9 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress.CabinCustomerInvoiceAddressRouter(
-                activity
-            )
+        router = CabinCustomerInvoiceAddressRouter(
+            activity
+        )
 
     }
 
@@ -61,7 +62,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
     }
 
     override fun setName(inputtedName: String) {
-        if (inputtedName.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_NAME_LENGTH) {
+        if (inputtedName.length <= Constants.MAX_NAME_LENGTH) {
             this.address.name = inputtedName
             nameFilled = inputtedName.isNotEmpty()
         } else {
@@ -73,7 +74,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
     }
 
     override fun setSurname(inputtedSurname: String) {
-        if (inputtedSurname.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_SURNAME_LENGTH) {
+        if (inputtedSurname.length <= Constants.MAX_SURNAME_LENGTH) {
             this.address.surname = inputtedSurname
             surnameFilled = inputtedSurname.isNotEmpty()
         } else {
@@ -90,7 +91,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
         {
             phone = countryCode
             for (char in inputtedPhone) if (char.isDigit()) phone = "$phone$char"
-            phoneFilled = phone.length == com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PHONE_LENGTH
+            phoneFilled = phone.length == Constants.MAX_PHONE_LENGTH
         } else {
             phone = ""
             phoneFilled = false
@@ -100,14 +101,14 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
         validatePage()
     }
 
-    override fun setProvince(province: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince) {
+    override fun setProvince(province: MODELProvince) {
         this.address.province = province.name
         this.address.provinceId = province.id
 
         validatePage()
     }
 
-    override fun setDistrict(district: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistrict) {
+    override fun setDistrict(district: MODELDistrict) {
         this.address.district = district.name
         this.address.districtId = district.id
 
@@ -115,7 +116,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
     }
 
     override fun setAddress(inputtedAddress: String) {
-        if(inputtedAddress.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_ADDRESS_LENGTH) {
+        if(inputtedAddress.length <= Constants.MAX_ADDRESS_LENGTH) {
             this.address.address = inputtedAddress
             addressFilled = inputtedAddress.isNotEmpty()
         } else {
@@ -127,7 +128,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
     }
 
     override fun setAddressHeader(inputtedAddressHeader: String) {
-        if(inputtedAddressHeader.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_ADDRESS_HEADER_LENGTH) {
+        if(inputtedAddressHeader.length <= Constants.MAX_ADDRESS_HEADER_LENGTH) {
             this.address.header = inputtedAddressHeader
             addressHeaderFilled = inputtedAddressHeader.isNotEmpty()
         } else {
@@ -148,7 +149,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
     }
 
     override fun setCorporationName(inputtedCorporationName: String) {
-        if (inputtedCorporationName.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_CORPORATION_NAME_LENGTH) {
+        if (inputtedCorporationName.length <= Constants.MAX_CORPORATION_NAME_LENGTH) {
             this.address.corporationName = inputtedCorporationName
             corporationNameFilled = inputtedCorporationName.isNotEmpty()
         } else {
@@ -160,7 +161,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
     }
 
     override fun setTaxNumber(inputtedTaxNumber: String) {
-        if (inputtedTaxNumber.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_TAX_NUMBER_LENGTH) {
+        if (inputtedTaxNumber.length <= Constants.MAX_TAX_NUMBER_LENGTH) {
             this.address.taxNumber = inputtedTaxNumber
             taxNumberFilled = inputtedTaxNumber.isNotEmpty()
         } else {
@@ -172,7 +173,7 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
     }
 
     override fun setTaxAdministration(inputtedTaxAdministration: String) {
-        if (inputtedTaxAdministration.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_TAX_ADMINISTRATION_LENGTH) {
+        if (inputtedTaxAdministration.length <= Constants.MAX_TAX_ADMINISTRATION_LENGTH) {
             this.address.taxAdministration = inputtedTaxAdministration
             taxAdministrationFilled = inputtedTaxAdministration.isNotEmpty()
         } else {
@@ -191,12 +192,12 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
         interactor?.updateAddress(context, address)
     }
 
-    override fun getProvinces(context: Context) {
-        interactor?.getProvinces(context)
+    override fun getProvinces(context: Context, navController: NavController) {
+        interactor?.getProvinces(context, navController)
     }
 
-    override fun getDistrictsOfProvince(context: Context, province: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince) {
-        interactor?.getDistrictsOfProvince(context, province)
+    override fun getDistrictsOfProvince(context: Context, province: MODELProvince, navController: NavController) {
+        interactor?.getDistrictsOfProvince(context, province, navController)
     }
 
     private fun validatePage() {
@@ -215,17 +216,16 @@ class CabinCustomerInvoiceAddressPresenter(var view: com.cabinInformationTechnol
 
     //region InteractorOutput
 
-    override fun setProvinces(provinces: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvinces) {
+    override fun setProvinces(provinces: MODELProvinces) {
         view?.provinces = provinces.getProvinces()
     }
 
-    override fun setDistricts(districts: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistricts) {
+    override fun setDistricts(districts: MODELDistricts) {
         view?.districts = districts.getDistricts()
     }
 
-    override fun feedback(message: String?) {
-        //TODO: SHOW MESSAGE
-        view?.onBackPressed()
+    override fun success() {
+        view?.success()
     }
 
     //endregion

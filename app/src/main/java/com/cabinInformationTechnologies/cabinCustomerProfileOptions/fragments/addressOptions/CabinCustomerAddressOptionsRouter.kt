@@ -3,6 +3,7 @@ package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.a
 import android.app.Activity
 import androidx.navigation.findNavController
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 
 class CabinCustomerAddressOptionsRouter(var activity: Activity?) :
     CabinCustomerAddressOptionsContracts.Router {
@@ -13,7 +14,7 @@ class CabinCustomerAddressOptionsRouter(var activity: Activity?) :
 
     //region Router
 
-    override fun moveToAddDeliveryAddressPage(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?) {
+    override fun moveToAddDeliveryAddressPage(address: MODELAddress?) {
         val action =
             CabinCustomerAddressOptionsFragmentDirections.actionAddressOptionsToDeliveryAddress(
                 address
@@ -21,7 +22,7 @@ class CabinCustomerAddressOptionsRouter(var activity: Activity?) :
         activity!!.findNavController(R.id.profile_options_nav_host_fragment).navigate(action)
     }
 
-    override fun moveToAddInvoiceAddressPage(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?) {
+    override fun moveToAddInvoiceAddressPage(address: MODELAddress?) {
         val action =
             CabinCustomerAddressOptionsFragmentDirections.actionAddressOptionsToInvoiceAddress(
                 address

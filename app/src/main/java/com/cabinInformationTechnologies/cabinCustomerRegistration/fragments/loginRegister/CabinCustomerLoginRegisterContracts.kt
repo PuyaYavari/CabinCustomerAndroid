@@ -1,12 +1,14 @@
 package com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 
 object CabinCustomerLoginRegisterContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
+    interface View : BaseContracts.View {
         fun enableLoginButton()
         fun disableLoginbutton()
         fun enableRegisterButton()
@@ -14,10 +16,10 @@ object CabinCustomerLoginRegisterContracts {
         fun selectWoman()
         fun selectMan()
         fun closeActivity()
-        fun setActiveUser(user: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser)
+        fun setActiveUser(user: MODELUser)
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface Presenter : BaseContracts.Presenter {
         fun isEmailValid(email: String): Boolean
         fun setInputtedEmail(emailInput: String)
         fun setInputtedPassword(password: String)
@@ -32,19 +34,19 @@ object CabinCustomerLoginRegisterContracts {
         fun handleGoogleSignInResult(context: Context?, completedTask: Task<GoogleSignInAccount>)
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
+    interface Interactor : BaseContracts.Interactor {
         fun login(context: Context ,email: String, password: String)
         fun login(context: Context, account: GoogleSignInAccount)
         fun register(context: Context ,email: String, password: String, sex: Int, emailPermit: Boolean)
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        fun setActiveUser(user: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser)
+    interface InteractorOutput : BaseContracts.InteractorOutput {
+        fun setActiveUser(user: MODELUser)
         fun closeActivity()
         fun sendLoginRequest()
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
+    interface Router : BaseContracts.Router {
         fun moveToForgotPassword()
     }
 

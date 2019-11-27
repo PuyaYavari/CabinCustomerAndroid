@@ -121,5 +121,9 @@ class CabinCustomerFinishTradeOverviewFragment : BaseFragment(),
         }
     }
 
+    override fun closeActivity() {
+        activity?.finish()
+    }
+
     //endregion
 }

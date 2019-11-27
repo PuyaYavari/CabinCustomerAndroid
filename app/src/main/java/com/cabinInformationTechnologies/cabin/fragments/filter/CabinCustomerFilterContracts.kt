@@ -1,6 +1,7 @@
 package com.cabinInformationTechnologies.cabin.fragments.filter
 
 import android.content.Context
+import androidx.navigation.NavController
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 
 object CabinCustomerFilterContracts {
@@ -30,20 +31,19 @@ object CabinCustomerFilterContracts {
         var filter: MODELFilter?
 
         fun setAmounts()
-        fun requestFilter(context: Context)
+        fun requestFilter(context: Context, navController: NavController)
         fun moveToFilterDetail(filterType: Int)
         fun getSelectedCount(filterType: Int): Int
         fun clearFilter(context: Context)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        fun requestFilter(context: Context, filter: MODELFilter?)
+        fun requestFilter(context: Context, filter: MODELFilter?, navController: NavController)
         fun clearFilter(context: Context)
     }
 
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
         fun refreshFilter(filter: MODELFilter)
-        fun failedToClearFilter(message: String?)
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {

@@ -264,17 +264,8 @@ class CabinCustomerFinishTradeAddressFragment(
             .visibility = View.GONE
     }
 
-    override fun showErrorMessage(message: String) {
-        val context = this.context
-        if (context != null)
-            AlertDialog.Builder(context)
-                .setTitle(resources.getText(R.string.error))
-                .setMessage(message)
-                .setPositiveButton(R.string.retry) { _, _ ->
-                    setupPage()
-                }
-                .setNegativeButton(R.string.okay, null)
-                .show()
+    override fun closeActivity() {
+        activity?.finish()
     }
 
     //endregion

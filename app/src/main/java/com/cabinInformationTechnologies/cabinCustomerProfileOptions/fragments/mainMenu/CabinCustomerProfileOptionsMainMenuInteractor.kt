@@ -1,7 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu
 
-class CabinCustomerProfileOptionsMainMenuInteractor(var output: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.InteractorOutput?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.Interactor {
+class CabinCustomerProfileOptionsMainMenuInteractor(var output: CabinCustomerProfileOptionsMainMenuContracts.InteractorOutput?) :
+    CabinCustomerProfileOptionsMainMenuContracts.Interactor {
 
     override fun unregister() {
         output = null

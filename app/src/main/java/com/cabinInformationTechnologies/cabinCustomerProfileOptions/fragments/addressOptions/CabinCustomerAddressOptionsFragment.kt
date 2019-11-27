@@ -15,25 +15,29 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.CabinCustomerAddressOptionsAdapter
+import com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.NoAddressBox
 
 
+class CabinCustomerAddressOptionsFragment : BaseFragment(),
+    CabinCustomerAddressOptionsContracts.View {
 
-class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.View {
-
-    var presenter: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsPresenter(
+    var presenter: CabinCustomerAddressOptionsContracts.Presenter? =
+        CabinCustomerAddressOptionsPresenter(
             this
         )
     private lateinit var pageView: View
     private lateinit var recyclerView: RecyclerView
 
-    private lateinit var viewAdapter: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.CabinCustomerAddressOptionsAdapter
+    private lateinit var viewAdapter: CabinCustomerAddressOptionsAdapter
 
     private val touchHelper = ItemTouchHelper(
         object : ItemTouchHelper.SimpleCallback(
@@ -46,8 +50,8 @@ class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cab
                 recyclerView: RecyclerView,
                 viewHolder: ViewHolder, target: ViewHolder
             ): Boolean {
-                val fromPos = viewHolder.adapterPosition
-                val toPos = target.adapterPosition
+                viewHolder.adapterPosition
+                target.adapterPosition
                 // move item in `fromPos` to `toPos` in adapter.
                 return true// true if moved, false otherwise
             }
@@ -153,7 +157,7 @@ class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cab
     private fun setupPage() {
         val context = this.context
         if (context != null)
-            presenter?.getAddresses(context)
+            presenter?.getAddresses(context, findNavController())
 
         pageView.findViewById<ImageButton>(R.id.address_options_back_button)
             .setOnClickListener { activity!!.onBackPressed() }
@@ -195,15 +199,15 @@ class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cab
         }
         pageView.findViewById<ConstraintLayout>(R.id.address_options_footer_layout).visibility = View.GONE
 
-        val myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf(
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.NoAddressBox(
+        val myDataset: MutableList<CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf(
+            NoAddressBox(
                 false
             )
         )
 
         val viewManager = LinearLayoutManager(this.context)
         viewAdapter =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.CabinCustomerAddressOptionsAdapter(
+            CabinCustomerAddressOptionsAdapter(
                 this,
                 myDataset
             )
@@ -217,7 +221,7 @@ class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cab
         }
     }
 
-    override fun setupDeliveryAddressList(myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Addressbox>) {
+    override fun setupDeliveryAddressList(myDataset: MutableList<CabinCustomerAddressOptionsContracts.Addressbox>) {
         pageView.findViewById<Button>(R.id.address_options_delivery_address_tab_button).apply {
 
             background = resources.getDrawable(R.drawable.default_button_background, context.theme)
@@ -250,7 +254,7 @@ class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cab
 
         val viewManager = LinearLayoutManager(this.context)
         viewAdapter =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.CabinCustomerAddressOptionsAdapter(
+            CabinCustomerAddressOptionsAdapter(
                 this,
                 myDataset
             )
@@ -295,13 +299,13 @@ class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cab
         }
         pageView.findViewById<ConstraintLayout>(R.id.address_options_footer_layout).visibility = View.GONE
 
-        val myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf(
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.NoAddressBox(true)
+        val myDataset: MutableList<CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf(
+            NoAddressBox(true)
         )
 
         val viewManager = LinearLayoutManager(this.context)
         viewAdapter =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.CabinCustomerAddressOptionsAdapter(
+            CabinCustomerAddressOptionsAdapter(
                 this,
                 myDataset
             )
@@ -315,7 +319,7 @@ class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cab
         }
     }
 
-    override fun setupInvoiceAddressList(myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Addressbox>) {
+    override fun setupInvoiceAddressList(myDataset: MutableList<CabinCustomerAddressOptionsContracts.Addressbox>) {
         pageView.findViewById<Button>(R.id.address_options_invoice_address_tab_button).apply {
             background = resources.getDrawable(R.drawable.default_button_background, context.theme)
 
@@ -346,7 +350,7 @@ class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cab
 
         val viewManager = LinearLayoutManager(this.context)
         viewAdapter =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.CabinCustomerAddressOptionsAdapter(
+            CabinCustomerAddressOptionsAdapter(
                 this,
                 myDataset
             )
@@ -360,15 +364,15 @@ class CabinCustomerAddressOptionsFragment : com.cabinInformationTechnologies.cab
         }
     }
 
-    override fun addDeliveryAddressListener(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?) {
+    override fun addDeliveryAddressListener(address: MODELAddress?) {
         presenter?.moveToAddDeliveryAddressPage(address)
     }
 
-    override fun addInvoiceAddressListener(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?) {
+    override fun addInvoiceAddressListener(address: MODELAddress?) {
         presenter?.moveToAddInvoiceAddressPage(address)
     }
 
-    override fun removeAddress(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?) {
+    override fun removeAddress(address: MODELAddress?) {
         val context = this.context
         if (context != null && address != null)
             presenter?.removeAddress(context, address)

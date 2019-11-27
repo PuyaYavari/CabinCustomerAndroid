@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Switch
+import androidx.navigation.fragment.findNavController
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
 
-class CabinCustomerNotificationChoicesFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices.CabinCustomerNotificationChoicesContracts.View {
+class CabinCustomerNotificationChoicesFragment : BaseFragment(),
+    CabinCustomerNotificationChoicesContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices.CabinCustomerNotificationChoicesContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices.CabinCustomerNotificationChoicesPresenter(
+    var presenter: CabinCustomerNotificationChoicesContracts.Presenter? =
+        CabinCustomerNotificationChoicesPresenter(
             this
         )
     private lateinit var pageView: View
@@ -21,7 +23,7 @@ class CabinCustomerNotificationChoicesFragment : com.cabinInformationTechnologie
         pageView = inflater.inflate(R.layout.cabin_customer_notification_choices, container, false)
         val context = context
         if (context != null)
-            presenter?.reciveInitialData(context)
+            presenter?.receiveInitialData(context, findNavController())
         setupPage()
         return pageView
     }

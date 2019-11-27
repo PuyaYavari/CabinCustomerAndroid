@@ -3,7 +3,6 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.addr
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses
 
@@ -106,13 +105,8 @@ class CabinCustomerFinishTradeAddressPresenter(var view: CabinCustomerFinishTrad
         view?.showDeliveryAdd()
     }
 
-    override fun feedback(message: String?) {
-        if (message == null)
-            view?.showErrorMessage(
-                view?.getActivityContext()?.resources?.getText(R.string.default_error_message).toString()
-            )
-        else
-            view?.showErrorMessage(message)
+    override fun closeActivity() {
+        view?.closeActivity()
     }
 
     //endregion

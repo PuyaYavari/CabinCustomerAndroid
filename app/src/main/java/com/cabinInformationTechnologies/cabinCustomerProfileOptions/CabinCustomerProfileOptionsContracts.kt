@@ -1,14 +1,16 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions
 
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+
 object CabinCustomerProfileOptionsContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View
+    interface View : BaseContracts.View
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter
+    interface Presenter : BaseContracts.Presenter
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor
+    interface Interactor : BaseContracts.Interactor
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput
+    interface InteractorOutput : BaseContracts.InteractorOutput
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router
+    interface Router : BaseContracts.Router
 }

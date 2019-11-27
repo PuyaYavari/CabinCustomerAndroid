@@ -40,7 +40,6 @@ object CabinCustomerOrdersContracts {
     interface InteractorOutput : BaseContracts.InteractorOutput {
         fun setFirstPage(orders: MODELOrders)
         fun setOrdersIn(orders: MODELOrders, adapter: CabinCustomerOrdersAdapter)
-        fun feedback(context: Context, message: String?)
         fun refresh(orders: MODELOrders)
         fun showNoInternet()
     }

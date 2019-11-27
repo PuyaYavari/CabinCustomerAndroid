@@ -3,7 +3,7 @@ package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.n
 import android.app.Activity
 
 class CabinCustomerNotificationChoicesRouter(var activity: Activity?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices.CabinCustomerNotificationChoicesContracts.Router {
+    CabinCustomerNotificationChoicesContracts.Router {
 
     override fun unregister() {
         activity = null

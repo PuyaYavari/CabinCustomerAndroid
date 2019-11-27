@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import androidx.navigation.NavController
 import com.cabinInformationTechnologies.cabin.MainContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 import com.cabinInformationTechnologies.cabinCustomerBase.Logger
@@ -41,11 +42,6 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router = CabinCustomerProductDetailRouter(activity)
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
     }
 
     override fun onDestroy() {
@@ -60,8 +56,8 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
 
     //region Presenter
 
-    override fun requestProduct(context: Context, id: Int) {
-        interactor?.requestProduct(context, id)
+    override fun requestProduct(context: Context, id: Int, navController: NavController) {
+        interactor?.requestProduct(context, id, navController)
     }
 
     override fun setInitialColor(color: MODELColor?) {
@@ -87,7 +83,7 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             colorId,
             sizeId
         )
-        view?.showButtonProgresBar()
+        view?.showButtonProgressBar()
     }
 
     override fun addToCartButtonListener(context: Context) {
@@ -232,11 +228,12 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
 
     //region InteractorOutput
 
-    override fun showMessage(message: String?) {
-        if (message == null)
-            view?.showDefaultMessage()
-        else
-            view?.showMessage(message, false)//FIXME: ISSUCCESSFUL?
+    override fun showSuccessMessage() {
+        view?.showDefaultMessage()
+    }
+
+    override fun showButton() {
+        view?.showAddToCartButton()
     }
 
     override fun updateProduct(product: MODELProduct) {
@@ -294,6 +291,5 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
     override fun productAddedToCart() {
         view?.showCounter(1)
     }
-
     //endregion
 }

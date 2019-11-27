@@ -1,9 +1,18 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIUpdatePassword
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTUpdatePassword
 
-class CabinCustomerChangePasswordInteractor(var output: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.InteractorOutput?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.Interactor {
+class CabinCustomerChangePasswordInteractor(var output: CabinCustomerChangePasswordContracts.InteractorOutput?) :
+    CabinCustomerChangePasswordContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -16,74 +25,127 @@ class CabinCustomerChangePasswordInteractor(var output: com.cabinInformationTech
         newPassword: String,
         password: String
     ) {
-        val data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIUpdatePassword(
+        val data = REQUESTAPIUpdatePassword(
             listOf(
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTUpdatePassword(
+                REQUESTUpdatePassword(
                     password,
                     newPassword
                 )
             )
         )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<Any?>(
+        NetworkManager.requestFactory<Any?>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.CHANGE_PASSWORD_URL,
+            Constants.CHANGE_PASSWORD_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks { //TODO: SHOW SUCCESS AND ERROR
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Success",
-                        null)
+                        "SUCCESS: password changed.",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.congratulations),
+                        message = context.resources.getString(R.string.password_changed_successfully),
+                        neutralText = null,
+                        neutralFunction = null,
+                        negativeText = null,
+                        negativeFunction = null,
+                        positiveText = context.resources.getString(R.string.okay),
+                        positiveFunction = { output?.success() }
+                    )
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue",
-                        null)
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.attention),
+                        message = value.message,
+                        neutralText = context.resources.getString(R.string.okay)
+                    )
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error",
-                        null)
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { sendPasswordData(context, newPassword, password) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
-                        throwable)
+                        "FAILURE",
+                        throwable
+                    )
+                    if (NetworkManager.isNetworkConnected(context))
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { sendPasswordData(context, newPassword, password) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { sendPasswordData(context, newPassword, password) }
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { sendPasswordData(context, newPassword, password) }
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
-                        exception)
+                        "EXCEPTION",
+                        exception
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { sendPasswordData(context, newPassword, password) }
                 }
-
             }
         )
     }
-
     //endregion
 }

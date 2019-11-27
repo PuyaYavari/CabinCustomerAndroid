@@ -1,26 +1,27 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions
 
 import android.content.Context
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELPersonalInfo
 import java.util.*
 
 object CabinCustomerPersonalDataOptionsContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
+    interface View : BaseContracts.View {
         fun selectMan()
         fun selectWoman()
         fun disableSaveButton()
         fun enableSaveButton()
-        fun onBackPressed()
         fun setName(name: String)
         fun setSurname(surname: String)
         fun setBirthday(date: Date)
         fun setEmail(email: String)
         fun setPhone(phone: String)
-        fun showSuccess(message: String?)
-        fun showFailure(message: String?)
+        fun success()
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface Presenter : BaseContracts.Presenter {
         fun setName(inputtedName: String)
         fun setSurname(inputtedSurname: String)
         fun setBirthday(day: Int, month: Int, year: Int)
@@ -29,19 +30,19 @@ object CabinCustomerPersonalDataOptionsContracts {
         fun selectMan()
         fun selectWoman()
         fun saveInputs(context: Context)
-        fun getInitialData(context: Context)
+        fun getInitialData(context: Context, navController: NavController)
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        fun getInitialData(context: Context)
-        fun sendPersonalInfo(context: Context, personalInfo: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELPersonalInfo)
+    interface Interactor : BaseContracts.Interactor {
+        fun getInitialData(context: Context, navController: NavController)
+        fun sendPersonalInfo(context: Context, personalInfo: MODELPersonalInfo)
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput{
-        fun setInitialData(personalInfo: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELPersonalInfo)
-        fun feedback(isSuccessful: Boolean, message: String?)
+    interface InteractorOutput : BaseContracts.InteractorOutput{
+        fun setInitialData(personalInfo: MODELPersonalInfo)
+        fun success()
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router
+    interface Router : BaseContracts.Router
 
 }

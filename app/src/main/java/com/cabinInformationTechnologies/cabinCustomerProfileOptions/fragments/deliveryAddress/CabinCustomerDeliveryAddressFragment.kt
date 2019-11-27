@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistrict
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince
 
@@ -129,10 +131,6 @@ class CabinCustomerDeliveryAddressFragment : com.cabinInformationTechnologies.ca
 
     //region View
 
-    override fun onBackPressed() {
-        activity!!.onBackPressed()
-    }
-
     private fun setupPage() {
         if (args.address != null) {
             operationType =
@@ -144,11 +142,11 @@ class CabinCustomerDeliveryAddressFragment : com.cabinInformationTechnologies.ca
         }
 
         pageView.findViewById<ImageButton>(R.id.delivery_address_back_button)
-            .setOnClickListener { activity!!.onBackPressed() }
+            .setOnClickListener { findNavController().popBackStack() }
 
         pageView.findViewById<EditText>(R.id.delivery_address_name).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_NAME_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_NAME_LENGTH)
                 else InputFilter.LengthFilter(30))
             addTextChangedListener(object :
                 TextWatcher {
@@ -162,7 +160,7 @@ class CabinCustomerDeliveryAddressFragment : com.cabinInformationTechnologies.ca
 
         pageView.findViewById<EditText>(R.id.delivery_address_surname).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_SURNAME_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_SURNAME_LENGTH)
                 else InputFilter.LengthFilter(30))
             addTextChangedListener(object :
                 TextWatcher {
@@ -176,7 +174,7 @@ class CabinCustomerDeliveryAddressFragment : com.cabinInformationTechnologies.ca
 
         pageView.findViewById<EditText>(R.id.delivery_address_phone).apply {
             filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PHONE_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_PHONE_LENGTH)
                 else InputFilter.LengthFilter(20), //TODO: LIMIT BASED ON PRESENTER.PHONE
                 InputFilter { src, _, _, _, _, _ ->
                     if (src == "") { // for backspace
@@ -209,7 +207,7 @@ class CabinCustomerDeliveryAddressFragment : com.cabinInformationTechnologies.ca
                 val province = parent?.getItemAtPosition(p2) as MODELProvince
                 val context = context
                 if (context != null) {
-                    presenter?.getDistrictsOfProvince(context, province)
+                    presenter?.getDistrictsOfProvince(context, province,findNavController())
                     presenter?.setProvince(province)
                 }
             }
@@ -233,12 +231,12 @@ class CabinCustomerDeliveryAddressFragment : com.cabinInformationTechnologies.ca
 
         val context = this.context
         if (context != null)
-            presenter?.getProvinces(context)
+            presenter?.getProvinces(context, findNavController())
 
 
         pageView.findViewById<EditText>(R.id.delivery_address_address).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_ADDRESS_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_ADDRESS_LENGTH)
                 else InputFilter.LengthFilter(300))
             addTextChangedListener(object :
                 TextWatcher {
@@ -252,7 +250,7 @@ class CabinCustomerDeliveryAddressFragment : com.cabinInformationTechnologies.ca
 
         pageView.findViewById<EditText>(R.id.delivery_address_address_header).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_ADDRESS_HEADER_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_ADDRESS_HEADER_LENGTH)
                 else InputFilter.LengthFilter(30))
             addTextChangedListener(object :
                 TextWatcher {
@@ -291,6 +289,10 @@ class CabinCustomerDeliveryAddressFragment : com.cabinInformationTechnologies.ca
             isClickable = false
             alpha = 0.5f
         }
+    }
+
+    override fun success() {
+        findNavController().popBackStack()
     }
 
     private fun setupInitialData() {

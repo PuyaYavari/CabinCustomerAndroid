@@ -21,9 +21,9 @@ object CabinCustomerFinishTradeMainContracts {
         fun setupSecondPage()
         fun setupLastPage()
         fun moveIndicatorTo(fromId: Int, toId: Int)
-        fun showErrorMessage(message: String)
         fun setActivityPrice(price: Double)
         fun setActivityOrderId(id: Int)
+        fun closeActivity()
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
@@ -44,10 +44,9 @@ object CabinCustomerFinishTradeMainContracts {
 
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
         fun setCart(cart: MODELCart?)
-        fun feedback(message: String?)
-        fun toastFeedback(message: String?)
         fun pageForward(currentPosition: Int)
         fun setActivityOrderId(id: Int)
+        fun closeActivity()
     }
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {

@@ -3,6 +3,7 @@ package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.n
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import androidx.navigation.NavController
 
 class CabinCustomerNotificationChoicesPresenter(var view: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices.CabinCustomerNotificationChoicesContracts.View?) :
     com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.notificationChoices.CabinCustomerNotificationChoicesContracts.Presenter,
@@ -63,8 +64,8 @@ class CabinCustomerNotificationChoicesPresenter(var view: com.cabinInformationTe
         interactor?.sendPrefs(context, prefs)
     }
 
-    override fun reciveInitialData(context: Context) {
-        interactor?.recieveInitialData(context)
+    override fun receiveInitialData(context: Context, navController: NavController) {
+        interactor?.receiveInitialData(context, navController)
     }
 
     //endregion
@@ -94,10 +95,6 @@ class CabinCustomerNotificationChoicesPresenter(var view: com.cabinInformationTe
             else view?.disablePhone()
         }
 
-    }
-
-    override fun error(message: String?) {
-        //TODO
     }
     //endregion
 }

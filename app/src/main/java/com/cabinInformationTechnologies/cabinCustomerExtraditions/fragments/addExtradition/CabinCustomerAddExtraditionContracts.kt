@@ -7,7 +7,7 @@ object CabinCustomerAddExtraditionContracts {
     interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
         fun onBackPressed()
         fun getApplicationContext(): Context
-        fun setupERListener(product: com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionContracts.Product)
+        fun setupERListener()
     }
 
     interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
@@ -25,13 +25,6 @@ object CabinCustomerAddExtraditionContracts {
 
     interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
         fun moveToCongratulationsPage()
-    }
-
-    interface Product : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Product { //FIXME: REMOVE
-        var ER: String
-        var temp: Int
-
-        fun getProductImage(): Int
     }
 
 }

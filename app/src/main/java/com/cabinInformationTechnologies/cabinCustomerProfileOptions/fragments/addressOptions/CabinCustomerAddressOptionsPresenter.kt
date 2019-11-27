@@ -3,22 +3,26 @@ package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.a
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses
+import com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.AddressBox
+import com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.TaxInvoiceAddressBox
 
-class CabinCustomerAddressOptionsPresenter(var view: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.InteractorOutput {
+class CabinCustomerAddressOptionsPresenter(var view: CabinCustomerAddressOptionsContracts.View?) :
+    CabinCustomerAddressOptionsContracts.Presenter,
+    CabinCustomerAddressOptionsContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsInteractor(
+    var interactor: CabinCustomerAddressOptionsContracts.Interactor? =
+        CabinCustomerAddressOptionsInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Router? = null
+    var router: CabinCustomerAddressOptionsContracts.Router? = null
 
-    private var currentTab: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsPresenter.Tab =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsPresenter.Tab.DELIVERY
+    private var currentTab: Tab = Tab.DELIVERY
 
-    private val deliveryAddresses: MutableList<com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf()
-    private val invoiceAddresses: MutableList<com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf()
+    private val deliveryAddresses: MutableList<CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf()
+    private val invoiceAddresses: MutableList<CabinCustomerAddressOptionsContracts.Addressbox> = mutableListOf()
 
     //region Lifecycle
 
@@ -27,14 +31,7 @@ class CabinCustomerAddressOptionsPresenter(var view: com.cabinInformationTechnol
 
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
-        router =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsRouter(
-                activity
-            )
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-        }
+        router = CabinCustomerAddressOptionsRouter(activity)
     }
 
     override fun onDestroy() {
@@ -48,37 +45,35 @@ class CabinCustomerAddressOptionsPresenter(var view: com.cabinInformationTechnol
     //endregion
 
     override fun setupPage() {
-        if (currentTab == com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsPresenter.Tab.DELIVERY) { setupDeliveryAddressList() }
+        if (currentTab == Tab.DELIVERY) { setupDeliveryAddressList() }
         else { setupInvoiceAddressList() }
     }
 
-    override fun getAddresses(context: Context) {
-        interactor?.getAddresses(context)
+    override fun getAddresses(context: Context, navController: NavController) {
+        interactor?.getAddresses(context, navController)
     }
 
     override fun setupDeliveryAddressList() {
         if (deliveryAddresses.isEmpty()) { view!!.setupEmptyDeliveryAddressList() }
         else { view!!.setupDeliveryAddressList(deliveryAddresses) }
-        currentTab =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsPresenter.Tab.DELIVERY
+        currentTab = Tab.DELIVERY
     }
 
     override fun setupInvoiceAddressList() {
         if (invoiceAddresses.isEmpty()) { view!!.setupEmptyInvoiceAddressList() }
         else { view!!.setupInvoiceAddressList(invoiceAddresses) }
-        currentTab =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsPresenter.Tab.INVOICE
+        currentTab = Tab.INVOICE
     }
 
-    override fun moveToAddDeliveryAddressPage(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?) {
+    override fun moveToAddDeliveryAddressPage(address: MODELAddress?) {
         router?.moveToAddDeliveryAddressPage(address)
     }
 
-    override fun moveToAddInvoiceAddressPage(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?) {
+    override fun moveToAddInvoiceAddressPage(address: MODELAddress?) {
         router?.moveToAddInvoiceAddressPage(address)
     }
 
-    override fun removeAddress(context: Context, address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress) {
+    override fun removeAddress(context: Context, address: MODELAddress) {
         interactor?.removeAddress(context, address)
     }
 
@@ -86,7 +81,7 @@ class CabinCustomerAddressOptionsPresenter(var view: com.cabinInformationTechnol
 
     //region InteractorOutput
 
-    override fun setAddresses(addresses: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses) {
+    override fun setAddresses(addresses: MODELAddresses) {
         deliveryAddresses.clear()
         invoiceAddresses.clear()
         if (addresses.getAddresses().isNotEmpty()) {
@@ -96,19 +91,19 @@ class CabinCustomerAddressOptionsPresenter(var view: com.cabinInformationTechnol
                     if (isInvoice) {
                         if (it.isCorporate)
                             invoiceAddresses.add(
-                                com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.TaxInvoiceAddressBox(
+                                TaxInvoiceAddressBox(
                                     it
                                 )
                             )
                         else
                             invoiceAddresses.add(
-                                com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.AddressBox(
+                                AddressBox(
                                     it
                                 )
                             )
                     } else {
                         deliveryAddresses.add(
-                            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.adapter.AddressBox(
+                            AddressBox(
                                 it
                             )
                         )
@@ -119,10 +114,8 @@ class CabinCustomerAddressOptionsPresenter(var view: com.cabinInformationTechnol
         setupPage()
     }
 
-    override fun addressRemovedFeedback(isRemoved: Boolean, message: String?) {
-        if (!isRemoved)
-            view?.undoAddressRemove()
-        //TODO: SHOW MESSAGES
+    override fun undoRemove() {
+        view?.undoAddressRemove()
     }
 
     //endregion

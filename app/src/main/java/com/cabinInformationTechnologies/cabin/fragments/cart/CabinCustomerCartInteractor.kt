@@ -1,19 +1,23 @@
 package com.cabinInformationTechnologies.cabin.fragments.cart
 
 import android.content.Context
-import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
-import com.cabinInformationTechnologies.cabinCustomerBase.Constants
-import com.cabinInformationTechnologies.cabinCustomerBase.Logger
-import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import android.widget.Toast
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APICartAdapter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCarts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 import com.squareup.moshi.Moshi
 
 class CabinCustomerCartInteractor(val view: CabinCustomerCartContracts.ViewForInteractor,
                                   var output: CabinCustomerCartContracts.InteractorOutput?) :
     CabinCustomerCartContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -86,73 +90,78 @@ class CabinCustomerCartInteractor(val view: CabinCustomerCartContracts.ViewForIn
                     object :
                         BaseContracts.ResponseCallbacks {
                         override fun onSuccess(value: Any?) {
-                            Logger.info(
+                            Logger.verbose(
                                 context,
                                 this::class.java.name,
-                                "Product removed from cart.",
+                                "SUCCESS: product removed from cart.",
                                 null
                             )
                             output?.setCart(carts.getCarts()[0])
                         }
 
                         override fun onIssue(value: JSONIssue) {
-                            Logger.warn(
+                            Logger.verbose(
                                 context,
                                 this::class.java.name,
-                                "Product not removed from cart.\n" +
-                                        "ISSUE: ${value.message}",
+                                "ISSUE: ${value.message}",
                                 null
                             )
+                            informer.feedback(context, value.message)
                         }
 
                         override fun onError(value: String, url: String?) {
                             Logger.warn(
                                 context,
                                 this::class.java.name,
-                                "Product not removed from cart.\n" +
-                                        "ERROR: $value",
+                                "Error, Value: $value, URL: $url",
                                 null
                             )
+                            informer.feedback(context, context.resources.getString(R.string.default_error_message))
                         }
 
                         override fun onFailure(throwable: Throwable) {
-                            Logger.error(
+                            Logger.verbose(
                                 context,
                                 this::class.java.name,
-                                "FAILURE: Product not removed from cart.",
+                                "FAILURE",
                                 throwable
                             )
+                            informer.feedback(context, context.resources.getString(R.string.default_error_message))
                         }
 
                         override fun onServerDown() {
-                            Logger.failure(
+                            Logger.warn(
                                 context,
                                 this::class.java.name,
                                 "SERVER DOWN!!",
                                 null
                             )
+                            informer.feedback(context, context.resources.getString(R.string.default_error_message))
                         }
 
                         override fun onException(exception: Exception) {
                             Logger.error(
                                 context,
                                 this::class.java.name,
-                                "EXCEPTION: Product not removed from cart.",
+                                "EXCEPTION",
                                 exception
                             )
+                            informer.feedback(context, context.resources.getString(R.string.default_error_message))
                         }
                     }
                 )
             }
         } catch (exception: Exception) {
             val context = view.getFragmentContext()
-            if (context != null)
+            if (context != null) {
                 Logger.failure(
                     context,
                     this::class.java.name,
                     "Error while sending request to remove problematic product from cart.",
                     exception
                 )
+                informer.feedback(context, context.resources.getString(R.string.default_error_message))
+            }
         }
     }
 
@@ -185,7 +194,7 @@ class CabinCustomerCartInteractor(val view: CabinCustomerCartContracts.ViewForIn
                     }
 
                     override fun feedback(message: String) {
-                        output?.feedback(message)
+                        informer.feedback(context, message, Toast.LENGTH_LONG)
                     }
 
                     override fun removeItems() {
@@ -195,66 +204,108 @@ class CabinCustomerCartInteractor(val view: CabinCustomerCartContracts.ViewForIn
             ),
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    Logger.info(
-                        context,
-                        this::class.java.name,
-                        "Success ${value.toString()}",
-                        null
-                    )
-                    val cart = carts.getCarts()[0]
-                    output?.setCart(cart)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: cart received.",
+                            null
+                        )
+                        val cart = carts.getCarts()[0]
+                        output?.setCart(cart)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getCart(context) }
+                    }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue ${value.message}",
+                        "ISSUE: ${value.message}",
                         null
                     )
-                    output?.feedback(value.message)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getCart(context) }
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onError(value: String, url: String?) {
-                    Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error $value",
+                        "Error, Value: $value, URL: $url",
                         null
                     )
-                    output?.feedback(null)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getCart(context) }
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure ${throwable.message}",
-                        null
+                        "FAILURE",
+                        throwable
                     )
-                    output?.feedback(null)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getCart(context) }
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onServerDown() {
-                    Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
+                        "SERVER DOWN!!",
                         null
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getCart(context) }
+                    output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onException(exception: Exception) {
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
+                        "EXCEPTION",
                         exception
                     )
-                    output?.feedback(null)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getCart(context) }
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
@@ -262,7 +313,7 @@ class CabinCustomerCartInteractor(val view: CabinCustomerCartContracts.ViewForIn
         )
     }
 
-    override fun updateProduct(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun updateProduct(context: Context, product: MODELProduct) {
         val carts = MODELCarts()
         var data: REQUESTAPIProduct? = null
         val amount = product.getAmount()
@@ -300,61 +351,76 @@ class CabinCustomerCartInteractor(val view: CabinCustomerCartContracts.ViewForIn
             ),
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    Logger.info(
-                        context,
-                        this::class.java.name,
-                        "Success ${value.toString()}",
-                        null
-                    )
-                    var cart: MODELCart? = null
-                    if (carts.getCarts().isNotEmpty())
-                         cart = carts.getCarts()[0]
-                    output?.setCart(cart)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: product updated.",
+                            null
+                        )
+                        var cart: MODELCart? = null
+                        if (carts.getCarts().isNotEmpty())
+                            cart = carts.getCarts()[0]
+                        output?.setCart(cart)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue ${value.message}",
+                        "ISSUE: ${value.message}",
                         null
                     )
+                    informer.feedback(context, value.message)
                 }
 
                 override fun onError(value: String, url: String?) {
-                    Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error $value",
+                        "Error, Value: $value, URL: $url",
                         null
                     )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure ${throwable.message}",
-                        null
+                        "FAILURE",
+                        throwable
                     )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onServerDown() {
-                    Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
+                        "SERVER DOWN!!",
                         null
                     )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onException(exception: Exception) {
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
+                        "EXCEPTION",
                         exception
                     )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
             }
         )

@@ -53,7 +53,5 @@ class CabinCustomerFinishTradePaymentFragment : BaseFragment(),
 
     }
 
-    //TODO: Implement your View methods here
-
     //endregion
 }

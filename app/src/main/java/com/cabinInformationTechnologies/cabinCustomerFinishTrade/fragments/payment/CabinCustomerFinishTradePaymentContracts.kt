@@ -1,27 +1,17 @@
 package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.payment
 
-import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
 
 object CabinCustomerFinishTradePaymentContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        //TODO
-    }
+    interface View : BaseContracts.View
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
-        fun getAgreements(context: Context, id: Int)
-    }
+    interface Presenter : BaseContracts.Presenter
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        fun getAgreements(context: Context, id: Int)
-    }
+    interface Interactor : BaseContracts.Interactor
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        fun setAgreements()
-    }
+    interface InteractorOutput : BaseContracts.InteractorOutput
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
-        //TODO
-    }
+    interface Router : BaseContracts.Router
 
 }

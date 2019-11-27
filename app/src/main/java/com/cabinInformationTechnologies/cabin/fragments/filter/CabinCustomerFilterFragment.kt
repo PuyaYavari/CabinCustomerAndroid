@@ -11,6 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
@@ -41,10 +42,9 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         presenter?.filter = (activity as MainActivity).getFilter()
         val context = this.context
         if (context != null)
-            presenter?.requestFilter(context)
-        setupActivityLayout()
+            presenter?.requestFilter(context, findNavController())
 
-        (activity as MainActivity).showCrossOfFilter(previousFilter)
+        setupActivityLayout()
 
         // This callback will only be called when MyFragment is at least Started.
         callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -233,7 +233,10 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
         (activity!! as MainActivity).hideDrawerButton()
         (activity!! as MainActivity).hideRecyclerView()
         (activity!! as MainActivity).setHeaderColor(null as Int?)
-        hideProgressBar()
+        (activity!! as MainActivity).hideProgressBar()
+        val context = this.context
+        if (context != null)
+            (activity as MainActivity).showCrossOfFilter(context, previousFilter)
     }
     //endregion
 }

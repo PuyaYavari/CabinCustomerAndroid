@@ -1,48 +1,52 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions
 
 import android.content.Context
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses
 
 object CabinCustomerAddressOptionsContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
+    interface View : BaseContracts.View {
         fun setupEmptyDeliveryAddressList()
         fun setupEmptyInvoiceAddressList()
-        fun setupDeliveryAddressList(myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Addressbox>)
-        fun setupInvoiceAddressList(myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.addressOptions.CabinCustomerAddressOptionsContracts.Addressbox>)
-        fun addDeliveryAddressListener(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?)
-        fun addInvoiceAddressListener(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?)
-        fun removeAddress(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?)
+        fun setupDeliveryAddressList(myDataset: MutableList<Addressbox>)
+        fun setupInvoiceAddressList(myDataset: MutableList<Addressbox>)
+        fun addDeliveryAddressListener(address: MODELAddress?)
+        fun addInvoiceAddressListener(address: MODELAddress?)
+        fun removeAddress(address: MODELAddress?)
         fun undoAddressRemove()
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface Presenter : BaseContracts.Presenter {
         fun setupPage()
-        fun getAddresses(context: Context)
+        fun getAddresses(context: Context, navController: NavController)
         fun setupDeliveryAddressList()
         fun setupInvoiceAddressList()
-        fun moveToAddDeliveryAddressPage(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?)
-        fun moveToAddInvoiceAddressPage(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?)
-        fun removeAddress(context: Context, address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress)
+        fun moveToAddDeliveryAddressPage(address: MODELAddress?)
+        fun moveToAddInvoiceAddressPage(address: MODELAddress?)
+        fun removeAddress(context: Context, address: MODELAddress)
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        fun getAddresses(context: Context)
-        fun removeAddress(context: Context, address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress)
+    interface Interactor : BaseContracts.Interactor {
+        fun getAddresses(context: Context, navController: NavController)
+        fun removeAddress(context: Context, address: MODELAddress)
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        fun setAddresses(addresses: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses)
-        fun addressRemovedFeedback(isRemoved: Boolean, message: String?)
+    interface InteractorOutput : BaseContracts.InteractorOutput {
+        fun setAddresses(addresses: MODELAddresses)
+        fun undoRemove()
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
-        fun moveToAddDeliveryAddressPage(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?)
-        fun moveToAddInvoiceAddressPage(address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?)
+    interface Router : BaseContracts.Router {
+        fun moveToAddDeliveryAddressPage(address: MODELAddress?)
+        fun moveToAddInvoiceAddressPage(address: MODELAddress?)
     }
 
     interface Addressbox {
         fun getType(): Int
-        fun getAddress(): com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress?
+        fun getAddress(): MODELAddress?
         fun isInvoice(): Boolean
     }
 

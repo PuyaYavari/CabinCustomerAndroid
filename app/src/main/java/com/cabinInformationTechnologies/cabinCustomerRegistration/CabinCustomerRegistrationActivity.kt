@@ -3,13 +3,16 @@ package com.cabinInformationTechnologies.cabinCustomerRegistration
 import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity
+import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser
 
 
-class CabinCustomerRegistrationActivity : com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity(),
-    com.cabinInformationTechnologies.cabinCustomerRegistration.CabinCustomerRegistrationContracts.View {
+class CabinCustomerRegistrationActivity : BaseActivity(),
+    CabinCustomerRegistrationContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerRegistration.CabinCustomerRegistrationContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerRegistration.CabinCustomerRegistrationPresenter(this)
+    var presenter: CabinCustomerRegistrationContracts.Presenter? =
+        CabinCustomerRegistrationPresenter(this)
 
     //region Lifecycle
 
@@ -42,14 +45,13 @@ class CabinCustomerRegistrationActivity : com.cabinInformationTechnologies.cabin
 
     //region View
 
-    override fun setActiveUser(user: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser?) {
+    override fun setActiveUser(user: MODELUser?) {
         val sharedPref = this.getSharedPreferences("USER_DATA", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.putInt("userId", com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userId)
-        editor.putString("userSession", com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.session)
-        editor.putString("userEmail", com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userEmail)
+        editor.putInt("userId", GlobalData.userId)
+        editor.putString("userSession", GlobalData.session)
+        editor.putString("userEmail", GlobalData.userEmail)
         editor.apply()
     }
-
     //endregion
 }

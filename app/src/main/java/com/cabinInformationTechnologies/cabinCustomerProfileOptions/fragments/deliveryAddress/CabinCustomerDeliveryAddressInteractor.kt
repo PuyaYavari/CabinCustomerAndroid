@@ -1,10 +1,24 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.deliveryAddress
 
 import android.content.Context
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APICityAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIDistrictAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistricts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvinces
 import com.squareup.moshi.Moshi
 
-class CabinCustomerDeliveryAddressInteractor(var output: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.deliveryAddress.CabinCustomerDeliveryAddressContracts.InteractorOutput?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.deliveryAddress.CabinCustomerDeliveryAddressContracts.Interactor {
+class CabinCustomerDeliveryAddressInteractor(var output: CabinCustomerDeliveryAddressContracts.InteractorOutput?) :
+    CabinCustomerDeliveryAddressContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -12,68 +26,118 @@ class CabinCustomerDeliveryAddressInteractor(var output: com.cabinInformationTec
 
     //region Interactor
 
-    override fun getProvinces(context: Context) {
-        val responseObject = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvinces()
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APICity>(
+    override fun getProvinces(context: Context, navController: NavController) {
+        val responseObject = MODELProvinces()
+        NetworkManager.requestFactory(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.LIST_CITY_URL,
+            Constants.LIST_CITY_URL,
             null,
             null,
             null,
             responseObject,
-            com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APICityAdapter(
+            APICityAdapter(
                 context,
                 Moshi.Builder().build()
             ),
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    if (value == true)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: provinces received.",
+                            null
+                        )
                         output?.setProvinces(responseObject)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
-                        context,
-                        this::class.java.name,
-                        "Success, value: ${value.toString()}",
-                        null)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message)
+                        ) { getProvinces(context, navController) }
+                    }
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue, value: ${value.message}",
-                        null)
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message
+                    ) { getProvinces(context, navController) }
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, value: $value",
-                        null)
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getProvinces(context, navController) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
-                        throwable)
+                        "FAILURE",
+                        throwable
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getProvinces(context, navController) }
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getProvinces(context, navController) }
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
-                        exception)
+                        "EXCEPTION",
+                        exception
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getProvinces(context, navController) }
                 }
             }
         )
@@ -81,97 +145,155 @@ class CabinCustomerDeliveryAddressInteractor(var output: com.cabinInformationTec
 
     override fun getDistrictsOfProvince(
         context: Context,
-        province: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince
+        province: MODELProvince,
+        navController: NavController
     ) {
-        val responseObject = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistricts()
+        val responseObject = MODELDistricts()
         val code = province.code
-        val data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIDistrict(
+        val data = REQUESTAPIDistrict(
             listOf(
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTDistrict(
+                REQUESTDistrict(
                     province.id,
                     code
                 )
             )
         )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIDistrict>(
+        NetworkManager.requestFactory(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.LIST_DISTRICT_URL,
+            Constants.LIST_DISTRICT_URL,
             null,
             null,
             data,
             responseObject,
-            com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIDistrictAdapter(context,Moshi.Builder().build()),
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            APIDistrictAdapter(context,Moshi.Builder().build()),
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    if(value == true)
+                    if(value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: districts received.",
+                            null
+                        )
                         output?.setDistricts(responseObject)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
-                        context,
-                        this::class.java.name,
-                        "Success, value: ${value.toString()}",
-                        null)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message)
+                        ) { getDistrictsOfProvince(context, province, navController) }
+                    }
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue, value: ${value.message}",
-                        null)
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message
+                    ) { getDistrictsOfProvince(context, province, navController) }
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, value: $value",
-                        null)
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getDistrictsOfProvince(context, province, navController) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
-                        throwable)
+                        "FAILURE",
+                        throwable
+                    )
+                    if (NetworkManager.isNetworkConnected(context))
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message)
+                        ) { getDistrictsOfProvince(context, province, navController) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            navController = navController,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet)
+                        ) { getDistrictsOfProvince(context, province, navController) }
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getDistrictsOfProvince(context, province, navController) }
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
-                        exception)
+                        "EXCEPTION",
+                        exception
+                    )
+                    informer.feedback(
+                        context = context,
+                        navController = navController,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message)
+                    ) { getDistrictsOfProvince(context, province, navController) }
                 }
             }
         )
     }
 
-    override fun saveAddress(context: Context, address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress) {
-        val data =
-            com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIAddUpdateAddress(
+    override fun saveAddress(context: Context, address: MODELAddress) {
+        val data = REQUESTAPIAddUpdateAddress(
                 listOf(
-                    com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAddUpdateAddress(
+                    REQUESTAddUpdateAddress(
                         null,
                         false,
                         address.name,
                         address.surname,
                         address.phone,
                         listOf(
-                            com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProvinceDistrict(
+                            REQUESTProvinceDistrict(
                                 address.provinceId
                             )
                         ),
                         listOf(
-                            com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProvinceDistrict(
+                            REQUESTProvinceDistrict(
                                 address.districtId
                             )
                         ),
@@ -184,84 +306,137 @@ class CabinCustomerDeliveryAddressInteractor(var output: com.cabinInformationTec
                     )
                 )
             )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<Any?>(
+        NetworkManager.requestFactory<Any?>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.ADD_ADDRESS_URL,
+            Constants.ADD_ADDRESS_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Success, value: ${value.toString()}",
-                        null)
-                    output?.feedback(null) //TODO: SEND FEEDBACK
+                        "SUCCESS: address added.",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.congratulations),
+                        message = context.resources.getString(R.string.address_saved_successfully),
+                        neutralText = null,
+                        neutralFunction = null,
+                        negativeText = null,
+                        negativeFunction = null,
+                        positiveText = context.resources.getString(R.string.okay),
+                        positiveFunction = { output?.success() }
+                    )
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue, value: ${value.message}",
-                        null)
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { saveAddress(context, address) }
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, value: $value",
-                        null)
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { saveAddress(context, address) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
-                        throwable)
+                        "FAILURE",
+                        throwable
+                    )
+                    if (NetworkManager.isNetworkConnected(context))
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { saveAddress(context, address) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { saveAddress(context, address) }
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { saveAddress(context, address) }
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
-                        exception)
+                        "EXCEPTION",
+                        exception
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { saveAddress(context, address) }
                 }
             }
         )
     }
 
-    override fun updateAddress(context: Context, address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress) {
-        val data =
-            com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIAddUpdateAddress(
+    override fun updateAddress(context: Context, address: MODELAddress) {
+        val data = REQUESTAPIAddUpdateAddress(
                 listOf(
-                    com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAddUpdateAddress(
+                    REQUESTAddUpdateAddress(
                         address.id,
                         false,
                         address.name,
                         address.surname,
                         address.phone,
                         listOf(
-                            com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProvinceDistrict(
+                            REQUESTProvinceDistrict(
                                 address.provinceId
                             )
                         ),
                         listOf(
-                            com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProvinceDistrict(
+                            REQUESTProvinceDistrict(
                                 address.districtId
                             )
                         ),
@@ -274,62 +449,116 @@ class CabinCustomerDeliveryAddressInteractor(var output: com.cabinInformationTec
                     )
                 )
             )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<Any?>(
+        NetworkManager.requestFactory<Any?>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.UPDATE_ADDRESS_URL,
+            Constants.UPDATE_ADDRESS_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Success, value: ${value.toString()}",
-                        null)
-                    output?.feedback(null) //TODO: SEND FEEDBACK
+                        "SUCCESS: address updated.",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.congratulations),
+                        message = context.resources.getString(R.string.address_saved_successfully),
+                        neutralText = null,
+                        neutralFunction = null,
+                        negativeText = null,
+                        negativeFunction = null,
+                        positiveText = context.resources.getString(R.string.okay),
+                        positiveFunction = { output?.success() }
+                    )
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue, value: ${value.message}",
-                        null)
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { updateAddress(context, address) }
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, value: $value",
-                        null)
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { updateAddress(context, address) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
-                        throwable)
+                        "FAILURE",
+                        throwable
+                    )
+                    if (NetworkManager.isNetworkConnected(context))
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { updateAddress(context, address) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { updateAddress(context, address) }
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { updateAddress(context, address) }
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
-                        exception)
+                        "EXCEPTION",
+                        exception
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { updateAddress(context, address) }
                 }
             }
         )

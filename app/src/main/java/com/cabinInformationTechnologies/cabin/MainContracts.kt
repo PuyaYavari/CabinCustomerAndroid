@@ -35,7 +35,7 @@ object MainContracts {
         fun hideProgressBar()
         fun hideCross()
         fun showCross()
-        fun showCrossOfFilter(filter: MODELFilter?)
+        fun showCrossOfFilter(context: Context, filter: MODELFilter?)
         fun setFilterTo(filter: MODELFilter?)
         fun unsetFilterButton()
         fun setupFilterButton()
@@ -75,9 +75,8 @@ object MainContracts {
         var cart: MODELCart
 
         fun logout()
-        fun unableToLogout(message: String?)
+        fun unlockDrawer()
         fun refreshFilter(filter: MODELFilter)
-        fun updateFilterFailedFeedback(context: Context, message: String?, filter: MODELFilter?)
     }
 
     interface Router: com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {

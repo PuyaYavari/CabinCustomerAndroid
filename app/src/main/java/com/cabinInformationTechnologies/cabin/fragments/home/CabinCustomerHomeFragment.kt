@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
 import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 
-class CabinCustomerHomeFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(), CabinCustomerHomeContracts.View {
+class CabinCustomerHomeFragment : BaseFragment(), CabinCustomerHomeContracts.View {
 
     var presenter: CabinCustomerHomeContracts.Presenter? = CabinCustomerHomePresenter(this)
     private lateinit var pageView: View

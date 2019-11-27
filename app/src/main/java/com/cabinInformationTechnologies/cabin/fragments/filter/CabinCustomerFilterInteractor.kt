@@ -1,13 +1,11 @@
 package com.cabinInformationTechnologies.cabin.fragments.filter
 
 import android.content.Context
+import androidx.navigation.NavController
 import com.cabinInformationTechnologies.cabin.FilterTypeIDs
-import com.cabinInformationTechnologies.cabinCustomerBase.Constants
-import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIFilter
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIFilter
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTFilter
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTWITHID
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterCategory
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilterSizeGroup
@@ -15,6 +13,10 @@ import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELFilt
 
 class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.InteractorOutput?) :
     CabinCustomerFilterContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -82,7 +84,7 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
         return selected
     }
 
-    override fun requestFilter(context: Context, filter: MODELFilter?) {
+    override fun requestFilter(context: Context, filter: MODELFilter?, navController: NavController) {
         val responseObject = MODELFilters()
         var data: REQUESTAPIFilter? = REQUESTAPIFilter (
             listOf (
@@ -154,64 +156,107 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
             data,
             responseObject,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: filter received.",
+                            null
+                        )
                         val returnedFilter = responseObject.getFilters()[0]
                         if (returnedFilter != null)
                             output?.refreshFilter(returnedFilter)
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    } else {
+                        Logger.warn(
                             context,
                             this::class.java.name,
-                            "Filter received.",
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
                             null
                         )
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            navController = navController
+                        ) { requestFilter(context, filter, navController) }
                     }
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Filter not received.\n" + "ISSUE: ${value.message}",
+                        "ISSUE: ${value.message}",
                         null
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        navController = navController
+                    ) { requestFilter(context, filter, navController) }
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Filter not received.\nERROR: $value",
+                        "Error, Value: $value, URL: $url",
                         null
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        navController = navController
+                    ) { requestFilter(context, filter, navController) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure.",
+                        "FAILURE",
                         throwable
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        navController = navController
+                    ) { requestFilter(context, filter, navController) }
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down.",
+                        "SERVER DOWN!!",
                         null
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        navController = navController
+                    ) { requestFilter(context, filter, navController) }
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception.",
+                        "EXCEPTION",
                         exception
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        navController = navController
+                    ) { requestFilter(context, filter, navController) }
                 }
             }
         )
@@ -239,69 +284,101 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
             data,
             responseObject,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: filter received.",
+                            null
+                        )
                         val returnedFilter = responseObject.getFilters()[0]
                         if (returnedFilter != null)
                             output?.refreshFilter(returnedFilter)
-                        com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    } else {
+                        Logger.warn(
                             context,
                             this::class.java.name,
-                            "Filter received.",
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
                             null
                         )
                     }
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    output?.failedToClearFilter(value.message)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Filter not received.\n" + "ISSUE: ${value.message}",
+                        "ISSUE: ${value.message}",
                         null
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { clearFilter(context) }
                 }
 
                 override fun onError(value: String, url: String?) {
-                    output?.failedToClearFilter(value)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Filter not received.\nERROR: $value",
+                        "Error, Value: $value, URL: $url",
                         null
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { clearFilter(context) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    output?.failedToClearFilter(null)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure.",
+                        "FAILURE",
                         throwable
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { clearFilter(context) }
                 }
 
                 override fun onServerDown() {
-                    output?.failedToClearFilter(null)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.failure(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down.",
+                        "SERVER DOWN!!",
                         null
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { clearFilter(context) }
                 }
 
                 override fun onException(exception: Exception) {
-                    output?.failedToClearFilter(null)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception.",
+                        "EXCEPTION",
                         exception
                     )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { clearFilter(context) }
                 }
             }
         )

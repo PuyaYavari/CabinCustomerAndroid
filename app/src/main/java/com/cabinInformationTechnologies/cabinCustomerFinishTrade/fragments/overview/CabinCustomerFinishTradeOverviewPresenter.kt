@@ -5,15 +5,15 @@ import android.content.Context
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAgreements
 
-class CabinCustomerFinishTradeOverviewPresenter(var view: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewContracts.InteractorOutput {
+class CabinCustomerFinishTradeOverviewPresenter(var view: CabinCustomerFinishTradeOverviewContracts.View?) :
+    CabinCustomerFinishTradeOverviewContracts.Presenter,
+    CabinCustomerFinishTradeOverviewContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewInteractor(
+    var interactor: CabinCustomerFinishTradeOverviewContracts.Interactor? =
+        CabinCustomerFinishTradeOverviewInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewContracts.Router? = null
+    var router: CabinCustomerFinishTradeOverviewContracts.Router? = null
 
     //region Lifecycle
 
@@ -23,14 +23,9 @@ class CabinCustomerFinishTradeOverviewPresenter(var view: com.cabinInformationTe
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router =
-            com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewRouter(
+            CabinCustomerFinishTradeOverviewRouter(
                 activity
             )
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
     }
 
     override fun onDestroy() {
@@ -56,6 +51,10 @@ class CabinCustomerFinishTradeOverviewPresenter(var view: com.cabinInformationTe
 
     override fun setAgreements(agreements: MODELAgreements) {
         view?.setAgreements(agreements)
+    }
+
+    override fun closeActivity() {
+        view?.closeActivity()
     }
 
     //endregion

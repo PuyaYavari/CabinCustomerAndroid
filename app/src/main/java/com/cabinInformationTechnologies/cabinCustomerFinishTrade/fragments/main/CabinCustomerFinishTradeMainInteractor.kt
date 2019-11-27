@@ -2,10 +2,7 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.main
 
 import android.content.Context
 import com.cabinInformationTechnologies.cabin.R
-import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
-import com.cabinInformationTechnologies.cabinCustomerBase.Constants
-import com.cabinInformationTechnologies.cabinCustomerBase.Logger
-import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabinCustomerBase.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APICartAdapter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIOrderId
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
@@ -18,6 +15,10 @@ import com.squareup.moshi.Moshi
 
 class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTradeMainContracts.InteractorOutput?) :
     CabinCustomerFinishTradeMainContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -41,55 +42,114 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
             ),
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    Logger.info(
-                        context,
-                        this::class.java.name,
-                        "Success ${value.toString()}",
-                        null
-                    )
-                    val cart = carts.getCarts()[0]
-                    output?.setCart(cart)
+                    if (value == true) {
+                        Logger.info(
+                            context,
+                            this::class.java.name,
+                            "Success",
+                            null
+                        )
+                        val cart = carts.getCarts()[0]
+                        output?.setCart(cart)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "Cart ambiguous!",
+                            null
+                        )
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { getCart(context) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
+                    }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue ${value.message}",
+                        "ISSUE: ${value.message}",
                         null
                     )
-                    output?.feedback(value.message)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        positiveText = context.resources.getString(R.string.retry),
+                        positiveFunction = { getCart(context) },
+                        negativeText = context.resources.getString(R.string.okay),
+                        negativeFunction = { output?.closeActivity() }
+                    )
                 }
 
                 override fun onError(value: String, url: String?) {
-                    Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error $value",
+                        "Error, Value: $value, URL: $url",
                         null
                     )
-                    output?.feedback(null)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        positiveText = context.resources.getString(R.string.retry),
+                        positiveFunction = { getCart(context) },
+                        negativeText = context.resources.getString(R.string.okay),
+                        negativeFunction = { output?.closeActivity() }
+                    )
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure ${throwable.message}",
-                        null
+                        "FAILURE",
+                        throwable
                     )
                     if (NetworkManager.isNetworkConnected(context))
-                        output?.feedback(null)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { getCart(context) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
                     else
-                        output?.feedback(context.resources.getString(R.string.no_internet))
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet),
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { getCart(context) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
                 }
 
                 override fun onServerDown() {
-                    Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
+                        "SERVER DOWN!!",
                         null
+                    )
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        positiveText = context.resources.getString(R.string.retry),
+                        positiveFunction = { getCart(context) },
+                        negativeText = context.resources.getString(R.string.okay),
+                        negativeFunction = { output?.closeActivity() }
                     )
                 }
 
@@ -97,10 +157,18 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
+                        "EXCEPTION",
                         exception
                     )
-                    output?.feedback(null)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        positiveText = context.resources.getString(R.string.retry),
+                        positiveFunction = { getCart(context) },
+                        negativeText = context.resources.getString(R.string.okay),
+                        negativeFunction = { output?.closeActivity() }
+                    )
                 }
 
             }
@@ -144,70 +212,132 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
                 object : BaseContracts.ResponseCallbacks {
                     override fun onSuccess(value: Any?) {
                         if (value == true) {
-                            Logger.info(
+                            Logger.verbose(
                                 context,
                                 this::class.java.name,
-                                "Order created successfully!",
+                                "SUCCESS: order created and ID received.",
                                 null
                             )
                             output?.setActivityOrderId(responseObject.getId())
                             output?.pageForward(0)
                         } else {
-                            output?.toastFeedback(null)
+                            Logger.warn(
+                                context,
+                                this::class.java.name,
+                                "AMBIGUOUS RESPONSE: ${value.toString()}",
+                                null
+                            )
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.error),
+                                message = context.resources.getString(R.string.default_error_message),
+                                positiveText = context.resources.getString(R.string.retry),
+                                positiveFunction = { sendAddresses(context, delivery, invoice) },
+                                negativeText = context.resources.getString(R.string.okay),
+                                negativeFunction = { output?.closeActivity() }
+                            )
                         }
                     }
 
                     override fun onIssue(value: JSONIssue) {
-                        Logger.warn(
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            "Issue while creating order!",
+                            "ISSUE: ${value.message}",
                             null
                         )
-                        output?.toastFeedback(value.message)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = value.message,
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { sendAddresses(context, delivery, invoice) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
                     }
 
                     override fun onError(value: String, url: String?) {
                         Logger.warn(
                             context,
                             this::class.java.name,
-                            "Error while creating order!",
+                            "Error, Value: $value, URL: $url",
                             null
                         )
-                        output?.toastFeedback(null)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { sendAddresses(context, delivery, invoice) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
                     }
 
                     override fun onFailure(throwable: Throwable) {
-                        Logger.error(
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            "Failure while creating order!",
+                            "FAILURE",
                             throwable
                         )
                         if (NetworkManager.isNetworkConnected(context))
-                            output?.toastFeedback(context.resources.getString(R.string.no_internet))
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.error),
+                                message = context.resources.getString(R.string.default_error_message),
+                                positiveText = context.resources.getString(R.string.retry),
+                                positiveFunction = { sendAddresses(context, delivery, invoice) },
+                                negativeText = context.resources.getString(R.string.okay),
+                                negativeFunction = { output?.closeActivity() }
+                            )
                         else
-                            output?.toastFeedback(null)
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.attention),
+                                message = context.resources.getString(R.string.no_internet),
+                                positiveText = context.resources.getString(R.string.retry),
+                                positiveFunction = { sendAddresses(context, delivery, invoice) },
+                                negativeText = context.resources.getString(R.string.okay),
+                                negativeFunction = { output?.closeActivity() }
+                            )
                     }
 
                     override fun onServerDown() {
                         Logger.warn(
                             context,
                             this::class.java.name,
-                            "500 while creating order!",
+                            "SERVER DOWN!!",
                             null
                         )
-                        output?.toastFeedback(null)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { sendAddresses(context, delivery, invoice) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
                     }
 
                     override fun onException(exception: Exception) {
                         Logger.error(
                             context,
                             this::class.java.name,
-                            "Exception while creating order!",
+                            "EXCEPTION",
                             exception
                         )
-                        output?.toastFeedback(null)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { sendAddresses(context, delivery, invoice) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
                     }
                 }
             )

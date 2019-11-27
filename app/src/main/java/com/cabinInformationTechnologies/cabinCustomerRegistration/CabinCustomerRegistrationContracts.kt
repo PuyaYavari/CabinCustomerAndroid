@@ -1,24 +1,27 @@
 package com.cabinInformationTechnologies.cabinCustomerRegistration
 
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser
+
 object CabinCustomerRegistrationContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        fun setActiveUser(user: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser?)
+    interface View : BaseContracts.View {
+        fun setActiveUser(user: MODELUser?)
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface Presenter : BaseContracts.Presenter {
         //TODO
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
+    interface Interactor : BaseContracts.Interactor {
         //TODO
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
+    interface InteractorOutput : BaseContracts.InteractorOutput {
         //TODO
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
+    interface Router : BaseContracts.Router {
         //TODO
     }
 

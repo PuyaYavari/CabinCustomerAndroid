@@ -16,7 +16,6 @@ object CabinCustomerDiscoverContracts {
         fun showProgressBar()
         fun hideProgressBar()
         fun getCurrentItemCount(): Int
-        fun feedback(message: String)
         fun showNoInternet()
         fun hideNoInternet()
         fun unsetFilterButton()
@@ -47,7 +46,6 @@ object CabinCustomerDiscoverContracts {
     interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
         fun addData(products: List<MODELProduct>?)
         fun updateProduct(product: MODELProduct)
-        fun feedback(message: String?)
         fun noInternet(isNetworkConnected: Boolean)
         fun showSorts(sorts: MODELSorts)
     }

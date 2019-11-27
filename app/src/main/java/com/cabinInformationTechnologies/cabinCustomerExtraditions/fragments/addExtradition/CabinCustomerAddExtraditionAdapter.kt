@@ -9,7 +9,7 @@ import com.cabinInformationTechnologies.cabin.R
 import kotlinx.android.synthetic.main.cabin_customer_extraditions_add_extradition_product_view.view.*
 
 class CabinCustomerAddExtraditionAdapter(val view: com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionContracts.View,
-                                         private val myDataset: List<com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionContracts.Product>):
+                                         private val myDataset: List<Int>):
     RecyclerView.Adapter<com.cabinInformationTechnologies.cabinCustomerExtraditions.fragments.addExtradition.CabinCustomerAddExtraditionAdapter.ExtraditionProductViewHolder>() {
 
     var previousSelected = -1
@@ -39,7 +39,7 @@ class CabinCustomerAddExtraditionAdapter(val view: com.cabinInformationTechnolog
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         Glide.with(view.getApplicationContext()).load(view.getApplicationContext().resources
-            .getDrawable(myDataset[position].getProductImage(), view.getApplicationContext().theme))
+            .getDrawable(myDataset[position], view.getApplicationContext().theme))
             .circleCrop().into(holder.itemView.cabin_customer_extraditions_add_extradition_product_view_image)
 
         if (position == selected) {
@@ -64,7 +64,6 @@ class CabinCustomerAddExtraditionAdapter(val view: com.cabinInformationTechnolog
             notifyItemChanged(previousSelected)
             notifyItemChanged(position)
 
-            view.setupERListener(myDataset[position])
         }
     }
 

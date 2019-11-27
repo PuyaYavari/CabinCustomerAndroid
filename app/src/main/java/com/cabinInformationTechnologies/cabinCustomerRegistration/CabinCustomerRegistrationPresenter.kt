@@ -18,11 +18,6 @@ class CabinCustomerRegistrationPresenter(var view: CabinCustomerRegistrationCont
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router = CabinCustomerRegistrationRouter(activity)
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-            //TODO: Do something
-        }
     }
 
     override fun onDestroy() {

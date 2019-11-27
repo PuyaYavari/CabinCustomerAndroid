@@ -1,22 +1,23 @@
 package com.cabinInformationTechnologies.cabin.fragments.favorites
 
 import android.content.Context
-import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
-import com.cabinInformationTechnologies.cabinCustomerBase.Constants
-import com.cabinInformationTechnologies.cabinCustomerBase.Logger
-import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTColor
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProducts
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
 import com.squareup.moshi.Moshi
 
 class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContracts.InteractorOutput?) :
     CabinCustomerFavoritesContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -43,25 +44,49 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
             ),
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    if (value == true)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: favorites received.",
+                            null
+                        )
                         output?.setData(responseObject.products)
-                    else
+                    } else {
                         Logger.warn(
                             context,
                             this::class.java.name,
-                            "Value not mapped properly!\nValue: $value",
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
                             null
                         )
+                        if (page == 1)
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.error),
+                                message = context.resources.getString(R.string.default_error_message),
+                                neutralText = context.resources.getString(R.string.okay)
+                            ) { getFavorites(context, page) }
+                        else
+                            informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue: ${value.message}",
+                        "ISSUE: ${value.message}",
                         null
                     )
-                    output?.feedback(value.message)
+                    if (page == 1)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = value.message,
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getFavorites(context, page) }
+                    else
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
@@ -69,21 +94,37 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error: $value",
+                        "Error, Value: $value, URL: $url",
                         null
                     )
-                    output?.feedback(value)
+                    if (page == 1)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getFavorites(context, page) }
+                    else
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
+                        "FAILURE",
                         throwable
                     )
-                    output?.feedback(null)
+                    if (page == 1)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getFavorites(context, page) }
+                    else
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
@@ -91,10 +132,18 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
+                        "SERVER DOWN!!",
                         null
                     )
-                    output?.feedback(null)
+                    if (page == 1)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getFavorites(context, page) }
+                    else
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
@@ -102,10 +151,18 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
+                        "EXCEPTION",
                         exception
                     )
-                    output?.feedback(null)
+                    if (page == 1)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getFavorites(context, page) }
+                    else
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
@@ -138,59 +195,66 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
             null,
             object : BaseContracts.ResponseCallbacks{
                 override fun onSuccess(value: Any?) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "SUCCESS, Value: $value",
-                        null)
+                        "SUCCESS: product removed from favorites.",
+                        null
+                    )
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "ISSUE, Value: $value",
-                        null)
-                    //TODO: SHOW ISSUE
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(context, value.message)
                     output?.undoRemove()
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value",
-                        null)
-                    //TODO: SHOW ERROR AND URL
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     output?.undoRemove()
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
                         "FAILURE",
-                        throwable)
-                    //TODO: SHOW DEFAULT FAILURE ERROR
+                        throwable
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     output?.undoRemove()
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "SERVER DOWN",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     output?.undoRemove()
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "EXCEPTION",
-                        exception)
-                    //TODO: HANDLE
+                        exception
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     output?.undoRemove()
                 }
             }
@@ -201,82 +265,89 @@ class CabinCustomerFavoritesInteractor(var output: CabinCustomerFavoritesContrac
         context: Context,
         amount: Int,
         productId: Int,
-        color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor,
-        size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
+        color: MODELColor,
+        size: MODELSize
     ) {
-        val data = com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTAPIProduct(
+        val data = REQUESTAPIProduct(
             listOf(
-                com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTProduct(
+                REQUESTProduct(
                     productId,
                     amount,
                     listOf(
-                        com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTColor(
+                        REQUESTColor(
                             productId,
-                            listOf(com.cabinInformationTechnologies.cabinCustomerBase.models.backend.REQUESTSize(size.id))
+                            listOf(REQUESTSize(size.id))
                         )
                     )
                 )
             )
         )
-        com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager.requestFactory<com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIProduct>(
+        NetworkManager.requestFactory<APIProduct>(
             context,
-            com.cabinInformationTechnologies.cabinCustomerBase.Constants.DISCOVER_ADD_TO_CART_URL,
+            Constants.DISCOVER_ADD_TO_CART_URL,
             null,
             null,
             data,
             null,
             null,
-            object : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.ResponseCallbacks {
+            object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "SUCCESS, Value: $value",
-                        null)
+                        "SUCCESS: product added to cart.",
+                        null
+                    )
                 }
 
-                override fun onIssue(value: com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                override fun onIssue(value: JSONIssue) {
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "ISSUE, Value: $value",
-                        null)
-                    //TODO: SHOW ISSUE
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    informer.feedback(context, value.message)
                 }
 
                 override fun onError(value: String, url: String?) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value",
-                        null)
-                    //TODO: SHOW ERROR AND URL
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
                         "FAILURE",
-                        throwable)
-                    //TODO: SHOW DEFAULT FAILURE ERROR
+                        throwable
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onServerDown() {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "SERVER DOWN",
-                        null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onException(exception: Exception) {
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "EXCEPTION",
-                        exception)
-                    //TODO: HANDLE
+                        exception
+                    )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
             }
         )

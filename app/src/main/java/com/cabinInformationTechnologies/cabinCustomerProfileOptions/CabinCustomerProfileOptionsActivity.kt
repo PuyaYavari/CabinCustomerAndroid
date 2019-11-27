@@ -2,12 +2,13 @@ package com.cabinInformationTechnologies.cabinCustomerProfileOptions
 
 import android.os.Bundle
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity
 
-class CabinCustomerProfileOptionsActivity : com.cabinInformationTechnologies.cabinCustomerBase.BaseActivity(),
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.CabinCustomerProfileOptionsContracts.View {
+class CabinCustomerProfileOptionsActivity : BaseActivity(),
+    CabinCustomerProfileOptionsContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerProfileOptions.CabinCustomerProfileOptionsContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.CabinCustomerProfileOptionsPresenter(this)
+    var presenter: CabinCustomerProfileOptionsContracts.Presenter? =
+        CabinCustomerProfileOptionsPresenter(this)
 
     //region Lifecycle
 

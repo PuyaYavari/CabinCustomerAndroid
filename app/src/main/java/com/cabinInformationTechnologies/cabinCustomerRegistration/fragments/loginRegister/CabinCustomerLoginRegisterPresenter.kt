@@ -10,7 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 
-class CabinCustomerLoginRegisterPresenter(var view:com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.View?) : com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.loginRegister.CabinCustomerLoginRegisterContracts.Presenter,
+class CabinCustomerLoginRegisterPresenter(var view:CabinCustomerLoginRegisterContracts.View?) : CabinCustomerLoginRegisterContracts.Presenter,
     CabinCustomerLoginRegisterContracts.InteractorOutput {
 
     var interactor: CabinCustomerLoginRegisterContracts.Interactor? =

@@ -5,7 +5,7 @@ import androidx.navigation.findNavController
 import com.cabinInformationTechnologies.cabin.R
 
 class CabinCustomerProfileOptionsMainMenuRouter(var activity: Activity?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.Router {
+    CabinCustomerProfileOptionsMainMenuContracts.Router {
 
     override fun unregister() {
         activity = null

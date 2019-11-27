@@ -3,7 +3,7 @@ package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.d
 import android.app.Activity
 
 class CabinCustomerDeliveryAddressRouter(var activity: Activity?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.deliveryAddress.CabinCustomerDeliveryAddressContracts.Router {
+    CabinCustomerDeliveryAddressContracts.Router {
 
     override fun unregister() {
         activity = null

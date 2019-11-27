@@ -2,16 +2,18 @@ package com.cabinInformationTechnologies.cabin.fragments.orders
 
 import android.content.Context
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
-import com.cabinInformationTechnologies.cabinCustomerBase.Constants
-import com.cabinInformationTechnologies.cabinCustomerBase.Logger
-import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIOrders
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrders
 
 class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.InteractorOutput?) :
     CabinCustomerOrdersContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -31,65 +33,111 @@ class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.Int
             null,
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    Logger.info(
-                        context,
-                        this::class.java.name,
-                        "list orders response arrived successfully.",
-                        null
-                    )
-                    output?.setFirstPage(responseObject)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: orders received.",
+                            null
+                        )
+                        output?.setFirstPage(responseObject)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getFirstPage(context) }
+                    }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        value.message,
+                        "ISSUE: ${value.message}",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getFirstPage(context) }
                 }
 
                 override fun onError(value: String, url: String?) {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        value,
+                        "Error, Value: $value, URL: $url",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getFirstPage(context) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure!",
+                        "FAILURE",
                         throwable
                     )
                     if (!NetworkManager.isNetworkConnected(context))
-                        output?.showNoInternet()
-                    //TODO: FEEDBACK
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.no_internet),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getFirstPage(context) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getFirstPage(context) }
                 }
 
                 override fun onServerDown() {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "500 response returned.",
+                        "SERVER DOWN!!",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getFirstPage(context) }
                 }
 
                 override fun onException(exception: Exception) {
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception!",
+                        "EXCEPTION",
                         exception
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getFirstPage(context) }
                 }
 
             }
@@ -108,72 +156,81 @@ class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.Int
             null,
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    Logger.info(
-                        context,
-                        this::class.java.name,
-                        "list orders response arrived successfully.",
-                        null
-                    )
-                    output?.refresh(responseObject)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: orders received.",
+                            null
+                        )
+                        output?.refresh(responseObject)
+                        adapter.notifyDataSetChanged()
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    }
                     refreshLayout?.isRefreshing = false
-                    adapter.notifyDataSetChanged()
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        value.message,
+                        "ISSUE: ${value.message}",
                         null
                     )
+                    informer.feedback(context, value.message)
                     refreshLayout?.isRefreshing = false
-                    //TODO: FEEDBACK
                 }
 
                 override fun onError(value: String, url: String?) {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        value,
+                        "Error, Value: $value, URL: $url",
                         null
                     )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     refreshLayout?.isRefreshing = false
-                    //TODO: FEEDBACK
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure!",
+                        "FAILURE",
                         throwable
                     )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     refreshLayout?.isRefreshing = false
-                    //TODO: FEEDBACK
                 }
 
                 override fun onServerDown() {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "500 response returned.",
+                        "SERVER DOWN!!",
                         null
                     )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     refreshLayout?.isRefreshing = false
-                    //TODO: FEEDBACK
                 }
 
                 override fun onException(exception: Exception) {
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception!",
+                        "EXCEPTION",
                         exception
                     )
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                     refreshLayout?.isRefreshing = false
-                    //TODO: FEEDBACK
                 }
-
             }
         )
     }
@@ -190,65 +247,74 @@ class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.Int
             null,
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    Logger.info(
-                        context,
-                        this::class.java.name,
-                        "list orders response arrived successfully.",
-                        null
-                    )
-                    output?.setOrdersIn(responseObject, adapter)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: orders received.",
+                            null
+                        )
+                        output?.setOrdersIn(responseObject, adapter)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        value.message,
+                        "ISSUE: ${value.message}",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, value.message)
                 }
 
                 override fun onError(value: String, url: String?) {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        value,
+                        "Error, Value: $value, URL: $url",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure!",
+                        "FAILURE",
                         throwable
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onServerDown() {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "500 response returned.",
+                        "SERVER DOWN!!",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onException(exception: Exception) {
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception!",
+                        "EXCEPTION",
                         exception
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
-
             }
         )
     }

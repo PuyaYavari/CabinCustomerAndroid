@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.cardview.widget.CardView
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
 
-class CabinCustomerProfileOptionsMainMenuFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.View {
+class CabinCustomerProfileOptionsMainMenuFragment : BaseFragment(),
+    CabinCustomerProfileOptionsMainMenuContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.mainMenu.CabinCustomerProfileOptionsMainMenuPresenter(
+    var presenter: CabinCustomerProfileOptionsMainMenuContracts.Presenter? =
+        CabinCustomerProfileOptionsMainMenuPresenter(
             this
         )
     private lateinit var pageView: View

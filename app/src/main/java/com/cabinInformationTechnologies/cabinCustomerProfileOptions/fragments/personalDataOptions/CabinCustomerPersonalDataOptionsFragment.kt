@@ -7,7 +7,6 @@ import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.text.Editable
 import android.text.InputFilter
@@ -18,10 +17,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
 import com.cabinInformationTechnologies.cabinCustomerBase.Constants
+import com.cabinInformationTechnologies.cabinCustomerBase.GlobalData
 import java.util.*
 
 
@@ -66,14 +66,10 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(),
 
     //region View
 
-    override fun onBackPressed() {
-        activity!!.onBackPressed()
-    }
-
     @SuppressLint("SetTextI18n")
     private fun setupPage() {
         pageView.findViewById<ImageButton>(R.id.personal_data_options_back_button)
-            .setOnClickListener { onBackPressed() }
+            .setOnClickListener { findNavController().popBackStack() }
 
         pageView.findViewById<EditText>(R.id.personal_data_options_name_input).apply {
             filters = arrayOf(
@@ -174,10 +170,10 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(),
         }
 
         pageView.findViewById<EditText>(R.id.personal_data_options_email_input).apply {
-            val userEmail = com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userEmail
+            val userEmail = GlobalData.userEmail
             if (userEmail != null)
                 presenter?.setEmail(userEmail)
-            setText(com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userEmail)
+            setText(GlobalData.userEmail)
             isClickable = false
             isFocusable = false
             filters = arrayOf(
@@ -206,7 +202,7 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(),
 
         val context = context
         if (context != null)
-            presenter?.getInitialData(context)
+            presenter?.getInitialData(context, findNavController())
     }
 
     @SuppressLint("ObsoleteSdkInt")
@@ -304,35 +300,8 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(),
         pageView.findViewById<EditText>(R.id.personal_data_options_phone_input).setText(phone)
     }
 
-    override fun showSuccess(message: String?) {
-        pageView.findViewById<TextView>(R.id.personal_data_options_feedback).apply {
-            text = message ?: resources.getText(R.string.default_success_message)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.colorPriceGreen, this.context.theme))
-            } else {
-                setTextColor(resources.getColor(R.color.colorPriceGreen))
-            }
-            visibility = View.VISIBLE
-            Handler().postDelayed({
-                visibility = View.INVISIBLE
-            }, 5000)
-        }
+    override fun success() {
+        findNavController().popBackStack()
     }
-
-    override fun showFailure(message: String?) {
-        pageView.findViewById<TextView>(R.id.personal_data_options_feedback).apply {
-            text = message ?: resources.getText(R.string.default_error_message)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextColor(resources.getColor(R.color.colorStateRed, this.context.theme))
-            } else {
-                setTextColor(resources.getColor(R.color.colorStateRed))
-            }
-            visibility = View.VISIBLE
-            Handler().postDelayed({
-                visibility = View.INVISIBLE
-            }, 5000)
-        }
-    }
-
     //endregion
 }

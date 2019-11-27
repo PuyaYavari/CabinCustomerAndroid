@@ -1,11 +1,8 @@
 package com.cabinInformationTechnologies.cabin.fragments.discover
 
 import android.content.Context
-import android.util.Log
-import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
-import com.cabinInformationTechnologies.cabinCustomerBase.Constants
-import com.cabinInformationTechnologies.cabinCustomerBase.Logger
-import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIProductAdapter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.JSONProductAdapter
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.*
@@ -16,6 +13,10 @@ import com.squareup.moshi.Moshi
 
 class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts.InteractorOutput?) :
     CabinCustomerDiscoverContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -45,8 +46,8 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
         val moshi: Moshi = Moshi.Builder()
             .add(JSONProductAdapter(context,Moshi.Builder().build()))
             .build()
-        var products: MutableList<MODELProduct>? = null
-        NetworkManager.requestFactory<APIProduct>(
+        var products: MutableList<MODELProduct>?
+        NetworkManager.requestFactory(
             context,
             Constants.DISCOVER_LIST_PRODUCTS_URL,
             page,
@@ -56,70 +57,168 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             APIProductAdapter(moshi),
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    Logger.info(
-                        context,
-                        this::class.java.name,
-                        "SUCCESS, Value: $value",
-                        null)
-                    if (value == true)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: products received",
+                            null
+                        )
                         products = responseClass.products
-                    if (products != null)
-                        output?.addData(products)
-                    //TODO: ELSE
+                        if (products != null)
+                            output?.addData(products)
+                        else
+                            Logger.verbose(
+                                context,
+                                this::class.java.name,
+                                "products are null!!",
+                                null
+                            )
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        if (page == 1)
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.error),
+                                message = context.resources.getString(R.string.default_error_message),
+                                neutralText = context.resources.getString(R.string.okay)
+                            ) { requestProducts(context, page, sort) }
+                        else
+                            informer.feedback(
+                                context,
+                                context.resources.getString(R.string.default_error_message)
+                            )
+                    }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "ISSUE, Value: $value",
-                        null)
-                    output?.feedback(value.message)
+                        "ISSUE: ${value.message}",
+                        null
+                    )
+                    if (page == 1)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = value.message,
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { requestProducts(context, page, sort) }
+                    else
+                        informer.feedback(
+                            context,
+                            context.resources.getString(R.string.default_error_message)
+                        )
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onError(value: String, url: String?) {
-                    Log.e("Discover ERROR", value)
-                    if (url != null)
-                        Log.d("Login onError url", url)
-                    output?.feedback(value)
+                    Logger.warn(
+                        context,
+                        this::class.java.name,
+                        "Error, Value: $value, URL: $url",
+                        null
+                    )
+                    if (page == 1)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { requestProducts(context, page, sort) }
+                    else
+                        informer.feedback(
+                            context,
+                            context.resources.getString(R.string.default_error_message)
+                        )
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.info(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "FAILURE, ${throwable.message}",
-                        null)
-                    output?.feedback(throwable.message)//FIXME
+                        "FAILURE",
+                        throwable
+                    )
+                    if (page == 1) {
+                        if (NetworkManager.isNetworkConnected(context))
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.error),
+                                message = context.resources.getString(R.string.default_error_message),
+                                neutralText = context.resources.getString(R.string.okay)
+                            ) { requestProducts(context, page, sort) }
+                        else
+                            informer.feedback(
+                                context = context,
+                                title = context.resources.getString(R.string.attention),
+                                message = context.resources.getString(R.string.no_internet),
+                                neutralText = context.resources.getString(R.string.okay)
+                            ) { requestProducts(context, page, sort) }
+                    }
+                    else
+                        informer.feedback(
+                            context,
+                            context.resources.getString(R.string.default_error_message)
+                        )
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onServerDown() {
-                    Logger.info(
+                    Logger.warn(
                         context,
                         this::class.java.name,
-                        "SERVER DOWN",
-                        null)
-                    output?.feedback(null)
+                        "SERVER DOWN!!",
+                        null
+                    )
+                    if (page == 1)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { requestProducts(context, page, sort) }
+                    else
+                        informer.feedback(
+                            context,
+                            context.resources.getString(R.string.default_error_message)
+                        )
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
 
                 override fun onException(exception: Exception) {
-                    Logger.info(
+                    Logger.error(
                         context,
                         this::class.java.name,
                         "EXCEPTION",
-                        exception)
-                    output?.feedback(exception.message)//FIXME
+                        exception
+                    )
+                    if (page == 1)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { requestProducts(context, page, sort) }
+                    else
+                        informer.feedback(
+                            context,
+                            context.resources.getString(R.string.default_error_message)
+                        )
                     output?.noInternet(NetworkManager.isNetworkConnected(context))
                 }
             })
     }
 
     override fun getProduct(context: Context, id: Int) {
-        val data: REQUESTAPIProduct =
+        val data =
             REQUESTAPIProduct(
                 listOf(
                     REQUESTProduct(
@@ -133,7 +232,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
         val moshi: Moshi = Moshi.Builder()
             .add(JSONProductAdapter(context,Moshi.Builder().build()))
             .build()
-        NetworkManager.requestFactory<APIProduct>(
+        NetworkManager.requestFactory(
             context,
             Constants.LIST_PRODUCT_DETAIL_URL,
             null,
@@ -144,55 +243,62 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true) {
-                        if (responseClass.products.isNotEmpty())
-                            output?.updateProduct(responseClass.products[0])
-                        Logger.info(
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            "SUCCESS, Value: $value",
+                            "SUCCESS: product received.",
+                            null
+                        )
+                        if (responseClass.products.isNotEmpty())
+                            output?.updateProduct(responseClass.products[0])
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
                             null
                         )
                     }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "ISSUE, Value: $value",
+                        "ISSUE: ${value.message}",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, value.message)
                 }
 
                 override fun onError(value: String, url: String?) {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value",
+                        "Error, Value: $value, URL: $url",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
                         "FAILURE",
                         throwable
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onServerDown() {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "SERVER DOWN",
+                        "SERVER DOWN!!",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
 
                 override fun onException(exception: Exception) {
@@ -202,7 +308,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         "EXCEPTION",
                         exception
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
                 }
             }
         )
@@ -221,54 +327,89 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true) {
-                        output?.showSorts(responseObject)
-                        Logger.info(
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            "getSort, SUCCESS",
+                            "SUCCESS: sort receivec.",
+                            null
+                        )
+                        output?.showSorts(responseObject)
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
                             null
                         )
                     }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "ISSUE, Value: $value",
+                        "ISSUE: ${value.message}",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getSortOptions(context) }
                 }
 
                 override fun onError(value: String, url: String?) {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value",
+                        "Error, Value: $value, URL: $url",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getSortOptions(context) }
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
                         "FAILURE",
                         throwable
                     )
-                    //TODO: FEEDBACK
+                    if (NetworkManager.isNetworkConnected(context))
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getSortOptions(context) }
+                    else
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet),
+                            neutralText = context.resources.getString(R.string.okay)
+                        ) { getSortOptions(context) }
                 }
 
                 override fun onServerDown() {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "SERVER DOWN",
+                        "SERVER DOWN!!",
                         null
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getSortOptions(context) }
                 }
 
                 override fun onException(exception: Exception) {
@@ -278,7 +419,12 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         "EXCEPTION",
                         exception
                     )
-                    //TODO: FEEDBACK
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        neutralText = context.resources.getString(R.string.okay)
+                    ) { getSortOptions(context) }
                 }
             }
         )

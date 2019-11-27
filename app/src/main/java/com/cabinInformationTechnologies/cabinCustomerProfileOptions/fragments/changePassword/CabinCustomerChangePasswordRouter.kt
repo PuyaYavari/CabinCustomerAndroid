@@ -3,7 +3,7 @@ package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.c
 import android.app.Activity
 
 class CabinCustomerChangePasswordRouter(var activity: Activity?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.Router {
+    CabinCustomerChangePasswordContracts.Router {
 
     override fun unregister() {
         activity = null

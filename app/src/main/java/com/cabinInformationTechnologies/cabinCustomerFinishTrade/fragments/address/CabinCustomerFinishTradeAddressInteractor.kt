@@ -2,18 +2,18 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.addr
 
 import android.content.Context
 import com.cabinInformationTechnologies.cabin.R
-import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
-import com.cabinInformationTechnologies.cabinCustomerBase.Constants
-import com.cabinInformationTechnologies.cabinCustomerBase.Logger
-import com.cabinInformationTechnologies.cabinCustomerBase.NetworkManager
+import com.cabinInformationTechnologies.cabinCustomerBase.*
 import com.cabinInformationTechnologies.cabinCustomerBase.models.adapters.APIAddressAdapter
-import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.APIAddress
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddresses
 import com.squareup.moshi.Moshi
 
 class CabinCustomerFinishTradeAddressInteractor(var output: CabinCustomerFinishTradeAddressContracts.InteractorOutput?) :
     CabinCustomerFinishTradeAddressContracts.Interactor {
+
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
 
     override fun unregister() {
         output = null
@@ -23,7 +23,7 @@ class CabinCustomerFinishTradeAddressInteractor(var output: CabinCustomerFinishT
 
     override fun getAddresses(context: Context) {
         val responseObject = MODELAddresses()
-        NetworkManager.requestFactory<APIAddress>(
+        NetworkManager.requestFactory(
             context,
            Constants.LIST_ADDRESSES_URL,
             null,
@@ -36,72 +36,135 @@ class CabinCustomerFinishTradeAddressInteractor(var output: CabinCustomerFinishT
             ),
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
-                    if (value == true)
+                    if (value == true) {
+                        Logger.verbose(
+                            context,
+                            this::class.java.name,
+                            "SUCCESS: addresses received.",
+                            null
+                        )
                         output?.setAddresses(responseObject)
-                    Logger.info(
-                        context,
-                        this::class.java.name,
-                        "Success, value: ${value.toString()}",
-                        null
-                    )
+                    } else {
+                        Logger.warn(
+                            context,
+                            this::class.java.name,
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
+                            null
+                        )
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { getAddresses(context) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
+                    }
                 }
 
                 override fun onIssue(value: JSONIssue) {
-                    Logger.warn(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Issue, value: ${value.message}",
+                        "ISSUE: ${value.message}",
                         null
                     )
-                    output?.feedback(value.message)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = value.message,
+                        positiveText = context.resources.getString(R.string.retry),
+                        positiveFunction = { getAddresses(context) },
+                        negativeText = context.resources.getString(R.string.okay),
+                        negativeFunction = { output?.closeActivity() }
+                    )
                 }
 
                 override fun onError(value: String, url: String?) {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, value: $value",
+                        "Error, Value: $value, URL: $url",
                         null
                     )
-                    output?.feedback(null)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        positiveText = context.resources.getString(R.string.retry),
+                        positiveFunction = { getAddresses(context) },
+                        negativeText = context.resources.getString(R.string.okay),
+                        negativeFunction = { output?.closeActivity() }
+                    )
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    Logger.error(
+                    Logger.verbose(
                         context,
                         this::class.java.name,
-                        "Failure",
+                        "FAILURE",
                         throwable
                     )
                     if (NetworkManager.isNetworkConnected(context))
-                        output?.feedback(null)
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.error),
+                            message = context.resources.getString(R.string.default_error_message),
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { getAddresses(context) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
                     else
-                        output?.feedback(context.resources.getString(R.string.no_internet))
+                        informer.feedback(
+                            context = context,
+                            title = context.resources.getString(R.string.attention),
+                            message = context.resources.getString(R.string.no_internet),
+                            positiveText = context.resources.getString(R.string.retry),
+                            positiveFunction = { getAddresses(context) },
+                            negativeText = context.resources.getString(R.string.okay),
+                            negativeFunction = { output?.closeActivity() }
+                        )
                 }
 
                 override fun onServerDown() {
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Server Down",
+                        "SERVER DOWN!!",
                         null
                     )
-                    output?.feedback(null)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        positiveText = context.resources.getString(R.string.retry),
+                        positiveFunction = { getAddresses(context) },
+                        negativeText = context.resources.getString(R.string.okay),
+                        negativeFunction = { output?.closeActivity() }
+                    )
                 }
 
                 override fun onException(exception: Exception) {
                     Logger.error(
                         context,
                         this::class.java.name,
-                        "Exception",
+                        "EXCEPTION",
                         exception
                     )
-                    output?.feedback(null)
+                    informer.feedback(
+                        context = context,
+                        title = context.resources.getString(R.string.error),
+                        message = context.resources.getString(R.string.default_error_message),
+                        positiveText = context.resources.getString(R.string.retry),
+                        positiveFunction = { getAddresses(context) },
+                        negativeText = context.resources.getString(R.string.okay),
+                        negativeFunction = { output?.closeActivity() }
+                    )
                 }
-
             }
         )
     }
-
     //endregion
 }

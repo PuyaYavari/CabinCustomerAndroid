@@ -3,9 +3,7 @@ package com.cabinInformationTechnologies.cabin.fragments.orders
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELOrders
 
 class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?) :
@@ -65,22 +63,6 @@ class CabinCustomerOrdersPresenter(var view: CabinCustomerOrdersContracts.View?)
         this.orders.shipped.addAll(orders.shipped)
         this.orders.sent.addAll(orders.sent)
         view?.setupPage()
-    }
-
-    override fun feedback(context: Context, message: String?) {
-        view?.hideProgressBar()
-        if (message == null)
-            Toast.makeText(
-                context,
-                context.resources.getString(R.string.default_error_message),
-                Toast.LENGTH_SHORT
-            ).show()
-        else
-            Toast.makeText(
-                context,
-                message,
-                Toast.LENGTH_SHORT
-            ).show()
     }
 
     override fun refresh(orders: MODELOrders) {

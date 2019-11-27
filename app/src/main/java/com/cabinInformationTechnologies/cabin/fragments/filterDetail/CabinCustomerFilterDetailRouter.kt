@@ -11,7 +11,5 @@ class CabinCustomerFilterDetailRouter(var activity: Activity?) :
 
     //region Router
 
-    //TODO: Implement your Router methods here
-
     //endregion
 }

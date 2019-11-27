@@ -1,21 +1,28 @@
+@file:Suppress("DEPRECATION")
+
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions
 
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Sex
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELPersonalInfo
 import java.util.*
 
-class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsContracts.View?) :
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsContracts.Presenter,
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsContracts.InteractorOutput {
+class CabinCustomerPersonalDataOptionsPresenter(var view: CabinCustomerPersonalDataOptionsContracts.View?) :
+    CabinCustomerPersonalDataOptionsContracts.Presenter,
+    CabinCustomerPersonalDataOptionsContracts.InteractorOutput {
 
-    var interactor: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsContracts.Interactor? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsInteractor(
+    var interactor: CabinCustomerPersonalDataOptionsContracts.Interactor? =
+        CabinCustomerPersonalDataOptionsInteractor(
             this
         )
-    var router: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsContracts.Router? = null
+    var router: CabinCustomerPersonalDataOptionsContracts.Router? = null
 
-    var personalInfo = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELPersonalInfo()
+    private var personalInfo = MODELPersonalInfo()
 
     private lateinit var countryCode: String
     private var phone = ""
@@ -35,13 +42,9 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
         //the view can be a activity or a fragment, that's why this getActivityContext method is needed
         val activity = view?.getActivityContext() as? Activity ?: return
         router =
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.personalDataOptions.CabinCustomerPersonalDataOptionsRouter(
+            CabinCustomerPersonalDataOptionsRouter(
                 activity
             )
-
-        bundle?.let {
-            //you can delete this if there's no need to get extras from the intent
-        }
     }
 
     override fun onDestroy() {
@@ -57,36 +60,38 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
     //region Presenter
 
     override fun setName(inputtedName: String) {
-        if (inputtedName.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_NAME_LENGTH) {
+        if (inputtedName.length <= Constants.MAX_NAME_LENGTH) {
             this.personalInfo.name = inputtedName
             nameFilled = inputtedName.isNotEmpty()
         } else {
             nameFilled = false
             val context = view?.getActivityContext()
             if (context != null)
-                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                Logger.info(
                     context,
                     this::class.java.name,
                     "name too long!\nvalue: $inputtedName",
-                    null)
+                    null
+                )
         }
 
         validatePage()
     }
 
     override fun setSurname(inputtedSurname: String) {
-        if (inputtedSurname.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_SURNAME_LENGTH) {
+        if (inputtedSurname.length <= Constants.MAX_SURNAME_LENGTH) {
             this.personalInfo.surname = inputtedSurname
             surnameFilled = inputtedSurname.isNotEmpty()
         } else {
             surnameFilled = false
             val context = view?.getActivityContext()
             if (context != null)
-                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                Logger.info(
                     context,
                     this::class.java.name,
                     "surname too long!\nvalue: $inputtedSurname",
-                    null)
+                    null
+                )
         }
 
         validatePage()
@@ -100,14 +105,14 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
     }
 
     override fun setEmail(inputtedEmail: String) {
-        if (inputtedEmail.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_EMAIL_LENGTH) {
+        if (inputtedEmail.length <= Constants.MAX_EMAIL_LENGTH) {
             this.personalInfo.email = inputtedEmail
             emailFilled = android.util.Patterns.EMAIL_ADDRESS.matcher(inputtedEmail).matches()
         } else {
             emailFilled = false
             val context = view?.getActivityContext()
             if (context != null)
-                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                Logger.info(
                     context,
                     this::class.java.name,
                     "email too long!\nvalue: $inputtedEmail",
@@ -118,12 +123,12 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
     }
 
     override fun setPhone(inputtedPhone: String){
-        if (inputtedPhone.length <= com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PHONE_LENGTH) {
+        if (inputtedPhone.length <= Constants.MAX_PHONE_LENGTH) {
             countryCode = "0090" //TODO: Define somewhere
             if (inputtedPhone.isNotEmpty()) {
                 phone = countryCode
                 for (char in inputtedPhone) if (char.isDigit()) phone = "$phone$char"
-                phoneFilled = phone.length == com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PHONE_LENGTH
+                phoneFilled = phone.length == Constants.MAX_PHONE_LENGTH
             } else {
                 phone = ""
                 phoneFilled = false
@@ -133,7 +138,7 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
             phoneFilled = false
             val context = view?.getActivityContext()
             if (context != null)
-                com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+                Logger.info(
                     context,
                     this::class.java.name,
                     "phone too long!\nvalue: $inputtedPhone",
@@ -144,7 +149,7 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
     }
 
     override fun selectMan() {
-        this.personalInfo.sex.setSex(com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Sex.MAN)
+        this.personalInfo.sex.setSex(Sex.MAN)
         view!!.selectMan()
         sexFilled = true
 
@@ -152,7 +157,7 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
     }
 
     override fun selectWoman() {
-        this.personalInfo.sex.setSex(com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Sex.WOMAN)
+        this.personalInfo.sex.setSex(Sex.WOMAN)
         view!!.selectWoman()
         sexFilled = true
 
@@ -171,15 +176,15 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
         view?.disableSaveButton()
     }
 
-    override fun getInitialData(context: Context) {
-        interactor?.getInitialData(context)
+    override fun getInitialData(context: Context, navController: NavController) {
+        interactor?.getInitialData(context, navController)
     }
 
     //endregion
 
     //region InteractorOutput
 
-    override fun setInitialData(personalInfo: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELPersonalInfo) {
+    override fun setInitialData(personalInfo: MODELPersonalInfo) {
         val nameData = personalInfo.name
         val surnameData = personalInfo.surname
         val birthdayData = personalInfo.birthday
@@ -211,22 +216,16 @@ class CabinCustomerPersonalDataOptionsPresenter(var view: com.cabinInformationTe
             view?.setPhone(phoneData.substring(4))
         }
 
-        if (personalInfo.sex.getId() == com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Sex.MAN)
+        if (personalInfo.sex.getId() == Sex.MAN)
             selectMan()
-        else if (personalInfo.sex.getId() == com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.Sex.WOMAN)
+        else if (personalInfo.sex.getId() == Sex.WOMAN)
             selectWoman()
 
         view?.disableSaveButton()
     }
 
-    override fun feedback(isSuccessful: Boolean, message: String?) {
-        if (isSuccessful) {
-            view?.showSuccess(message)
-        } else {
-            view?.enableSaveButton()
-            view?.showFailure(message)
-        }
-
+    override fun success() {
+        view?.success()
     }
 
     //endregion

@@ -1,6 +1,5 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -11,13 +10,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import androidx.navigation.fragment.findNavController
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
+import com.cabinInformationTechnologies.cabinCustomerBase.Constants
 
-class CabinCustomerChangePasswordFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
-    com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.View {
+class CabinCustomerChangePasswordFragment : BaseFragment(),
+    CabinCustomerChangePasswordContracts.View {
 
-    var presenter: com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordContracts.Presenter? =
-        com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.CabinCustomerChangePasswordPresenter(
+    var presenter: CabinCustomerChangePasswordContracts.Presenter? =
+        CabinCustomerChangePasswordPresenter(
             this
         )
     private lateinit var pageView: View
@@ -61,7 +63,7 @@ class CabinCustomerChangePasswordFragment : com.cabinInformationTechnologies.cab
 
         pageView.findViewById<EditText>(R.id.change_password_current_password_input).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PASSWORD_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_PASSWORD_LENGTH)
                 else InputFilter.LengthFilter(100))
             addTextChangedListener(object :
                 TextWatcher {
@@ -75,7 +77,7 @@ class CabinCustomerChangePasswordFragment : com.cabinInformationTechnologies.cab
 
         pageView.findViewById<EditText>(R.id.change_password_new_password_input).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PASSWORD_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_PASSWORD_LENGTH)
                 else InputFilter.LengthFilter(100))
             addTextChangedListener(object :
                 TextWatcher {
@@ -89,7 +91,7 @@ class CabinCustomerChangePasswordFragment : com.cabinInformationTechnologies.cab
 
         pageView.findViewById<EditText>(R.id.change_password_password_confirmation_input).apply {
             if(presenter != null) filters = arrayOf(
-                if (presenter != null) InputFilter.LengthFilter(com.cabinInformationTechnologies.cabinCustomerBase.Constants.MAX_PASSWORD_LENGTH)
+                if (presenter != null) InputFilter.LengthFilter(Constants.MAX_PASSWORD_LENGTH)
                 else InputFilter.LengthFilter(100))
             addTextChangedListener(object :
                 TextWatcher {
@@ -126,38 +128,8 @@ class CabinCustomerChangePasswordFragment : com.cabinInformationTechnologies.cab
         }
     }
 
-    override fun showErrorMessage(title: String, message: String) {
-        AlertDialog.Builder(this.context)
-            .setTitle(title)
-            .setMessage(message)
-            .setNegativeButton("Tamam", null)
-            .show()
-    }
-
-    override fun showErrorMessage(errorField: Int) {
-        when (errorField) {
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.ChangePasswordFieldIDs.PASSWORD -> {
-                showErrorMessage("HATA",resources.getString(R.string.change_password_password_error))
-            }
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.ChangePasswordFieldIDs.NEW_PASSWORD -> {
-                showErrorMessage("HATA",resources.getString(R.string.change_password_new_password_error))
-            }
-            com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.changePassword.ChangePasswordFieldIDs.NEW_PASSWORD_CONFIRMATION -> {
-                showErrorMessage("HATA",resources.getString(R.string.change_password_new_password_confirmation_error))
-            }
-            else -> {
-                showErrorMessage("HATA","Bilinmedik bir hata oluştu!")
-            }
-        }
-    }
-
-    override fun showSuccessMessage() {
-        AlertDialog.Builder(this.context)
-            .setTitle("TEBRİKLER")
-            .setMessage("Şifresiz başarı ile güncellenmiştir")
-            .setPositiveButton("Tamam") { _, _ -> onBackPressed()
-            }
-            .show()
+    override fun success() {
+        findNavController().popBackStack()
     }
 
     //endregion

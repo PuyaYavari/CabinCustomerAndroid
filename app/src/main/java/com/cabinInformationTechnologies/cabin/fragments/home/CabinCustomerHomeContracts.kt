@@ -3,20 +3,21 @@ package com.cabinInformationTechnologies.cabin.fragments.home
 import android.content.Context
 import com.cabinInformationTechnologies.cabin.fragments.home.adapters.CabinCustomerHomeAdapter
 import com.cabinInformationTechnologies.cabin.fragments.home.adapters.CabinCustomerHomeHeaderAdapter
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELBannerGroup
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELHeader
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELHeaders
 
 object CabinCustomerHomeContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
+    interface View : BaseContracts.View {
         fun showProgressBar()
         fun hideProgressBar()
         fun lockDrawer()
         fun unlockDrawer()
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface Presenter : BaseContracts.Presenter {
         val headers: MutableList<MODELHeader>
         var myDataset: MutableList<MODELBannerGroup>
         var headerAdapter: CabinCustomerHomeHeaderAdapter
@@ -26,15 +27,15 @@ object CabinCustomerHomeContracts {
         fun requestHeaders(context: Context?)
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
+    interface Interactor : BaseContracts.Interactor {
         fun getHeaders(context: Context)
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
+    interface InteractorOutput : BaseContracts.InteractorOutput {
         fun setHeaderData(data: MODELHeaders)
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router {
+    interface Router : BaseContracts.Router {
         fun moveToRegistration()
     }
 

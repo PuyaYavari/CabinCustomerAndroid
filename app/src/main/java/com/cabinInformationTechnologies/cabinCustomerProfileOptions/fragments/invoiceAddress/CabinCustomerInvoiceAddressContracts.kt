@@ -1,53 +1,55 @@
 package com.cabinInformationTechnologies.cabinCustomerProfileOptions.fragments.invoiceAddress
 
 import android.content.Context
+import androidx.navigation.NavController
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
 
 object CabinCustomerInvoiceAddressContracts {
 
-    interface View : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.View {
-        var provinces: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince?>
-        var districts: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistrict?>
+    interface View : BaseContracts.View {
+        var provinces: List<MODELProvince?>
+        var districts: List<MODELDistrict?>
 
         fun showCorporateInvoiceData()
         fun hideCorporateInvoiceData()
         fun enableAddButton()
         fun disableAddButton()
-        fun onBackPressed()
+        fun success()
     }
 
-    interface Presenter : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Presenter {
+    interface Presenter : BaseContracts.Presenter {
         fun setId(id: Int?)
         fun setName(inputtedName: String)
         fun setSurname(inputtedSurname: String)
         fun setPhone(inputtedPhone: String)
-        fun setProvince(province: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince)
-        fun setDistrict(district: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistrict)
+        fun setProvince(province: MODELProvince)
+        fun setDistrict(district: MODELDistrict)
         fun setAddress(inputtedAddress: String)
         fun setAddressHeader(inputtedAddressHeader: String)
         fun setInvoiceType(isCorporate: Boolean)
         fun setCorporationName(inputtedCorporationName: String)
         fun setTaxNumber(inputtedTaxNumber: String)
         fun setTaxAdministration(inputtedTaxAdministration: String)
-        fun getProvinces(context: Context)
-        fun getDistrictsOfProvince(context: Context, province: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince)
+        fun getProvinces(context: Context, navController: NavController)
+        fun getDistrictsOfProvince(context: Context, province: MODELProvince, navController: NavController)
         fun saveAddress(context: Context)
         fun updateAddress(context: Context)
     }
 
-    interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {
-        fun getProvinces(context: Context)
-        fun getDistrictsOfProvince(context: Context, province: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvince)
-        fun saveAddress(context: Context, address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress)
-        fun updateAddress(context: Context, address: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELAddress)
+    interface Interactor : BaseContracts.Interactor {
+        fun getProvinces(context: Context, navController: NavController)
+        fun getDistrictsOfProvince(context: Context, province: MODELProvince, navController: NavController)
+        fun saveAddress(context: Context, address: MODELAddress)
+        fun updateAddress(context: Context, address: MODELAddress)
     }
 
-    interface InteractorOutput : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.InteractorOutput {
-        fun setProvinces(provinces: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProvinces)
-        fun setDistricts(districts: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELDistricts)
-        fun feedback(message: String?)
+    interface InteractorOutput : BaseContracts.InteractorOutput {
+        fun setProvinces(provinces: MODELProvinces)
+        fun setDistricts(districts: MODELDistricts)
+        fun success()
     }
 
-    interface Router : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Router
+    interface Router : BaseContracts.Router
 
 }

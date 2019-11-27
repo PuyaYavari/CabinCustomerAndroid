@@ -3,7 +3,7 @@ package com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.over
 import android.app.Activity
 
 class CabinCustomerFinishTradeOverviewRouter(var activity: Activity?) :
-    com.cabinInformationTechnologies.cabinCustomerFinishTrade.fragments.overview.CabinCustomerFinishTradeOverviewContracts.Router {
+    CabinCustomerFinishTradeOverviewContracts.Router {
 
     override fun unregister() {
         activity = null
