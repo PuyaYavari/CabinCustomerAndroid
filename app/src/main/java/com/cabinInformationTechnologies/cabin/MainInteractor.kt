@@ -55,7 +55,7 @@ class MainInteractor(var output: MainContracts.InteractorOutput?) :
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     output?.unlockDrawer()
@@ -132,7 +132,7 @@ class MainInteractor(var output: MainContracts.InteractorOutput?) :
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(context, context.resources.getString(R.string.default_error_message))
@@ -282,7 +282,7 @@ class MainInteractor(var output: MainContracts.InteractorOutput?) :
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(context, context.resources.getString(R.string.default_error_message))
@@ -431,7 +431,7 @@ class MainInteractor(var output: MainContracts.InteractorOutput?) :
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(context, context.resources.getString(R.string.default_error_message))

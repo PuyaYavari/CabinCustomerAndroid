@@ -75,7 +75,7 @@ class CabinCustomerHomeInteractor(var output: CabinCustomerHomeContracts.Interac
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, $value, helper URL:$url.",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(

@@ -43,10 +43,10 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
             object : BaseContracts.ResponseCallbacks {
                 override fun onSuccess(value: Any?) {
                     if (value == true) {
-                        Logger.info(
+                        Logger.verbose(
                             context,
                             this::class.java.name,
-                            "Success",
+                            "SUCCESS: cart received.",
                             null
                         )
                         val cart = carts.getCarts()[0]
@@ -55,7 +55,7 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
                         Logger.warn(
                             context,
                             this::class.java.name,
-                            "Cart ambiguous!",
+                            "AMBIGUOUS RESPONSE: ${value.toString()}",
                             null
                         )
                         informer.feedback(
@@ -92,7 +92,7 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(
@@ -261,7 +261,7 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
                         Logger.warn(
                             context,
                             this::class.java.name,
-                            "Error, Value: $value, URL: $url",
+                            "ERROR: Value: $value, URL: $url",
                             null
                         )
                         informer.feedback(

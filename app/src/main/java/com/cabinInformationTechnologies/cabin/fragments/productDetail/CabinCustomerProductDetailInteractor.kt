@@ -73,7 +73,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     output?.productAddedToCart()
@@ -173,7 +173,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     output?.showButton()
@@ -313,7 +313,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(
@@ -427,7 +427,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(context, context.resources.getString(R.string.default_error_message))
@@ -513,7 +513,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(context, context.resources.getString(R.string.default_error_message))
@@ -622,7 +622,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(context, context.resources.getString(R.string.default_error_message))

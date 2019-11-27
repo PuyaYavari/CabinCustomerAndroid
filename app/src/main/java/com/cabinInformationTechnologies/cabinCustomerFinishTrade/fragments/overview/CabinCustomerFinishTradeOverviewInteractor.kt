@@ -90,7 +90,7 @@ class CabinCustomerFinishTradeOverviewInteractor(var output: CabinCustomerFinish
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(

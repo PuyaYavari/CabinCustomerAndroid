@@ -203,7 +203,7 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(
@@ -325,7 +325,7 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(

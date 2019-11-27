@@ -106,7 +106,7 @@ class CabinCustomerInvoiceAddressInteractor(var output: CabinCustomerInvoiceAddr
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(
@@ -250,7 +250,7 @@ class CabinCustomerInvoiceAddressInteractor(var output: CabinCustomerInvoiceAddr
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(
@@ -375,7 +375,7 @@ class CabinCustomerInvoiceAddressInteractor(var output: CabinCustomerInvoiceAddr
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(
@@ -502,7 +502,7 @@ class CabinCustomerInvoiceAddressInteractor(var output: CabinCustomerInvoiceAddr
                     Logger.warn(
                         context,
                         this::class.java.name,
-                        "Error, Value: $value, URL: $url",
+                        "ERROR: Value: $value, URL: $url",
                         null
                     )
                     informer.feedback(
