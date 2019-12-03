@@ -215,9 +215,7 @@ class CabinCustomerFilterFragment : com.cabinInformationTechnologies.cabinCustom
     }
 
     override fun clearFilter() {
-        val context =  this.context
-        if (context != null)
-            presenter?.clearFilter(context)
+        presenter?.clearFilter(this.context)
     }
 
     private fun setupActivityLayout() {

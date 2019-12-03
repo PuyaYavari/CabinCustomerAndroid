@@ -1,22 +1,24 @@
 package com.cabinInformationTechnologies.cabinCustomerBase.models.local
 
 import android.content.Context
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
+import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSeller
 
-class MODELSeller : com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel {
+class MODELSeller : LocalDataModel {
     private var id: Int = -1
     private lateinit var name: String
-    private val products: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct?> = mutableListOf()
+    private val products: MutableList<MODELProduct?> = mutableListOf()
     private var shippingPrice: Double? = null
     private var subtotal: Double? = null
     private var total: Double = -1.0
 
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
         return try {
-            val jsonData = modelData as com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONSeller
+            val jsonData = modelData as JSONSeller
             this.id = jsonData.id
             this.name = jsonData.name
             jsonData.products.forEach {
-                val product = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct()
+                val product = MODELProduct()
                 if(product.mapFrom(context, it))
                     this.products.add(product)
             }
@@ -25,7 +27,7 @@ class MODELSeller : com.cabinInformationTechnologies.cabinCustomerBase.models.lo
             this.total = jsonData.total
             true
         } catch (exception: Exception) {
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.error(
+            Logger.error(
                 context,
                 this::class.java.name,
                 "Problem while mapping to model.",

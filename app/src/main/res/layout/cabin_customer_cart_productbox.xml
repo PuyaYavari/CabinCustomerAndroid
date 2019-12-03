@@ -307,7 +307,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right|end"
-                                android:text="000"
                                 android:textColor="@color/colorLightTextsPrimary"
                                 android:textSize="10sp" />
 
@@ -317,12 +316,12 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="2dp"
                                 android:gravity="right|end"
-                                android:text="TL"
                                 android:textColor="@color/colorLightTextsPrimary"
                                 android:textSize="10sp" />
                     </LinearLayout>
 
                     <LinearLayout
+                            android:id="@+id/cart_productbox_product_price_layout"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
@@ -332,7 +331,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="0000"
                                 android:textColor="@color/colorPricePurple"
                                 android:textSize="14sp" />
 
@@ -342,7 +340,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="2dp"
                                 android:gravity="right|end"
-                                android:text="TL"
                                 android:textColor="@color/colorPricePurple"
                                 android:textSize="14sp" />
                     </LinearLayout>

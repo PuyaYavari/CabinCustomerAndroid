@@ -540,11 +540,10 @@
             <LinearLayout
                     android:id="@+id/product_detail_in_cart_discounts_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                 <LinearLayout
                         android:id="@+id/product_detail_before_discount_price_layout"
@@ -553,14 +552,13 @@
                         android:background="@drawable/default_price_strike"
                         android:gravity="start|left"
                         android:orientation="horizontal"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                     <TextView
                             android:id="@+id/product_detail_before_discount_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right|end"
-                            android:text="000"
                             android:textColor="@color/colorLightTextsPrimary"
                             android:textSize="11sp" />
 
@@ -570,7 +568,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="2dp"
                             android:gravity="right|end"
-                            android:text="TL"
                             android:textColor="@color/colorLightTextsPrimary"
                             android:textSize="11sp" />
                 </LinearLayout>
@@ -583,20 +580,21 @@
                         android:text="In Cart Discount"
                         android:textColor="@color/colorTextsPrimary"
                         android:textSize="11sp"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
             </LinearLayout>
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                 <LinearLayout
                         android:id="@+id/product_detail_before_cart_price_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:gravity="start|left|center_vertical"
                         android:orientation="horizontal"
                         android:visibility="gone">
@@ -607,7 +605,6 @@
                             android:layout_height="wrap_content"
                             android:gravity="start|left"
                             android:maxLines="1"
-                            android:text="0"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp" />
 
@@ -618,7 +615,6 @@
                             android:layout_marginLeft="2dp"
                             android:gravity="start|left"
                             android:maxLines="1"
-                            android:text="TL"
                             android:textColor="@color/colorTextsPrimary"
                             android:textSize="12sp" />
                 </LinearLayout>
@@ -635,7 +631,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right|end"
-                            android:text="0"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="14sp" />
 
@@ -645,7 +640,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="2dp"
                             android:gravity="right|end"
-                            android:text="TL"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="14sp" />
                 </LinearLayout>

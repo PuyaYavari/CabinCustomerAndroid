@@ -7,6 +7,7 @@ import com.squareup.moshi.JsonClass
 data class JSONOrderProduct (@Json(name = "ID") val id: Int,
                              @Json(name = "CODE") val code: String,
                              @Json(name = "PRICE") val price: Double,
+                             @Json(name = "PRICE_DISCOUNTED") val discountedPrice: Double?,
                              @Json(name = "COLOR") val colors: List<JSONColorName>,
                              @Json(name = "SIZE") val sizes: List<JSONSize>,
                              @Json(name = "TITLE") val title: String?,

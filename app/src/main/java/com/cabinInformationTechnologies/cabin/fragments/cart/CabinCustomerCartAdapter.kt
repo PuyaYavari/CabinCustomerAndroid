@@ -47,8 +47,27 @@ class CabinCustomerCartAdapter (val view: CabinCustomerCartContracts.View,
             //TODO:SHOW cart_productbox_size_caution_layout
             cart_productbox_product_color.text = product.getColors()[0].name
             cart_productbox_product_cargo_date.text = product.getCargoDuration()
-            //TODO: cart_productbox_product_before_discount_price_layout
-            cart_productbox_product_price.text = product.getPrice().toString()
+
+
+            val discountedPrice = product.getDiscountedPrice()
+            if (discountedPrice == null) {
+                cart_productbox_product_before_discount_price.text = ""
+                cart_productbox_product_before_discount_price_unit.text = ""
+                cart_productbox_product_before_discount_price_layout.visibility = View.GONE
+
+                cart_productbox_product_price.text = product.getPrice().toString()
+                cart_productbox_product_price_unit.text = product.getPriceUnit()
+                cart_productbox_product_price_layout.visibility = View.VISIBLE
+            } else {
+                cart_productbox_product_before_discount_price.text = product.getPrice().toString()
+                cart_productbox_product_before_discount_price_unit.text = product.getPriceUnit()
+                cart_productbox_product_before_discount_price_layout.visibility = View.VISIBLE
+
+                cart_productbox_product_price.text = discountedPrice.toString()
+                cart_productbox_product_price_unit.text = product.getPriceUnit()
+                cart_productbox_product_price_layout.visibility = View.VISIBLE
+            }
+
             cart_productbox_product_count.text = product.getAmount().toString()
             cart_productbox_add_button.setOnClickListener {
                 val newProduct = myDataset[position]

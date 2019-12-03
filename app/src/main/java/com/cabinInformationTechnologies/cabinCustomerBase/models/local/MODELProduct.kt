@@ -11,7 +11,8 @@ class MODELProduct : LocalDataModel, Parcelable{
     private lateinit var sellerName: String
     private lateinit var productName: String
     private lateinit var productId: String
-    private var price: Double? = null
+    private var price: Double = 0.0
+    private var discountedPrice: Double? = null
     private var amount: Int? = null
     private var cargoDurationId: Int? = null
     private lateinit var cargoDuration: String
@@ -30,6 +31,7 @@ class MODELProduct : LocalDataModel, Parcelable{
             productName = jsonModel.title
             productId = jsonModel.code
             price = jsonModel.price
+            discountedPrice = jsonModel.discountedPrice
             amount = jsonModel.amount
 
             val cargoDurationData = jsonModel.shippingDuration?.get(0) ?: throw java.lang.Exception("Cargo Duration Not Mapped.")
@@ -41,7 +43,7 @@ class MODELProduct : LocalDataModel, Parcelable{
             cargoType = cargoTypeData.name
 
             jsonModel.colors.forEach {
-                val color = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor()
+                val color = MODELColor()
                 if (color.mapFrom(context, it))
                     colors.add(color)
             }
@@ -76,6 +78,8 @@ class MODELProduct : LocalDataModel, Parcelable{
     fun getProductName() = this.productName
     fun getProductId() = this.productId
     fun getPrice() = this.price
+    fun getDiscountedPrice() = this.discountedPrice
+    fun getPriceUnit(): String = "TL"
     fun getAmount() = this.amount
     fun getCargoDurationId() = this.cargoDurationId
     fun getCargoDuration() = this.cargoDuration
@@ -90,7 +94,8 @@ class MODELProduct : LocalDataModel, Parcelable{
         sellerName: String,
         productName: String,
         productId: String,
-        price: Double?,
+        price: Double,
+        discountedPrice: Double?,
         amount: Int?,
         cargoDurationId: Int?,
         cargoDuration: String,
@@ -103,6 +108,7 @@ class MODELProduct : LocalDataModel, Parcelable{
         this.productName = productName
         this.productId = productId
         this.price = price
+        this.discountedPrice = discountedPrice
         this.amount = amount
         this.cargoDurationId = cargoDurationId
         this.cargoDuration = cargoDuration

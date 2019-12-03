@@ -5,13 +5,13 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class MODELColor: com.cabinInformationTechnologies.cabinCustomerBase.models.local.LocalDataModel, Parcelable {
+class MODELColor: LocalDataModel, Parcelable {
     var id: Int = -1
     var name: String = ""
     lateinit var hexCode: String
     var favourite: Boolean = false
-    var images: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELImage> = mutableListOf()
-    var sizes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize> = mutableListOf()
+    var images: MutableList<MODELImage> = mutableListOf()
+    var sizes: MutableList<MODELSize> = mutableListOf()
 
     @Throws(Exception::class)
     override fun <T> mapFrom(context: Context, modelData: T): Boolean {
@@ -49,7 +49,7 @@ class MODELColor: com.cabinInformationTechnologies.cabinCustomerBase.models.loca
                     }
                 }
             jsonModel.sizes.forEach {
-                val size = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize()
+                val size = MODELSize()
                 if (size.mapFrom(
                         context,
                         it))
@@ -66,7 +66,7 @@ class MODELColor: com.cabinInformationTechnologies.cabinCustomerBase.models.loca
         }
     }
 
-    fun populateWith(id: Int, name: String, hexCode: String, favourite: Boolean?, images: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELImage>?, sizes: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize>?) {
+    fun populateWith(id: Int, name: String, hexCode: String, favourite: Boolean?, images: MutableList<MODELImage>?, sizes: MutableList<MODELSize>?) {
         this.id = id
         this.name = name
         this.hexCode = hexCode

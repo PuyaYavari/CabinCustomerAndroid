@@ -56,8 +56,9 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
 
     //region Presenter
 
-    override fun requestProduct(context: Context, id: Int, navController: NavController) {
-        interactor?.requestProduct(context, id, navController)
+    override fun requestProduct(context: Context?, id: Int, navController: NavController) {
+        if (context != null)
+            interactor?.requestProduct(context, id, navController)
     }
 
     override fun setInitialColor(color: MODELColor?) {
@@ -68,6 +69,12 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
     override fun setProduct(product: MODELProduct) {
         this.product = product
         view?.setupProductDetail(product)
+        val discountedPrice = product.getDiscountedPrice()
+        if (discountedPrice == null) {
+            view?.setupPrice(product.getPrice(), product.getPriceUnit())
+        } else {
+            view?.setupPrice(product.getPrice(), discountedPrice, product.getPriceUnit())
+        }
         setupDatasets()
     }
 
@@ -247,12 +254,14 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             view?.uncheckFavorite()
     }
 
-    override fun addToFavorite(context: Context, product: MODELProduct, color: MODELColor) {
-        interactor?.addFavorite(context, product, color)
+    override fun addToFavorite(context: Context?, product: MODELProduct, color: MODELColor) {
+        if (context != null)
+            interactor?.addFavorite(context, product, color)
     }
 
-    override fun removeFromFavorite(context: Context, product: MODELProduct, color: MODELColor) {
-        interactor?.removeFavorite(context, product, color)
+    override fun removeFromFavorite(context: Context?, product: MODELProduct, color: MODELColor) {
+        if (context != null)
+            interactor?.removeFavorite(context, product, color)
     }
 
     override fun setCart(cart: MODELCart?) {

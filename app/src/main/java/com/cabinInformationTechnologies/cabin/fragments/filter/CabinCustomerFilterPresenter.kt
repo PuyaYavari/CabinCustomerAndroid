@@ -163,8 +163,8 @@ class CabinCustomerFilterPresenter(var view: CabinCustomerFilterContracts.View?)
         }
     }
 
-    override fun clearFilter(context: Context) {
-        if (filter != null && !isFilterAllUnselected()) {
+    override fun clearFilter(context: Context?) {
+        if (filter != null && !isFilterAllUnselected() && context != null) {
             view?.unsetPage()
             interactor?.clearFilter(context)
         }

@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
+import kotlinx.android.synthetic.main.cabin_customer_discover_productbox.view.*
 
 class CabinCustomerDiscoverAdapter (val presenter: CabinCustomerDiscoverContracts.Presenter?)
     : RecyclerView.Adapter<CabinCustomerDiscoverAdapter.DiscoverProductViewHolder>(){
@@ -50,7 +51,25 @@ class CabinCustomerDiscoverAdapter (val presenter: CabinCustomerDiscoverContract
                 if (it.favourite)
                     findViewById<ToggleButton>(R.id.discover_productbox_favourite_button).isChecked = true //FIXME: NON FAV CAN BE INDICATED AS FAV
             }
-            //TODO: Add discount
+
+            val discountedPrice = presenter?.myDataset?.get(position)?.getDiscountedPrice()
+            if (discountedPrice == null) {
+                discover_productbox_product_before_discount_price.text = ""
+                discover_productbox_product_before_discount_price_unit.text = ""
+                discover_productbox_product_before_discount_price_layout.visibility = View.GONE
+
+                discover_productbox_product_price.text = presenter?.myDataset?.get(position)?.getPrice().toString()
+                discover_productbox_product_price_unit.text = presenter?.myDataset?.get(position)?.getPriceUnit()
+                discover_productbox_product_price_layout.visibility = View.VISIBLE
+            } else {
+                discover_productbox_product_before_discount_price.text = presenter?.myDataset?.get(position)?.getPrice().toString()
+                discover_productbox_product_before_discount_price_unit.text = presenter?.myDataset?.get(position)?.getPriceUnit()
+                discover_productbox_product_before_discount_price_layout.visibility = View.VISIBLE
+
+                discover_productbox_product_price.text = discountedPrice.toString()
+                discover_productbox_product_price_unit.text = presenter?.myDataset?.get(position)?.getPriceUnit()
+                discover_productbox_product_price_layout.visibility = View.VISIBLE
+            }
         }
     }
 

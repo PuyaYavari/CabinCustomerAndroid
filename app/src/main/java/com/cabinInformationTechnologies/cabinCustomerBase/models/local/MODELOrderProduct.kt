@@ -8,6 +8,7 @@ class MODELOrderProduct: LocalDataModel {
     private var id: Int = 0
     private var code: String = ""
     private var price: Double = 0.0
+    private var discountedPrice: Double? = null
     private var colorName: String = ""
     private var colorId: Int = 0
     private var sizeName: String = ""
@@ -26,6 +27,7 @@ class MODELOrderProduct: LocalDataModel {
             this.id = jsonData.id
             this.code = jsonData.code
             this.price = jsonData.price
+            this.discountedPrice = jsonData.discountedPrice
             this.colorName = jsonData.colors[0].name
             this.colorId = jsonData.colors[0].id
             this.sizeName = jsonData.sizes[0].name
@@ -61,18 +63,19 @@ class MODELOrderProduct: LocalDataModel {
         }
     }
 
-    fun getId() = id
-    fun getCode() = code
-    fun getPrice() = price
-    fun getColorName() = colorName
-    fun getColorId() = colorId
-    fun getSizeName() = sizeName
-    fun getSizeId() = sizeId
-    fun getTitle() = title
-    fun getAmount() = amount
-    fun getShippingDurationText() = shippingDurationText
-    fun getShippingDurationId() = shippingDurationId
-    fun getShippingTypeName() = shippingTypeName
-    fun getShippingTypeId() = shippingTypeId
-    fun getImageURLs() = imageURLs
+    fun getId() = this.id
+    fun getCode() = this.code
+    fun getPrice() = this.price
+    fun getDiscountedPrice() = this.discountedPrice
+    fun getColorName() = this.colorName
+    fun getColorId() = this.colorId
+    fun getSizeName() = this.sizeName
+    fun getSizeId() = this.sizeId
+    fun getTitle() = this.title
+    fun getAmount() = this.amount
+    fun getShippingDurationText() = this.shippingDurationText
+    fun getShippingDurationId() = this.shippingDurationId
+    fun getShippingTypeName() = this.shippingTypeName
+    fun getShippingTypeId() = this.shippingTypeId
+    fun getImageURLs() = this.imageURLs
 }

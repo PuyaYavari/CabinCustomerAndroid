@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.cardview.widget.CardView
@@ -20,7 +21,11 @@ import androidx.viewpager.widget.ViewPager
 import com.cabinInformationTechnologies.cabin.MainActivity
 import com.cabinInformationTechnologies.cabin.MainContracts
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.Logger
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
 
 
 class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment(),
@@ -94,9 +99,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
     }
 
     private fun setupPage() {
-        val context = context
-        if (context != null)
-            presenter?.requestProduct(context, args.product.getId(), findNavController())
+        presenter?.requestProduct(this.context, args.product.getId(), findNavController())
         val imagePagerParams = mPager.layoutParams
         var displayWidth = -1
         val displayMetrics = context?.resources?.displayMetrics
@@ -108,8 +111,9 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         mPager.layoutParams = imagePagerParams
 
         populateImagesList()
+        val context = this.context
         if (context != null)
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+            Logger.info(
                 context,
                 this::class.java.name,
                 "imageListSize: ${imagesList.size}",
@@ -177,7 +181,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                 pageView.findViewById<View>(R.id.image5_indicator).visibility = View.GONE
                 val context = this.context
                 if (context != null)
-                    com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(
+                    Logger.warn(
                         context,
                         this::class.java.name,
                         "No Image!!",
@@ -357,7 +361,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         })
     }
 
-    override fun setupProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun setupProductDetail(product: MODELProduct) {
         pageView.findViewById<TextView>(R.id.product_detail_seller_name).text = product.getSellerName()
         pageView.findViewById<TextView>(R.id.product_detail_product_name).text = product.getProductName()
         pageView.findViewById<TextView>(R.id.product_detail_product_id).text = product.getProductId()
@@ -366,10 +370,30 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
 
         //pageView.findViewById<LinearLayout>(R.id.peoduct_datail_product_explanation_layout).visibility = View.VISIBLE //FIXME: MUST CHECK FOR EXPLANATION AND WRITE IF ANY EXISTS
 
-        pageView.findViewById<TextView>(R.id.product_detail_price).text = product.getPrice().toString()
+
 
         //TODO: IF DISCOUNT ENABLE product_detail_before_cart_price_layout
         //TODO: IF IN CART DISCOUNT ENABLE product_detail_in_cart_discount product_detail_before_cart_price_layout
+    }
+
+    override fun setupPrice(price: Double, priceUnit: String) {
+        pageView.findViewById<TextView>(R.id.product_detail_before_discount_price).text = ""
+        pageView.findViewById<TextView>(R.id.product_detail_before_discount_price_unit).text = ""
+        pageView.findViewById<LinearLayout>(R.id.product_detail_before_discount_price_layout).visibility = View.GONE
+
+        pageView.findViewById<LinearLayout>(R.id.product_detail_price_layout).visibility = View.VISIBLE
+        pageView.findViewById<TextView>(R.id.product_detail_price).text = price.toString()
+        pageView.findViewById<TextView>(R.id.product_detail_price_unit).text = priceUnit
+    }
+
+    override fun setupPrice(price: Double, discountedPrice: Double, priceUnit: String) {
+        pageView.findViewById<TextView>(R.id.product_detail_before_discount_price).text = price.toString()
+        pageView.findViewById<TextView>(R.id.product_detail_before_discount_price_unit).text = priceUnit
+        pageView.findViewById<LinearLayout>(R.id.product_detail_before_discount_price_layout).visibility = View.VISIBLE
+
+        pageView.findViewById<TextView>(R.id.product_detail_price).text = discountedPrice.toString()
+        pageView.findViewById<TextView>(R.id.product_detail_price_unit).text = priceUnit
+        pageView.findViewById<LinearLayout>(R.id.product_detail_price_layout).visibility = View.VISIBLE
     }
 
     override fun showSizesOfColor(id: Int) {
@@ -406,30 +430,30 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
                 )
     }
 
-    override fun setSelectedColor(color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
+    override fun setSelectedColor(color: MODELColor) {
         presenter?.setSelectedColor(color)
         setFavoriteButtonTo(color)
         val context = this.context
         if (context != null)
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+            Logger.info(
                 context,
                 null,
                 "$color selected",
                 null)
     }
 
-    override fun setSelectedSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize?) {
+    override fun setSelectedSize(size: MODELSize?) {
         presenter?.setSelectedSize(size)
         val context = this.context
         if (context != null)
-            com.cabinInformationTechnologies.cabinCustomerBase.Logger.info(
+            Logger.info(
                 context,
                 null,
                 "$size selected",
                 null)
     }
 
-    override fun setupColors(colorsDataset : MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor>) {
+    override fun setupColors(colorsDataset : MutableList<MODELColor>) {
         colorsAdapter = CabinCustomerProductColorsAdapter(this, colorsDataset)
         pageView.findViewById<RecyclerView>(R.id.product_detail_color_recycler_view).apply {
             setHasFixedSize(false)
@@ -438,7 +462,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         }
     }
 
-    override fun setupSizes(sizesDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize>, firstColorID: Int) {
+    override fun setupSizes(sizesDataset: MutableList<MODELSize>, firstColorID: Int) {
         sizesAdapter = CabinCustomerProductSizesAdapter(this, sizesDataset)
         pageView.findViewById<RecyclerView>(R.id.product_detail_size_recycler_view).apply {
             setHasFixedSize(false)
@@ -462,7 +486,7 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         }
     }
 
-    override fun setFavoriteButtonTo(color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
+    override fun setFavoriteButtonTo(color: MODELColor) {
         presenter?.setupFavoriteButton(color.favourite)
         val context = this.context
         if (context != null)
@@ -489,19 +513,19 @@ class CabinCustomerProductDetailFragment : com.cabinInformationTechnologies.cabi
         }
     }
 
-    override fun setTickOnColor(color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor) {
+    override fun setTickOnColor(color: MODELColor) {
         colorsAdapter.setTickOnColor(color)
     }
 
     override fun showSelectSizeFor(
         product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct,
-        color: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor,
+        color: MODELColor,
         callback: MainContracts.SelectSizeCallback
     ) {
         (activity!! as MainActivity).showSelectSize(product, color, callback)
     }
 
-    override fun indicateSelectedSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize) {
+    override fun indicateSelectedSize(size: MODELSize) {
         sizesAdapter.indicateSelectedSize(size)
     }
 

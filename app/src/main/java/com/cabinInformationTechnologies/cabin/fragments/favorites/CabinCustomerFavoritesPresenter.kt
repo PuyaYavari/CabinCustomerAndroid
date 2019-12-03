@@ -3,6 +3,7 @@ package com.cabinInformationTechnologies.cabin.fragments.favorites
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 
 class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.View?) :
     CabinCustomerFavoritesContracts.Presenter,
@@ -44,11 +45,11 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
         interactor?.getFavorites(context, page)
     }
 
-    override fun moveToProductDetail(product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun moveToProductDetail(product: MODELProduct) {
         router?.moveToProductDetail(product)
     }
 
-    override fun removeFromFavorites(context: Context, product: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct) {
+    override fun removeFromFavorites(context: Context, product: MODELProduct) {
         interactor?.removeFromFavorites(context, product)
     }
 
@@ -66,17 +67,18 @@ class CabinCustomerFavoritesPresenter(var view: CabinCustomerFavoritesContracts.
 
     //region InteractorOutput
 
-    override fun setData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct?>) {
-        val myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct> = mutableListOf()
+    override fun setData(products: List<MODELProduct?>) {
+        val myDataset: MutableList<MODELProduct> = mutableListOf()
         products.forEach {product ->
             product?.getColors()?.forEach {color ->
-                val generatedProduct = com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct()
+                val generatedProduct = MODELProduct()
                 generatedProduct.setAll(
                     product.getId(),
                     product.getSellerName(),
                     product.getProductName(),
                     product.getProductId(),
                     product.getPrice(),
+                    product.getDiscountedPrice(),
                     product.getAmount(),
                     product.getCargoDurationId(),
                     product.getCargoDuration(),

@@ -5,21 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
 
 class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContracts.View,
-                                     private var myDataset: MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>)
+                                     private var myDataset: MutableList<MODELProduct>)
     : RecyclerView.Adapter<CabinCustomerFavoritesAdapter.FavoritesProductViewHolder>() {
 
-    private var lastRemovedProduct: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct? = null
+    private var lastRemovedProduct: MODELProduct? = null
     private var lastRemovedProductPosition: Int? = null
 
-    private var selectedSize : com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize? = null
+    private var selectedSize : MODELSize? = null
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -42,10 +41,26 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
                 setOnClickListener { fragment.moveToProductDetail(myDataset[position]) }
             } //TODO:SET IMAGE
             findViewById<TextView>(R.id.favorites_productbox_seller_name).text = product.getSellerName()
-            findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price) //TODO
-            findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price_unit) //TODO
-            findViewById<TextView>(R.id.favorites_productbox_product_price).text = product.getPrice().toString()
-            findViewById<TextView>(R.id.favorites_productbox_product_price_unit) //TODO
+
+            val discountedPrice =  product.getDiscountedPrice()
+            if (discountedPrice == null) {
+                findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price).text = ""
+                findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price_unit).text = ""
+                findViewById<LinearLayout>(R.id.favorites_productbox_product_before_discount_price_layout).visibility = View.GONE
+
+                findViewById<TextView>(R.id.favorites_productbox_product_price).text = product.getPrice().toString()
+                findViewById<TextView>(R.id.favorites_productbox_product_price_unit).text = product.getPriceUnit()
+                findViewById<LinearLayout>(R.id.favorites_productbox_product_price_layout).visibility = View.VISIBLE
+            } else {
+                findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price).text = product.getPrice().toString()
+                findViewById<TextView>(R.id.favorites_productbox_product_before_discount_price_unit).text = product.getPriceUnit()
+                findViewById<LinearLayout>(R.id.favorites_productbox_product_before_discount_price_layout).visibility = View.VISIBLE
+
+                findViewById<TextView>(R.id.favorites_productbox_product_price).text = discountedPrice.toString()
+                findViewById<TextView>(R.id.favorites_productbox_product_price_unit).text = product.getPriceUnit()
+                findViewById<LinearLayout>(R.id.favorites_productbox_product_price_layout).visibility = View.VISIBLE
+            }
+
             findViewById<ImageButton>(R.id.favorites_productbox_favourite_button)
                 .outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View?, outline: Outline?) {
@@ -60,7 +75,7 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
                     product,
                     product.getColors()[0],
                     object : com.cabinInformationTechnologies.cabin.MainContracts.SelectSizeCallback {
-                        override fun selectSize(size: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize) {
+                        override fun selectSize(size: MODELSize) {
                             selectedSize = size
                         }
 
@@ -79,8 +94,8 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
 
     override fun getItemCount(): Int = myDataset.size
 
-    fun setData(products: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>) {
-        this.myDataset = products as MutableList<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct>
+    fun setData(products: List<MODELProduct>) {
+        this.myDataset = products as MutableList<MODELProduct>
         notifyDataSetChanged()
     }
 

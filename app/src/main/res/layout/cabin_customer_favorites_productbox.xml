@@ -80,19 +80,20 @@
                 android:layout_marginRight="8dp">
 
             <LinearLayout
+                    android:id="@+id/favorites_productbox_product_before_discount_price_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="0"
                     android:background="@drawable/default_price_strike"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                 <TextView
                         android:id="@+id/favorites_productbox_product_before_discount_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right|end"
-                        android:text="000"
                         android:textColor="@color/colorLightTextsPrimary"
                         android:textSize="10sp" />
 
@@ -102,12 +103,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
                         android:gravity="right|end"
-                        android:text="TL"
                         android:textColor="@color/colorLightTextsPrimary"
                         android:textSize="10sp" />
             </LinearLayout>
 
             <LinearLayout
+                    android:id="@+id/favorites_productbox_product_price_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -118,7 +119,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0000"
                         android:textColor="@color/colorPricePurple"
                         android:textSize="10sp" />
 
@@ -128,7 +128,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
                         android:gravity="right|end"
-                        android:text="TL"
                         android:textColor="@color/colorPricePurple"
                         android:textSize="10sp" />
             </LinearLayout>

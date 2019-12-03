@@ -207,7 +207,7 @@ class MainActivity : BaseActivity(), MainContracts.View{
         }
     }
 
-    override fun showNoInternet() {
+    override fun showNoInternet() { //FIXME: REMOVE IF NOT NEEDED
         findViewById<TextView>(R.id.blocker_info_text).text = resources.getText(R.string.no_internet)
         findViewById<Button>(R.id.unblock_button).text = resources.getText(R.string.retry)
         findViewById<Button>(R.id.unblock_button).setOnClickListener {
@@ -401,10 +401,26 @@ class MainActivity : BaseActivity(), MainContracts.View{
         findViewById<TextView>(R.id.select_size_seller_name).text = product.getSellerName()
         findViewById<TextView>(R.id.select_size_product_name).text = product.getProductName()
         findViewById<TextView>(R.id.select_size_product_id).text = product.getProductId()
-        findViewById<TextView>(R.id.select_size_price).text = product.getPrice().toString()
-        //TODO: DISCOUNTS
 
-        Log.i(null, "Color has ${color.sizes.size} sizes.")
+
+        val discoutedPrice = product.getDiscountedPrice()
+        if (discoutedPrice == null) {
+            findViewById<TextView>(R.id.select_size_price).text = product.getPrice().toString()
+            findViewById<TextView>(R.id.select_size_price_unit).text = product.getPriceUnit()
+            findViewById<LinearLayout>(R.id.select_size_price_layout).visibility = View.VISIBLE
+
+            findViewById<TextView>(R.id.select_size_before_discount_price).text = ""
+            findViewById<TextView>(R.id.select_size_before_discount_price_unit).text = ""
+            findViewById<LinearLayout>(R.id.select_size_before_discount_price_layout).visibility = View.GONE
+        } else {
+            findViewById<TextView>(R.id.select_size_price).text = discoutedPrice.toString()
+            findViewById<TextView>(R.id.select_size_price_unit).text = product.getPriceUnit()
+            findViewById<LinearLayout>(R.id.select_size_price_layout).visibility = View.VISIBLE
+
+            findViewById<TextView>(R.id.select_size_before_discount_price).text = product.getPrice().toString()
+            findViewById<TextView>(R.id.select_size_before_discount_price_unit).text = product.getPriceUnit()
+            findViewById<LinearLayout>(R.id.select_size_before_discount_price_layout).visibility = View.VISIBLE
+        }
 
         val sizesAdapter = SizesAdapter(this, color.sizes, callback)
         findViewById<RecyclerView>(R.id.select_size_recycler_view).apply {

@@ -13,6 +13,8 @@ object CabinCustomerProductDetailContracts {
 
     interface View : BaseContracts.View {
         fun setupProductDetail(product: MODELProduct)
+        fun setupPrice(price: Double, priceUnit: String)
+        fun setupPrice(price: Double, discountedPrice: Double, priceUnit: String)
         fun showSizesOfColor(id: Int)
         fun populateImagesList()
         fun addToCart(
@@ -58,9 +60,9 @@ object CabinCustomerProductDetailContracts {
         fun setSelectedSize(size: MODELSize?)
         fun setSizesDataset(sizesDataset: MutableList<MODELSize>)
         fun getSizesOfColor(id: Int): MutableList<MODELSize>?
-        fun requestProduct(context: Context, id: Int, navController: NavController)
-        fun addToFavorite(context: Context, product: MODELProduct, color: MODELColor)
-        fun removeFromFavorite(context: Context, product: MODELProduct, color: MODELColor)
+        fun requestProduct(context: Context?, id: Int, navController: NavController)
+        fun addToFavorite(context: Context?, product: MODELProduct, color: MODELColor)
+        fun removeFromFavorite(context: Context?, product: MODELProduct, color: MODELColor)
         fun setupFavoriteButton(isFavorite: Boolean)
         fun increaseAmount(context: Context?)
         fun decreaseAmount(context: Context?)

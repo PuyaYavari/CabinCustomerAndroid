@@ -34,7 +34,7 @@ object CabinCustomerFilterContracts {
         fun requestFilter(context: Context, navController: NavController)
         fun moveToFilterDetail(filterType: Int)
         fun getSelectedCount(filterType: Int): Int
-        fun clearFilter(context: Context)
+        fun clearFilter(context: Context?)
     }
 
     interface Interactor : com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts.Interactor {

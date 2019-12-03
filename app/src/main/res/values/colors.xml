@@ -10,9 +10,9 @@
     <color name="colorBackground">#FFFFFF</color>
 
 <!--    man theme colors-->
-<!--    <hexCode name="colorPrimary">#1e0044</hexCode>-->
-<!--    <hexCode name="colorPrimaryDark">#00001f</hexCode>-->
-<!--    <hexCode name="colorAccent">#4b2870</hexCode>-->
+<!--    <color name="colorPrimary">#1e0044</color>-->
+<!--    <color name="colorPrimaryDark">#00001f</color>-->
+<!--    <color name="colorAccent">#4b2870</color>-->
 
     <color name="colorTextsPrimary">#707070</color>
     <color name="colorLightTextsPrimary">#B7B7B7</color>

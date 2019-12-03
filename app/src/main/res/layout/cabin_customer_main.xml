@@ -300,7 +300,6 @@
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="Some Seller"
                                     android:textColor="@color/colorTextsPrimary"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
@@ -311,7 +310,6 @@
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="Some Looooooooooooooooooooooong Product Name"
                                     android:textColor="@color/colorTextsPrimary"
                                     android:textSize="12sp" />
 
@@ -321,7 +319,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0"
                                     android:alpha="@dimen/cartProductboxTextsAlpha"
-                                    android:text="Some Product ID"
                                     android:textColor="@color/colorTextsPrimary"
                                     android:textSize="12sp" />
 
