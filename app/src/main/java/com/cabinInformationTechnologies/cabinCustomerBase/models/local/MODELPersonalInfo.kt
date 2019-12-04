@@ -30,7 +30,7 @@ class MODELPersonalInfo: LocalDataModel {
             }
             email = jsonData.email
             phone = jsonData.phone
-            sex.mapFrom(context, jsonData.sex[0])
+            sex.mapFrom(context, jsonData.sex?.get(0))
             true
         } catch (exception: Exception) {
             com.cabinInformationTechnologies.cabinCustomerBase.Logger.warn(

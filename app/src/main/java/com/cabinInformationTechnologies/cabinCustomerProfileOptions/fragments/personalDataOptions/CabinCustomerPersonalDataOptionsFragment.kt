@@ -155,7 +155,7 @@ class CabinCustomerPersonalDataOptionsFragment : BaseFragment(),
                     val year = cldr.get(java.util.Calendar.YEAR)
                     // date picker dialog
                     val picker: DatePickerDialog? = DatePickerDialog(
-                        this.activity!!,
+                        this.activity!!, android.R.style.Theme_Holo_Light_Dialog,
                         DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                             pageView.findViewById<EditText>(R.id.personal_data_options_birthday_input)
                                 .setText(
