@@ -180,7 +180,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.default_error_message),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { addToCart(context, productId, amount, colorId, sizeId) }
                 }
@@ -320,7 +320,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                         context = context,
                         navController = navController,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message)
+                        message = value
                     ) { requestProduct(context, id, navController) }
                 }
 
@@ -430,7 +430,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -516,7 +516,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -625,7 +625,7 @@ class CabinCustomerProductDetailInteractor(var output: CabinCustomerProductDetai
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {

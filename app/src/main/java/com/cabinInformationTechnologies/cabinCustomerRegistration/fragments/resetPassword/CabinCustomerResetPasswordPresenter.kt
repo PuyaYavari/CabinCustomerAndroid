@@ -3,15 +3,23 @@ package com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.res
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
+import com.cabinInformationTechnologies.cabinCustomerBase.Informer
 
 class CabinCustomerResetPasswordPresenter(var view: CabinCustomerResetPasswordContracts.View?) :
     CabinCustomerResetPasswordContracts.Presenter,
     CabinCustomerResetPasswordContracts.InteractorOutput {
 
+    private val informer: BaseContracts.Feedbacker by lazy {
+        Informer()
+    }
+
     var interactor: CabinCustomerResetPasswordContracts.Interactor? =
         CabinCustomerResetPasswordInteractor(this)
     var router: CabinCustomerResetPasswordContracts.Router? = null
 
+    override var email: String? = null
     override var password: String = ""
         set(value) {
             field = value
@@ -66,10 +74,12 @@ class CabinCustomerResetPasswordPresenter(var view: CabinCustomerResetPasswordCo
 
     override fun buttonListener(context: Context?) {
         if (password == passwordConfirmation) {
-            if (context != null)
-                interactor?.sendPasswordToBackend(context, password, code)
+            val email = this.email
+            if (context != null && email != null)
+                interactor?.sendPasswordToBackend(context, password, code, email)
         } else {
-            //TODO: FEEDBACK
+            if (context != null)
+                informer.feedback(context, context.resources.getString(R.string.password_confirmation_error))
         }
     }
 
@@ -77,7 +87,19 @@ class CabinCustomerResetPasswordPresenter(var view: CabinCustomerResetPasswordCo
 
     //region InteractorOutput
 
-    //TODO: Implement your InteractorOutput methods here
+    override fun success(context: Context) {
+        informer.feedback(
+            context = context,
+            title = context.resources.getString(R.string.congratulations),
+            message = context.resources.getString(R.string.password_changed_successfully),
+            positiveText = context.resources.getString(R.string.okay),
+            positiveFunction = { view?.success() },
+            negativeText = null,
+            negativeFunction = null,
+            neutralText = null,
+            neutralFunction = null
+        )
+    }
 
     //endregion
 }

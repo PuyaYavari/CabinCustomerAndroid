@@ -59,7 +59,7 @@ class MainInteractor(var output: MainContracts.InteractorOutput?) :
                         null
                     )
                     output?.unlockDrawer()
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -135,7 +135,7 @@ class MainInteractor(var output: MainContracts.InteractorOutput?) :
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -285,7 +285,7 @@ class MainInteractor(var output: MainContracts.InteractorOutput?) :
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -434,7 +434,7 @@ class MainInteractor(var output: MainContracts.InteractorOutput?) :
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {

@@ -86,7 +86,7 @@ class CabinCustomerNotificationChoicesInteractor(var output: CabinCustomerNotifi
                         context = context,
                         navController = navController,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message)
+                        message = value
                     ) { receiveInitialData(context, navController) }
                 }
 
@@ -198,7 +198,7 @@ class CabinCustomerNotificationChoicesInteractor(var output: CabinCustomerNotifi
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {

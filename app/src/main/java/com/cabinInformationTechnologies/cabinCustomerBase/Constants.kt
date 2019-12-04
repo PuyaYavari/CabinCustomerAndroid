@@ -30,6 +30,8 @@ object Constants {
     const val LOGOUT_URL: String = "login/logout"
     const val GOOGLE_LOGIN_URL: String = "login/loginGoogle"
     const val FACEBOOK_LOGIN_URL: String = "login/loginFacebook"
+    const val PASSWORD_CODE_URL: String = "login/sendPasswordCode"
+    const val CHANGE_PASSWORD_WITH_CODE_URL: String = "login/sendNewPassword"
 
     const val REGISTER_URL: String = "register/addUser"
 

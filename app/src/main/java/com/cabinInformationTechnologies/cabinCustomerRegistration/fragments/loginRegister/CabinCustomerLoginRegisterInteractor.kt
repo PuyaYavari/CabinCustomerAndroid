@@ -92,7 +92,7 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { login(context, email, password) }
                 }
@@ -229,7 +229,7 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
                         informer.feedback(
                             context = context,
                             title = context.resources.getString(R.string.error),
-                            message = context.resources.getString(R.string.default_error_message),
+                            message = value,
                             neutralText = context.resources.getString(R.string.okay)
                         ) { login(context, account) }
                     }
@@ -354,7 +354,7 @@ class CabinCustomerLoginRegisterInteractor(var output: CabinCustomerLoginRegiste
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { register(context, email, password, sex, emailPermit) }
                 }

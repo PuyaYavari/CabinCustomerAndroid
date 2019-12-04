@@ -112,7 +112,7 @@ class CabinCustomerInvoiceAddressInteractor(var output: CabinCustomerInvoiceAddr
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { saveAddress(context, address) }
                 }
@@ -256,7 +256,7 @@ class CabinCustomerInvoiceAddressInteractor(var output: CabinCustomerInvoiceAddr
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { updateAddress(context, address) }
                 }
@@ -382,7 +382,7 @@ class CabinCustomerInvoiceAddressInteractor(var output: CabinCustomerInvoiceAddr
                         context = context,
                         navController = navController,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message)
+                        message = value
                     ) { getProvinces(context, navController) }
                 }
 
@@ -509,7 +509,7 @@ class CabinCustomerInvoiceAddressInteractor(var output: CabinCustomerInvoiceAddr
                         context = context,
                         navController = navController,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message)
+                        message = value
                     ) { getDistrictsOfProvince(context, province, navController) }
                 }
 

@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.cabinInformationTechnologies.cabin.R
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseFragment
 
 class CabinCustomerResetPasswordFragment : BaseFragment(),
     CabinCustomerResetPasswordContracts.View {
+    private val args: CabinCustomerResetPasswordFragmentArgs by navArgs()
 
     var presenter: CabinCustomerResetPasswordContracts.Presenter? =
         CabinCustomerResetPasswordPresenter(this)
@@ -24,6 +27,7 @@ class CabinCustomerResetPasswordFragment : BaseFragment(),
         savedInstanceState: Bundle?
     ): View? {
         pageView = inflater.inflate(R.layout.cabin_customer_reset_password, container, false)
+        presenter?.email = args.email
         setupPage()
         return pageView
     }
@@ -97,6 +101,10 @@ class CabinCustomerResetPasswordFragment : BaseFragment(),
             isClickable = false
             alpha = 0.5f
         }
+    }
+
+    override fun success() {
+        findNavController().popBackStack()
     }
 
     //endregion

@@ -90,7 +90,7 @@ class CabinCustomerAddressOptionsInteractor(var output: CabinCustomerAddressOpti
                         context = context,
                         navController = navController,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message)
+                        message = value
                     ) { getAddresses(context, navController) }
                 }
 
@@ -199,7 +199,7 @@ class CabinCustomerAddressOptionsInteractor(var output: CabinCustomerAddressOpti
                             null
                         )
                         output?.undoRemove()
-                        informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                        informer.feedback(context, value)
                     }
 
                     override fun onFailure(throwable: Throwable) {

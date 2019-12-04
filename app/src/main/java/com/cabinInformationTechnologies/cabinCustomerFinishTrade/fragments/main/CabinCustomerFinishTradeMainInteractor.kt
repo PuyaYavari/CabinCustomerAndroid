@@ -98,7 +98,7 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         positiveText = context.resources.getString(R.string.retry),
                         positiveFunction = { getCart(context) },
                         negativeText = context.resources.getString(R.string.okay),
@@ -267,7 +267,7 @@ class CabinCustomerFinishTradeMainInteractor(var output: CabinCustomerFinishTrad
                         informer.feedback(
                             context = context,
                             title = context.resources.getString(R.string.error),
-                            message = context.resources.getString(R.string.default_error_message),
+                            message = value,
                             positiveText = context.resources.getString(R.string.retry),
                             positiveFunction = { sendAddresses(context, delivery, invoice) },
                             negativeText = context.resources.getString(R.string.okay),

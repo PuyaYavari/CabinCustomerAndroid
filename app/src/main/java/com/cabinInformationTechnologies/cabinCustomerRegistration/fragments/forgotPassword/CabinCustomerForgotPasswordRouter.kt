@@ -13,8 +13,8 @@ class CabinCustomerForgotPasswordRouter(var activity: Activity?) :
 
     //region Router
 
-    override fun moveToResetPassword() {
-        val action = CabinCustomerForgotPasswordFragmentDirections.actionForgotPasswordToResetPassword()
+    override fun moveToResetPassword(email: String) {
+        val action = CabinCustomerForgotPasswordFragmentDirections.actionForgotPasswordToResetPassword(email)
         activity!!.findNavController(R.id.customer_registration_navhost).navigate(action)
     }
 
