@@ -91,7 +91,7 @@ class CabinCustomerFinishTradeAddressInteractor(var output: CabinCustomerFinishT
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         positiveText = context.resources.getString(R.string.retry),
                         positiveFunction = { getAddresses(context) },
                         negativeText = context.resources.getString(R.string.okay),

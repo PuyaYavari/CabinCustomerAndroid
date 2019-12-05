@@ -91,7 +91,7 @@ class CabinCustomerDeliveryAddressInteractor(var output: CabinCustomerDeliveryAd
                         context = context,
                         navController = navController,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message)
+                        message = value
                     ) { getProvinces(context, navController) }
                 }
 
@@ -218,7 +218,7 @@ class CabinCustomerDeliveryAddressInteractor(var output: CabinCustomerDeliveryAd
                         context = context,
                         navController = navController,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message)
+                        message = value
                     ) { getDistrictsOfProvince(context, province, navController) }
                 }
 
@@ -360,7 +360,7 @@ class CabinCustomerDeliveryAddressInteractor(var output: CabinCustomerDeliveryAd
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { saveAddress(context, address) }
                 }
@@ -503,7 +503,7 @@ class CabinCustomerDeliveryAddressInteractor(var output: CabinCustomerDeliveryAd
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { updateAddress(context, address) }
                 }

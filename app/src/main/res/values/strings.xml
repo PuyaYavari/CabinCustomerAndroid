@@ -189,4 +189,6 @@
     <string name="password_changed_successfully">Şifreniz başarıyla güncellenmiştir.</string>
 
     <string name="address_saved_successfully">Adresiniz başarıyla kaydedilmiştir.</string>
+
+    <string name="password_confirmation_error">Şifre tekrarı girmiş olduğunuz yeni şifre ile uyuşmamaktadır.</string>
 </resources>

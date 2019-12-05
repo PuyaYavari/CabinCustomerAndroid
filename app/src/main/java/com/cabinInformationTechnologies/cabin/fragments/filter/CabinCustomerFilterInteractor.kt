@@ -209,7 +209,7 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         navController = navController
                     ) { requestFilter(context, filter, navController) }
                 }
@@ -331,7 +331,7 @@ class CabinCustomerFilterInteractor(var output: CabinCustomerFilterContracts.Int
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { clearFilter(context) }
                 }

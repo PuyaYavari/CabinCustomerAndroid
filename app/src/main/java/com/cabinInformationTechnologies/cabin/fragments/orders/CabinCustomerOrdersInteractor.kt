@@ -82,7 +82,7 @@ class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.Int
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { getFirstPage(context) }
                 }
@@ -195,7 +195,7 @@ class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.Int
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                     refreshLayout?.isRefreshing = false
                 }
 
@@ -283,7 +283,7 @@ class CabinCustomerOrdersInteractor(var output: CabinCustomerOrdersContracts.Int
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {

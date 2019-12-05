@@ -87,7 +87,7 @@ class CabinCustomerChangePasswordInteractor(var output: CabinCustomerChangePassw
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { sendPasswordData(context, newPassword, password) }
                 }

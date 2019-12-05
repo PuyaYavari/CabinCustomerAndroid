@@ -129,7 +129,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         informer.feedback(
                             context = context,
                             title = context.resources.getString(R.string.error),
-                            message = context.resources.getString(R.string.default_error_message),
+                            message = value,
                             neutralText = context.resources.getString(R.string.okay)
                         ) { requestProducts(context, page, sort) }
                     else
@@ -278,7 +278,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                         "ERROR: Value: $value, URL: $url",
                         null
                     )
-                    informer.feedback(context, context.resources.getString(R.string.default_error_message))
+                    informer.feedback(context, value)
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -369,7 +369,7 @@ class CabinCustomerDiscoverInteractor(var output: CabinCustomerDiscoverContracts
                     informer.feedback(
                         context = context,
                         title = context.resources.getString(R.string.error),
-                        message = context.resources.getString(R.string.default_error_message),
+                        message = value,
                         neutralText = context.resources.getString(R.string.okay)
                     ) { getSortOptions(context) }
                 }

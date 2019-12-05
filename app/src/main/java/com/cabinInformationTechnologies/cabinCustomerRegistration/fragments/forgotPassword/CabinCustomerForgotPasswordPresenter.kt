@@ -52,8 +52,8 @@ class CabinCustomerForgotPasswordPresenter(var view: CabinCustomerForgotPassword
 
     //region InteractorOutput
 
-    override fun moveToResetPassword() {
-        router?.moveToResetPassword()
+    override fun moveToResetPassword(email: String) {
+        router?.moveToResetPassword(email)
     }
 
     //endregion

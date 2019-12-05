@@ -21,12 +21,11 @@ object CabinCustomerForgotPasswordContracts {
     }
 
     interface InteractorOutput : BaseContracts.InteractorOutput {
-        fun moveToResetPassword()
-        //TODO: FEEDBACK
+        fun moveToResetPassword(email: String)
     }
 
     interface Router : BaseContracts.Router {
-        fun moveToResetPassword()
+        fun moveToResetPassword(email: String)
     }
 
 }

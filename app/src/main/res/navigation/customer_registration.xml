@@ -17,10 +17,15 @@
             android:label="CabinCustomerForgotPasswordFragment" >
         <action
                 android:id="@+id/actionForgotPasswordToResetPassword"
-                app:destination="@id/cabinCustomerResetPasswordFragment" />
+                app:destination="@id/cabinCustomerResetPasswordFragment"
+                app:popUpTo="@+id/cabinCustomerLoginFragment" />
     </fragment>
     <fragment
             android:id="@+id/cabinCustomerResetPasswordFragment"
             android:name="com.cabinInformationTechnologies.cabinCustomerRegistration.fragments.resetPassword.CabinCustomerResetPasswordFragment"
-            android:label="CabinCustomerResetPasswordFragment" />
+            android:label="CabinCustomerResetPasswordFragment" >
+        <argument
+                android:name="email"
+                app:argType="string" />
+    </fragment>
 </navigation>
