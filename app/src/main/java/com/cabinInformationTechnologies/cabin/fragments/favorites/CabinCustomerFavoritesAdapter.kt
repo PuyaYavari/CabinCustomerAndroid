@@ -8,6 +8,7 @@ import android.view.ViewOutlineProvider
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.Visualizer
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
 
@@ -39,6 +40,11 @@ class CabinCustomerFavoritesAdapter (val fragment: CabinCustomerFavoritesContrac
                 params.height = params.width * 4/3
                 layoutParams = params
                 setOnClickListener { fragment.moveToProductDetail(myDataset[position]) }
+
+                val visualizer = Visualizer()
+                visualizer.productImageVisualizer(holder.itemView.context,product,this)
+
+
             } //TODO:SET IMAGE
             findViewById<TextView>(R.id.favorites_productbox_seller_name).text = product.getSellerName()
 

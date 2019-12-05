@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.Visualizer
 import kotlinx.android.synthetic.main.cabin_customer_cart_productbox.view.*
 
 class CabinCustomerCartAdapter (val view: CabinCustomerCartContracts.View,
@@ -37,7 +38,9 @@ class CabinCustomerCartAdapter (val view: CabinCustomerCartContracts.View,
         val product = myDataset[position]
         holder.itemView.apply {
             cart_productbox_product_image.apply {
-                //TODO: SET IMAGE
+                val visualizer = Visualizer()
+                visualizer.productImageVisualizer(holder.itemView.context,product,this)
+
                 setOnClickListener { view.moveToProductDetail(product, product.getColors()[0]) }
             }
             cart_productbox_seller_name.text = product.getSellerName()

@@ -30,7 +30,6 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
     private var colorsDataset: MutableList<MODELColor> = mutableListOf()
     private var sizesDataset: MutableList<MODELSize> = mutableListOf()
     private var colorSizesDataset: MutableMap<Int, MutableList<MODELSize>> = mutableMapOf()
-    private var imagesDataset: MutableList<MODELImage> = mutableListOf()
 
     //region Lifecycle
 
@@ -145,7 +144,6 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
         colorsDataset = mutableListOf()
         sizesDataset = mutableListOf()
         colorSizesDataset = mutableMapOf()
-        imagesDataset = mutableListOf()
 
         if (!initialColorIsPicked)
             initialColor = null
@@ -159,8 +157,6 @@ class CabinCustomerProductDetailPresenter(var view: CabinCustomerProductDetailCo
             if (initialColor == null)
                 initialColor = modelColor
 
-            imagesDataset.addAll(modelColor.images)
-            //TODO: Set Pager Images
             colorsDataset.add(modelColor)
             colorSizesDataset[modelColor.id] = colorSizes
         }

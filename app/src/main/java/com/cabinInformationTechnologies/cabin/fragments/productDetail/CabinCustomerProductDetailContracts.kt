@@ -4,10 +4,7 @@ import android.content.Context
 import androidx.navigation.NavController
 import com.cabinInformationTechnologies.cabin.MainContracts
 import com.cabinInformationTechnologies.cabinCustomerBase.BaseContracts
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELCart
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
-import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELSize
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.*
 
 object CabinCustomerProductDetailContracts {
 
@@ -26,6 +23,7 @@ object CabinCustomerProductDetailContracts {
         fun setSelectedColor(color: MODELColor)
         fun setSelectedSize(size: MODELSize?)
         fun setupColors(colorsDataset : MutableList<MODELColor>)
+        fun setupImages(imageList: ArrayList<MODELImage>)
         fun setupSizes(sizesDataset: MutableList<MODELSize>, firstColorID: Int)
         fun showDefaultMessage()
         fun setFavoriteButtonTo(color: MODELColor)

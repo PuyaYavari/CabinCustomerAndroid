@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELImage
 
 class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailContracts.View,
                                         private val myDataset: List<com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELColor>):
@@ -36,6 +37,7 @@ class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailCont
     }
 
     override fun onBindViewHolder(holder: ProductColorViewHolder, position: Int) {
+        val data = myDataset.get(position)
         holder.itemView.apply {
             findViewById<ImageView>(R.id.colorbox_color_sample).apply {
                 imageTintList = ColorStateList.valueOf(Color.parseColor(myDataset[position].hexCode))
@@ -55,6 +57,7 @@ class CabinCustomerProductColorsAdapter(val view: CabinCustomerProductDetailCont
                 view.showSizesOfColor(myDataset[position].id)
                 view.setSelectedColor(myDataset[position])
                 view.setSelectedSize(null)
+                view.setupImages(data.images as ArrayList<MODELImage>)
                 notifyItemChanged(selectedColorPosition)
                 selectedColorPosition = position
                 findViewById<ImageView>(R.id.colorbox_color_sample_tick).visibility = View.VISIBLE

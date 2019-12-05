@@ -3,9 +3,12 @@ package com.cabinInformationTechnologies.cabinCustomerBase
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.navigation.NavController
 import com.cabinInformationTechnologies.cabinCustomerBase.models.Request
 import com.cabinInformationTechnologies.cabinCustomerBase.models.backend.JSONIssue
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELImage
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELProduct
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -130,6 +133,11 @@ interface BaseContracts {
             negativeText: String?,
             negativeFunction: (() -> Unit)?
         )
+    }
+
+    interface Visualizer {
+        fun plaineImageVisualizer(context: Context, modelImage: MODELImage, imageView: ImageView)
+        fun productImageVisualizer(context: Context, product: MODELProduct, imageView: ImageView)
     }
 
 }
