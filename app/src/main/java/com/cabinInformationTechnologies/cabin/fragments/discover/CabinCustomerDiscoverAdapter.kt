@@ -11,7 +11,9 @@ import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cabinInformationTechnologies.cabin.R
+import com.cabinInformationTechnologies.cabinCustomerBase.baseAbstracts.ImageSizes
 import kotlinx.android.synthetic.main.cabin_customer_discover_productbox.view.*
+import java.io.File
 
 class CabinCustomerDiscoverAdapter(val presenter: CabinCustomerDiscoverContracts.Presenter?) :
     RecyclerView.Adapter<CabinCustomerDiscoverAdapter.DiscoverProductViewHolder>() {
@@ -38,6 +40,10 @@ class CabinCustomerDiscoverAdapter(val presenter: CabinCustomerDiscoverContracts
                             outline.setOval(-1, 0, view.width + 1, view.height + 4)
                     }
                 }
+
+
+            val favButton = findViewById<ToggleButton>(R.id.discover_productbox_favourite_button)
+
             findViewById<ImageView>(R.id.discover_productbox_product_image).apply {
                 val params = layoutParams
                 params.height = params.width * 4 / 3
@@ -49,19 +55,41 @@ class CabinCustomerDiscoverAdapter(val presenter: CabinCustomerDiscoverContracts
                     )
                 }
 
-                //FIXME: Default image is first color's first image?
-                Glide.with(holder.itemView.context).load(data?.getColors()?.get(0)?.images?.get(0)?.getURL())
-                    .into(this)
-//                setImageDrawable() TODO
-            }
-            findViewById<TextView>(R.id.discover_productbox_seller_name).text =
-                data?.getSellerName()
-            findViewById<TextView>(R.id.discover_productbox_product_name).text =
-                data?.getProductName()
-            findViewById<TextView>(R.id.discover_productbox_product_price).text =
-                data?.getPrice().toString()
+                var isPriortyFound = false
 
-            val favButton = findViewById<ToggleButton>(R.id.discover_productbox_favourite_button)
+                //Using "run" and a tag will prevent the loop from running again.
+                run loop@{
+                    data?.getColors()?.forEach { color ->
+                        color.images.forEach { image ->
+                            if (image.getPriority()) { //show priorty image
+                                isPriortyFound = true
+                                val imageUrl = if (image.getExtension() != null) {
+                                    image.getURL() + ImageSizes.M + ".${image.getExtension()}"
+                                } else {
+                                    image.getURL() + ImageSizes.M
+                                }
+
+                                Glide.with(holder.itemView.context).load(imageUrl).into(this)
+                                return@loop //Return to loop and exit when it finds the first priorty image
+                            }
+                        }
+                    }
+                }
+
+
+                if (!isPriortyFound) { //Show first color's first image
+                    val image = data?.getColors()?.get(0)?.images?.get(0)
+                    val imageUrl = if (image?.getExtension() != null) { //FIXME: extension must be non nullable
+                        image.getURL() + ImageSizes.M + ".${image.getExtension()}"
+                    } else {
+                        image?.getURL() + ImageSizes.M
+                    }
+                    Glide.with(holder.itemView.context)
+                        .load(imageUrl)
+                        .into(this)
+                }
+            }
+
             if (data?.getColors()?.size == 1) {
                 favButton.isClickable = true
                 favButton.setOnClickListener {
@@ -76,6 +104,14 @@ class CabinCustomerDiscoverAdapter(val presenter: CabinCustomerDiscoverContracts
                 if (it.favourite)
                     favButton.isChecked = true //FIXME: NON FAV CAN BE INDICATED AS FAV
             }
+
+            findViewById<TextView>(R.id.discover_productbox_seller_name).text =
+                data?.getSellerName()
+            findViewById<TextView>(R.id.discover_productbox_product_name).text =
+                data?.getProductName()
+            findViewById<TextView>(R.id.discover_productbox_product_price).text =
+                data?.getPrice().toString()
+
 
             val discountedPrice = presenter?.myDataset?.get(position)?.getDiscountedPrice()
             if (discountedPrice == null) {
