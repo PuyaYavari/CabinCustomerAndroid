@@ -1,5 +1,7 @@
 package com.cabinInformationTechnologies.cabinCustomerBase
 
+import com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser
+
 object GlobalData {
     var appRunning = false
 
@@ -7,18 +9,18 @@ object GlobalData {
     var userEmail: String? = ""
     var session: String? = ""
     var userId: Int = 0
-    var activeUser: com.cabinInformationTechnologies.cabinCustomerBase.models.local.MODELUser? = null
+    var activeUser: MODELUser? = null
         set(value) {
             field = value
             if (value != null) {
-                com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.session = value.getSession()
-                com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userId = value.getId()
-                com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn = true
+                session = value.getSession()
+                userId = value.getId()
+                loggedIn = true
             } else {
-                com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userEmail = ""
-                com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.session = ""
-                com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.userId = 0
-                com.cabinInformationTechnologies.cabinCustomerBase.GlobalData.loggedIn = false
+                userEmail = ""
+                session = ""
+                userId = 0
+                loggedIn = false
             }
         }
 }

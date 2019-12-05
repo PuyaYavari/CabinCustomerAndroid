@@ -67,6 +67,8 @@ interface BaseContracts {
         fun login(context: Context, method: String)
     }
 
+    //TODO: Diğer Eventler için interface ekle
+
     interface ActivityResultListener {
         fun onActivityResult(resultCode: Int, data: Intent?)
     }
